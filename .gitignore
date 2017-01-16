@@ -114,3 +114,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/macos,node,linux,windows
+
+#demo specific
+demo/dist

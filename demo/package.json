@@ -1,0 +1,27 @@
+{
+  "name": "glo-3112-react-starter",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "typings install"
+  },
+  "author": "wfortin & vseguin",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.1",
+    "gulp-connect": "^5.0.0",
+    "ts-loader": "^0.8.2",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4",
+    "webpack": "^1.13.0",
+    "webpack-stream": "^3.2.0"
+  },
+  "dependencies": {
+    "gulp-open": "^2.0.0",
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2"
+  }
+}
