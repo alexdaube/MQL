@@ -1,5 +1,12 @@
 # Getting Started
 
+
+## MQL Service
+
+### Execute
+   Run this command in the root directory <br/> <br/>
+   ```.\gradlew mqlservice:run```
+
 ## Demo
 
 **Step 1**: Make sure that [nodeJS](https://nodejs.org/en/) is installed. I suggest using a node version manager.  

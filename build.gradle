@@ -10,11 +10,11 @@ allprojects {
     version '1.0-SNAPSHOT'
     repositories {
         mavenCentral()
+        jcenter()
     }
 }
 
-project(":mql-service") {
+project(":mqlservice") {
     apply plugin: "java"
-    dependencies {
-    }
+    apply plugin: 'application'
 }

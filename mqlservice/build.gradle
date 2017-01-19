@@ -1,17 +1,11 @@
-group 'ca.ulaval.glo3002'
-version '1.0-SNAPSHOT'
-
-apply plugin: 'java'
+group 'com.multitel.mql'
 
 sourceCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-    jcenter()
-}
-
 sourceSets.main.java.srcDirs = [ "src/main/" ]
 sourceSets.test.java.srcDirs = ["src/test/"]
+
+mainClassName = "com.multitel.mql.mqlservice.Main"
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
