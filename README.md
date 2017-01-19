@@ -37,3 +37,9 @@ $ npm install
 ```shell
 $ gulp
 ```
+
+# Contributors
+
+* Alexandre Désilets-Aubé
+* Nicolas Cotton
+* Xavier Kedzierski Elgstrand
