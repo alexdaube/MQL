@@ -226,5 +226,4 @@ demo/dist
 .gradle/
 .idea/
 gradle/
-gradlew
-gradle.bat
+build/
