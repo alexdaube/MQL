@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {HelloWorld} from './components/HelloWorld'
+import {HelloWorld} from './components/app'
 
 ReactDOM.render(<HelloWorld
         firstname="MQL"

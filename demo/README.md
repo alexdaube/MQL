@@ -7,5 +7,5 @@ npm install
 # Start Server
 
 ```sh
-gulp
+gulp serve
 ```

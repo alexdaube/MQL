@@ -35,7 +35,7 @@ $ npm install
 **Step 4**: Build and start the server from the command line in the demo directory.
 
 ```shell
-$ gulp
+$ gulp serve
 ```
 
 # Contributors

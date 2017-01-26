@@ -1,6 +1,19 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules"
+    ],
+    "types": [
+      "axios",
+      "lodash",
+      "react",
+      "react-dom",
+      "react-redux",
+      "react-router",
+      "redux-promise"
+    ],
     "target": "es5",
     "noImplicitAny": false,
     "sourceMap": false,
