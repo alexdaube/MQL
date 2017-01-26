@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import DynamicListHeader from '../components/dynamic-list-header';
-import DynamicListBody from '../components/dynamic-list-body';
+import DynamicListHeader from '../components/DynamicListHeader';
+import DynamicListBody from '../components/DynamicListBody';
 
 class DynamicList extends React.Component<any, any> {
     render() {

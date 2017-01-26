@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import SearchBar from '../containers/search-bar';
-import DynamicList from "../containers/dynamic-list";
+import SearchBar from '../containers/SearchBar';
+import DynamicList from "../containers/DynamicList";
 
 export interface HelloWorldProps {
     firstname: string;

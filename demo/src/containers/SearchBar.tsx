@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as Autosuggest from 'react-autosuggest';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchQuery} from '../actions/index';
+import {fetchQuery} from '../actions/queryActions';
 
 
 interface ISearchBarState {

@@ -1,4 +1,4 @@
-import { FETCH_QUERY } from '../actions/index';
+import { FETCH_QUERY } from '../actions/queryActions';
 
 export default function(state = null, action) {
     switch (action.type) {
