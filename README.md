@@ -5,7 +5,7 @@
 
 ### Execute
    Run this command in the root directory <br/> <br/>
-   ```.\gradlew mqlservice:run```
+   ```./gradlew mqlservice:run```
 
 ## Demo
 
