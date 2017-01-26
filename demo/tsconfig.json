@@ -2,8 +2,9 @@
   "compilerOptions": {
     "module": "commonjs",
     "typeRoots": [
-      "node_modules/@types",
-      "node_modules"
+      "./node_modules/@types",
+      "./node_modules",
+      "./typings"
     ],
     "types": [
       "axios",

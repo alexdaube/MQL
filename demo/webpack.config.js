@@ -3,6 +3,7 @@ module.exports = {
     output: {
         filename: './dist/js/bundle.js'
     },
+    devtool: 'eval-source-map',
     resolve: {
         extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
     },

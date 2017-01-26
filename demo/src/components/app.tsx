@@ -1,14 +1,21 @@
 import * as React from 'react';
 
+import SearchBar from '../containers/search-bar';
+import DynamicList from "../containers/dynamic-list";
+
 export interface HelloWorldProps {
     firstname: string;
     lastname: string;
 }
 
-export class HelloWorld extends React.Component<HelloWorldProps, any> {
+export class App extends React.Component<HelloWorldProps, any> {
     render() {
-        return <h1>
-            Hello {this.props.firstname} {this.props.lastname}!
-        </h1>
+        return (
+
+            <div>
+                <SearchBar />
+                <DynamicList />
+            </div>
+        );
     }
 }
