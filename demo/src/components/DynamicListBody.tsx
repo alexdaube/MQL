@@ -1,5 +1,4 @@
-import * as React from 'react';
-
+import * as React from "react";
 
 function guid() {
     function s4() {
@@ -7,6 +6,7 @@ function guid() {
             .toString(16)
             .substring(1);
     }
+
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
         s4() + '-' + s4() + s4() + s4();
 }
@@ -14,7 +14,9 @@ function guid() {
 const renderBody = (rowData) => {
     return (
         <tr key={guid()}>
-            {rowData.map(value => {return <td key={guid()}>{value}</td>;})}
+            {rowData.map(value => {
+                return <td key={guid()}>{value}</td>;
+            })}
         </tr>
     );
 };
@@ -22,7 +24,7 @@ const renderBody = (rowData) => {
 export default (props) => {
     return (
         <tbody>
-            {props.data.map(renderBody)}
+        {props.data.map(renderBody)}
         </tbody>
     );
 }

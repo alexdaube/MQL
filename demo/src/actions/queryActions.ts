@@ -1,4 +1,4 @@
-import { EQUIPMENT_DATA, SITE_DATA } from '../constants/hardcoded_data'
+import {EQUIPMENT_DATA, SITE_DATA} from "../constants/hardcoded_data";
 
 export const FETCH_QUERY = 'FETCH_QUERY';
 
