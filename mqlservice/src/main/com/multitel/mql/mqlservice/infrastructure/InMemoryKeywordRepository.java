@@ -1,10 +1,11 @@
 package com.multitel.mql.mqlservice.infrastructure;
 
-import com.multitel.mql.mqlservice.domain.Keyword;
-import com.multitel.mql.mqlservice.domain.KeywordRepository;
+import com.multitel.mql.mqlservice.domain.keyword.Keyword;
+import com.multitel.mql.mqlservice.domain.keyword.KeywordRepository;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class InMemoryKeywordRepository implements KeywordRepository {
     private Collection<Keyword> keywords = new HashSet<>();
@@ -17,5 +18,11 @@ public class InMemoryKeywordRepository implements KeywordRepository {
     @Override
     public void create(Keyword keyword) {
         keywords.add(keyword);
+    }
+
+    public Collection<Keyword> getSubsetKeywords(Keyword parentKeyword) {
+        return keywords.stream()
+                .filter(keyword -> keyword.isChildOf(parentKeyword))
+                .collect(Collectors.toList());
     }
 }

@@ -2,8 +2,8 @@ package com.multitel.mql.mqlservice.infrastructure;
 
 
 import com.multitel.mql.mqlservice.domain.IdGenerator;
-import com.multitel.mql.mqlservice.domain.Keyword;
-import com.multitel.mql.mqlservice.domain.KeywordFactory;
+import com.multitel.mql.mqlservice.domain.keyword.Keyword;
+import com.multitel.mql.mqlservice.domain.keyword.KeywordFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +20,6 @@ public class KeywordDevDataFactory {
     private final String DATE_IN_SERVICE = "DATE_IN_SERVICE";
     private final String WARRANTY_END = "WARRANTY_END";
 
-
-//    CREATE TABLE dbo.Products
-//   (ProductID int PRIMARY KEY NOT NULL,
-//    ProductName varchar(25) NOT NULL,
-//    Price money NULL,
-//    ProductDescription text NULL)
-//    GO
-
-
     public KeywordDevDataFactory() {
 
     }
@@ -39,12 +30,26 @@ public class KeywordDevDataFactory {
         IdGenerator idGenerator = new IdGenerator();
         KeywordFactory keywordFactory = new KeywordFactory(idGenerator);
 
-        Keyword site = keywordFactory.createParentKeyword(SITE);
-        Keyword equipement = keywordFactory.createParentKeyword(EQUIPEMENT);
+        Keyword site = keywordFactory.createEntityKeyword(SITE);
+        Keyword equipement = keywordFactory.createEntityKeyword(EQUIPEMENT);
 
+        Keyword name = keywordFactory.createAttributeKeyword(site, NAME);
+        Keyword city = keywordFactory.createAttributeKeyword(site, CITY);
+        Keyword address = keywordFactory.createAttributeKeyword(site, ADDRESS);
+        Keyword zipCode = keywordFactory.createAttributeKeyword(site, ZIPCODE);
+        Keyword serialNumber = keywordFactory.createAttributeKeyword(equipement, SERIAL_NO);
+        Keyword dateService = keywordFactory.createAttributeKeyword(equipement, DATE_IN_SERVICE);
+        Keyword warrantyEnd = keywordFactory.createAttributeKeyword(equipement, WARRANTY_END);
 
         keywords.add(site);
+        keywords.add(name);
+        keywords.add(city);
+        keywords.add(address);
+        keywords.add(zipCode);
         keywords.add(equipement);
+        keywords.add(serialNumber);
+        keywords.add(dateService);
+        keywords.add(warrantyEnd);
 
         return keywords;
     }
