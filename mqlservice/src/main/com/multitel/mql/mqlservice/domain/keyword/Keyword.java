@@ -1,15 +1,9 @@
 package com.multitel.mql.mqlservice.domain.keyword;
 
-public abstract class Keyword {
+public interface Keyword {
 
-    private String keyword;
+    String getKeyword();
 
-    public Keyword(String keyword){
-        this.keyword = keyword;
-    }
-
-    public String getKeyword() {
-        return this.keyword;
-    }
+    boolean isSubsetOf(Keyword keyword);
 
 }

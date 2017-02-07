@@ -22,7 +22,7 @@ public class InMemoryKeywordRepository implements KeywordRepository {
 
     public Collection<Keyword> getSubsetKeywords(Keyword parentKeyword) {
         return keywords.stream()
-                .filter(keyword -> keyword.isChildOf(parentKeyword))
+                .filter(keyword -> keyword.isSubsetOf(parentKeyword))
                 .collect(Collectors.toList());
     }
 }

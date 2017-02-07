@@ -1,7 +1,6 @@
 package com.multitel.mql.mqlservice.infrastructure;
 
 
-import com.multitel.mql.mqlservice.domain.IdGenerator;
 import com.multitel.mql.mqlservice.domain.keyword.Keyword;
 import com.multitel.mql.mqlservice.domain.keyword.KeywordFactory;
 
@@ -27,8 +26,7 @@ public class KeywordDevDataFactory {
     public List<Keyword> createStubKeywords() {
         List<Keyword> keywords = new ArrayList<>();
 
-        IdGenerator idGenerator = new IdGenerator();
-        KeywordFactory keywordFactory = new KeywordFactory(idGenerator);
+        KeywordFactory keywordFactory = new KeywordFactory();
 
         Keyword site = keywordFactory.createEntityKeyword(SITE);
         Keyword equipement = keywordFactory.createEntityKeyword(EQUIPEMENT);
