@@ -19,29 +19,21 @@ public class StringQuery {
         }
     }
 
-    public boolean isEqualTo(String other) {
-        return query.equals(other);
+    public Matcher findMatches(Pattern pattern) {
+        strip();
+        return pattern.matcher(query);
     }
 
-    public String extractFirst(Pattern pattern) {
+    public void removeFirstMatch(Pattern pattern) {
         strip();
         Matcher matcher = pattern.matcher(query);
         if (matcher.find()) {
-            String match = matcher.group();
             this.query = matcher.replaceFirst("");
-            return match;
         }
-        throw new InvalidQueryException("No pattern found...");
     }
 
-    public boolean extractFirst(String word) {
-        strip();
-        int index = query.indexOf(word);
-        if (index == 0) {
-            this.query = query.substring(word.length());
-            return true;
-        }
-        return false;
+    public boolean isEqualTo(String other) {
+        return query.equals(other);
     }
 
     public boolean isEmpty() {

@@ -2,17 +2,18 @@ package com.multitel.mql.mqlservice.domain.translators;
 
 import com.multitel.mql.mqlservice.domain.InvalidQueryException;
 import com.multitel.mql.mqlservice.domain.StringQuery;
-import com.multitel.mql.mqlservice.domain.interpreters.*;
+import com.multitel.mql.mqlservice.domain.interpreters.AttributeInterpreter;
+import com.multitel.mql.mqlservice.domain.interpreters.Interpreter;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class EntityTranslatorState implements QueryTranslatorState {
     private final Interpreter attributeInterpreter;
     private final QueryTranslator queryTranslator;
 
     public EntityTranslatorState(QueryTranslator queryTranslator) {
-        List<String> attributes = new LinkedList<>();
+        Set<String> attributes = new HashSet<>();
         attributes.add("name");
         this.attributeInterpreter = new AttributeInterpreter(attributes);
         this.queryTranslator = queryTranslator;

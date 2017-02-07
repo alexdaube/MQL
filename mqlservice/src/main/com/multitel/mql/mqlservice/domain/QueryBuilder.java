@@ -49,4 +49,9 @@ public class QueryBuilder {
         this.values.add(value);
         return this;
     }
+
+    // TODO: 06/02/17 A revoir
+    public QueryBuilder withJunction(String match) {
+        return this;
+    }
 }
