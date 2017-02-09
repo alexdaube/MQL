@@ -17,14 +17,11 @@ public class KeywordTest {
     private final String SITE = "SITE";
     private final String CITY = "CITY";
     private final String EQUIPEMENT = "EQUIPEMENT";
-
-    private KeywordFactory keywordFactory;
-
     @Mock
     Keyword mockedKeyword;
-
     @Mock
     Keyword anotherMockedKeyword;
+    private KeywordFactory keywordFactory;
 
     @Before
     public void setUp() throws Exception {

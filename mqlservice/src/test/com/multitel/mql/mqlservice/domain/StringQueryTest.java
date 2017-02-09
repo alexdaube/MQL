@@ -15,7 +15,7 @@ public class StringQueryTest {
     private static final String FIRST_TERM = "QUERY1";
     private static final String SECOND_TERM = "IM2";
     private static final String QUERY = FIRST_TERM + " " + SECOND_TERM;
-    private static final Pattern PATTERN = Pattern.compile("^"+FIRST_TERM);
+    private static final Pattern PATTERN = Pattern.compile("^" + FIRST_TERM);
     private StringQuery stringQuery;
 
 
@@ -36,7 +36,7 @@ public class StringQueryTest {
         stringQuery.strip();
         assertTrue(stringQuery.isEqualTo(QUERY));
     }
-    
+
     @Test
     public void givenAPattern_whenRemovingFirstMatch_thenTHeFirstMatchShouldBeRemovedFromTheQuery() throws Exception {
         stringQuery.removeFirstMatch(PATTERN);
