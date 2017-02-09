@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {fetchQuery} from "../actions/queryActions";
@@ -33,18 +34,17 @@ class SearchBar extends React.Component<any, ISearchBarState> {
 
     render() {
         return (
-            <form onSubmit={this.onFormSubmit} className="input-group">
-                <input
-                    placeholder="Basic query format is Keyword + Operator + Value"
-                    className="form-control"
+        <Form inline onSubmit={this.onFormSubmit}>
+            <FormGroup>
+                <Input
+                    type="text"
                     value={this.state.term}
-                    onChange={this.onInputChange} />
-                <span className="input-group-btn">
-                    <button type="submit" className="btn btn-secondary">
-                        Submit
-                    </button>
-                </span>
-            </form>
+                    onChange={this.onInputChange}
+                    id="exampleText"
+                    placeholder="Basic query format is Keyword + Operator + Value" />
+            </FormGroup>
+            <Button>Submit</Button>
+        </Form>
         );
     }
 

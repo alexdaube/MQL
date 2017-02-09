@@ -9,6 +9,8 @@ var open = require('gulp-open');
 var clean = require('gulp-clean');
 var livereload = require('gulp-livereload');
 var argv = require('yargs').argv;
+var historyApiFallback = require('connect-history-api-fallback');
+
 
 var SERVER_PORT = '8000';
 
@@ -48,7 +50,10 @@ gulp.task('connect', function() {
     connect.server({
         root: '',
         port: (argv.port ? argv.port : SERVER_PORT),
-        livereload: true
+        livereload: true,
+        middleware: function(connect, opt){
+            return [historyApiFallback({})];
+        }
     });
 });
 
