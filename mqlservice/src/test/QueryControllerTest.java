@@ -4,7 +4,6 @@ import com.despegar.sparkjava.test.SparkServer;
 import org.junit.ClassRule;
 import org.junit.Test;
 import spark.servlet.SparkApplication;
-import com.multitel.mql.mqlservice.QueryController;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
