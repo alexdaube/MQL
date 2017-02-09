@@ -5,8 +5,10 @@ import com.multitel.mql.mqlservice.domain.StringQuery;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -18,12 +20,12 @@ public class OperatorInterpreterTest {
     private StringQuery validQuery;
     private StringQuery invalidQuery;
     private OperatorInterpreter operatorInterpreter;
-    private List<String> operators;
+    private Set<String> operators;
     private QueryBuilder queryBuilder;
 
     @Before
     public void setUp() throws Exception {
-        operators = new LinkedList<>();
+        operators = new HashSet<>();
         operators.add(OPERATOR);
         operatorInterpreter = new OperatorInterpreter(operators);
         queryBuilder = mock(QueryBuilder.class);
@@ -38,7 +40,7 @@ public class OperatorInterpreterTest {
     }
 
     @Test
-    public void givenAValidStringQueryAndABuilder_whenInterpreting_thenTheEntityShouldBeAddedToTheBuilder() throws Exception {
+    public void givenAValidStringQueryAndABuilder_whenInterpreting_thenTheOperatorShouldBeAddedToTheBuilder() throws Exception {
         operatorInterpreter.interpret(validQuery, queryBuilder);
         verify(queryBuilder).withOperator(OPERATOR);
     }

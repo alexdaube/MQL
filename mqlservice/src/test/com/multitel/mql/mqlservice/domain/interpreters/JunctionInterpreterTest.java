@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -15,45 +13,45 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
-public class AttributeInterpreterTest {
-    private static final String ATTRIBUTE = "ATTRIBUTE";
+public class JunctionInterpreterTest {
+    private static final String JUNCTION = "JUNCTION";
     private StringQuery validQuery;
     private StringQuery invalidQuery;
-    private AttributeInterpreter attributeInterpreter;
-    private Set<String> attributes;
+    private JunctionInterpreter junctionInterpreter;
+    private Set<String> junctions;
     private QueryBuilder queryBuilder;
 
     @Before
     public void setUp() throws Exception {
-        attributes = new HashSet<>();
-        attributes.add(ATTRIBUTE);
-        attributeInterpreter = new AttributeInterpreter(attributes);
+        junctions = new HashSet<>();
+        junctions.add(JUNCTION);
+        junctionInterpreter = new JunctionInterpreter(junctions);
         queryBuilder = mock(QueryBuilder.class);
-        validQuery = new StringQuery(ATTRIBUTE + " ");
-        invalidQuery = new StringQuery("S" + ATTRIBUTE);
+        validQuery = new StringQuery(JUNCTION + " ");
+        invalidQuery = new StringQuery("S" + JUNCTION);
     }
 
     @Test
     public void givenAValidStringQueryAndABuilder_whenInterpreting_thenReturnTrue() throws Exception {
-        boolean returnValue = attributeInterpreter.interpret(validQuery, queryBuilder);
+        boolean returnValue = junctionInterpreter.interpret(validQuery, queryBuilder);
         assertTrue(returnValue);
     }
 
     @Test
-    public void givenAValidStringQueryAndABuilder_whenInterpreting_thenTheAttributeShouldBeAddedToTheBuilder() throws Exception {
-        attributeInterpreter.interpret(validQuery, queryBuilder);
-        verify(queryBuilder).withAttribute(ATTRIBUTE);
+    public void givenAValidStringQueryAndABuilder_whenInterpreting_thenTheJunctionShouldBeAddedToTheBuilder() throws Exception {
+        junctionInterpreter.interpret(validQuery, queryBuilder);
+        verify(queryBuilder).withJunction(JUNCTION);
     }
 
     @Test
     public void givenAnInvalidStringQueryAndABuilder_whenInterpreting_thenReturnFalse() throws Exception {
-        boolean returnValue = attributeInterpreter.interpret(invalidQuery, queryBuilder);
+        boolean returnValue = junctionInterpreter.interpret(invalidQuery, queryBuilder);
         assertFalse(returnValue);
     }
 
     @Test
     public void givenAnInvalidStringQueryAndABuilder_whenInterpreting_thenTheBuilderShouldNotBeCalled() throws Exception {
-        attributeInterpreter.interpret(invalidQuery, queryBuilder);
+        junctionInterpreter.interpret(invalidQuery, queryBuilder);
         verifyZeroInteractions(queryBuilder);
     }
 }
