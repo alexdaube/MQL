@@ -3,17 +3,19 @@ package com.multitel.mql.mqlservice.domain;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class StringQueryTest {
     private static final String FIRST_TERM = "QUERY1";
     private static final String SECOND_TERM = "IM2";
     private static final String QUERY = FIRST_TERM + " " + SECOND_TERM;
-    private static final Pattern PATTERN = Pattern.compile("^"+FIRST_TERM);
+    private static final Pattern PATTERN = Pattern.compile("^" + FIRST_TERM);
     private StringQuery stringQuery;
 
 
@@ -34,7 +36,7 @@ public class StringQueryTest {
         stringQuery.strip();
         assertTrue(stringQuery.isEqualTo(QUERY));
     }
-    
+
     @Test
     public void givenAPattern_whenRemovingFirstMatch_thenTHeFirstMatchShouldBeRemovedFromTheQuery() throws Exception {
         stringQuery.removeFirstMatch(PATTERN);

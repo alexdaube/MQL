@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 public class ValueInterpreter implements Interpreter {
     private final Pattern pattern;
+
     public ValueInterpreter() {
         this.pattern = Pattern.compile("^(\"[^\"]*\")|^([-]?(\\d+)(\\.\\d*)?)");
     }

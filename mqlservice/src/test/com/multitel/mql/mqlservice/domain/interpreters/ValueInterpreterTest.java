@@ -5,10 +5,9 @@ import com.multitel.mql.mqlservice.domain.StringQuery;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 public class ValueInterpreterTest {
     private static final String STRING_VALUE = "\"STRING_VALUE\"";
@@ -27,7 +26,7 @@ public class ValueInterpreterTest {
         validStringQuery = new StringQuery(STRING_VALUE);
         invalidStringQuery = new StringQuery("a" + STRING_VALUE);
         validNumberQuery = new StringQuery(NUMBER_VALUE);
-        invalidNumberQuery = new StringQuery("a"+NUMBER_VALUE);
+        invalidNumberQuery = new StringQuery("a" + NUMBER_VALUE);
     }
 
     @Test

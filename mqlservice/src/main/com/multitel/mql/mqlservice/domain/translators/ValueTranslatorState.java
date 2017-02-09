@@ -2,7 +2,9 @@ package com.multitel.mql.mqlservice.domain.translators;
 
 import com.multitel.mql.mqlservice.domain.InvalidQueryException;
 import com.multitel.mql.mqlservice.domain.StringQuery;
-import com.multitel.mql.mqlservice.domain.interpreters.*;
+import com.multitel.mql.mqlservice.domain.interpreters.Interpreter;
+import com.multitel.mql.mqlservice.domain.interpreters.JunctionInterpreter;
+import com.multitel.mql.mqlservice.domain.interpreters.ValueInterpreter;
 
 import java.util.HashSet;
 import java.util.Set;
