@@ -6,8 +6,10 @@ import com.multitel.mql.mqlservice.domain.InvalidQueryException;
 import com.multitel.mql.mqlservice.domain.interpreters.OperatorInterpreter;
 import com.multitel.mql.mqlservice.domain.interpreters.ValueInterpreter;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class OperatorTranslatorState implements QueryTranslatorState {
     private final QueryTranslator queryTranslator;
@@ -17,7 +19,7 @@ public class OperatorTranslatorState implements QueryTranslatorState {
     public OperatorTranslatorState(QueryTranslator queryTranslator) {
         valueInterpreter = new ValueInterpreter();
         this.queryTranslator = queryTranslator;
-        List<String> operators = new LinkedList<>();
+        Set<String> operators = new HashSet<>();
         operators.add("is");
         operators.add("equal");
         operators.add("to");
@@ -36,6 +38,6 @@ public class OperatorTranslatorState implements QueryTranslatorState {
         } else if (operatorInterpreter.interpret(stringQuery, queryTranslator.getQueryBuilder())) {
             return false;
         }
-        throw new InvalidQueryException("An operator should be followed by an other operator or by a value...");
+        throw new InvalidQueryException("An operator should be followed by an other operator withJunction by a value...");
     }
 }

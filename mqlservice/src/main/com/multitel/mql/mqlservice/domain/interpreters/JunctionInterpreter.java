@@ -7,23 +7,23 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EntityInterpreter implements Interpreter {
-    private final Set<String> entities;
-    private final Pattern entityPattern;
+public class JunctionInterpreter implements Interpreter {
+    private final Set<String> junctions;
+    private final Pattern junctionPattern;
 
-    public EntityInterpreter(Set<String> entities) {
-        this.entities = entities;
-        entityPattern = Pattern.compile("^[\\w-]+");
+    public JunctionInterpreter(Set<String> junctions) {
+        this.junctions = junctions;
+        this.junctionPattern = Pattern.compile("^[\\w]+");
     }
 
     @Override
     public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
-        Matcher matches = query.findMatches(entityPattern);
+        Matcher matches = query.findMatches(junctionPattern);
         if (matches.find()) {
             String match = matches.group();
-            if (entities.contains(match)) {
-                query.removeFirstMatch(entityPattern);
-                queryBuilder.withEntity(match);
+            if (junctions.contains(match)) {
+                query.removeFirstMatch(junctionPattern);
+                queryBuilder.withJunction(match);
                 return true;
             }
         }

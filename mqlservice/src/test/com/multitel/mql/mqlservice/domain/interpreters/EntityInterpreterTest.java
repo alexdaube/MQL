@@ -5,8 +5,10 @@ import com.multitel.mql.mqlservice.domain.StringQuery;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,12 +21,12 @@ public class EntityInterpreterTest {
     private StringQuery validQuery;
     private StringQuery invalidQuery;
     private EntityInterpreter entityInterpreter;
-    private List<String> entities;
+    private Set<String> entities;
     private QueryBuilder queryBuilder;
 
     @Before
     public void setUp() throws Exception {
-        entities = new LinkedList<>();
+        entities = new HashSet<>();
         entities.add(ENTITY);
         entityInterpreter = new EntityInterpreter(entities);
         queryBuilder = mock(QueryBuilder.class);
