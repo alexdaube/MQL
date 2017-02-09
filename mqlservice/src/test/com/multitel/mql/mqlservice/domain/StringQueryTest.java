@@ -3,11 +3,13 @@ package com.multitel.mql.mqlservice.domain;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class StringQueryTest {
     private static final String FIRST_TERM = "QUERY1";
