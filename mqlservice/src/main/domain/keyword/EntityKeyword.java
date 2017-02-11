@@ -10,7 +10,7 @@ public class EntityKeyword implements Keyword {
 
     @Override
     public String getKeyword() {
-        return null;
+        return this.keyword;
     }
 
     @Override
