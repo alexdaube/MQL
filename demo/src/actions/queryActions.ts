@@ -1,11 +1,11 @@
-import {EQUIPMENT_DATA, SITE_DATA} from "../constants/hardcoded_data";
+import * as axios from 'axios';
 
 export const FETCH_QUERY = 'FETCH_QUERY';
 
 export function fetchQuery(keyword) {
-    const data = keyword.toLowerCase().includes('equip') ? EQUIPMENT_DATA : SITE_DATA;
+    const request = axios.get(`localhost:8000/query/${keyword}`);
     return {
         type: FETCH_QUERY,
-        payload: data
+        payload: request
     };
 }
