@@ -1,5 +1,3 @@
-import spark.Spark;
-
 import static spark.Spark.before;
 import static spark.Spark.options;
 

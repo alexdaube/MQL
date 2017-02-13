@@ -12,7 +12,6 @@ class DynamicList extends React.Component<any, any> {
     }
 
     render() {
-        console.log(this.props.query);
         if (!this.props.query.length) {
             return (
                 <div style={{'textAlign': 'center'}}>
