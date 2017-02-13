@@ -1,7 +1,7 @@
 import * as React from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {fetchQuery} from "../actions/queryActions";
+import * as actions from "../actions";
 
 
 interface ISearchBarState {
@@ -51,7 +51,7 @@ class SearchBar extends React.Component<any, ISearchBarState> {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ fetchQuery }, dispatch);
+    return bindActionCreators({ fetchQuery: actions.fetchQuery }, dispatch);
 };
 
 

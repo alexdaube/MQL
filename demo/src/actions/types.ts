@@ -1,0 +1,1 @@
+export const FETCH_QUERY = 'FETCH_QUERY';
