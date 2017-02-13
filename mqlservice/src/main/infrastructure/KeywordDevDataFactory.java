@@ -30,7 +30,6 @@ public class KeywordDevDataFactory {
 
         Keyword site = keywordFactory.createEntityKeyword(SITE);
         Keyword equipement = keywordFactory.createEntityKeyword(EQUIPEMENT);
-
         Keyword name = keywordFactory.createAttributeKeyword(site, NAME);
         Keyword city = keywordFactory.createAttributeKeyword(site, CITY);
         Keyword address = keywordFactory.createAttributeKeyword(site, ADDRESS);
