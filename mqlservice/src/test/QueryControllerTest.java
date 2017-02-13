@@ -1,17 +1,15 @@
-import com.despegar.http.client.GetMethod;
 import com.despegar.http.client.HttpResponse;
+import com.despegar.http.client.PostMethod;
 import com.despegar.sparkjava.test.SparkServer;
 import org.junit.ClassRule;
 import org.junit.Test;
 import spark.servlet.SparkApplication;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class QueryControllerTest {
-    private static final int SERVER_PORT = 8000;
-    private static final String URL = "/query/Sites%20that%20have%20id%20=%201";
-    private static final String QUERY = "Sites that have id";
+    private static final int SERVER_PORT = 4000;
+    private static final String URL = "/query";
 
     public static class QueryControllerTestSparkApplication implements SparkApplication {
         @Override
@@ -29,9 +27,8 @@ public class QueryControllerTest {
     // It does start a server...
     @Test
     public void canAccessApiQueryEndpointThroughGetMethod() throws Exception {
-        GetMethod get = testServer.get(URL, false);
-        HttpResponse response = testServer.execute(get);
+        PostMethod post = testServer.post(URL, "{query: 'equipment'}", false);
+        HttpResponse response = testServer.execute(post);
         assertEquals(200, response.code());
-        assertTrue(new String(response.body()).contains(QUERY));
     }
 }

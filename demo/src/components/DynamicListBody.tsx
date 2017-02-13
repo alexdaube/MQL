@@ -1,21 +1,11 @@
 import * as React from "react";
-
-function guid() {
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-        s4() + '-' + s4() + s4() + s4();
-}
+import guid from '../utils/guid';
 
 const renderBody = (rowData) => {
     return (
         <tr key={guid()}>
-            {rowData.map(value => {
-                return <td key={guid()}>{value}</td>;
+            {Object.keys(rowData).map(key => {
+                return <td key={guid()}>{rowData[key]}</td>;
             })}
         </tr>
     );
@@ -24,7 +14,7 @@ const renderBody = (rowData) => {
 export default (props) => {
     return (
         <tbody>
-        {props.data.map(renderBody)}
+            {props.data.map(renderBody)}
         </tbody>
     );
 }

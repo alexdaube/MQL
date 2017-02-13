@@ -2,9 +2,9 @@ export const EQUIPMENT_DATA = {
     title: "Equipments",
     attributes: ["Equipement", "BarCode", "ProjectNumber"],
     data: [
-        ['Router', "#1234544343", 24],
-        ['Wire', "#864fq23435", 28],
-        ['Server', "#2d342rf7334", 34],
+        {name: 'Router', barcode: "#1234544343", projectNumber: 24},
+        {name: 'Wire', barcode: "#864fq23435", projectNumber: 28},
+        {name: 'Server', barcode: "#2d342rf7334", projectNumber: 28},
     ]
 };
 
@@ -12,10 +12,10 @@ export const SITE_DATA = {
     title: "Sites",
     attributes: ["Site", "ZipCode", "Latitude", "Longitude"],
     data: [
-        ['Québec', 12345, 24, 100],
-        ['Montréal', 86435, 28, 10],
-        ['Trois-Rivière', 27334, 34, 120],
-        ['Gatineau', 32345, 84, 110],
-        ['Drumondville', 12215, 64, 108]
+        {site: 'Québec', zipCode: 12345, latitude: 24, longitude: 100},
+        {site: 'Montréal', zipCode: 86435, latitude: 28, longitude: 10},
+        {site: 'Trois-Rivière', zipCode: 27334, latitude: 34, longitude: 120},
+        {site: 'Gatineau', zipCode: 32345, latitude: 35, longitude: 110},
+        {site: 'Drumondville', zipCode: 12215, latitude: 64, longitude: 108}
     ]
 };
