@@ -11,7 +11,6 @@ public class SQLiteHelper implements SQLHelper {
     public void startConnection() throws SQLException, ClassNotFoundException {
         try {
             Class.forName("org.sqlite.JDBC");
-            // test_data.db needs to be in projects' root for SQLite
             connection = DriverManager.getConnection("jdbc:sqlite:test_data.db");
             System.out.println("Connected to test database");
         } catch (SQLException e) {
