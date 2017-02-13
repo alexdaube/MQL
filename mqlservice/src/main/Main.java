@@ -8,6 +8,9 @@ import persistence.SQLiteHelper;
 import java.sql.SQLException;
 import java.util.List;
 
+import static spark.Spark.before;
+import static spark.Spark.options;
+
 public class Main {
     public static void main(String[] args) {
         initKeywordRepositoryWithDevData(new KeywordDevDataFactory());
@@ -38,8 +41,6 @@ public class Main {
     private static void initServer(QueryController queryController) {
         queryController.initializeEndPoints();
     }
-
-
 
     private static void enableCORS(final String origin, final String methods, final String headers) {
         options("/*", (request, response) -> {
