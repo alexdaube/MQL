@@ -8,4 +8,6 @@ public interface SQLHelper {
 
     void closeConnection();
 
+    void readDataBase();
+
 }

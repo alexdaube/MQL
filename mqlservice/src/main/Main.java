@@ -27,6 +27,7 @@ public class Main {
     private static void initDatabaseConnection(SQLHelper sqlHelper) {
         try {
             sqlHelper.startConnection();
+            sqlHelper.readDataBase();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
