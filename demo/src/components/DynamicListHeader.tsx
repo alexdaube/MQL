@@ -1,8 +1,9 @@
 import * as React from "react";
+import guid from '../utils/guid';
 
 const renderHeader = (label) => {
     return (
-        <th key={label}>{label}</th>
+        <th key={guid()}>{label}</th>
     );
 };
 
