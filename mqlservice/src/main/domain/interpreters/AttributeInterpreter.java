@@ -2,18 +2,18 @@ package domain.interpreters;
 
 import domain.QueryBuilder;
 import domain.StringQuery;
+import domain.keyword.Keywords;
 
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AttributeInterpreter implements Interpreter {
-    private final Set<String> attributes;
+    private final Keywords keywords;
     private final Pattern attributePattern;
 
-    public AttributeInterpreter(Set<String> attributes) {
-        this.attributes = attributes;
-        attributePattern = Pattern.compile("^[\\w-]+");
+    public AttributeInterpreter(Keywords keywords) {
+        this.keywords = keywords;
+        this.attributePattern = Pattern.compile("^[\\w-]+");
     }
 
     @Override
@@ -21,7 +21,7 @@ public class AttributeInterpreter implements Interpreter {
         Matcher matches = query.findMatches(attributePattern);
         if (matches.find()) {
             String match = matches.group();
-            if (attributes.contains(match)) {
+            if (keywords.contains(match)) {
                 query.removeFirstMatch(attributePattern);
                 queryBuilder.withAttribute(match);
                 return true;

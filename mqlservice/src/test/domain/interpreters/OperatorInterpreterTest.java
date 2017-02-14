@@ -1,9 +1,14 @@
 package domain.interpreters;
 
+import builders.KeywordsBuilder;
 import domain.QueryBuilder;
 import domain.StringQuery;
+import domain.keyword.Keywords;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,20 +17,20 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class OperatorInterpreterTest {
     private static final String OPERATOR = "OPERATOR";
+    @Mock
+    private QueryBuilder queryBuilder;
     private StringQuery validQuery;
     private StringQuery invalidQuery;
     private OperatorInterpreter operatorInterpreter;
-    private Set<String> operators;
-    private QueryBuilder queryBuilder;
+    private Keywords operators;
 
     @Before
     public void setUp() throws Exception {
-        operators = new HashSet<>();
-        operators.add(OPERATOR);
+        operators = KeywordsBuilder.create().with(OPERATOR).build();
         operatorInterpreter = new OperatorInterpreter(operators);
-        queryBuilder = mock(QueryBuilder.class);
         validQuery = new StringQuery(OPERATOR + " ");
         invalidQuery = new StringQuery("S" + OPERATOR);
     }

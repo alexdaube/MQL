@@ -1,65 +1,80 @@
 package domain.translators;
 
+import builders.KeywordsBuilder;
 import domain.QueryBuilder;
 import domain.StringQuery;
 import domain.InvalidQueryException;
+import domain.keyword.Keywords;
+import domain.keyword.KeywordsResolver;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ValueTranslatorStateTest {
     private static final StringQuery EMPTY_QUERY = new StringQuery("   ");
+    @Mock
+    private QueryBuilder queryBuilder;
+    @Mock
+    private KeywordsResolver keywordsResolver;
+    private ValueTranslatorState valueTranslatorState;
+    private Keywords junctions;
+    private Keywords attributes;
     private StringQuery junctionQuery;
     private StringQuery attributeQuery;
     private StringQuery valueQuery;
-    private QueryBuilder queryBuilder;
-    private ValueTranslatorState valueTranslatorState;
-    private QueryTranslator queryTranslator;
 
     @Before
     public void setUp() throws Exception {
         junctionQuery = new StringQuery("and Employee name is 9.99");
         attributeQuery = new StringQuery("name is 9.99");
         valueQuery = new StringQuery("9.99");
-        queryBuilder = QueryBuilder.create();
-        queryTranslator = mock(QueryTranslator.class);
-        valueTranslatorState = new ValueTranslatorState(queryTranslator);
-        willReturn(queryBuilder).given(queryTranslator).getQueryBuilder();
+        junctions = KeywordsBuilder.create().with("and").build();
+        attributes = KeywordsBuilder.create().with("name").build();
+        willReturn(junctions).given(keywordsResolver).resolveJunctions();
+        willReturn(attributes).given(keywordsResolver).resolveAttributes();
+        valueTranslatorState = new ValueTranslatorState(queryBuilder, keywordsResolver);
     }
 
     @Test
-    public void givenAValueQuery_whenTranslating_thenTheStateShouldRemainUnchanged() throws Exception {
-        valueTranslatorState.translate(valueQuery);
-        verify(queryTranslator, never()).changeState(any());
+    public void givenAValueQuery_whenTranslating_thenTheNextStateRemainUnchanged() throws Exception {
+        StateStatus stateStatus = valueTranslatorState.translate(valueQuery);
+        assertThat(stateStatus.nextState(), is(instanceOf(ValueTranslatorState.class)));
     }
 
     @Test
-    public void givenAJunctionQuery_whenTranslating_thenTheStateShouldChangeToJunction() throws Exception {
-        valueTranslatorState.translate(junctionQuery);
-        verify(queryTranslator, never()).changeState(any(JunctionTranslatorState.class));
+    public void givenAJunctionQuery_whenTranslating_thenTheNextStateIsJunction() throws Exception {
+        StateStatus stateStatus = valueTranslatorState.translate(junctionQuery);
+        assertThat(stateStatus.nextState(), is(instanceOf(JunctionTranslatorState.class)));
     }
 
     @Test
-    public void givenAnValueQuery_whenTranslating_thenReturnFalse() throws Exception {
-        boolean returnedValue = valueTranslatorState.translate(valueQuery);
-        assertFalse(returnedValue);
+    public void givenAnValueQuery_whenTranslating_thenTheTranslationIsUndone() throws Exception {
+        StateStatus stateStatus = valueTranslatorState.translate(valueQuery);
+        assertFalse(stateStatus.isDone());
     }
 
     @Test
-    public void givenAJunctionQuery_whenTranslating_thenReturnFalse() throws Exception {
-        boolean returnedValue = valueTranslatorState.translate(junctionQuery);
-        assertFalse(returnedValue);
+    public void givenAJunctionQuery_whenTranslating_thenTheTranslationIsUndone() throws Exception {
+        StateStatus stateStatus = valueTranslatorState.translate(junctionQuery);
+        assertFalse(stateStatus.isDone());
     }
 
     @Test
-    public void givenAnEmptyQuery_whenTranslating_thenReturnTrue() throws Exception {
-        boolean returnedValue = valueTranslatorState.translate(EMPTY_QUERY);
-        assertTrue(returnedValue);
+    public void givenAnEmptyQuery_whenTranslating_thenTheTranslationIsDone() throws Exception {
+        StateStatus stateStatus = valueTranslatorState.translate(EMPTY_QUERY);
+        assertTrue(stateStatus.isDone());
     }
 
     @Test(expected = InvalidQueryException.class)

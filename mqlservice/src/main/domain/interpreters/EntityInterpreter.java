@@ -2,18 +2,19 @@ package domain.interpreters;
 
 import domain.QueryBuilder;
 import domain.StringQuery;
+import domain.keyword.Keywords;
 
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EntityInterpreter implements Interpreter {
-    private final Set<String> entities;
+    private final Keywords keywords;
     private final Pattern entityPattern;
 
-    public EntityInterpreter(Set<String> entities) {
-        this.entities = entities;
-        entityPattern = Pattern.compile("^[\\w-]+");
+    public EntityInterpreter(Keywords keywords) {
+        this.keywords = keywords;
+        this.entityPattern = Pattern.compile("^[\\w-]+");
     }
 
     @Override
@@ -21,7 +22,7 @@ public class EntityInterpreter implements Interpreter {
         Matcher matches = query.findMatches(entityPattern);
         if (matches.find()) {
             String match = matches.group();
-            if (entities.contains(match)) {
+            if (keywords.contains(match)) {
                 query.removeFirstMatch(entityPattern);
                 queryBuilder.withEntity(match);
                 return true;

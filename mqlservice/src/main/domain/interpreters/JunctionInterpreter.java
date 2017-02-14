@@ -2,17 +2,18 @@ package domain.interpreters;
 
 import domain.QueryBuilder;
 import domain.StringQuery;
+import domain.keyword.Keywords;
 
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class JunctionInterpreter implements Interpreter {
-    private final Set<String> junctions;
+    private final Keywords keywords;
     private final Pattern junctionPattern;
 
-    public JunctionInterpreter(Set<String> junctions) {
-        this.junctions = junctions;
+    public JunctionInterpreter(Keywords keywords) {
+        this.keywords = keywords;
         this.junctionPattern = Pattern.compile("^[\\w]+");
     }
 
@@ -21,7 +22,7 @@ public class JunctionInterpreter implements Interpreter {
         Matcher matches = query.findMatches(junctionPattern);
         if (matches.find()) {
             String match = matches.group();
-            if (junctions.contains(match)) {
+            if (keywords.contains(match)) {
                 query.removeFirstMatch(junctionPattern);
                 queryBuilder.withJunction(match);
                 return true;

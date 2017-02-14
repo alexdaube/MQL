@@ -1,9 +1,14 @@
 package domain.interpreters;
 
+import builders.KeywordsBuilder;
 import domain.QueryBuilder;
 import domain.StringQuery;
+import domain.keyword.Keywords;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,20 +17,20 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AttributeInterpreterTest {
     private static final String ATTRIBUTE = "ATTRIBUTE";
+    @Mock
+    private QueryBuilder queryBuilder;
     private StringQuery validQuery;
     private StringQuery invalidQuery;
     private AttributeInterpreter attributeInterpreter;
-    private Set<String> attributes;
-    private QueryBuilder queryBuilder;
+    private Keywords attributes;
 
     @Before
     public void setUp() throws Exception {
-        attributes = new HashSet<>();
-        attributes.add(ATTRIBUTE);
+        attributes = KeywordsBuilder.create().with(ATTRIBUTE).build();
         attributeInterpreter = new AttributeInterpreter(attributes);
-        queryBuilder = mock(QueryBuilder.class);
         validQuery = new StringQuery(ATTRIBUTE + " ");
         invalidQuery = new StringQuery("S" + ATTRIBUTE);
     }

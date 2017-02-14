@@ -1,9 +1,14 @@
 package domain.interpreters;
 
+import builders.KeywordsBuilder;
 import domain.QueryBuilder;
 import domain.StringQuery;
+import domain.keyword.Keywords;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,20 +17,20 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class JunctionInterpreterTest {
     private static final String JUNCTION = "JUNCTION";
+    @Mock
+    private QueryBuilder queryBuilder;
     private StringQuery validQuery;
     private StringQuery invalidQuery;
     private JunctionInterpreter junctionInterpreter;
-    private Set<String> junctions;
-    private QueryBuilder queryBuilder;
+    private Keywords junctions;
 
     @Before
     public void setUp() throws Exception {
-        junctions = new HashSet<>();
-        junctions.add(JUNCTION);
+        junctions = KeywordsBuilder.create().with(JUNCTION).build();
         junctionInterpreter = new JunctionInterpreter(junctions);
-        queryBuilder = mock(QueryBuilder.class);
         validQuery = new StringQuery(JUNCTION + " ");
         invalidQuery = new StringQuery("S" + JUNCTION);
     }

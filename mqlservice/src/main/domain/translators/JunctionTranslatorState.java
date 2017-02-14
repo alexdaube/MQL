@@ -1,17 +1,21 @@
 package domain.translators;
 
+import domain.QueryBuilder;
 import domain.StringQuery;
+import domain.keyword.KeywordsResolver;
 
 public class JunctionTranslatorState implements QueryTranslatorState {
-    private final QueryTranslator queryTranslator;
+    private final KeywordsResolver keywordsResolver;
+    private final QueryBuilder queryBuilder;
 
-    public JunctionTranslatorState(QueryTranslator queryTranslator) {
-        this.queryTranslator = queryTranslator;
+    public JunctionTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
+        this.keywordsResolver = keywordsResolver;
+        this.queryBuilder = queryBuilder;
     }
 
     @Override
-    public boolean translate(StringQuery stringQuery) {
-        queryTranslator.changeState(new InitialTranslatorState(queryTranslator));
-        return false;
+    public StateStatus translate(StringQuery stringQuery) {
+        // TODO: 13/02/17 Check if entity of attribute
+        return new StateStatus(false, new InitialTranslatorState(queryBuilder, keywordsResolver));
     }
 }

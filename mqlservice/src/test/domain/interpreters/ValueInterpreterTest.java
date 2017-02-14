@@ -4,25 +4,29 @@ import domain.QueryBuilder;
 import domain.StringQuery;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ValueInterpreterTest {
     private static final String STRING_VALUE = "\"STRING_VALUE\"";
     private static final String NUMBER_VALUE = "9.98";
-    private StringQuery validStringQuery;
-    private StringQuery invalidStringQuery;
-    private ValueInterpreter valueInterpreter;
+    @Mock
     private QueryBuilder queryBuilder;
     private StringQuery validNumberQuery;
     private StringQuery invalidNumberQuery;
+    private StringQuery validStringQuery;
+    private StringQuery invalidStringQuery;
+    private ValueInterpreter valueInterpreter;
 
     @Before
     public void setUp() throws Exception {
         valueInterpreter = new ValueInterpreter();
-        queryBuilder = mock(QueryBuilder.class);
         validStringQuery = new StringQuery(STRING_VALUE);
         invalidStringQuery = new StringQuery("a" + STRING_VALUE);
         validNumberQuery = new StringQuery(NUMBER_VALUE);
