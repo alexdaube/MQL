@@ -2,26 +2,22 @@ package domain.interpreters;
 
 import domain.QueryBuilder;
 import domain.StringQuery;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import domain.interpreters.values.*;
 
 public class ValueInterpreter implements Interpreter {
-    private final Pattern pattern;
+    private final Interpreter valueInterpreters;
+
+    public ValueInterpreter(Interpreter valueInterpreters) {
+        this.valueInterpreters = valueInterpreters;
+    }
 
     public ValueInterpreter() {
-        this.pattern = Pattern.compile("^(\"[^\"]*\")|^([-]?(\\d+)(\\.\\d*)?)");
+        this(new VarcharInterpreter(new DateInterpreter(new DecimalInterpreter(
+                new IntegerInterpreter(new NoValueInterpreter())))));
     }
 
     @Override
     public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
-        Matcher matches = query.findMatches(pattern);
-        if (matches.find()) {
-            String match = matches.group();
-            query.removeFirstMatch(pattern);
-            queryBuilder.withValue(match);
-            return true;
-        }
-        return false;
+        return valueInterpreters.interpret(query, queryBuilder);
     }
 }

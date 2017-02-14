@@ -1,6 +1,8 @@
 package domain.translators;
 
 import builders.KeywordsBuilder;
+import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
+import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSpec;
 import domain.QueryBuilder;
 import domain.StringQuery;
 import domain.keyword.KeywordsResolver;
@@ -9,6 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.mockito.BDDMockito.willReturn;
 
@@ -50,8 +56,16 @@ public class QueryTranslatorTest {
 
     @Test
     public void translate3() throws Exception {
-        String query = " Employee  name  in     \"Jessica\"  \"Alfred\"  \"Nicolas\"  ";
+        String query = " Employee  name  in     \"Jessica\"  \"Alfred\"  \"Nicolas\" or name in 9.99 ";
         System.out.println(query);
         queryTranslator.translate(new StringQuery(query));
+    }
+
+    @Test
+    public void test() throws Exception {
+        Pattern pattern = Pattern.compile("^(\\d{4}-\\d{2}-\\d{2})( (\\d{2}:\\d{2}:\\d{2}))?(.(\\d{3}))?");
+        Matcher matcher = pattern.matcher("1111-12-13 14:15:16.178");
+        matcher.find();
+        System.out.println(matcher.group(1));
     }
 }

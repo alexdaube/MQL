@@ -8,9 +8,6 @@ import domain.interpreters.Interpreter;
 import domain.interpreters.OperatorInterpreter;
 import domain.keyword.KeywordsResolver;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class OperatorTranslatorState implements QueryTranslatorState {
     private final Interpreter valueInterpreter;
     private final OperatorInterpreter operatorInterpreter;
@@ -31,6 +28,6 @@ public class OperatorTranslatorState implements QueryTranslatorState {
         } else if (operatorInterpreter.interpret(stringQuery, queryBuilder)) {
             return new StateStatus(false, this);
         }
-        throw new InvalidQueryException("An operator should be followed by an other operator withJunction by a value...");
+        throw new InvalidQueryException("An operator should be followed by an other operator or by a value...");
     }
 }
