@@ -1,11 +1,11 @@
 import * as React from "react";
-import { guid } from '../utils/guidGenerator';
+import guid from "../utils/guid";
 
 const renderBody = (rowData) => {
     return (
         <tr key={guid()}>
-            {rowData.map(value => {
-                return <td key={guid()}>{value}</td>;
+            {Object.keys(rowData).map(key => {
+                return <td key={guid()}>{rowData[key]}</td>;
             })}
         </tr>
     );
