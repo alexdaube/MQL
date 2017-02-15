@@ -1,0 +1,30 @@
+{
+  "operators": [
+    {
+      "keyword": "equals",
+      "synonyms": [
+        "is"
+      ]
+    },
+    {
+      "keyword": "without",
+      "synonyms": [
+        "is not"
+      ]
+    },
+    {
+      "keyword": "less than",
+      "synonyms": [
+        "less",
+        "lower"
+      ]
+    },
+    {
+      "keyword": "more than",
+      "synonyms": [
+        "more",
+        "higher"
+      ]
+    }
+  ]
+}

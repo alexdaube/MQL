@@ -1,0 +1,75 @@
+{
+  "entities": [
+    {
+      "keyword": "site",
+      "synonyms": [
+        "plants",
+        "building"
+      ],
+      "attributes": [
+        {
+          "keyword": "name",
+          "synonyms": [
+            "column",
+            "column",
+            "column"
+          ]
+        },
+        {
+          "keyword": "address",
+          "synonyms": [
+            "column",
+            "column",
+            "column"
+          ]
+        },
+        {
+          "keyword": "city",
+          "synonyms": [
+            "column",
+            "column",
+            "column"
+          ]
+        },
+        {
+          "keyword": "zipcode",
+          "synonyms": [
+            "zip"
+          ]
+        }
+      ]
+    },
+    {
+      "keyword": "equipment",
+      "synonyms": [
+        "device",
+        "stock"
+      ],
+      "attributes": [
+        {
+          "keyword": "serial_no",
+          "synonyms": [
+            "serial",
+            "serial number",
+            "column"
+          ]
+        },
+        {
+          "keyword": "date_in_service",
+          "synonyms": [
+            "column",
+            "column",
+            "column"
+          ]
+        },
+        {
+          "keyword": "warranty_end",
+          "synonyms": [
+            "warranty",
+            "expired",
+          ]
+        }
+      ]
+    }
+  ]
+}

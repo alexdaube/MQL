@@ -1,11 +1,11 @@
 package infrastructure;
 
 import domain.keyword.Keyword;
+import domain.keyword.KeywordAlreadyExistsException;
 import domain.keyword.KeywordRepository;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.stream.Collectors;
 
 public class InMemoryKeywordRepository implements KeywordRepository {
     private Collection<Keyword> keywords = new HashSet<>();
@@ -16,13 +16,10 @@ public class InMemoryKeywordRepository implements KeywordRepository {
     }
 
     @Override
-    public void create(Keyword keyword) {
+    public void create(Keyword keyword) throws KeywordAlreadyExistsException {
+        if (keywords.contains(keyword)) {
+            throw new KeywordAlreadyExistsException();
+        }
         keywords.add(keyword);
-    }
-
-    public Collection<Keyword> getSubsetKeywords(Keyword parentKeyword) {
-        return keywords.stream()
-                .filter(keyword -> keyword.isSubsetOf(parentKeyword))
-                .collect(Collectors.toList());
     }
 }

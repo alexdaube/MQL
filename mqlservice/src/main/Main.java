@@ -1,4 +1,6 @@
+import domain.keyword.EntityList;
 import domain.keyword.Keyword;
+import domain.keyword.KeywordAlreadyExistsException;
 import domain.keyword.KeywordRepository;
 import infrastructure.InMemoryKeywordRepository;
 import infrastructure.KeywordDevDataFactory;
@@ -6,25 +8,29 @@ import persistence.SQLHelper;
 import persistence.SQLiteHelper;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import static spark.Spark.before;
 import static spark.Spark.options;
 
 public class Main {
     public static void main(String[] args) {
-        initKeywordRepositoryWithDevData(new KeywordDevDataFactory());
+        KeywordRepository keywordRepository = initKeywordRepositoryWithDevData(new KeywordDevDataFactory());
         initDatabaseConnection(new SQLiteHelper());
         initServer(new QueryController());
     }
 
-    private static void initKeywordRepositoryWithDevData(KeywordDevDataFactory keywordDevDataFactory) {
+    private static KeywordRepository initKeywordRepositoryWithDevData(KeywordDevDataFactory keywordDevDataFactory) {
         KeywordRepository keywordRepository = new InMemoryKeywordRepository();
-        List<Keyword> keywords = keywordDevDataFactory.createStubKeywords();
+        EntityList entityList = keywordDevDataFactory.readEntitiesFromJSON();
 
-        for (Keyword keyword : keywords) {
-            keywordRepository.create(keyword);
+        for (Keyword keyword : entityList.getEntities()) {
+            try {
+                keywordRepository.create(keyword);
+            } catch (KeywordAlreadyExistsException e) {
+                System.out.println(e.getMessage());
+            }
         }
+        return keywordRepository;
     }
 
     private static void initDatabaseConnection(SQLHelper sqlHelper) {
@@ -39,6 +45,7 @@ public class Main {
     }
 
     private static void initServer(QueryController queryController) {
+        enableCORS("*", "POST, GET, OPTIONS, DELETE, PUT", "x-requested-with, Content-Type");
         queryController.initializeEndPoints();
     }
 
@@ -65,5 +72,7 @@ public class Main {
             // Note: this may or may not be necessary in your particular application
             response.type("application/json");
         });
-    };
+    }
+
+    ;
 }
