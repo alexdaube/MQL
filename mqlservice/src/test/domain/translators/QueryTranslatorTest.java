@@ -1,8 +1,6 @@
 package domain.translators;
 
 import builders.KeywordsBuilder;
-import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
-import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSpec;
 import domain.QueryBuilder;
 import domain.StringQuery;
 import domain.keyword.KeywordsResolver;
@@ -12,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,7 +26,8 @@ public class QueryTranslatorTest {
         willReturn(KeywordsBuilder.create().with("is").with("equal").with("to").with("in").build()).given(keywordsResolver).resolveOperators();
         willReturn(KeywordsBuilder.create().with("Employee").build()).given(keywordsResolver).resolveEntities();
         willReturn(KeywordsBuilder.create().with("name").build()).given(keywordsResolver).resolveAttributes();
-        willReturn(KeywordsBuilder.create().with("and").with("or").build()).given(keywordsResolver).resolveJunctions();
+        willReturn(KeywordsBuilder.create().with("and").build()).given(keywordsResolver).resolveAndJunctions();
+        willReturn(KeywordsBuilder.create().with("or").build()).given(keywordsResolver).resolveOrJunctions();
         queryTranslator = new QueryTranslator(QueryBuilder.create(), keywordsResolver);
     }
 
@@ -56,7 +54,7 @@ public class QueryTranslatorTest {
 
     @Test
     public void translate3() throws Exception {
-        String query = " Employee  name  in     \"Jessica\"  \"Alfred\"  \"Nicolas\" or name in 9.99 ";
+        String query = " Employee  name  in     \"Jessica\"  \"Alfred\"  \"Nicolas\" or name in 9.99 or name is 9.99 and name is 9.99";
         System.out.println(query);
         queryTranslator.translate(new StringQuery(query));
     }

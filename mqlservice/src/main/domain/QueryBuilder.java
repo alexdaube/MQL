@@ -16,13 +16,14 @@ public class QueryBuilder {
     private String table;
     private String attribute;
     private String operator;
-    private ComboCondition condition;
+    private Condition condition;
     private Condition newCondition;
+    private ComboCondition.Op junction;
 
     private QueryBuilder() {
         values = new LinkedList<>();
         schema = new DbSpec().addDefaultSchema();
-        condition = new ComboCondition(ComboCondition.Op.AND);
+        junction = null;
         DbTable employee = schema.addTable("Employee");
         employee.addColumn("name", "varchar", 255);
         employee.addColumn("age", "number", null);
@@ -37,8 +38,8 @@ public class QueryBuilder {
     }
 
     public Query build() {
-        mapOperator();
-        selectQuery.addCondition(condition);
+        updateQuery();
+        selectQuery.addCondition(condition.setDisableParens(false));
         selectQuery.validate();
         System.out.println(selectQuery.toString());
         return null;
@@ -79,18 +80,15 @@ public class QueryBuilder {
         return this;
     }
 
-    // TODO: 06/02/17 A revoir
-    public QueryBuilder withJunction(String junction) {
-        mapOperator();
-        if (junction.equals("or")) {
-            condition.or(condition);
-        } else if (junction.equals("and")) {
-            selectQuery.addCondition(ComboCondition.and(condition));
-        }
-        this.values = new LinkedList<>();
-        this.operator = null;
-        this.attribute = null;
-        selectQuery.addCondition(ComboCondition.and());
+    public QueryBuilder and() {
+        updateQuery();
+        this.junction = ComboCondition.Op.AND;
+        return this;
+    }
+
+    public QueryBuilder or() {
+        updateQuery();
+        this.junction = ComboCondition.Op.OR;
         return this;
     }
 
@@ -101,5 +99,17 @@ public class QueryBuilder {
         } else if (operator.equals("is") || operator.equals("equal") || operator.equals("equals")) {
             this.newCondition = BinaryCondition.equalTo(schema.findTable(table).findColumn(attribute), values.get(0));
         }
+    }
+
+    private void updateQuery() {
+        mapOperator();
+        if (this.junction != null) {
+            condition = new ComboCondition(this.junction).addConditions(condition, newCondition).setDisableParens(true);
+        } else {
+            condition = newCondition;
+        }
+        this.values = new LinkedList<>();
+        this.operator = null;
+        this.attribute = null;
     }
 }

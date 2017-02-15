@@ -19,7 +19,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ValueTranslatorStateTest {
@@ -42,7 +41,7 @@ public class ValueTranslatorStateTest {
         valueQuery = new StringQuery("9.99");
         junctions = KeywordsBuilder.create().with("and").build();
         attributes = KeywordsBuilder.create().with("name").build();
-        willReturn(junctions).given(keywordsResolver).resolveJunctions();
+        willReturn(junctions).given(keywordsResolver).resolveAndJunctions();
         willReturn(attributes).given(keywordsResolver).resolveAttributes();
         valueTranslatorState = new ValueTranslatorState(queryBuilder, keywordsResolver);
     }

@@ -10,9 +10,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -30,7 +27,7 @@ public class JunctionInterpreterTest {
     @Before
     public void setUp() throws Exception {
         junctions = KeywordsBuilder.create().with(JUNCTION).build();
-        junctionInterpreter = new JunctionInterpreter(junctions);
+        junctionInterpreter = new JunctionInterpreter(junctions, junctions);
         validQuery = new StringQuery(JUNCTION + " ");
         invalidQuery = new StringQuery("S" + JUNCTION);
     }
@@ -44,7 +41,7 @@ public class JunctionInterpreterTest {
     @Test
     public void givenAValidStringQueryAndABuilder_whenInterpreting_thenTheJunctionShouldBeAddedToTheBuilder() throws Exception {
         junctionInterpreter.interpret(validQuery, queryBuilder);
-        verify(queryBuilder).withJunction(JUNCTION);
+        verify(queryBuilder).and();
     }
 
     @Test

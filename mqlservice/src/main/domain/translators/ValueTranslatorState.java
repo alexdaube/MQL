@@ -16,7 +16,7 @@ public class ValueTranslatorState implements QueryTranslatorState {
 
     public ValueTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
         this.valueInterpreter = new ValueInterpreter();
-        this.junctionInterpreter = new JunctionInterpreter(keywordsResolver.resolveJunctions());
+        this.junctionInterpreter = new JunctionInterpreter(keywordsResolver.resolveAndJunctions(), keywordsResolver.resolveOrJunctions());
         this.queryBuilder = queryBuilder;
         this.keywordsResolver = keywordsResolver;
     }

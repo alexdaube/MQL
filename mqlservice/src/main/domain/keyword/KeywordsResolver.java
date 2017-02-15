@@ -4,5 +4,6 @@ public interface KeywordsResolver {
     Keywords resolveAttributes();
     Keywords resolveEntities();
     Keywords resolveOperators();
-    Keywords resolveJunctions();
+    Keywords resolveAndJunctions();
+    Keywords resolveOrJunctions();
 }
