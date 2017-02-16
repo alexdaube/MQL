@@ -31,11 +31,11 @@ public class KeywordDevDataFactory {
             BufferedReader br = new BufferedReader(fileReader);
 
             this.entities = gson.fromJson(br, EntityList.class);
+            System.out.println();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return this.entities;
     }
-
 }

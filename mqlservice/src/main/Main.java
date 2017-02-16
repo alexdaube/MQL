@@ -5,7 +5,6 @@ import domain.keyword.KeywordRepository;
 import infrastructure.InMemoryKeywordRepository;
 import infrastructure.KeywordDevDataFactory;
 import persistence.SQLHelper;
-import persistence.SQLiteHelper;
 
 import java.sql.SQLException;
 
@@ -15,8 +14,8 @@ import static spark.Spark.options;
 public class Main {
     public static void main(String[] args) {
         KeywordRepository keywordRepository = initKeywordRepositoryWithDevData(new KeywordDevDataFactory());
-        initDatabaseConnection(new SQLiteHelper());
-        initServer(new QueryController());
+        //initDatabaseConnection(new SQLiteHelper());
+        //initServer(new QueryController());
     }
 
     private static KeywordRepository initKeywordRepositoryWithDevData(KeywordDevDataFactory keywordDevDataFactory) {

@@ -33,6 +33,7 @@ public class GeneralKeywordDeserializer implements JsonDeserializer<GeneralKeywo
 
         for (JsonElement jsonElement : jsonSynonyms) {
             synonyms.add(jsonElement.getAsString());
+            System.out.println(jsonElement.getAsString());
         }
 
         return synonyms;
