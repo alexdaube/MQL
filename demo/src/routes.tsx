@@ -7,5 +7,6 @@ import ListView from './views/ListView';
 export default (
     <Route path="/" component={App} >
         <IndexRoute component={ListView}/>
+        <Route path="*" component={ListView} />
     </Route>
 );
