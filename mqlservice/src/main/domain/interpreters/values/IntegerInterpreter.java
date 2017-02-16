@@ -1,7 +1,7 @@
 package domain.interpreters.values;
 
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
+import domain.Query;
 import domain.interpreters.Interpreter;
 
 import java.util.regex.Matcher;
@@ -11,7 +11,7 @@ public class IntegerInterpreter implements Interpreter {
     private static final Pattern INTEGER_PATTERN = Pattern.compile("^([-]?(\\d+))");
 
     @Override
-    public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
+    public boolean interpret(Query query, QueryBuilder queryBuilder) {
         Matcher matches = query.findMatches(INTEGER_PATTERN);
         if (matches.find()) {
             String match = matches.group();

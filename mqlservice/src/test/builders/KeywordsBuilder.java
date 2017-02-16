@@ -1,6 +1,7 @@
 package builders;
 
-import domain.keyword.Keywords;
+import domain.keywords.Keywords;
+import domain.keywords.KeywordsSet;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +18,7 @@ public class KeywordsBuilder {
     }
 
     public Keywords build() {
-        return new Keywords(keywords);
+        return new KeywordsSet(keywords);
     }
 
     public KeywordsBuilder with(String keyword) {

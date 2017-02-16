@@ -1,7 +1,8 @@
 package domain.interpreters.values;
 
-import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
+import domain.querybuilder.QueryBuilder;
+import domain.Query;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +19,8 @@ public class DecimalInterpreterTest {
     private static final String STRING_VALUE = "9.99";
     @Mock
     private QueryBuilder queryBuilder;
-    private StringQuery validDecimalQuery;
-    private StringQuery invalidDecimalQuery;
+    private Query validDecimalQuery;
+    private Query invalidDecimalQuery;
     private DecimalInterpreter decimalInterpreter;
 
     @Before

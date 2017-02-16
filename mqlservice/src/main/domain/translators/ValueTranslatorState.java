@@ -2,11 +2,11 @@ package domain.translators;
 
 import domain.InvalidQueryException;
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
+import domain.Query;
 import domain.interpreters.Interpreter;
 import domain.interpreters.JunctionInterpreter;
 import domain.interpreters.ValueInterpreter;
-import domain.keyword.KeywordsResolver;
+import domain.keywords.KeywordsResolver;
 
 public class ValueTranslatorState implements QueryTranslatorState {
     private final Interpreter valueInterpreter;
@@ -22,13 +22,13 @@ public class ValueTranslatorState implements QueryTranslatorState {
     }
 
     @Override
-    public StateStatus translate(StringQuery stringQuery) {
-        stringQuery.strip();
-        if (stringQuery.isEmpty()) {
+    public StateStatus translate(Query query) {
+        query.strip();
+        if (query.isEmpty()) {
             return new StateStatus(true, this);
-        } else if (valueInterpreter.interpret(stringQuery, queryBuilder)) {
+        } else if (valueInterpreter.interpret(query, queryBuilder)) {
             return new StateStatus(false, this);
-        } else if (junctionInterpreter.interpret(stringQuery, queryBuilder)) {
+        } else if (junctionInterpreter.interpret(query, queryBuilder)) {
             return new StateStatus(false, new JunctionTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("You specified an invalid value...");

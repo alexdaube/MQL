@@ -2,10 +2,11 @@ package domain.translators;
 
 import builders.KeywordsBuilder;
 import domain.InvalidQueryException;
-import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
-import domain.keyword.Keywords;
-import domain.keyword.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
+import domain.Query;
+import domain.keywords.Keywords;
+import domain.keywords.KeywordsResolver;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,8 +31,8 @@ public class EntityTranslatorStateTest {
     private EntityTranslatorState entityTranslatorState;
     private Keywords operators;
     private Keywords attributes;
-    private StringQuery operatorQuery;
-    private StringQuery attributeQuery;
+    private Query operatorQuery;
+    private Query attributeQuery;
 
     @Before
     public void setUp() throws Exception {

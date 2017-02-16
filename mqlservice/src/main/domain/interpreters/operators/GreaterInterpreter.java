@@ -1,9 +1,9 @@
 package domain.interpreters.operators;
 
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
+import domain.Query;
 import domain.interpreters.Interpreter;
-import domain.keyword.Keywords;
+import domain.keywords.Keywords;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +17,7 @@ public class GreaterInterpreter implements Interpreter {
     }
 
     @Override
-    public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
+    public boolean interpret(Query query, QueryBuilder queryBuilder) {
         Matcher matches = query.findMatches(GREATER_PATTERN);
         if (matches.find()) {
             String match = matches.group();

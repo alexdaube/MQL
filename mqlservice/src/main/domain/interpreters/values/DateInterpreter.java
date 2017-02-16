@@ -1,7 +1,7 @@
 package domain.interpreters.values;
 
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
+import domain.Query;
 import domain.interpreters.Interpreter;
 
 import java.sql.Date;
@@ -15,7 +15,7 @@ public class DateInterpreter implements Interpreter {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
 
     @Override
-    public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
+    public boolean interpret(Query query, QueryBuilder queryBuilder) {
         Matcher matches = query.findMatches(DATE_PATTERN);
         if (matches.find()) {
             query.removeFirstMatch(DATE_PATTERN);

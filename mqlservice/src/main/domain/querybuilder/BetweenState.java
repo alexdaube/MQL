@@ -7,7 +7,7 @@ import domain.InvalidQueryException;
 public class BetweenState extends BaseState {
     private int count;
 
-    public BetweenState(QueryBuilder queryBuilder) {
+    public BetweenState(SqlQueryBuilder queryBuilder) {
         super(queryBuilder);
         count = 0;
     }

@@ -73,8 +73,9 @@ public class SqlQueryBuilder implements QueryBuilder {
         return this;
     }
 
-    public void withBetween() {
+    public SqlQueryBuilder withBetween() {
         this.operatorState.withBetween();
+        return this;
     }
 
     public SqlQueryBuilder withVarchar(String value) {

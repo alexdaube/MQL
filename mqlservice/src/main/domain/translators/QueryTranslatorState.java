@@ -1,7 +1,7 @@
 package domain.translators;
 
-import domain.StringQuery;
+import domain.Query;
 
 public interface QueryTranslatorState {
-    StateStatus translate(StringQuery stringQuery);
+    StateStatus translate(Query query);
 }

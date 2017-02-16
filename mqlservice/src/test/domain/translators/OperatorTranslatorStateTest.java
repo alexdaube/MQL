@@ -2,10 +2,11 @@ package domain.translators;
 
 import builders.KeywordsBuilder;
 import domain.InvalidQueryException;
-import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
-import domain.keyword.Keywords;
-import domain.keyword.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
+import domain.Query;
+import domain.keywords.Keywords;
+import domain.keywords.KeywordsResolver;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,9 +27,9 @@ public class OperatorTranslatorStateTest {
     @Mock
     private KeywordsResolver keywordsResolver;
     private OperatorTranslatorState operatorTranslatorState;
-    private StringQuery operatorQuery = new StringQuery("is 9.99");
-    private StringQuery attributeQuery = new StringQuery("name is 9.99");
-    private StringQuery valueQuery = new StringQuery("9.99");
+    private Query operatorQuery;
+    private Query attributeQuery;
+    private Query valueQuery;
     private Keywords operators;
     private Keywords attributes;
 

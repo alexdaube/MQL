@@ -1,4 +1,4 @@
-package domain.keyword;
+package domain.keywords;
 
 public interface KeywordsResolver {
     Keywords resolveAttributes();

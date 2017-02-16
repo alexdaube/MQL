@@ -5,7 +5,7 @@ import com.healthmarketscience.sqlbuilder.Condition;
 import domain.InvalidQueryException;
 
 public class GreaterOrEqualState extends BaseState {
-    public GreaterOrEqualState(QueryBuilder queryBuilder) {
+    public GreaterOrEqualState(SqlQueryBuilder queryBuilder) {
         super(queryBuilder);
     }
 

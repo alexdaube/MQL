@@ -1,10 +1,10 @@
 package domain.interpreters;
 
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
+import domain.Query;
 import domain.interpreters.junctions.AndInterpreter;
 import domain.interpreters.junctions.OrInterpreter;
-import domain.keyword.Keywords;
+import domain.keywords.Keywords;
 
 public class JunctionInterpreter implements Interpreter {
     private final AndInterpreter andInterpreter;
@@ -17,7 +17,7 @@ public class JunctionInterpreter implements Interpreter {
 
     // TODO: 14/02/17 Adjust tests
     @Override
-    public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
+    public boolean interpret(Query query, QueryBuilder queryBuilder) {
         return andInterpreter.interpret(query, queryBuilder) || orInterpreter.interpret(query, queryBuilder);
     }
 }

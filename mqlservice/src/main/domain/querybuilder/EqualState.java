@@ -7,7 +7,7 @@ import domain.InvalidQueryException;
 
 public class EqualState extends BaseState {
 
-    public EqualState(QueryBuilder queryBuilder) {
+    public EqualState(SqlQueryBuilder queryBuilder) {
         super(queryBuilder);
     }
 

@@ -20,7 +20,7 @@ public interface QueryBuilder {
 
     QueryBuilder withLess();
 
-    void withBetween();
+    QueryBuilder withBetween();
 
     QueryBuilder withVarchar(String value);
 
@@ -33,12 +33,4 @@ public interface QueryBuilder {
     QueryBuilder and();
 
     QueryBuilder or();
-
-    void changeState(OperatorState operatorState);
-
-    void applyCondition(Condition condition);
-
-    void setJunction(ComboCondition.Op junction);
-
-    Column getAttribute();
 }

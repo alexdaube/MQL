@@ -1,8 +1,8 @@
 package domain.interpreters;
 
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
-import domain.keyword.Keywords;
+import domain.Query;
+import domain.keywords.Keywords;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +17,7 @@ public class AttributeInterpreter implements Interpreter {
     }
 
     @Override
-    public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
+    public boolean interpret(Query query, QueryBuilder queryBuilder) {
         Matcher matches = query.findMatches(attributePattern);
         if (matches.find()) {
             String match = matches.group();

@@ -1,9 +1,10 @@
 package domain.interpreters;
 
 import builders.KeywordsBuilder;
-import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
-import domain.keyword.Keywords;
+import domain.querybuilder.QueryBuilder;
+import domain.Query;
+import domain.keywords.Keywords;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,8 +20,8 @@ public class JunctionInterpreterTest {
     private static final String JUNCTION = "JUNCTION";
     @Mock
     private QueryBuilder queryBuilder;
-    private StringQuery validQuery;
-    private StringQuery invalidQuery;
+    private Query validQuery;
+    private Query invalidQuery;
     private JunctionInterpreter junctionInterpreter;
     private Keywords junctions;
 

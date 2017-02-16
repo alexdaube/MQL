@@ -1,11 +1,12 @@
 package domain.translators;
 
 import builders.KeywordsBuilder;
-import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
+import domain.querybuilder.QueryBuilder;
+import domain.Query;
 import domain.InvalidQueryException;
-import domain.keyword.Keywords;
-import domain.keyword.KeywordsResolver;
+import domain.keywords.Keywords;
+import domain.keywords.KeywordsResolver;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +23,7 @@ import static org.mockito.Matchers.any;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ValueTranslatorStateTest {
-    private static final StringQuery EMPTY_QUERY = new StringQuery("   ");
+    private static final Query EMPTY_QUERY = new StringQuery("   ");
     @Mock
     private QueryBuilder queryBuilder;
     @Mock
@@ -30,9 +31,9 @@ public class ValueTranslatorStateTest {
     private ValueTranslatorState valueTranslatorState;
     private Keywords junctions;
     private Keywords attributes;
-    private StringQuery junctionQuery;
-    private StringQuery attributeQuery;
-    private StringQuery valueQuery;
+    private Query junctionQuery;
+    private Query attributeQuery;
+    private Query valueQuery;
 
     @Before
     public void setUp() throws Exception {

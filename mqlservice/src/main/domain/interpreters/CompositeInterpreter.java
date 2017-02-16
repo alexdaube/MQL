@@ -1,7 +1,7 @@
 package domain.interpreters;
 
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
+import domain.Query;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -15,7 +15,7 @@ public class CompositeInterpreter implements Interpreter {
     }
 
     @Override
-    public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
+    public boolean interpret(Query query, QueryBuilder queryBuilder) {
         for (Interpreter interpreter:interpreters) {
             if (interpreter.interpret(query, queryBuilder)) {
                 return true;

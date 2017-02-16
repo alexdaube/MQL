@@ -1,7 +1,8 @@
 package domain.interpreters.values;
 
-import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
+import domain.querybuilder.QueryBuilder;
+import domain.Query;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,38 +19,38 @@ public class VarcharInterpreterTest {
     private static final String STRING_VALUE = "\"" + VALUE + "\"";
     @Mock
     private QueryBuilder queryBuilder;
-    private StringQuery validStringQuery;
-    private StringQuery invalidStringQuery;
+    private Query validQuery;
+    private Query invalidQuery;
     private VarcharInterpreter varcharInterpreter;
 
     @Before
     public void setUp() throws Exception {
         varcharInterpreter = new VarcharInterpreter();
-        validStringQuery = new StringQuery(STRING_VALUE);
-        invalidStringQuery = new StringQuery("a" + STRING_VALUE);
+        validQuery = new StringQuery(STRING_VALUE);
+        invalidQuery = new StringQuery("a" + STRING_VALUE);
     }
 
     @Test
     public void givenAValidStringQueryAndABuilder_whenInterpreting_thenReturnTrue() throws Exception {
-        boolean returnValue = varcharInterpreter.interpret(validStringQuery, queryBuilder);
+        boolean returnValue = varcharInterpreter.interpret(validQuery, queryBuilder);
         assertTrue(returnValue);
     }
 
     @Test
     public void givenAValidStringQueryAndABuilder_whenInterpreting_thenTheValueIsAddedToTheBuilder() throws Exception {
-        varcharInterpreter.interpret(validStringQuery, queryBuilder);
+        varcharInterpreter.interpret(validQuery, queryBuilder);
         verify(queryBuilder).withVarchar(VALUE);
     }
 
     @Test
     public void givenAnInvalidStringQueryAndABuilder_whenInterpreting_thenReturnFalse() throws Exception {
-        boolean returnValue = varcharInterpreter.interpret(invalidStringQuery, queryBuilder);
+        boolean returnValue = varcharInterpreter.interpret(invalidQuery, queryBuilder);
         assertFalse(returnValue);
     }
 
     @Test
     public void givenAnInvalidStringQueryAndABuilder_whenInterpreting_thenTheBuilderShouldNotBeCalled() throws Exception {
-        varcharInterpreter.interpret(invalidStringQuery, queryBuilder);
+        varcharInterpreter.interpret(invalidQuery, queryBuilder);
         verifyZeroInteractions(queryBuilder);
     }
 }

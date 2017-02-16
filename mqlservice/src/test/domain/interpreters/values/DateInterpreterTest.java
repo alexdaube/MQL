@@ -1,7 +1,8 @@
 package domain.interpreters.values;
 
-import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
+import domain.querybuilder.QueryBuilder;
+import domain.Query;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,8 +23,8 @@ public class DateInterpreterTest {
     private static final String FULL_DATE = MEDIUM_DATE + ".999";
     @Mock
     private QueryBuilder queryBuilder;
-    private StringQuery validDateQuery;
-    private StringQuery invalidDateQuery;
+    private Query validDateQuery;
+    private Query invalidDateQuery;
     private DateInterpreter dateInterpreter;
 
     @Before

@@ -1,8 +1,8 @@
 package domain.interpreters.operators;
 
-import domain.StringQuery;
+import domain.Query;
 import domain.interpreters.Interpreter;
-import domain.keyword.Keywords;
+import domain.keywords.Keywords;
 import domain.querybuilder.QueryBuilder;
 
 import java.util.regex.Matcher;
@@ -17,7 +17,7 @@ public class BetweenInterpreter implements Interpreter {
     }
 
     @Override
-    public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
+    public boolean interpret(Query query, QueryBuilder queryBuilder) {
         Matcher matches = query.findMatches(BETWEEN_PATTERN);
         if (matches.find()) {
             String match = matches.group();

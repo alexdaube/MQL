@@ -1,11 +1,11 @@
 package domain.translators;
 
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
+import domain.Query;
 import domain.InvalidQueryException;
 import domain.interpreters.AttributeInterpreter;
 import domain.interpreters.Interpreter;
-import domain.keyword.KeywordsResolver;
+import domain.keywords.KeywordsResolver;
 
 public class EntityTranslatorState implements QueryTranslatorState {
     private final Interpreter attributeInterpreter;
@@ -19,8 +19,8 @@ public class EntityTranslatorState implements QueryTranslatorState {
     }
 
     @Override
-    public StateStatus translate(StringQuery stringQuery) {
-        if (attributeInterpreter.interpret(stringQuery, queryBuilder)) {
+    public StateStatus translate(Query query) {
+        if (attributeInterpreter.interpret(query, queryBuilder)) {
             return new StateStatus(false, new AttributeTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("The table name should be followed by an attribute");

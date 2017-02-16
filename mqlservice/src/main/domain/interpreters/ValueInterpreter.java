@@ -1,7 +1,7 @@
 package domain.interpreters;
 
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
+import domain.Query;
 import domain.interpreters.values.*;
 
 public class ValueInterpreter implements Interpreter {
@@ -18,7 +18,7 @@ public class ValueInterpreter implements Interpreter {
     }
 
     @Override
-    public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
+    public boolean interpret(Query query, QueryBuilder queryBuilder) {
         return valueInterpreters.interpret(query, queryBuilder);
     }
 }

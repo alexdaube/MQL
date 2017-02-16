@@ -7,10 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class BaseState implements OperatorState {
-    protected final QueryBuilder queryBuilder;
+    protected final SqlQueryBuilder queryBuilder;
     protected List<Object> values;
 
-    public BaseState(QueryBuilder queryBuilder) {
+    public BaseState(SqlQueryBuilder queryBuilder) {
         this.queryBuilder = queryBuilder;
         this.values = new LinkedList<>();
     }

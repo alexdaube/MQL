@@ -1,7 +1,8 @@
 package domain.interpreters.values;
 
-import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
+import domain.querybuilder.QueryBuilder;
+import domain.Query;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +18,8 @@ public class IntegerInterpreterTest {
     private static final String NUMBER_VALUE = "9.98";
     @Mock
     private QueryBuilder queryBuilder;
-    private StringQuery validNumberQuery;
-    private StringQuery invalidNumberQuery;
+    private Query validNumberQuery;
+    private Query invalidNumberQuery;
     private IntegerInterpreter integerInterpreter;
 
     @Before

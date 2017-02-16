@@ -1,9 +1,8 @@
 package domain.translators;
 
-import domain.Query;
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
-import domain.keyword.KeywordsResolver;
+import domain.Query;
+import domain.keywords.KeywordsResolver;
 
 public class QueryTranslator {
     private final QueryBuilder queryBuilder;
@@ -14,10 +13,10 @@ public class QueryTranslator {
         this.queryBuilder = queryBuilder;
     }
 
-    public Query translate(StringQuery stringQuery) {
+    public Query translate(Query query) {
         boolean isTranslated = false;
         while (!isTranslated) {
-            StateStatus stateStatus = state.translate(stringQuery);
+            StateStatus stateStatus = state.translate(query);
             isTranslated = stateStatus.isDone();
             state = stateStatus.nextState();
         }

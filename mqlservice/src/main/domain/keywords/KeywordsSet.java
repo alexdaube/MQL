@@ -1,11 +1,11 @@
-package domain.keyword;
+package domain.keywords;
 
 import java.util.Set;
 
-public class Keywords {
+public class KeywordsSet implements Keywords {
     private final Set<String> keywords;
 
-    public Keywords(Set<String> keywords) {
+    public KeywordsSet(Set<String> keywords) {
         this.keywords = keywords;
     }
 

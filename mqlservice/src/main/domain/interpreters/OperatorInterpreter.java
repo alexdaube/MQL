@@ -2,8 +2,8 @@ package domain.interpreters;
 
 import domain.interpreters.operators.*;
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
-import domain.keyword.KeywordsResolver;
+import domain.Query;
+import domain.keywords.KeywordsResolver;
 
 public class OperatorInterpreter implements Interpreter {
     private final Interpreter interpreters;
@@ -24,7 +24,7 @@ public class OperatorInterpreter implements Interpreter {
 
     // TODO: 15/02/17 Change tests
     @Override
-    public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
+    public boolean interpret(Query query, QueryBuilder queryBuilder) {
         return interpreters.interpret(query, queryBuilder);
     }
 }

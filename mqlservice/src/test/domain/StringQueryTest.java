@@ -16,37 +16,36 @@ public class StringQueryTest {
     private static final String SECOND_TERM = "IM2";
     private static final String QUERY = FIRST_TERM + " " + SECOND_TERM;
     private static final Pattern PATTERN = Pattern.compile("^" + FIRST_TERM);
-    private StringQuery stringQuery;
-
+    private StringQuery query;
 
     @Before
     public void setUp() throws Exception {
-        stringQuery = new StringQuery(QUERY);
+        query = new StringQuery(QUERY);
     }
 
     @Test
     public void givenACorrectString_whenStripping_thenTheStringShouldRemainUntouched() throws Exception {
-        stringQuery.strip();
-        assertTrue(stringQuery.isEqualTo(QUERY));
+        query.strip();
+        assertTrue(query.isEqualTo(QUERY));
     }
 
     @Test
     public void givenAStringBeginningWithBlanks_whenStripping_thenTheStringShouldBeStripped() throws Exception {
-        stringQuery = new StringQuery("     " + QUERY);
-        stringQuery.strip();
-        assertTrue(stringQuery.isEqualTo(QUERY));
+        query = new StringQuery("     " + QUERY);
+        query.strip();
+        assertTrue(query.isEqualTo(QUERY));
     }
 
     @Test
     public void givenAPattern_whenRemovingFirstMatch_thenTHeFirstMatchShouldBeRemovedFromTheQuery() throws Exception {
-        stringQuery.removeFirstMatch(PATTERN);
-        stringQuery.strip();
-        assertTrue(stringQuery.isEqualTo(SECOND_TERM));
+        query.removeFirstMatch(PATTERN);
+        query.strip();
+        assertTrue(query.isEqualTo(SECOND_TERM));
     }
 
     @Test
     public void givenAPattern_whenFindingMatches_thenReturnMatches() throws Exception {
-        Matcher matches = stringQuery.findMatches(PATTERN);
+        Matcher matches = query.findMatches(PATTERN);
         assertTrue(matches.find());
         assertThat(matches.group(), is(equalTo(FIRST_TERM)));
     }

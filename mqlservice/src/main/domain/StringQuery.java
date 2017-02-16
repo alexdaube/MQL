@@ -3,7 +3,7 @@ package domain;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringQuery {
+public class StringQuery implements Query {
     private final Pattern stripPattern;
     private String query;
 

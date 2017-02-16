@@ -1,12 +1,12 @@
 package domain.translators;
 
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
+import domain.Query;
 import domain.interpreters.ValueInterpreter;
 import domain.InvalidQueryException;
 import domain.interpreters.Interpreter;
 import domain.interpreters.OperatorInterpreter;
-import domain.keyword.KeywordsResolver;
+import domain.keywords.KeywordsResolver;
 
 public class OperatorTranslatorState implements QueryTranslatorState {
     private final Interpreter valueInterpreter;
@@ -22,10 +22,10 @@ public class OperatorTranslatorState implements QueryTranslatorState {
     }
 
     @Override
-    public StateStatus translate(StringQuery stringQuery) {
-        if (valueInterpreter.interpret(stringQuery, queryBuilder)) {
+    public StateStatus translate(Query query) {
+        if (valueInterpreter.interpret(query, queryBuilder)) {
             return new StateStatus(false, new ValueTranslatorState(queryBuilder, keywordsResolver));
-        } else if (operatorInterpreter.interpret(stringQuery, queryBuilder)) {
+        } else if (operatorInterpreter.interpret(query, queryBuilder)) {
             return new StateStatus(false, this);
         }
         throw new InvalidQueryException("An operator should be followed by an other operator or by a value...");

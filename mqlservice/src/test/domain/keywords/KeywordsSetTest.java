@@ -1,4 +1,4 @@
-package domain.keyword;
+package domain.keywords;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +8,7 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-public class KeywordsTest {
+public class KeywordsSetTest {
     private static final String VALID_KEYWORD = "A VALID KEYWORD";
     private static final String INVALID_KEYWORD = "AN INVALID KEYWORD";
     private Set<String> keywordSet;
@@ -18,7 +18,7 @@ public class KeywordsTest {
     public void setUp() throws Exception {
         keywordSet = new HashSet<>();
         keywordSet.add(VALID_KEYWORD);
-        keywords = new Keywords(keywordSet);
+        keywords = new KeywordsSet(keywordSet);
     }
 
     @Test

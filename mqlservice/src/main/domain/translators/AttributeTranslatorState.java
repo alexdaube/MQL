@@ -2,10 +2,10 @@ package domain.translators;
 
 import domain.InvalidQueryException;
 import domain.querybuilder.QueryBuilder;
-import domain.StringQuery;
+import domain.Query;
 import domain.interpreters.Interpreter;
 import domain.interpreters.OperatorInterpreter;
-import domain.keyword.KeywordsResolver;
+import domain.keywords.KeywordsResolver;
 
 public class AttributeTranslatorState implements QueryTranslatorState {
     private final QueryBuilder queryBuilder;
@@ -19,8 +19,8 @@ public class AttributeTranslatorState implements QueryTranslatorState {
     }
 
     @Override
-    public StateStatus translate(StringQuery stringQuery) {
-        if (interpreter.interpret(stringQuery, queryBuilder)) {
+    public StateStatus translate(Query query) {
+        if (interpreter.interpret(query, queryBuilder)) {
             return new StateStatus(false, new OperatorTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("The attribute should be followed by an operator");
