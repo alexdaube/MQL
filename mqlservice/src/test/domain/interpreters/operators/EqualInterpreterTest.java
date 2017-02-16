@@ -1,4 +1,4 @@
-package domain.interpreters.junctions;
+package domain.interpreters.operators;
 
 import domain.Query;
 import domain.keywords.Keywords;
@@ -20,61 +20,61 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AndInterpreterTest {
-    private static final String AND_KEYWORD = "and";
+public class EqualInterpreterTest {
+    private static final String EQUAL_KEYWORD = "equal";
     @Mock
     private Keywords keywords;
     @Mock
     private QueryBuilder queryBuilder;
     @Mock
-    private Query andQuery;
+    private Query equalQuery;
     @Mock
     private Query invalidQuery;
-    private AndInterpreter andInterpreter;
-    private Matcher andMatcher;
+    private EqualInterpreter equalInterpreter;
+    private Matcher equalMatcher;
     private Matcher invalidMatcher;
 
     @Before
     public void setUp() throws Exception {
-        andInterpreter = new AndInterpreter(keywords);
-        andMatcher = AndInterpreter.AND_PATTERN.matcher(AND_KEYWORD);
+        equalInterpreter = new EqualInterpreter(keywords);
+        equalMatcher = EqualInterpreter.EQUAL_PATTERN.matcher(EQUAL_KEYWORD);
         invalidMatcher = Pattern.compile("An invalid one").matcher("");
-        willReturn(true).given(keywords).contains(AND_KEYWORD);
-        willReturn(andMatcher).given(andQuery).findMatches(any());
+        willReturn(true).given(keywords).contains(EQUAL_KEYWORD);
+        willReturn(equalMatcher).given(equalQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
     }
 
     @Test
-    public void givenAnAndQueryAndAQueryBuilder_whenInterpreting_thenReturnTrue() {
-        assertTrue(andInterpreter.interpret(andQuery, queryBuilder));
+    public void givenAnEqualQueryAndAQueryBuilder_whenInterpreting_thenReturnTrue() {
+        assertTrue(equalInterpreter.interpret(equalQuery, queryBuilder));
     }
 
     @Test
-    public void givenAnAndQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
-        andInterpreter.interpret(andQuery, queryBuilder);
-        verify(queryBuilder).and();
+    public void givenAnEqualQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
+        equalInterpreter.interpret(equalQuery, queryBuilder);
+        verify(queryBuilder).withEquals();
     }
 
     @Test
-    public void givenAnAndQueryAndAQueryBuilder_whenInterpreting_thenTheKeywordIsRemovedFromQuery() {
-        andInterpreter.interpret(andQuery, queryBuilder);
-        verify(andQuery).removeFirstMatch(any());
+    public void givenAnEqualQueryAndAQueryBuilder_whenInterpreting_thenTheKeywordIsRemovedFromQuery() {
+        equalInterpreter.interpret(equalQuery, queryBuilder);
+        verify(equalQuery).removeFirstMatch(any());
     }
 
     @Test
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenReturnFalse() {
-        assertFalse(andInterpreter.interpret(invalidQuery, queryBuilder));
+        assertFalse(equalInterpreter.interpret(invalidQuery, queryBuilder));
     }
 
     @Test
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsNotCalled() {
-        andInterpreter.interpret(invalidQuery, queryBuilder);
+        equalInterpreter.interpret(invalidQuery, queryBuilder);
         verify(queryBuilder, never()).and();
     }
 
     @Test
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
-        andInterpreter.interpret(invalidQuery, queryBuilder);
-        verify(andQuery, never()).removeFirstMatch(any());
+        equalInterpreter.interpret(invalidQuery, queryBuilder);
+        verify(equalQuery, never()).removeFirstMatch(any());
     }
 }

@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AndInterpreter implements Interpreter {
-    private static final Pattern AND_PATTERN = Pattern.compile("^[\\w]+");;
+    static final Pattern AND_PATTERN = Pattern.compile("^[\\w]+");;
     private final Keywords keywords;
 
     public AndInterpreter(Keywords keywords) {

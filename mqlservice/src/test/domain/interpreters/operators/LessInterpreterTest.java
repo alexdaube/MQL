@@ -1,4 +1,4 @@
-package domain.interpreters.junctions;
+package domain.interpreters.operators;
 
 import domain.Query;
 import domain.keywords.Keywords;
@@ -20,61 +20,61 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AndInterpreterTest {
-    private static final String AND_KEYWORD = "and";
+public class LessInterpreterTest {
+    private static final String LESS_KEYWORD = "less";
     @Mock
     private Keywords keywords;
     @Mock
     private QueryBuilder queryBuilder;
     @Mock
-    private Query andQuery;
+    private Query lessQuery;
     @Mock
     private Query invalidQuery;
-    private AndInterpreter andInterpreter;
-    private Matcher andMatcher;
+    private LessInterpreter lessInterpreter;
+    private Matcher lessMatcher;
     private Matcher invalidMatcher;
 
     @Before
     public void setUp() throws Exception {
-        andInterpreter = new AndInterpreter(keywords);
-        andMatcher = AndInterpreter.AND_PATTERN.matcher(AND_KEYWORD);
+        lessInterpreter = new LessInterpreter(keywords);
+        lessMatcher = LessInterpreter.LESS_PATTERN.matcher(LESS_KEYWORD);
         invalidMatcher = Pattern.compile("An invalid one").matcher("");
-        willReturn(true).given(keywords).contains(AND_KEYWORD);
-        willReturn(andMatcher).given(andQuery).findMatches(any());
+        willReturn(true).given(keywords).contains(LESS_KEYWORD);
+        willReturn(lessMatcher).given(lessQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
     }
 
     @Test
-    public void givenAnAndQueryAndAQueryBuilder_whenInterpreting_thenReturnTrue() {
-        assertTrue(andInterpreter.interpret(andQuery, queryBuilder));
+    public void givenAnLessQueryAndAQueryBuilder_whenInterpreting_thenReturnTrue() {
+        assertTrue(lessInterpreter.interpret(lessQuery, queryBuilder));
     }
 
     @Test
-    public void givenAnAndQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
-        andInterpreter.interpret(andQuery, queryBuilder);
-        verify(queryBuilder).and();
+    public void givenAnLessQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
+        lessInterpreter.interpret(lessQuery, queryBuilder);
+        verify(queryBuilder).withLess();
     }
 
     @Test
-    public void givenAnAndQueryAndAQueryBuilder_whenInterpreting_thenTheKeywordIsRemovedFromQuery() {
-        andInterpreter.interpret(andQuery, queryBuilder);
-        verify(andQuery).removeFirstMatch(any());
+    public void givenAnLessQueryAndAQueryBuilder_whenInterpreting_thenTheKeywordIsRemovedFromQuery() {
+        lessInterpreter.interpret(lessQuery, queryBuilder);
+        verify(lessQuery).removeFirstMatch(any());
     }
 
     @Test
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenReturnFalse() {
-        assertFalse(andInterpreter.interpret(invalidQuery, queryBuilder));
+        assertFalse(lessInterpreter.interpret(invalidQuery, queryBuilder));
     }
 
     @Test
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsNotCalled() {
-        andInterpreter.interpret(invalidQuery, queryBuilder);
+        lessInterpreter.interpret(invalidQuery, queryBuilder);
         verify(queryBuilder, never()).and();
     }
 
     @Test
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
-        andInterpreter.interpret(invalidQuery, queryBuilder);
-        verify(andQuery, never()).removeFirstMatch(any());
+        lessInterpreter.interpret(invalidQuery, queryBuilder);
+        verify(lessQuery, never()).removeFirstMatch(any());
     }
 }

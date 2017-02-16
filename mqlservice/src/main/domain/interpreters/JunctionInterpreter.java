@@ -15,7 +15,6 @@ public class JunctionInterpreter implements Interpreter {
         this.orInterpreter = new OrInterpreter(orKeywords);
     }
 
-    // TODO: 14/02/17 Adjust tests
     @Override
     public boolean interpret(Query query, QueryBuilder queryBuilder) {
         return andInterpreter.interpret(query, queryBuilder) || orInterpreter.interpret(query, queryBuilder);

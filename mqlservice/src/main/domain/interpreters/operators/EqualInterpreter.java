@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EqualInterpreter implements Interpreter {
-    private static final Pattern EQUAL_PATTERN = Pattern.compile("^[\\w-]+|^=");
+    static final Pattern EQUAL_PATTERN = Pattern.compile("^[\\w-]+|^=");
     private final Keywords keywords;
 
     public EqualInterpreter(Keywords keywords) {

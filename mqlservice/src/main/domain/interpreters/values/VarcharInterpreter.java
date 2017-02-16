@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class VarcharInterpreter implements Interpreter {
-    private static final Pattern VARCHAR_PATTERN = Pattern.compile("^(\"([^\"]+)\")");
+    static final Pattern VARCHAR_PATTERN = Pattern.compile("^(\"([^\"]+)\")");
 
     @Override
     public boolean interpret(Query query, QueryBuilder queryBuilder) {
