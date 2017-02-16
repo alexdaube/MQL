@@ -1,9 +1,15 @@
 package domain.keyword;
 
+import java.util.List;
+
 public interface Keyword {
 
     String getKeyword();
 
-    boolean isSubsetOf(Keyword keyword);
+    List<String> getSynonyms();
+
+    void setSynonyms(List<String> synonyms);
+
+    void setKeyword(String keyword);
 
 }

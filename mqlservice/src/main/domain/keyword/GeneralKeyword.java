@@ -2,18 +2,12 @@ package domain.keyword;
 
 import java.util.List;
 
-public class EntityKeyword implements Keyword {
+public class GeneralKeyword implements Keyword {
 
     private String keyword;
     private List<String> synonyms;
-    private List<Keyword> attributes;
 
-    public EntityKeyword() {
-
-    }
-
-    public void setAttributes(List<Keyword> attributes) {
-        this.attributes = attributes;
+    public GeneralKeyword() {
     }
 
     @Override
@@ -26,10 +20,13 @@ public class EntityKeyword implements Keyword {
         return this.synonyms;
     }
 
+    @Override
     public void setSynonyms(List<String> synonyms) {
         this.synonyms = synonyms;
     }
 
+
+    @Override
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }

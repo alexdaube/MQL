@@ -6,7 +6,5 @@ public interface KeywordRepository {
 
     Collection<Keyword> getAllKeywords();
 
-    Collection<Keyword> getSubsetKeywords(Keyword parentKeyword);
-
-    void create(Keyword keyword);
+    void create(Keyword keyword) throws KeywordAlreadyExistsException;
 }
