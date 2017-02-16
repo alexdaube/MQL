@@ -1,15 +1,16 @@
 package domain.interpreters.junctions;
 
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
 import domain.interpreters.Interpreter;
 import domain.keywords.Keywords;
+import domain.querybuilder.QueryBuilder;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AndInterpreter implements Interpreter {
-    static final Pattern AND_PATTERN = Pattern.compile("^[\\w]+");;
+    static final Pattern AND_PATTERN = Pattern.compile("^[\\w]+");
+    ;
     private final Keywords keywords;
 
     public AndInterpreter(Keywords keywords) {

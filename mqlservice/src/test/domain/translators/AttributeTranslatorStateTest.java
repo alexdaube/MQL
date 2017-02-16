@@ -1,12 +1,10 @@
 package domain.translators;
 
-import builders.KeywordsBuilder;
 import domain.InvalidQueryException;
-import domain.StringQuery;
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
-import domain.keywords.Keywords;
+import domain.interpreters.Interpreter;
 import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,21 +23,18 @@ public class AttributeTranslatorStateTest {
     private QueryBuilder queryBuilder;
     @Mock
     private KeywordsResolver keywordsResolver;
+    @Mock
     private Query operatorQuery;
+    @Mock
     private Query attributeQuery;
+    @Mock
+    private Interpreter interpreter;
     private AttributeTranslatorState attributeTranslatorState;
-    private Keywords operators;
-    private Keywords attributes;
 
     @Before
     public void setUp() throws Exception {
-        operatorQuery = new StringQuery("is 9.99");
-        attributeQuery = new StringQuery("name is 9.99");
-        operators = KeywordsBuilder.create().with("is").build();
-        attributes = KeywordsBuilder.create().with("name").build();
-        willReturn(operators).given(keywordsResolver).resolveEqualOperators();
-        willReturn(attributes).given(keywordsResolver).resolveAttributes();
-        attributeTranslatorState = new AttributeTranslatorState(queryBuilder, keywordsResolver);
+        attributeTranslatorState = new AttributeTranslatorState(queryBuilder, interpreter, keywordsResolver);
+        willReturn(true).given(interpreter).interpret(operatorQuery, queryBuilder);
     }
 
     @Test

@@ -1,7 +1,7 @@
 package domain.interpreters.values;
 
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
+import domain.querybuilder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +11,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyDouble;

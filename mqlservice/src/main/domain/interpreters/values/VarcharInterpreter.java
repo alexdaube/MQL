@@ -1,8 +1,8 @@
 package domain.interpreters.values;
 
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
 import domain.interpreters.Interpreter;
+import domain.querybuilder.QueryBuilder;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

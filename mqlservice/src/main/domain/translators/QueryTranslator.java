@@ -1,8 +1,8 @@
 package domain.translators;
 
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
 import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 
 public class QueryTranslator {
     private final QueryBuilder queryBuilder;

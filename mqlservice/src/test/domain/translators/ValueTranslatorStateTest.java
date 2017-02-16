@@ -1,12 +1,11 @@
 package domain.translators;
 
-import builders.KeywordsBuilder;
-import domain.StringQuery;
-import domain.querybuilder.QueryBuilder;
-import domain.Query;
 import domain.InvalidQueryException;
-import domain.keywords.Keywords;
+import domain.Query;
+import domain.StringQuery;
+import domain.interpreters.Interpreter;
 import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,11 +14,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.willReturn;
-import static org.mockito.Matchers.any;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ValueTranslatorStateTest {
@@ -28,23 +24,23 @@ public class ValueTranslatorStateTest {
     private QueryBuilder queryBuilder;
     @Mock
     private KeywordsResolver keywordsResolver;
-    private ValueTranslatorState valueTranslatorState;
-    private Keywords junctions;
-    private Keywords attributes;
+    @Mock
     private Query junctionQuery;
+    @Mock
     private Query attributeQuery;
+    @Mock
     private Query valueQuery;
+    @Mock
+    private Interpreter valueInterpreter;
+    @Mock
+    private Interpreter junctionInterpreter;
+    private ValueTranslatorState valueTranslatorState;
 
     @Before
     public void setUp() throws Exception {
-        junctionQuery = new StringQuery("and Employee name is 9.99");
-        attributeQuery = new StringQuery("name is 9.99");
-        valueQuery = new StringQuery("9.99");
-        junctions = KeywordsBuilder.create().with("and").build();
-        attributes = KeywordsBuilder.create().with("name").build();
-        willReturn(junctions).given(keywordsResolver).resolveAndJunctions();
-        willReturn(attributes).given(keywordsResolver).resolveAttributes();
-        valueTranslatorState = new ValueTranslatorState(queryBuilder, keywordsResolver);
+        valueTranslatorState = new ValueTranslatorState(valueInterpreter, junctionInterpreter, keywordsResolver, queryBuilder);
+        willReturn(true).given(valueInterpreter).interpret(valueQuery, queryBuilder);
+        willReturn(true).given(junctionInterpreter).interpret(junctionQuery, queryBuilder);
     }
 
     @Test

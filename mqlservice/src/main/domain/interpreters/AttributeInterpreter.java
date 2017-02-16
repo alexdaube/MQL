@@ -1,8 +1,8 @@
 package domain.interpreters;
 
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
 import domain.keywords.Keywords;
+import domain.querybuilder.QueryBuilder;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,7 +22,7 @@ public class AttributeInterpreter implements Interpreter {
             String match = matches.group();
             if (keywords.contains(match)) {
                 query.removeFirstMatch(ATTRIBUTE_PATTERN);
-                queryBuilder.withAttribute(keywords.parentKeyword());
+                queryBuilder.withAttribute(keywords.parentOf(match));
                 return true;
             }
         }

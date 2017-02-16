@@ -1,12 +1,12 @@
 package domain.translators;
 
 import domain.InvalidQueryException;
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
 import domain.interpreters.Interpreter;
 import domain.interpreters.JunctionInterpreter;
 import domain.interpreters.ValueInterpreter;
 import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 
 public class ValueTranslatorState implements QueryTranslatorState {
     private final Interpreter valueInterpreter;
@@ -15,10 +15,15 @@ public class ValueTranslatorState implements QueryTranslatorState {
     private final QueryBuilder queryBuilder;
 
     public ValueTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
-        this.valueInterpreter = new ValueInterpreter();
-        this.junctionInterpreter = new JunctionInterpreter(keywordsResolver.resolveAndJunctions(), keywordsResolver.resolveOrJunctions());
-        this.queryBuilder = queryBuilder;
+        this(new ValueInterpreter(), new JunctionInterpreter(keywordsResolver.resolveAndJunctions(),
+                keywordsResolver.resolveOrJunctions()), keywordsResolver, queryBuilder);
+    }
+
+    public ValueTranslatorState(Interpreter valueInterpreter, Interpreter junctionInterpreter, KeywordsResolver keywordsResolver, QueryBuilder queryBuilder) {
+        this.valueInterpreter = valueInterpreter;
+        this.junctionInterpreter = junctionInterpreter;
         this.keywordsResolver = keywordsResolver;
+        this.queryBuilder = queryBuilder;
     }
 
     @Override

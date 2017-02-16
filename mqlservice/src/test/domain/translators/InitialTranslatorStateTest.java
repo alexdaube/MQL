@@ -1,12 +1,10 @@
 package domain.translators;
 
-import builders.KeywordsBuilder;
 import domain.InvalidQueryException;
-import domain.StringQuery;
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
-import domain.keywords.Keywords;
+import domain.interpreters.Interpreter;
 import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,9 +16,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.willReturn;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class InitialTranslatorStateTest {
@@ -28,21 +23,18 @@ public class InitialTranslatorStateTest {
     private QueryBuilder queryBuilder;
     @Mock
     private KeywordsResolver keywordsResolver;
+    @Mock
     private Query operatorQuery;
+    @Mock
     private Query entityQuery;
+    @Mock
+    private Interpreter interpreter;
     private InitialTranslatorState initialTranslatorState;
-    private Keywords operators;
-    private Keywords entities;
 
     @Before
     public void setUp() throws Exception {
-        operatorQuery = new StringQuery("is 9.99");
-        entityQuery = new StringQuery("Employee name is 9.99");
-        operators = KeywordsBuilder.create().with("is").build();
-        entities = KeywordsBuilder.create().with("Employee").build();
-        willReturn(operators).given(keywordsResolver).resolveEqualOperators();
-        willReturn(entities).given(keywordsResolver).resolveEntities();
-        initialTranslatorState = new InitialTranslatorState(queryBuilder, keywordsResolver);
+        initialTranslatorState = new InitialTranslatorState(interpreter, keywordsResolver, queryBuilder);
+        willReturn(true).given(interpreter).interpret(entityQuery, queryBuilder);
     }
 
     @Test

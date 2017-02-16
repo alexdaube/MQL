@@ -1,11 +1,11 @@
 package domain.translators;
 
-import domain.querybuilder.QueryBuilder;
-import domain.Query;
 import domain.InvalidQueryException;
+import domain.Query;
 import domain.interpreters.AttributeInterpreter;
 import domain.interpreters.Interpreter;
 import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 
 public class EntityTranslatorState implements QueryTranslatorState {
     private final Interpreter attributeInterpreter;
@@ -13,7 +13,11 @@ public class EntityTranslatorState implements QueryTranslatorState {
     private final KeywordsResolver keywordsResolver;
 
     public EntityTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
-        this.attributeInterpreter = new AttributeInterpreter(keywordsResolver.resolveAttributes());
+        this(new AttributeInterpreter(keywordsResolver.resolveAttributes()), queryBuilder, keywordsResolver);
+    }
+
+    public EntityTranslatorState(Interpreter attributeInterpreter, QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
+        this.attributeInterpreter = attributeInterpreter;
         this.queryBuilder = queryBuilder;
         this.keywordsResolver = keywordsResolver;
     }

@@ -1,8 +1,11 @@
 package domain.interpreters;
 
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
-import domain.interpreters.values.*;
+import domain.interpreters.values.DateInterpreter;
+import domain.interpreters.values.DecimalInterpreter;
+import domain.interpreters.values.IntegerInterpreter;
+import domain.interpreters.values.VarcharInterpreter;
+import domain.querybuilder.QueryBuilder;
 
 public class ValueInterpreter implements Interpreter {
     private final Interpreter valueInterpreters;

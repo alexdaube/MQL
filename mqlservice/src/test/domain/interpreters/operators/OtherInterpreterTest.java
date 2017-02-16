@@ -1,7 +1,6 @@
 package domain.interpreters.operators;
 
 import domain.Query;
-import domain.interpreters.junctions.AndInterpreter;
 import domain.keywords.Keywords;
 import domain.querybuilder.QueryBuilder;
 import org.junit.Before;
@@ -13,7 +12,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;

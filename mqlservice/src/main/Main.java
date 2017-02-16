@@ -65,5 +65,7 @@ public class Main {
             // Note: this may or may not be necessary in your particular application
             response.type("application/json");
         });
-    };
+    }
+
+    ;
 }

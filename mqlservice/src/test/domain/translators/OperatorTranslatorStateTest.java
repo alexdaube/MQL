@@ -1,12 +1,10 @@
 package domain.translators;
 
-import builders.KeywordsBuilder;
 import domain.InvalidQueryException;
-import domain.StringQuery;
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
-import domain.keywords.Keywords;
+import domain.interpreters.Interpreter;
 import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +16,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.willReturn;
-import static org.mockito.Matchers.any;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OperatorTranslatorStateTest {
@@ -26,23 +23,23 @@ public class OperatorTranslatorStateTest {
     private QueryBuilder queryBuilder;
     @Mock
     private KeywordsResolver keywordsResolver;
-    private OperatorTranslatorState operatorTranslatorState;
+    @Mock
     private Query operatorQuery;
+    @Mock
     private Query attributeQuery;
+    @Mock
     private Query valueQuery;
-    private Keywords operators;
-    private Keywords attributes;
+    @Mock
+    private Interpreter valueInterpreter;
+    @Mock
+    private Interpreter operatorInterpreter;
+    private OperatorTranslatorState operatorTranslatorState;
 
     @Before
     public void setUp() throws Exception {
-        operatorQuery = new StringQuery("is 9.99");
-        attributeQuery = new StringQuery("name is 9.99");
-        valueQuery = new StringQuery("9.99");
-        operators = KeywordsBuilder.create().with("is").build();
-        attributes = KeywordsBuilder.create().with("name").build();
-        willReturn(operators).given(keywordsResolver).resolveEqualOperators();
-        willReturn(attributes).given(keywordsResolver).resolveAttributes();
-        operatorTranslatorState = new OperatorTranslatorState(queryBuilder, keywordsResolver);
+        operatorTranslatorState = new OperatorTranslatorState(valueInterpreter, operatorInterpreter, keywordsResolver, queryBuilder);
+        willReturn(true).given(valueInterpreter).interpret(valueQuery, queryBuilder);
+        willReturn(true).given(operatorInterpreter).interpret(operatorQuery, queryBuilder);
     }
 
     @Test

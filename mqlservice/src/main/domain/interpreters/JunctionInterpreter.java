@@ -1,10 +1,10 @@
 package domain.interpreters;
 
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
 import domain.interpreters.junctions.AndInterpreter;
 import domain.interpreters.junctions.OrInterpreter;
 import domain.keywords.Keywords;
+import domain.querybuilder.QueryBuilder;
 
 public class JunctionInterpreter implements Interpreter {
     private final AndInterpreter andInterpreter;

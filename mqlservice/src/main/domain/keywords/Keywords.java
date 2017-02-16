@@ -1,9 +1,8 @@
 package domain.keywords;
 
-import java.util.Set;
-
 public interface Keywords {
 
     boolean contains(String keyword);
-    String parentKeyword();
+
+    String parentOf(String keyword);
 }

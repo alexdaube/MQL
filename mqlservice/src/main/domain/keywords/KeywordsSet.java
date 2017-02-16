@@ -1,24 +1,24 @@
 package domain.keywords;
 
+import domain.InvalidQueryException;
+
 import java.util.Set;
 
 public class KeywordsSet implements Keywords {
-    private final String parent;
-    private final Set<String> children;
+    private final Set<Keyword> keywords;
 
-    public KeywordsSet(String parent, Set<String> children) {
-        this.parent = parent;
-        this.children = children;
+    public KeywordsSet(Set<Keyword> keywords) {
+        this.keywords = keywords;
     }
 
     @Override
     public boolean contains(String keyword) {
-        return children.contains(keyword) || keyword.equals(parent);
+        return keywords.stream().anyMatch(kw -> kw.word.equals(keyword));
     }
 
-    // TODO: 16/02/17 A tester
-    @Override
-    public String parentKeyword() {
-        return parent;
+    public String parentOf(String keyword) {
+        Keyword k = keywords.stream().filter(kw -> kw.word.equals(keyword)).findFirst()
+                .orElseThrow(() -> new InvalidQueryException("No keyword found..."));
+        return k.parent;
     }
 }

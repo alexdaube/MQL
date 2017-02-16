@@ -1,7 +1,7 @@
 package domain.interpreters;
 
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
+import domain.querybuilder.QueryBuilder;
 
 public interface Interpreter {
     boolean interpret(Query query, QueryBuilder queryBuilder);
