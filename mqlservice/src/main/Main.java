@@ -39,6 +39,7 @@ public class Main {
     }
 
     private static void initServer(QueryController queryController) {
+        enableCORS("*", "POST, GET, OPTIONS, DELETE, PUT", "x-requested-with, Content-Type");
         queryController.initializeEndPoints();
     }
 
@@ -65,5 +66,7 @@ public class Main {
             // Note: this may or may not be necessary in your particular application
             response.type("application/json");
         });
-    };
+    }
+
+    ;
 }
