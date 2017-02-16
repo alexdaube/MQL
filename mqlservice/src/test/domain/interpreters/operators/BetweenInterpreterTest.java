@@ -1,4 +1,4 @@
-package domain.interpreters.junctions;
+package domain.interpreters.operators;
 
 import domain.Query;
 import domain.keywords.Keywords;
@@ -20,61 +20,61 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AndInterpreterTest {
-    private static final String AND_KEYWORD = "and";
+public class BetweenInterpreterTest {
+    private static final String BETWEEN_KEYWORD = "between";
     @Mock
     private Keywords keywords;
     @Mock
     private QueryBuilder queryBuilder;
     @Mock
-    private Query andQuery;
+    private Query betweenQuery;
     @Mock
     private Query invalidQuery;
-    private AndInterpreter andInterpreter;
-    private Matcher andMatcher;
+    private BetweenInterpreter betweenInterpreter;
+    private Matcher betweenMatcher;
     private Matcher invalidMatcher;
 
     @Before
     public void setUp() throws Exception {
-        andInterpreter = new AndInterpreter(keywords);
-        andMatcher = AndInterpreter.AND_PATTERN.matcher(AND_KEYWORD);
+        betweenInterpreter = new BetweenInterpreter(keywords);
+        betweenMatcher = BetweenInterpreter.BETWEEN_PATTERN.matcher(BETWEEN_KEYWORD);
         invalidMatcher = Pattern.compile("An invalid one").matcher("");
-        willReturn(true).given(keywords).contains(AND_KEYWORD);
-        willReturn(andMatcher).given(andQuery).findMatches(any());
+        willReturn(true).given(keywords).contains(BETWEEN_KEYWORD);
+        willReturn(betweenMatcher).given(betweenQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
     }
 
     @Test
-    public void givenAnAndQueryAndAQueryBuilder_whenInterpreting_thenReturnTrue() {
-        assertTrue(andInterpreter.interpret(andQuery, queryBuilder));
+    public void givenAnBetweenQueryAndAQueryBuilder_whenInterpreting_thenReturnTrue() {
+        assertTrue(betweenInterpreter.interpret(betweenQuery, queryBuilder));
     }
 
     @Test
-    public void givenAnAndQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
-        andInterpreter.interpret(andQuery, queryBuilder);
-        verify(queryBuilder).and();
+    public void givenAnBetweenQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
+        betweenInterpreter.interpret(betweenQuery, queryBuilder);
+        verify(queryBuilder).withBetween();
     }
 
     @Test
-    public void givenAnAndQueryAndAQueryBuilder_whenInterpreting_thenTheKeywordIsRemovedFromQuery() {
-        andInterpreter.interpret(andQuery, queryBuilder);
-        verify(andQuery).removeFirstMatch(any());
+    public void givenAnBetweenQueryAndAQueryBuilder_whenInterpreting_thenTheKeywordIsRemovedFromQuery() {
+        betweenInterpreter.interpret(betweenQuery, queryBuilder);
+        verify(betweenQuery).removeFirstMatch(any());
     }
 
     @Test
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenReturnFalse() {
-        assertFalse(andInterpreter.interpret(invalidQuery, queryBuilder));
+        assertFalse(betweenInterpreter.interpret(invalidQuery, queryBuilder));
     }
 
     @Test
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsNotCalled() {
-        andInterpreter.interpret(invalidQuery, queryBuilder);
+        betweenInterpreter.interpret(invalidQuery, queryBuilder);
         verify(queryBuilder, never()).and();
     }
 
     @Test
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
-        andInterpreter.interpret(invalidQuery, queryBuilder);
-        verify(andQuery, never()).removeFirstMatch(any());
+        betweenInterpreter.interpret(invalidQuery, queryBuilder);
+        verify(betweenQuery, never()).removeFirstMatch(any());
     }
 }

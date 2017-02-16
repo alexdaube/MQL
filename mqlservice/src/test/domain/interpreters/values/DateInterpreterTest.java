@@ -1,60 +1,76 @@
 package domain.interpreters.values;
 
-import domain.StringQuery;
-import domain.querybuilder.QueryBuilder;
 import domain.Query;
+import domain.querybuilder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.sql.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DateInterpreterTest {
-    private static final String SMALL_DATE = "1992-10-22";
-    private static final String MEDIUM_DATE = SMALL_DATE + " 18:35:30";
-    private static final String FULL_DATE = MEDIUM_DATE + ".999";
+    private static final String DATE_KEYWORD = "1990-10-10";
     @Mock
     private QueryBuilder queryBuilder;
-    private Query validDateQuery;
-    private Query invalidDateQuery;
+    @Mock
+    private Query dateQuery;
+    @Mock
+    private Query invalidQuery;
     private DateInterpreter dateInterpreter;
+    private Matcher dateMatcher;
+    private Matcher invalidMatcher;
 
     @Before
     public void setUp() throws Exception {
         dateInterpreter = new DateInterpreter();
-        validDateQuery = new StringQuery(FULL_DATE);
-        invalidDateQuery = new StringQuery("a" + FULL_DATE);
+        dateMatcher = DateInterpreter.DATE_PATTERN.matcher(DATE_KEYWORD);
+        invalidMatcher = Pattern.compile("An invalid one").matcher("");
+        willReturn(dateMatcher).given(dateQuery).findMatches(any());
+        willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
     }
 
     @Test
-    public void givenAValidDateQueryAndABuilder_whenInterpreting_thenReturnTrue() throws Exception {
-        boolean returnValue = dateInterpreter.interpret(validDateQuery, queryBuilder);
-        assertTrue(returnValue);
+    public void givenAnDateQueryAndAQueryBuilder_whenInterpreting_thenReturnTrue() {
+        assertTrue(dateInterpreter.interpret(dateQuery, queryBuilder));
     }
 
     @Test
-    public void givenAValidDateQueryAndABuilder_whenInterpreting_thenTheValueIsAddedToTheBuilder() throws Exception {
-        dateInterpreter.interpret(validDateQuery, queryBuilder);
-        verify(queryBuilder).withDate(any(Date.class));
+    public void givenAnDateQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
+        dateInterpreter.interpret(dateQuery, queryBuilder);
+        verify(queryBuilder).withDate(any());
     }
 
     @Test
-    public void givenAnInvalidDateQueryAndABuilder_whenInterpreting_thenReturnFalse() throws Exception {
-        boolean returnValue = dateInterpreter.interpret(invalidDateQuery, queryBuilder);
-        assertFalse(returnValue);
+    public void givenAnDateQueryAndAQueryBuilder_whenInterpreting_thenTheKeywordIsRemovedFromQuery() {
+        dateInterpreter.interpret(dateQuery, queryBuilder);
+        verify(dateQuery).removeFirstMatch(any());
     }
 
     @Test
-    public void givenAnInvalidDateQueryAndABuilder_whenInterpreting_thenTheBuilderShouldNotBeCalled() throws Exception {
-        dateInterpreter.interpret(invalidDateQuery, queryBuilder);
-        verifyZeroInteractions(queryBuilder);
+    public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenReturnFalse() {
+        assertFalse(dateInterpreter.interpret(invalidQuery, queryBuilder));
+    }
+
+    @Test
+    public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsNotCalled() {
+        dateInterpreter.interpret(invalidQuery, queryBuilder);
+        verify(queryBuilder, never()).and();
+    }
+
+    @Test
+    public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
+        dateInterpreter.interpret(invalidQuery, queryBuilder);
+        verify(dateQuery, never()).removeFirstMatch(any());
     }
 }

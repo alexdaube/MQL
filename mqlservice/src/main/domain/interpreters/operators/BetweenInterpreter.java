@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BetweenInterpreter implements Interpreter {
-    private static final Pattern BETWEEN_PATTERN = Pattern.compile("^[\\w-]+");
+    static final Pattern BETWEEN_PATTERN = Pattern.compile("^[\\w-]+");
     private final Keywords keywords;
 
     public BetweenInterpreter(Keywords keywords) {

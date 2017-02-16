@@ -12,69 +12,68 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AndInterpreterTest {
-    private static final String AND_KEYWORD = "and";
+public class OrInterpreterTest {
+    private static final String OR_KEYWORD = "or";
     @Mock
     private Keywords keywords;
     @Mock
     private QueryBuilder queryBuilder;
     @Mock
-    private Query andQuery;
+    private Query orQuery;
     @Mock
     private Query invalidQuery;
-    private AndInterpreter andInterpreter;
-    private Matcher andMatcher;
+    private OrInterpreter orInterpreter;
+    private Matcher orMatcher;
     private Matcher invalidMatcher;
 
     @Before
     public void setUp() throws Exception {
-        andInterpreter = new AndInterpreter(keywords);
-        andMatcher = AndInterpreter.AND_PATTERN.matcher(AND_KEYWORD);
+        orInterpreter = new OrInterpreter(keywords);
+        orMatcher = OrInterpreter.OR_PATTERN.matcher(OR_KEYWORD);
         invalidMatcher = Pattern.compile("An invalid one").matcher("");
-        willReturn(true).given(keywords).contains(AND_KEYWORD);
-        willReturn(andMatcher).given(andQuery).findMatches(any());
+        willReturn(true).given(keywords).contains(OR_KEYWORD);
+        willReturn(orMatcher).given(orQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
     }
 
     @Test
-    public void givenAnAndQueryAndAQueryBuilder_whenInterpreting_thenReturnTrue() {
-        assertTrue(andInterpreter.interpret(andQuery, queryBuilder));
+    public void givenAnOrQueryAndAQueryBuilder_whenInterpreting_thenReturnTrue() {
+        assertTrue(orInterpreter.interpret(orQuery, queryBuilder));
     }
 
     @Test
-    public void givenAnAndQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
-        andInterpreter.interpret(andQuery, queryBuilder);
-        verify(queryBuilder).and();
+    public void givenAnOrQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
+        orInterpreter.interpret(orQuery, queryBuilder);
+        verify(queryBuilder).or();
     }
 
     @Test
-    public void givenAnAndQueryAndAQueryBuilder_whenInterpreting_thenTheKeywordIsRemovedFromQuery() {
-        andInterpreter.interpret(andQuery, queryBuilder);
-        verify(andQuery).removeFirstMatch(any());
+    public void givenAnOrQueryAndAQueryBuilder_whenInterpreting_thenTheKeywordIsRemovedFromQuery() {
+        orInterpreter.interpret(orQuery, queryBuilder);
+        verify(orQuery).removeFirstMatch(any());
     }
 
     @Test
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenReturnFalse() {
-        assertFalse(andInterpreter.interpret(invalidQuery, queryBuilder));
+        assertFalse(orInterpreter.interpret(invalidQuery, queryBuilder));
     }
 
     @Test
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsNotCalled() {
-        andInterpreter.interpret(invalidQuery, queryBuilder);
+        orInterpreter.interpret(invalidQuery, queryBuilder);
         verify(queryBuilder, never()).and();
     }
 
     @Test
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
-        andInterpreter.interpret(invalidQuery, queryBuilder);
-        verify(andQuery, never()).removeFirstMatch(any());
+        orInterpreter.interpret(invalidQuery, queryBuilder);
+        verify(orQuery, never()).removeFirstMatch(any());
     }
 }

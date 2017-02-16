@@ -25,13 +25,13 @@ public class QueryTranslatorTest {
 
     @Before
     public void setUp() throws Exception {
-        willReturn(KeywordsBuilder.create().with("is").with("equal").with("in").with("equals").with("=").build())
+        willReturn(KeywordsBuilder.create().withParent("=").with("is").with("equal").with("in").with("equals").with("=").build())
                 .given(keywordsResolver).resolveEqualOperators();
-        willReturn(KeywordsBuilder.create().with("to").with("than").with("or").build()).given(keywordsResolver).resolveOtherOperators();
-        willReturn(KeywordsBuilder.create().with("less").with("<").build()).given(keywordsResolver).resolveLessOperators();
-        willReturn(KeywordsBuilder.create().with("greater").with(">").build()).given(keywordsResolver).resolveGreaterOperators();
-        willReturn(KeywordsBuilder.create().with("Employee").with("Site").build()).given(keywordsResolver).resolveEntities();
-        willReturn(KeywordsBuilder.create().with("name").with("age").build()).given(keywordsResolver).resolveAttributes();
+        willReturn(KeywordsBuilder.create().withParent("than").with("to").with("than").with("or").build()).given(keywordsResolver).resolveOtherOperators();
+        willReturn(KeywordsBuilder.create().withParent("<").with("less").with("<").build()).given(keywordsResolver).resolveLessOperators();
+        willReturn(KeywordsBuilder.create().withParent(">").with("greater").with(">").build()).given(keywordsResolver).resolveGreaterOperators();
+        willReturn(KeywordsBuilder.create().withParent("Employee").with("Employee").with("Site").build()).given(keywordsResolver).resolveEntities();
+        willReturn(KeywordsBuilder.create().withParent("name").with("name").with("age").build()).given(keywordsResolver).resolveAttributes();
         willReturn(KeywordsBuilder.create().with("and").build()).given(keywordsResolver).resolveAndJunctions();
         willReturn(KeywordsBuilder.create().with("or").build()).given(keywordsResolver).resolveOrJunctions();
         willReturn(KeywordsBuilder.create().with("between").build()).given(keywordsResolver).resolveBetweenOperators();
