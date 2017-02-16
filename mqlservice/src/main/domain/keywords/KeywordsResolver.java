@@ -10,4 +10,6 @@ public interface KeywordsResolver {
     Keywords resolveLessOperators();
     Keywords resolveOtherOperators();
     Keywords resolveBetweenOperators();
+
+    void initializeKeywords(EntityMap entityMap);
 }

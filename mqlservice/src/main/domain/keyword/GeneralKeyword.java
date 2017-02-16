@@ -1,11 +1,11 @@
 package domain.keyword;
 
-import java.util.List;
+import java.util.Set;
 
 public class GeneralKeyword implements Keyword {
 
     private String keyword;
-    private List<String> synonyms;
+    private Set<String> synonyms;
 
     public GeneralKeyword() {
     }
@@ -16,12 +16,12 @@ public class GeneralKeyword implements Keyword {
     }
 
     @Override
-    public List<String> getSynonyms() {
+    public Set<String> getSynonyms() {
         return this.synonyms;
     }
 
     @Override
-    public void setSynonyms(List<String> synonyms) {
+    public void setSynonyms(Set<String> synonyms) {
         this.synonyms = synonyms;
     }
 

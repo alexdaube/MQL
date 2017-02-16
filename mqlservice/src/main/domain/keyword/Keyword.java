@@ -1,14 +1,14 @@
 package domain.keyword;
 
-import java.util.List;
+import java.util.Set;
 
 public interface Keyword {
 
     String getKeyword();
 
-    List<String> getSynonyms();
+    Set<String> getSynonyms();
 
-    void setSynonyms(List<String> synonyms);
+    void setSynonyms(Set<String> synonyms);
 
     void setKeyword(String keyword);
 
