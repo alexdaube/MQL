@@ -21,7 +21,7 @@ export default class Header extends React.Component<any, any>  {
     render() {
         return (
             <div>
-                <Navbar color="faded" light toggleable>
+                <Navbar color="primary" inverse toggleable>
                     <NavbarToggler right onClick={this.toggle} />
                     <NavbarBrand href="/">MQL Demo</NavbarBrand>
                     <Collapse isOpen={this.state.isOpen} navbar>

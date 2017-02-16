@@ -6,6 +6,7 @@ export class App extends React.Component<any, any> {
         return (
             <div>
                 <Header/>
+                <br/>
                 {this.props.children}
             </div>
         );

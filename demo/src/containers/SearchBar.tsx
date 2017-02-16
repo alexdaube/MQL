@@ -44,7 +44,7 @@ class SearchBar extends React.Component<any, ISearchBarState> {
                             id="exampleText"
                             placeholder="Basic query format is Keyword + Operator + Value"/>
                         <InputGroupButton>
-                            <Button color="info">Submit</Button>
+                            <Button color="success">Submit</Button>
                         </InputGroupButton>
                     </InputGroup>
                 </FormGroup>
