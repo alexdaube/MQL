@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GreaterInterpreter implements Interpreter {
-    private static final Pattern GREATER_PATTERN = Pattern.compile("^[\\w-]+");
+    private static final Pattern GREATER_PATTERN = Pattern.compile("^[\\w-]+|^>");
     private final Keywords keywords;
 
     public GreaterInterpreter(Keywords keywords) {
@@ -21,7 +21,7 @@ public class GreaterInterpreter implements Interpreter {
         Matcher matches = query.findMatches(GREATER_PATTERN);
         if (matches.find()) {
             String match = matches.group();
-            if (keywords.contains(match)) {
+            if (keywords.contains(match.toLowerCase())) {
                 query.removeFirstMatch(GREATER_PATTERN);
                 queryBuilder.withGreater();
                 return true;

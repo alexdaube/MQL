@@ -1,6 +1,7 @@
 package domain.querybuilder;
 
 import com.healthmarketscience.sqlbuilder.BinaryCondition;
+import com.healthmarketscience.sqlbuilder.Condition;
 import com.healthmarketscience.sqlbuilder.InCondition;
 import domain.InvalidQueryException;
 
@@ -11,13 +12,12 @@ public class EqualState extends BaseState {
     }
 
     @Override
-    public void apply() {
+    public Condition apply() {
         if (values.size() > 1) {
-            queryBuilder.newCondition = new InCondition(queryBuilder.getAttribute(), values);
+            return new InCondition(queryBuilder.getAttribute(), values);
         } else if (values.size() == 1) {
-            queryBuilder.newCondition = BinaryCondition.equalTo(queryBuilder.getAttribute(), values.get(0));
-        } else {
-            throw new InvalidQueryException("The equal operator should be followed by value(s)...");
+            return BinaryCondition.equalTo(queryBuilder.getAttribute(), values.get(0));
         }
+        throw new InvalidQueryException("The equal operator should be followed by value(s)...");
     }
 }

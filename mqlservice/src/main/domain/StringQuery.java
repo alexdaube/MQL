@@ -8,7 +8,7 @@ public class StringQuery {
     private String query;
 
     public StringQuery(String query) {
-        this.stripPattern = Pattern.compile("^[^\\w\"-]+");
+        this.stripPattern = Pattern.compile("^[^\\w\"<>=-]+");
         this.query = query;
     }
 

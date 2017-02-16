@@ -1,6 +1,7 @@
 package domain.querybuilder;
 
 import com.healthmarketscience.sqlbuilder.BetweenCondition;
+import com.healthmarketscience.sqlbuilder.Condition;
 import domain.InvalidQueryException;
 
 public class BetweenState extends BaseState {
@@ -27,10 +28,10 @@ public class BetweenState extends BaseState {
     }
 
     @Override
-    public void apply() {
+    public Condition apply() {
         if (values.size() != 2) {
             throw new InvalidQueryException("Between statement needs two values");
         }
-        queryBuilder.newCondition = new BetweenCondition(queryBuilder.getAttribute(), values.get(0), values.get(1));
+        return new BetweenCondition(queryBuilder.getAttribute(), values.get(0), values.get(1));
     }
 }

@@ -7,14 +7,12 @@ import com.healthmarketscience.sqlbuilder.dbspec.basic.DbTable;
 import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.keyword.KeywordsResolver;
+import domain.querybuilder.SqlQueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.mockito.BDDMockito.willReturn;
 
@@ -27,11 +25,11 @@ public class QueryTranslatorTest {
 
     @Before
     public void setUp() throws Exception {
-        willReturn(KeywordsBuilder.create().with("is").with("equal").with("in").with("equals").build())
+        willReturn(KeywordsBuilder.create().with("is").with("equal").with("in").with("equals").with("=").build())
                 .given(keywordsResolver).resolveEqualOperators();
         willReturn(KeywordsBuilder.create().with("to").with("than").with("or").build()).given(keywordsResolver).resolveOtherOperators();
-        willReturn(KeywordsBuilder.create().with("less").build()).given(keywordsResolver).resolveLessOperators();
-        willReturn(KeywordsBuilder.create().with("greater").build()).given(keywordsResolver).resolveGreaterOperators();
+        willReturn(KeywordsBuilder.create().with("less").with("<").build()).given(keywordsResolver).resolveLessOperators();
+        willReturn(KeywordsBuilder.create().with("greater").with(">").build()).given(keywordsResolver).resolveGreaterOperators();
         willReturn(KeywordsBuilder.create().with("Employee").with("Site").build()).given(keywordsResolver).resolveEntities();
         willReturn(KeywordsBuilder.create().with("name").build()).given(keywordsResolver).resolveAttributes();
         willReturn(KeywordsBuilder.create().with("and").build()).given(keywordsResolver).resolveAndJunctions();
@@ -44,12 +42,12 @@ public class QueryTranslatorTest {
         employee.addColumn("age", "number", null);
         DbTable site = schema.addTable("Site");
         site.addColumn("name", "varchar", 255);
-        queryTranslator = new QueryTranslator(new QueryBuilder(schema).withAllTableColumns(), keywordsResolver);
+        queryTranslator = new QueryTranslator(new SqlQueryBuilder(schema).withAllTablesColumns(), keywordsResolver);
     }
 
     @Test
     public void translate0() throws Exception {
-        String query = "   Employee name is \"Nicolas\"";
+        String query = "   Employee name is <= \"Nicolas\" and name >= 9";
         System.out.println(query);
         queryTranslator.translate(new StringQuery(query));
     }

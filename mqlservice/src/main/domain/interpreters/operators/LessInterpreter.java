@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LessInterpreter implements Interpreter {
-    private static final Pattern LESS_PATTERN = Pattern.compile("^[\\w-]+");
+    private static final Pattern LESS_PATTERN = Pattern.compile("^[\\w-]+|^<");
     private final Keywords keywords;
 
     public LessInterpreter(Keywords keywords) {
@@ -21,7 +21,7 @@ public class LessInterpreter implements Interpreter {
         Matcher matches = query.findMatches(LESS_PATTERN);
         if (matches.find()) {
             String match = matches.group();
-            if (keywords.contains(match)) {
+            if (keywords.contains(match.toLowerCase())) {
                 query.removeFirstMatch(LESS_PATTERN);
                 queryBuilder.withLess();
                 return true;

@@ -21,7 +21,7 @@ public class BetweenInterpreter implements Interpreter {
         Matcher matches = query.findMatches(BETWEEN_PATTERN);
         if (matches.find()) {
             String match = matches.group();
-            if (keywords.contains(match)) {
+            if (keywords.contains(match.toLowerCase())) {
                 query.removeFirstMatch(BETWEEN_PATTERN);
                 queryBuilder.withBetween();
                 return true;

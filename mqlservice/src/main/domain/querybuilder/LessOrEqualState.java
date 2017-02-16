@@ -1,6 +1,7 @@
 package domain.querybuilder;
 
 import com.healthmarketscience.sqlbuilder.BinaryCondition;
+import com.healthmarketscience.sqlbuilder.Condition;
 import domain.InvalidQueryException;
 
 public class LessOrEqualState extends BaseState {
@@ -9,10 +10,10 @@ public class LessOrEqualState extends BaseState {
     }
 
     @Override
-    public void apply() {
+    public Condition apply() {
         if (values.size() != 1) {
             throw new InvalidQueryException("The Less or Equal expression accept only one value...");
         }
-        queryBuilder.newCondition = BinaryCondition.lessThanOrEq(queryBuilder.getAttribute(), values.get(0));
+        return BinaryCondition.lessThanOrEq(queryBuilder.getAttribute(), values.get(0));
     }
 }

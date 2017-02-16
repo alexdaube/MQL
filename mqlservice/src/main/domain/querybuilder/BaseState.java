@@ -57,15 +57,18 @@ public abstract class BaseState implements OperatorState {
 
     @Override
     public void and() {
-        queryBuilder.updateQuery();
-        queryBuilder.junction = ComboCondition.Op.AND;
-        values = new LinkedList<>();
+        update();
+        queryBuilder.setJunction(ComboCondition.Op.AND);
     }
 
     @Override
     public void or() {
-        queryBuilder.updateQuery();
-        queryBuilder.junction = ComboCondition.Op.OR;
+        update();
+        queryBuilder.setJunction(ComboCondition.Op.OR);
+    }
+
+    private void update() {
+        queryBuilder.applyCondition(apply());
         values = new LinkedList<>();
     }
 }

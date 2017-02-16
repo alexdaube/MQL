@@ -1,6 +1,7 @@
 package domain.querybuilder;
 
 import com.healthmarketscience.sqlbuilder.BinaryCondition;
+import com.healthmarketscience.sqlbuilder.Condition;
 import domain.InvalidQueryException;
 
 public class GreaterState extends BaseState {
@@ -14,10 +15,10 @@ public class GreaterState extends BaseState {
     }
 
     @Override
-    public void apply() {
+    public Condition apply() {
         if (values.size() != 1) {
             throw new InvalidQueryException("Greater than expression only accept one value...");
         }
-        queryBuilder.newCondition = BinaryCondition.greaterThan(queryBuilder.getAttribute(), values.get(0));
+        return BinaryCondition.greaterThan(queryBuilder.getAttribute(), values.get(0));
     }
 }

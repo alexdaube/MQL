@@ -2,126 +2,43 @@ package domain.querybuilder;
 
 import com.healthmarketscience.sqlbuilder.ComboCondition;
 import com.healthmarketscience.sqlbuilder.Condition;
-import com.healthmarketscience.sqlbuilder.SelectQuery;
 import com.healthmarketscience.sqlbuilder.dbspec.Column;
-import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
 
 import java.sql.Date;
 
-public class QueryBuilder {
-    private DbSchema schema;
-    private SelectQuery selectQuery;
-    public String table;
-    public String attribute;
-    public Condition condition;
-    public Condition newCondition;
-    public ComboCondition.Op junction;
-    private OperatorState operatorState;
+public interface QueryBuilder {
 
-    public QueryBuilder(DbSchema schema) {
-        this.schema = schema;
-        this.operatorState = new EqualState(this);
-        junction = null;
-        selectQuery = new SelectQuery();
-    }
+    domain.Query build();
 
-    public domain.Query build() {
-        updateQuery();
-        selectQuery.addCondition(condition.setDisableParens(false));
-        selectQuery.validate();
-        System.out.println(selectQuery.toString());
-        return null;
-    }
+    QueryBuilder withEntity(String entity);
 
-    public QueryBuilder withAllTableColumns() {
-        schema.getTables().forEach(selectQuery::addAllTableColumns);
-        return this;
-    }
+    QueryBuilder withAttribute(String attribute);
 
-    public QueryBuilder withTableColumns(String table) {
-        selectQuery.addAllTableColumns(schema.findTable(table));
-        return this;
-    }
+    QueryBuilder withEquals();
 
-    public QueryBuilder withTableColumn(String table, String column) {
-        selectQuery.addColumns(schema.findTable(table).findColumn(column));
-        return this;
-    }
+    QueryBuilder withGreater();
 
-    public QueryBuilder withEntity(String entity) {
-        table = entity;
-        this.attribute = null;
-        return this;
-    }
+    QueryBuilder withLess();
 
-    public QueryBuilder withAttribute(String attribute) {
-        this.attribute = attribute;
-        return this;
-    }
+    void withBetween();
 
-    public QueryBuilder withEquals() {
-        this.operatorState.withEquals();
-        return this;
-    }
+    QueryBuilder withVarchar(String value);
 
-    public QueryBuilder withGreater() {
-        this.operatorState.withGreater();
-        return this;
-    }
+    QueryBuilder withInteger(int value);
 
-    public QueryBuilder withLess() {
-        this.operatorState.withLess();
-        return this;
-    }
+    QueryBuilder withDecimal(double value);
 
-    public QueryBuilder withVarchar(String value) {
-        this.operatorState.withVarchar(value);
-        return this;
-    }
+    QueryBuilder withDate(Date date);
 
-    public QueryBuilder withInteger(int value) {
-        this.operatorState.withInteger(value);
-        return this;
-    }
+    QueryBuilder and();
 
-    public QueryBuilder withDecimal(double value) {
-        this.operatorState.withDecimal(value);
-        return this;
-    }
+    QueryBuilder or();
 
-    public QueryBuilder withDate(Date date) {
-        this.operatorState.withDate(date);
-        return this;
-    }
+    void changeState(OperatorState operatorState);
 
-    public QueryBuilder and() {
-        this.operatorState.and();
-        return this;
-    }
+    void applyCondition(Condition condition);
 
-    public QueryBuilder or() {
-        this.operatorState.or();
-        return this;
-    }
+    void setJunction(ComboCondition.Op junction);
 
-    public void updateQuery() {
-        this.operatorState.apply();
-        if (this.junction != null) {
-            condition = new ComboCondition(this.junction).addConditions(condition, newCondition).setDisableParens(true);
-        } else {
-            condition = newCondition;
-        }
-    }
-
-    public void changeState(OperatorState operatorState) {
-        this.operatorState = operatorState;
-    }
-
-    public Column getAttribute() {
-        return schema.findTable(table).findColumn(attribute);
-    }
-
-    public void withBetween() {
-        this.operatorState.withBetween();
-    }
+    Column getAttribute();
 }
