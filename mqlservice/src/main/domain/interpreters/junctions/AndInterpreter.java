@@ -1,6 +1,6 @@
 package domain.interpreters.junctions;
 
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.interpreters.Interpreter;
 import domain.keyword.Keywords;

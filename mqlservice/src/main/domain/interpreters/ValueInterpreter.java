@@ -1,6 +1,6 @@
 package domain.interpreters;
 
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.interpreters.values.*;
 
@@ -12,8 +12,9 @@ public class ValueInterpreter implements Interpreter {
     }
 
     public ValueInterpreter() {
-        this(new VarcharInterpreter(new DateInterpreter(new DecimalInterpreter(
-                new IntegerInterpreter(new NoValueInterpreter())))));
+        this(new CompositeInterpreter(
+                new VarcharInterpreter(), new DateInterpreter(), new DecimalInterpreter(), new IntegerInterpreter()
+        ));
     }
 
     @Override

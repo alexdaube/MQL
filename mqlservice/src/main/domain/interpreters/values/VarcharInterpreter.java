@@ -1,6 +1,6 @@
 package domain.interpreters.values;
 
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.interpreters.Interpreter;
 
@@ -9,11 +9,6 @@ import java.util.regex.Pattern;
 
 public class VarcharInterpreter implements Interpreter {
     private static final Pattern VARCHAR_PATTERN = Pattern.compile("^(\"([^\"]+)\")");
-    private final Interpreter next;
-
-    public VarcharInterpreter(Interpreter next) {
-        this.next = next;
-    }
 
     @Override
     public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
@@ -24,6 +19,6 @@ public class VarcharInterpreter implements Interpreter {
             queryBuilder.withVarchar(match);
             return true;
         }
-        return next.interpret(query, queryBuilder);
+        return false;
     }
 }

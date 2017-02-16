@@ -1,7 +1,10 @@
 package domain.translators;
 
 import builders.KeywordsBuilder;
-import domain.QueryBuilder;
+import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
+import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSpec;
+import com.healthmarketscience.sqlbuilder.dbspec.basic.DbTable;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.keyword.KeywordsResolver;
 import org.junit.Before;
@@ -20,15 +23,28 @@ public class QueryTranslatorTest {
     @Mock
     private KeywordsResolver keywordsResolver;
     private QueryTranslator queryTranslator;
+    private DbSchema schema;
 
     @Before
     public void setUp() throws Exception {
-        willReturn(KeywordsBuilder.create().with("is").with("equal").with("to").with("in").build()).given(keywordsResolver).resolveOperators();
-        willReturn(KeywordsBuilder.create().with("Employee").build()).given(keywordsResolver).resolveEntities();
+        willReturn(KeywordsBuilder.create().with("is").with("equal").with("in").with("equals").build())
+                .given(keywordsResolver).resolveEqualOperators();
+        willReturn(KeywordsBuilder.create().with("to").with("than").with("or").build()).given(keywordsResolver).resolveOtherOperators();
+        willReturn(KeywordsBuilder.create().with("less").build()).given(keywordsResolver).resolveLessOperators();
+        willReturn(KeywordsBuilder.create().with("greater").build()).given(keywordsResolver).resolveGreaterOperators();
+        willReturn(KeywordsBuilder.create().with("Employee").with("Site").build()).given(keywordsResolver).resolveEntities();
         willReturn(KeywordsBuilder.create().with("name").build()).given(keywordsResolver).resolveAttributes();
         willReturn(KeywordsBuilder.create().with("and").build()).given(keywordsResolver).resolveAndJunctions();
         willReturn(KeywordsBuilder.create().with("or").build()).given(keywordsResolver).resolveOrJunctions();
-        queryTranslator = new QueryTranslator(QueryBuilder.create(), keywordsResolver);
+        willReturn(KeywordsBuilder.create().with("between").build()).given(keywordsResolver).resolveBetweenOperators();
+
+        schema = new DbSpec().addDefaultSchema();
+        DbTable employee = schema.addTable("Employee");
+        employee.addColumn("name", "varchar", 255);
+        employee.addColumn("age", "number", null);
+        DbTable site = schema.addTable("Site");
+        site.addColumn("name", "varchar", 255);
+        queryTranslator = new QueryTranslator(new QueryBuilder(schema).withAllTableColumns(), keywordsResolver);
     }
 
     @Test
@@ -40,7 +56,7 @@ public class QueryTranslatorTest {
 
     @Test
     public void translate1() throws Exception {
-        String query = "Employee.name is equal to \"Nicolas\"";
+        String query = "Employee.name is less or equal to \"Nicolas\"";
         System.out.println(query);
         queryTranslator.translate(new StringQuery(query));
     }
@@ -54,16 +70,15 @@ public class QueryTranslatorTest {
 
     @Test
     public void translate3() throws Exception {
-        String query = " Employee  name  in     \"Jessica\"  \"Alfred\"  \"Nicolas\" or name in 9.99 or name is 9.99 and name is 9.99";
+        String query = " Employee  name  in     \"Jessica\"  \"Alfred\"  \"Nicolas\" or 9.99 or name is less than 1111-12-13 and Site name is 9.99";
         System.out.println(query);
         queryTranslator.translate(new StringQuery(query));
     }
 
     @Test
-    public void test() throws Exception {
-        Pattern pattern = Pattern.compile("^(\\d{4}-\\d{2}-\\d{2})( (\\d{2}:\\d{2}:\\d{2}))?(.(\\d{3}))?");
-        Matcher matcher = pattern.matcher("1111-12-13 14:15:16.178");
-        matcher.find();
-        System.out.println(matcher.group(1));
+    public void translate4() throws Exception {
+        String query = " Employee  name is between 10 and 20 and [0:11] or Site name is \" I don't know\"";
+        System.out.println(query);
+        queryTranslator.translate(new StringQuery(query));
     }
 }

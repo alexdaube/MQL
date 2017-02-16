@@ -1,9 +1,7 @@
 package domain.interpreters.values;
 
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
-import domain.interpreters.Interpreter;
-import domain.interpreters.values.IntegerInterpreter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,15 +17,13 @@ public class IntegerInterpreterTest {
     private static final String NUMBER_VALUE = "9.98";
     @Mock
     private QueryBuilder queryBuilder;
-    @Mock
-    private Interpreter next;
     private StringQuery validNumberQuery;
     private StringQuery invalidNumberQuery;
     private IntegerInterpreter integerInterpreter;
 
     @Before
     public void setUp() throws Exception {
-        integerInterpreter = new IntegerInterpreter(next);
+        integerInterpreter = new IntegerInterpreter();
         validNumberQuery = new StringQuery(NUMBER_VALUE);
         invalidNumberQuery = new StringQuery("a" + NUMBER_VALUE);
     }
@@ -51,14 +47,8 @@ public class IntegerInterpreterTest {
     }
 
     @Test
-    public void givenAnInvalidNumberQueryAndABuilder_whenInterpreting_thenCallTheNextInterpreter() throws Exception {
-        integerInterpreter.interpret(invalidNumberQuery, queryBuilder);
-        verify(next).interpret(invalidNumberQuery, queryBuilder);
-    }
-
-    @Test
-    public void givenAValidNumberQueryAndABuilder_whenInterpreting_thenTheNextInterpreterIsNotCalled() throws Exception {
-        integerInterpreter.interpret(validNumberQuery, queryBuilder);
-        verify(next, never()).interpret(validNumberQuery, queryBuilder);
+    public void givenAnInvalidNumberQueryAndABuilder_whenInterpreting_thenReturnFalse() throws Exception {
+        boolean returnValue = integerInterpreter.interpret(invalidNumberQuery, queryBuilder);
+        assertFalse(returnValue);
     }
 }

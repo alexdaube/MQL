@@ -1,7 +1,7 @@
 package domain.translators;
 
 import domain.InvalidQueryException;
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.interpreters.Interpreter;
 import domain.interpreters.JunctionInterpreter;

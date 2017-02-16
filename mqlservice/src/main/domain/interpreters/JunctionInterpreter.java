@@ -1,13 +1,10 @@
 package domain.interpreters;
 
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.interpreters.junctions.AndInterpreter;
 import domain.interpreters.junctions.OrInterpreter;
 import domain.keyword.Keywords;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class JunctionInterpreter implements Interpreter {
     private final AndInterpreter andInterpreter;

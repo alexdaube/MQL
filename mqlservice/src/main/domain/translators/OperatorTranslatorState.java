@@ -1,6 +1,6 @@
 package domain.translators;
 
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.interpreters.ValueInterpreter;
 import domain.InvalidQueryException;
@@ -16,7 +16,7 @@ public class OperatorTranslatorState implements QueryTranslatorState {
 
     public OperatorTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
         this.valueInterpreter = new ValueInterpreter();
-        this.operatorInterpreter = new OperatorInterpreter(keywordsResolver.resolveOperators());
+        this.operatorInterpreter = new OperatorInterpreter(keywordsResolver);
         this.keywordsResolver = keywordsResolver;
         this.queryBuilder = queryBuilder;
     }

@@ -1,8 +1,7 @@
 package domain.interpreters.values;
 
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
-import domain.interpreters.Interpreter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +12,6 @@ import java.sql.Date;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
@@ -24,15 +22,13 @@ public class DateInterpreterTest {
     private static final String FULL_DATE = MEDIUM_DATE + ".999";
     @Mock
     private QueryBuilder queryBuilder;
-    @Mock
-    private Interpreter next;
     private StringQuery validDateQuery;
     private StringQuery invalidDateQuery;
     private DateInterpreter dateInterpreter;
 
     @Before
     public void setUp() throws Exception {
-        dateInterpreter = new DateInterpreter(next);
+        dateInterpreter = new DateInterpreter();
         validDateQuery = new StringQuery(FULL_DATE);
         invalidDateQuery = new StringQuery("a" + FULL_DATE);
     }
@@ -59,17 +55,5 @@ public class DateInterpreterTest {
     public void givenAnInvalidDateQueryAndABuilder_whenInterpreting_thenTheBuilderShouldNotBeCalled() throws Exception {
         dateInterpreter.interpret(invalidDateQuery, queryBuilder);
         verifyZeroInteractions(queryBuilder);
-    }
-
-    @Test
-    public void givenAnInvalidDateQueryAndABuilder_whenInterpreting_thenCallTheNextInterpreter() throws Exception {
-        dateInterpreter.interpret(invalidDateQuery, queryBuilder);
-        verify(next).interpret(invalidDateQuery, queryBuilder);
-    }
-
-    @Test
-    public void givenAValidDateQueryAndABuilder_whenInterpreting_thenTheNextInterpreterIsNotCalled() throws Exception {
-        dateInterpreter.interpret(validDateQuery, queryBuilder);
-        verify(next, never()).interpret(validDateQuery, queryBuilder);
     }
 }

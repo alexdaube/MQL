@@ -2,7 +2,7 @@ package domain.translators;
 
 import builders.KeywordsBuilder;
 import domain.InvalidQueryException;
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.keyword.Keywords;
 import domain.keyword.KeywordsResolver;
@@ -18,7 +18,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OperatorTranslatorStateTest {
@@ -40,7 +39,7 @@ public class OperatorTranslatorStateTest {
         valueQuery = new StringQuery("9.99");
         operators = KeywordsBuilder.create().with("is").build();
         attributes = KeywordsBuilder.create().with("name").build();
-        willReturn(operators).given(keywordsResolver).resolveOperators();
+        willReturn(operators).given(keywordsResolver).resolveEqualOperators();
         willReturn(attributes).given(keywordsResolver).resolveAttributes();
         operatorTranslatorState = new OperatorTranslatorState(queryBuilder, keywordsResolver);
     }

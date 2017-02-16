@@ -1,7 +1,7 @@
 package domain.interpreters;
 
 import builders.KeywordsBuilder;
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.keyword.Keywords;
 import org.junit.Before;

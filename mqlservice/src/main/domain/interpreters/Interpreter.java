@@ -1,6 +1,6 @@
 package domain.interpreters;
 
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 
 public interface Interpreter {

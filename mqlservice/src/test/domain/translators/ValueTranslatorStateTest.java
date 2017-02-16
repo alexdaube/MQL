@@ -1,7 +1,7 @@
 package domain.translators;
 
 import builders.KeywordsBuilder;
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.InvalidQueryException;
 import domain.keyword.Keywords;

@@ -1,14 +1,11 @@
 package domain.translators;
 
 import domain.InvalidQueryException;
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.interpreters.Interpreter;
 import domain.interpreters.OperatorInterpreter;
 import domain.keyword.KeywordsResolver;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class AttributeTranslatorState implements QueryTranslatorState {
     private final QueryBuilder queryBuilder;
@@ -16,7 +13,7 @@ public class AttributeTranslatorState implements QueryTranslatorState {
     private final KeywordsResolver keywordsResolver;
 
     public AttributeTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
-        this.interpreter = new OperatorInterpreter(keywordsResolver.resolveOperators());
+        this.interpreter = new OperatorInterpreter(keywordsResolver);
         this.queryBuilder = queryBuilder;
         this.keywordsResolver = keywordsResolver;
     }

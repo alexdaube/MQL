@@ -1,7 +1,7 @@
 package domain.interpreters;
 
 import builders.KeywordsBuilder;
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.keyword.Keywords;
 import org.junit.Before;
@@ -9,9 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -22,6 +19,8 @@ public class OperatorInterpreterTest {
     private static final String OPERATOR = "OPERATOR";
     @Mock
     private QueryBuilder queryBuilder;
+    @Mock
+    private Interpreter operatorInterpreters;
     private StringQuery validQuery;
     private StringQuery invalidQuery;
     private OperatorInterpreter operatorInterpreter;
@@ -30,7 +29,7 @@ public class OperatorInterpreterTest {
     @Before
     public void setUp() throws Exception {
         operators = KeywordsBuilder.create().with(OPERATOR).build();
-        operatorInterpreter = new OperatorInterpreter(operators);
+        operatorInterpreter = new OperatorInterpreter(operatorInterpreters);
         validQuery = new StringQuery(OPERATOR + " ");
         invalidQuery = new StringQuery("S" + OPERATOR);
     }
@@ -44,7 +43,7 @@ public class OperatorInterpreterTest {
     @Test
     public void givenAValidStringQueryAndABuilder_whenInterpreting_thenTheOperatorShouldBeAddedToTheBuilder() throws Exception {
         operatorInterpreter.interpret(validQuery, queryBuilder);
-        verify(queryBuilder).withOperator(OPERATOR);
+        verify(queryBuilder).withEquals();
     }
 
     @Test

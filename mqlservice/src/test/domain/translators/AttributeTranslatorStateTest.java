@@ -2,7 +2,7 @@ package domain.translators;
 
 import builders.KeywordsBuilder;
 import domain.InvalidQueryException;
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.keyword.Keywords;
 import domain.keyword.KeywordsResolver;
@@ -36,7 +36,7 @@ public class AttributeTranslatorStateTest {
         attributeQuery = new StringQuery("name is 9.99");
         operators = KeywordsBuilder.create().with("is").build();
         attributes = KeywordsBuilder.create().with("name").build();
-        willReturn(operators).given(keywordsResolver).resolveOperators();
+        willReturn(operators).given(keywordsResolver).resolveEqualOperators();
         willReturn(attributes).given(keywordsResolver).resolveAttributes();
         attributeTranslatorState = new AttributeTranslatorState(queryBuilder, keywordsResolver);
     }

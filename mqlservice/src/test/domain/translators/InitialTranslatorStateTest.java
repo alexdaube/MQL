@@ -2,7 +2,7 @@ package domain.translators;
 
 import builders.KeywordsBuilder;
 import domain.InvalidQueryException;
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.keyword.Keywords;
 import domain.keyword.KeywordsResolver;
@@ -39,7 +39,7 @@ public class InitialTranslatorStateTest {
         entityQuery = new StringQuery("Employee name is 9.99");
         operators = KeywordsBuilder.create().with("is").build();
         entities = KeywordsBuilder.create().with("Employee").build();
-        willReturn(operators).given(keywordsResolver).resolveOperators();
+        willReturn(operators).given(keywordsResolver).resolveEqualOperators();
         willReturn(entities).given(keywordsResolver).resolveEntities();
         initialTranslatorState = new InitialTranslatorState(queryBuilder, keywordsResolver);
     }

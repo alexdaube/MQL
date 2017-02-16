@@ -1,14 +1,11 @@
 package domain.translators;
 
 import domain.InvalidQueryException;
-import domain.QueryBuilder;
+import domain.querybuilder.QueryBuilder;
 import domain.StringQuery;
 import domain.interpreters.EntityInterpreter;
 import domain.interpreters.Interpreter;
 import domain.keyword.KeywordsResolver;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class InitialTranslatorState implements QueryTranslatorState {
     private final Interpreter entityInterpreter;
