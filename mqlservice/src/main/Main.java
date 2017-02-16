@@ -1,4 +1,5 @@
 import domain.keywords.DefaultKeywordResolver;
+import domain.keywords.Keywords;
 import domain.keywords.KeywordsResolver;
 import infrastructure.KeywordDevDataFactory;
 import persistence.SQLHelper;
@@ -11,6 +12,9 @@ import static spark.Spark.options;
 public class Main {
     public static void main(String[] args) {
         KeywordsResolver keywordsResolver = initKeywordRepositoryWithDevData(new KeywordDevDataFactory());
+        Keywords entities = keywordsResolver.resolveEntities();
+        Keywords attributes = keywordsResolver.resolveAttributes();
+        
         //initDatabaseConnection(new SQLiteHelper());
         //initServer(new QueryController());
     }
