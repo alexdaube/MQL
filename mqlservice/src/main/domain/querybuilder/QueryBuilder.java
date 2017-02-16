@@ -1,14 +1,10 @@
 package domain.querybuilder;
 
-import com.healthmarketscience.sqlbuilder.ComboCondition;
-import com.healthmarketscience.sqlbuilder.Condition;
-import com.healthmarketscience.sqlbuilder.dbspec.Column;
-
 import java.sql.Date;
 
 public interface QueryBuilder {
 
-    domain.Query build();
+    String build();
 
     QueryBuilder withEntity(String entity);
 

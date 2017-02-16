@@ -31,17 +31,17 @@ public class QueryTranslatorTest {
         willReturn(KeywordsBuilder.create().with("less").with("<").build()).given(keywordsResolver).resolveLessOperators();
         willReturn(KeywordsBuilder.create().with("greater").with(">").build()).given(keywordsResolver).resolveGreaterOperators();
         willReturn(KeywordsBuilder.create().with("Employee").with("Site").build()).given(keywordsResolver).resolveEntities();
-        willReturn(KeywordsBuilder.create().with("name").build()).given(keywordsResolver).resolveAttributes();
+        willReturn(KeywordsBuilder.create().with("name").with("age").build()).given(keywordsResolver).resolveAttributes();
         willReturn(KeywordsBuilder.create().with("and").build()).given(keywordsResolver).resolveAndJunctions();
         willReturn(KeywordsBuilder.create().with("or").build()).given(keywordsResolver).resolveOrJunctions();
         willReturn(KeywordsBuilder.create().with("between").build()).given(keywordsResolver).resolveBetweenOperators();
 
         schema = new DbSpec().addDefaultSchema();
         DbTable employee = schema.addTable("Employee");
-        employee.addColumn("name", "varchar", 255);
+        employee.addColumn("name", "varchar", null);
         employee.addColumn("age", "number", null);
         DbTable site = schema.addTable("Site");
-        site.addColumn("name", "varchar", 255);
+        site.addColumn("name", "varchar", null);
         queryTranslator = new QueryTranslator(new SqlQueryBuilder(schema).withAllTablesColumns(), keywordsResolver);
     }
 
@@ -75,7 +75,7 @@ public class QueryTranslatorTest {
 
     @Test
     public void translate4() throws Exception {
-        String query = " Employee  name is between 10 and 20 and [0:11] or Site name is \" I don't know\"";
+        String query = "Employee name is less or equals to \"test\" and 10";
         System.out.println(query);
         queryTranslator.translate(new StringQuery(query));
     }

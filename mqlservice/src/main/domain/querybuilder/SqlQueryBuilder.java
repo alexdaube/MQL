@@ -24,12 +24,12 @@ public class SqlQueryBuilder implements QueryBuilder {
         this.operatorState = new EqualState(this);
     }
 
-    public domain.Query build() {
+    public String build() {
         applyCondition(operatorState.apply());
         selectQuery.addCondition(condition.setDisableParens(false));
         selectQuery.validate();
         System.out.println(selectQuery.toString());
-        return null;
+        return selectQuery.toString();
     }
 
     public SqlQueryBuilder withAllTablesColumns() {

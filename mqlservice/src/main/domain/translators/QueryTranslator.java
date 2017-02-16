@@ -13,7 +13,7 @@ public class QueryTranslator {
         this.queryBuilder = queryBuilder;
     }
 
-    public Query translate(Query query) {
+    public String translate(Query query) {
         boolean isTranslated = false;
         while (!isTranslated) {
             StateStatus stateStatus = state.translate(query);
