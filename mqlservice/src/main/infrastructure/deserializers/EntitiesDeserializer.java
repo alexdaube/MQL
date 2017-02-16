@@ -31,6 +31,7 @@ public class EntitiesDeserializer implements JsonDeserializer<EntityList> {
         for (Keyword keyword : entityKeywords) {
             attributes.add(keyword);
         }
+        
 
         return attributes;
     }
