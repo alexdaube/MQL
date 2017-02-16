@@ -34,16 +34,16 @@ class SearchBar extends React.Component<any, ISearchBarState> {
 
     render() {
         return (
-        <Form inline onSubmit={this.onFormSubmit}>
+        <Form inline onSubmit={this.onFormSubmit} className="row">
             <FormGroup>
                 <Input
                     type="text"
                     value={this.state.term}
                     onChange={this.onInputChange}
                     id="exampleText"
-                    placeholder="Basic query format is Keyword + Operator + Value" />
+                    placeholder="Basic query format is Keyword + Operator + Value" className="col-10"/>
             </FormGroup>
-            <Button>Submit</Button>
+            <Button className="col-2">Submit</Button>
         </Form>
         );
     }
