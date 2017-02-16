@@ -1,5 +1,6 @@
 import * as React from "react";
 import {connect} from "react-redux";
+import { Table } from 'reactstrap';
 import DynamicListHeader from "../components/DynamicListHeader";
 import DynamicListBody from "../components/DynamicListBody";
 import {undoCamelCasing} from '../utils/strings';
@@ -20,10 +21,10 @@ class DynamicList extends React.Component<any, any> {
             );
         }
         return (
-            <table className="table table-hover">
+            <Table responsive hover inverse>
                 <DynamicListHeader labels={this.extractLabels()}/>
                 <DynamicListBody data={this.props.query}/>
-            </table>
+            </Table>
         );
     }
 }

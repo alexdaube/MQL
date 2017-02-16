@@ -5,11 +5,11 @@ import DynamicList from "../containers/DynamicList";
 export default class ListView extends React.Component<any, any> {
     render() {
         return (
-            <div>
+            <div className="container-fluid">
                 <div>
                     <SearchBar />
                 </div>
-                <div style={{}}>
+                <div>
                     <DynamicList />
                 </div>
             </div>

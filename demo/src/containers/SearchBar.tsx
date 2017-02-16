@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {Button, Form, FormGroup, Label, Input, InputGroupButton, InputGroup} from "reactstrap";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as actions from "../actions";
@@ -29,29 +29,33 @@ class SearchBar extends React.Component<any, ISearchBarState> {
     onFormSubmit(event) {
         event.preventDefault();
         this.props.fetchQuery(this.state.term);
-        this.setState({ term: '' });
+        this.setState({term: ''});
     }
 
     render() {
         return (
-        <Form inline onSubmit={this.onFormSubmit} className="row">
-            <FormGroup>
-                <Input
-                    type="text"
-                    value={this.state.term}
-                    onChange={this.onInputChange}
-                    id="exampleText"
-                    placeholder="Basic query format is Keyword + Operator + Value" className="col-10"/>
-            </FormGroup>
-            <Button className="col-2">Submit</Button>
-        </Form>
+            <Form onSubmit={this.onFormSubmit}>
+                <FormGroup>
+                    <InputGroup>
+                        <Input
+                            type="text"
+                            value={this.state.term}
+                            onChange={this.onInputChange}
+                            id="exampleText"
+                            placeholder="Basic query format is Keyword + Operator + Value"/>
+                        <InputGroupButton>
+                            <Button color="info">Submit</Button>
+                        </InputGroupButton>
+                    </InputGroup>
+                </FormGroup>
+            </Form>
         );
     }
 
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ fetchQuery: actions.fetchQuery }, dispatch);
+    return bindActionCreators({fetchQuery: actions.fetchQuery}, dispatch);
 };
 
 
