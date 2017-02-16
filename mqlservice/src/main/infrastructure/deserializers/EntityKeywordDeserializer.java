@@ -6,8 +6,8 @@ import domain.keyword.GeneralKeyword;
 import domain.keyword.Keyword;
 
 import java.lang.reflect.Type;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EntityKeywordDeserializer implements JsonDeserializer<EntityKeyword> {
     @Override
@@ -15,7 +15,7 @@ public class EntityKeywordDeserializer implements JsonDeserializer<EntityKeyword
         final JsonObject jsonObject = json.getAsJsonObject();
 
         GeneralKeyword[] generalKeywords = context.deserialize(jsonObject.get("attributes"), GeneralKeyword[].class);
-        final Set<Keyword> keywords = extractAttributes(generalKeywords);
+        final List<Keyword> keywords = extractAttributes(generalKeywords);
 
         final EntityKeyword entityKeyword = extractObjectFromJSON(jsonObject);
         entityKeyword.setAttributes(keywords);
@@ -26,7 +26,7 @@ public class EntityKeywordDeserializer implements JsonDeserializer<EntityKeyword
     private EntityKeyword extractObjectFromJSON(JsonObject jsonObject) {
         final JsonElement jsonKeyword = jsonObject.get("keyword");
         final String keyword = jsonKeyword.getAsString();
-        final Set<String> synonyms = extractKeywordSynonyms(jsonObject);
+        final List<String> synonyms = extractKeywordSynonyms(jsonObject);
 
         EntityKeyword entityKeyword = new EntityKeyword();
         entityKeyword.setKeyword(keyword);
@@ -35,9 +35,9 @@ public class EntityKeywordDeserializer implements JsonDeserializer<EntityKeyword
         return entityKeyword;
     }
 
-    private Set<String> extractKeywordSynonyms(JsonObject jsonObject) {
+    private List<String> extractKeywordSynonyms(JsonObject jsonObject) {
         final JsonArray jsonSynonyms = jsonObject.get("synonyms").getAsJsonArray();
-        final Set<String> synonyms = new HashSet<>();
+        final List<String> synonyms = new ArrayList<>();
 
         for (JsonElement jsonElement : jsonSynonyms) {
             synonyms.add(jsonElement.getAsString());
@@ -46,8 +46,8 @@ public class EntityKeywordDeserializer implements JsonDeserializer<EntityKeyword
         return synonyms;
     }
 
-    private Set<Keyword> extractAttributes(GeneralKeyword[] generalKeywords) {
-        final Set<Keyword> attributes = new HashSet<>();
+    private List<Keyword> extractAttributes(GeneralKeyword[] generalKeywords) {
+        final List<Keyword> attributes = new ArrayList<>();
         for (Keyword keyword : generalKeywords) {
             attributes.add(keyword);
         }

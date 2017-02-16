@@ -1,5 +1,8 @@
-import domain.keywords.DefaultKeywordResolver;
-import domain.keywords.KeywordsResolver;
+import domain.keyword.EntityList;
+import domain.keyword.Keyword;
+import domain.keyword.KeywordAlreadyExistsException;
+import domain.keyword.KeywordRepository;
+import infrastructure.InMemoryKeywordRepository;
 import infrastructure.KeywordDevDataFactory;
 import persistence.SQLHelper;
 
@@ -10,16 +13,23 @@ import static spark.Spark.options;
 
 public class Main {
     public static void main(String[] args) {
-        KeywordsResolver keywordsResolver = initKeywordRepositoryWithDevData(new KeywordDevDataFactory());
+        KeywordRepository keywordRepository = initKeywordRepositoryWithDevData(new KeywordDevDataFactory());
         //initDatabaseConnection(new SQLiteHelper());
         //initServer(new QueryController());
     }
 
-    private static KeywordsResolver initKeywordRepositoryWithDevData(KeywordDevDataFactory keywordDevDataFactory) {
-        KeywordsResolver keywordsResolver = new DefaultKeywordResolver();
-        keywordsResolver.initializeKeywords(keywordDevDataFactory.readEntitiesFromJSON());
+    private static KeywordRepository initKeywordRepositoryWithDevData(KeywordDevDataFactory keywordDevDataFactory) {
+        KeywordRepository keywordRepository = new InMemoryKeywordRepository();
+        EntityList entityList = keywordDevDataFactory.readEntitiesFromJSON();
 
-        return keywordsResolver;
+        for (Keyword keyword : entityList.getEntities()) {
+            try {
+                keywordRepository.create(keyword);
+            } catch (KeywordAlreadyExistsException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return keywordRepository;
     }
 
     private static void initDatabaseConnection(SQLHelper sqlHelper) {

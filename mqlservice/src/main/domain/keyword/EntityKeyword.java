@@ -1,32 +1,19 @@
 package domain.keyword;
 
-import java.util.Set;
+import java.util.List;
 
 public class EntityKeyword implements Keyword {
 
     private String keyword;
-    private Set<String> synonyms;
-
-    private Set<Keyword> attributes;
+    private List<String> synonyms;
+    private List<Keyword> attributes;
 
     public EntityKeyword() {
 
     }
 
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-    }
-
-    public void setAttributes(Set<Keyword> attributes) {
+    public void setAttributes(List<Keyword> attributes) {
         this.attributes = attributes;
-    }
-
-    public void setSynonyms(Set<String> synonyms) {
-        this.synonyms = synonyms;
-    }
-
-    public Set<Keyword> getAttributes() {
-        return this.attributes;
     }
 
     @Override
@@ -35,7 +22,15 @@ public class EntityKeyword implements Keyword {
     }
 
     @Override
-    public Set<String> getSynonyms() {
+    public List<String> getSynonyms() {
         return this.synonyms;
+    }
+
+    public void setSynonyms(List<String> synonyms) {
+        this.synonyms = synonyms;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

@@ -2,38 +2,36 @@ package infrastructure.deserializers;
 
 import com.google.gson.*;
 import domain.keyword.EntityKeyword;
-import domain.keywords.EntityMap;
+import domain.keyword.EntityList;
+import domain.keyword.Keyword;
 
 import java.lang.reflect.Type;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-public class EntitiesDeserializer implements JsonDeserializer<EntityMap> {
+public class EntitiesDeserializer implements JsonDeserializer<EntityList> {
     @Override
-    public EntityMap deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public EntityList deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
         final JsonObject jsonObject = json.getAsJsonObject();
 
         EntityKeyword[] entityKeywords = context.deserialize(jsonObject.get("entities"), EntityKeyword[].class);
 
-        final Set<EntityKeyword> entities = extractEntities(entityKeywords);
+        final List<Keyword> entities = extractAttributes(entityKeywords);
 
-        final EntityMap entityMap = new EntityMap();
+        final EntityList entityList = new EntityList();
+        entityList.setEntities(entities);
 
-        for (EntityKeyword entity : entities){
-            entityMap.addEntity(entity);
-        }
-
-        return entityMap;
+        return entityList;
     }
 
-    private Set<EntityKeyword> extractEntities(EntityKeyword[] entityKeywords) {
-        final Set<EntityKeyword> entities = new HashSet<>();
+    private List<Keyword> extractAttributes(EntityKeyword[] entityKeywords) {
+        final List<Keyword> attributes = new ArrayList<>();
 
-        for (EntityKeyword keyword : entityKeywords) {
-            entities.add(keyword);
+        for (Keyword keyword : entityKeywords) {
+            attributes.add(keyword);
         }
 
-        return entities;
+        return attributes;
     }
 }

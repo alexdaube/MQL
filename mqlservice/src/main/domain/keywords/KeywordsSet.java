@@ -3,7 +3,6 @@ package domain.keywords;
 import java.util.Set;
 
 public class KeywordsSet implements Keywords {
-
     private final Set<String> keywords;
 
     public KeywordsSet(Set<String> keywords) {
@@ -12,9 +11,5 @@ public class KeywordsSet implements Keywords {
 
     public boolean contains(String keyword) {
         return keywords.contains(keyword);
-    }
-
-    public Set<String> getKeywords() {
-        return keywords;
     }
 }

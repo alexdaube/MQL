@@ -4,8 +4,8 @@ import com.google.gson.*;
 import domain.keyword.GeneralKeyword;
 
 import java.lang.reflect.Type;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GeneralKeywordDeserializer implements JsonDeserializer<GeneralKeyword> {
 
@@ -18,7 +18,7 @@ public class GeneralKeywordDeserializer implements JsonDeserializer<GeneralKeywo
     private GeneralKeyword extractObjectFromJSON(JsonObject jsonObject) {
         final JsonElement jsonKeyword = jsonObject.get("keyword");
         final String keyword = jsonKeyword.getAsString();
-        final Set<String> synonyms = extractKeywordSynonyms(jsonObject);
+        final List<String> synonyms = extractKeywordSynonyms(jsonObject);
 
         GeneralKeyword generalKeyword = new GeneralKeyword();
         generalKeyword.setKeyword(keyword);
@@ -27,9 +27,9 @@ public class GeneralKeywordDeserializer implements JsonDeserializer<GeneralKeywo
         return generalKeyword;
     }
 
-    private Set<String> extractKeywordSynonyms(JsonObject jsonObject) {
+    private List<String> extractKeywordSynonyms(JsonObject jsonObject) {
         final JsonArray jsonSynonyms = jsonObject.get("synonyms").getAsJsonArray();
-        final Set<String> synonyms = new HashSet<>();
+        final List<String> synonyms = new ArrayList<>();
 
         for (JsonElement jsonElement : jsonSynonyms) {
             synonyms.add(jsonElement.getAsString());
