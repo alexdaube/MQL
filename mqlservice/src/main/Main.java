@@ -1,5 +1,6 @@
 import domain.keyword.Keyword;
-import domain.keyword.KeywordRepository;
+import domain.keywords.KeywordRepository;
+import domain.keywords.Keywords;
 import infrastructure.InMemoryKeywordRepository;
 import infrastructure.KeywordDevDataFactory;
 import persistence.SQLHelper;
@@ -7,6 +8,7 @@ import persistence.SQLiteHelper;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import static spark.Spark.before;
 import static spark.Spark.options;
@@ -19,12 +21,8 @@ public class Main {
     }
 
     private static void initKeywordRepositoryWithDevData(KeywordDevDataFactory keywordDevDataFactory) {
-        KeywordRepository keywordRepository = new InMemoryKeywordRepository();
-        List<Keyword> keywords = keywordDevDataFactory.createStubKeywords();
-
-        for (Keyword keyword : keywords) {
-            keywordRepository.create(keyword);
-        }
+        Map<Keywords.Type, Keywords> keywordsMap = keywordDevDataFactory.createStubKeywords();
+        KeywordRepository keywordRepository = new InMemoryKeywordRepository(keywordsMap);
     }
 
     private static void initDatabaseConnection(SQLHelper sqlHelper) {

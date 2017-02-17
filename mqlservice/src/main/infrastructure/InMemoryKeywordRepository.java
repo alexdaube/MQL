@@ -1,28 +1,22 @@
 package infrastructure;
 
 import domain.keyword.Keyword;
-import domain.keyword.KeywordRepository;
+import domain.keywords.KeywordRepository;
+import domain.keywords.Keywords;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class InMemoryKeywordRepository implements KeywordRepository {
-    private Collection<Keyword> keywords = new HashSet<>();
+    private final Map<Keywords.Type, Keywords> keywordsMap;
 
-    @Override
-    public Collection<Keyword> getAllKeywords() {
-        return keywords;
+    public InMemoryKeywordRepository(Map<Keywords.Type, Keywords> keywordsMap) {
+        this.keywordsMap = keywordsMap;
     }
 
     @Override
-    public void create(Keyword keyword) {
-        keywords.add(keyword);
-    }
-
-    public Collection<Keyword> getSubsetKeywords(Keyword parentKeyword) {
-        return keywords.stream()
-                .filter(keyword -> keyword.isSubsetOf(parentKeyword))
-                .collect(Collectors.toList());
+    public Keywords findKeywordsByType(Keywords.Type type) {
+        return keywordsMap.get(type);
     }
 }

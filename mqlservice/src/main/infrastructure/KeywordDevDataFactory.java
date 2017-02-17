@@ -1,11 +1,9 @@
 package infrastructure;
 
 
-import domain.keyword.Keyword;
-import domain.keyword.KeywordFactory;
+import domain.keywords.Keywords;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class KeywordDevDataFactory {
 
@@ -23,32 +21,9 @@ public class KeywordDevDataFactory {
 
     }
 
-    public List<Keyword> createStubKeywords() {
-        List<Keyword> keywords = new ArrayList<>();
+    public Map<Keywords.Type, Keywords> createStubKeywords() {
 
-        KeywordFactory keywordFactory = new KeywordFactory();
-
-        Keyword site = keywordFactory.createEntityKeyword(SITE);
-        Keyword equipement = keywordFactory.createEntityKeyword(EQUIPEMENT);
-        Keyword name = keywordFactory.createAttributeKeyword(site, NAME);
-        Keyword city = keywordFactory.createAttributeKeyword(site, CITY);
-        Keyword address = keywordFactory.createAttributeKeyword(site, ADDRESS);
-        Keyword zipCode = keywordFactory.createAttributeKeyword(site, ZIPCODE);
-        Keyword serialNumber = keywordFactory.createAttributeKeyword(equipement, SERIAL_NO);
-        Keyword dateService = keywordFactory.createAttributeKeyword(equipement, DATE_IN_SERVICE);
-        Keyword warrantyEnd = keywordFactory.createAttributeKeyword(equipement, WARRANTY_END);
-
-        keywords.add(site);
-        keywords.add(name);
-        keywords.add(city);
-        keywords.add(address);
-        keywords.add(zipCode);
-        keywords.add(equipement);
-        keywords.add(serialNumber);
-        keywords.add(dateService);
-        keywords.add(warrantyEnd);
-
-        return keywords;
+        return null;
     }
 
 }

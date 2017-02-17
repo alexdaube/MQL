@@ -7,16 +7,17 @@ import domain.interpreters.values.DateInterpreter;
 import domain.interpreters.values.DecimalInterpreter;
 import domain.interpreters.values.IntegerInterpreter;
 import domain.interpreters.values.VarcharInterpreter;
+import domain.keywords.Keywords;
 import domain.keywords.KeywordsResolver;
 
 public class InterpreterFactory {
     public static Interpreter allOperators(KeywordsResolver keywordsResolver) {
         return new CompositeInterpreter(
-                new EqualInterpreter(keywordsResolver.resolveEqualOperators()),
-                new GreaterInterpreter(keywordsResolver.resolveGreaterOperators()),
-                new LessInterpreter(keywordsResolver.resolveLessOperators()),
-                new BetweenInterpreter(keywordsResolver.resolveBetweenOperators()),
-                new OtherInterpreter(keywordsResolver.resolveOtherOperators())
+                new EqualInterpreter(keywordsResolver.resolveType(Keywords.Type.EQUALS)),
+                new GreaterInterpreter(keywordsResolver.resolveType(Keywords.Type.GREATER)),
+                new LessInterpreter(keywordsResolver.resolveType(Keywords.Type.LESS)),
+                new BetweenInterpreter(keywordsResolver.resolveType(Keywords.Type.BETWEEN)),
+                new OtherInterpreter(keywordsResolver.resolveType(Keywords.Type.OTHER))
         );
     }
 
@@ -28,17 +29,17 @@ public class InterpreterFactory {
 
     public static Interpreter allJunctions(KeywordsResolver keywordsResolver) {
         return new CompositeInterpreter(
-                new OrInterpreter(keywordsResolver.resolveOrJunctions()),
-                new AndInterpreter(keywordsResolver.resolveAndJunctions())
+                new OrInterpreter(keywordsResolver.resolveType(Keywords.Type.OR)),
+                new AndInterpreter(keywordsResolver.resolveType(Keywords.Type.AND))
         );
     }
 
     public static Interpreter basicOperators(KeywordsResolver keywordsResolver) {
         return new CompositeInterpreter(
-                new EqualInterpreter(keywordsResolver.resolveEqualOperators()),
-                new GreaterInterpreter(keywordsResolver.resolveGreaterOperators()),
-                new LessInterpreter(keywordsResolver.resolveLessOperators()),
-                new BetweenInterpreter(keywordsResolver.resolveBetweenOperators())
+                new EqualInterpreter(keywordsResolver.resolveType(Keywords.Type.EQUALS)),
+                new GreaterInterpreter(keywordsResolver.resolveType(Keywords.Type.GREATER)),
+                new LessInterpreter(keywordsResolver.resolveType(Keywords.Type.LESS)),
+                new BetweenInterpreter(keywordsResolver.resolveType(Keywords.Type.BETWEEN))
         );
     }
 }

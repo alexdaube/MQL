@@ -1,9 +1,9 @@
 package domain.interpreters.junctions;
 
-import domain.Query;
+import domain.query.Query;
 import domain.interpreters.Interpreter;
 import domain.keywords.Keywords;
-import domain.querybuilder.QueryBuilder;
+import domain.query.builder.QueryBuilder;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

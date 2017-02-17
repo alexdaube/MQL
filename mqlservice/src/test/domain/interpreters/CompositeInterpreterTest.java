@@ -1,7 +1,7 @@
 package domain.interpreters;
 
-import domain.Query;
-import domain.querybuilder.QueryBuilder;
+import domain.query.Query;
+import domain.query.builder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

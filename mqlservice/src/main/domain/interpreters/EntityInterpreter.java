@@ -1,8 +1,8 @@
 package domain.interpreters;
 
-import domain.Query;
+import domain.query.Query;
 import domain.keywords.Keywords;
-import domain.querybuilder.QueryBuilder;
+import domain.query.builder.QueryBuilder;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
