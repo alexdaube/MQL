@@ -10,9 +10,13 @@ import {documentBlocksMarkup} from "../constants/demo_text";
 
 
 const ComponentLink = (props) => {
+    const isActive = props.item.id === props.activeItem ? 'active' : '';
     return (
         <NavItem>
-            <NavLink tag={Link} to={`/documentation#${props.item.id}`} activeClassName="active">
+            <NavLink tag={Link}
+                     to={`/documentation#${props.item.id}`}
+                     activeClassName={isActive}
+                     onClick={props.onActiveChange }>
                 {props.item.menuTitle}
             </NavLink>
         </NavItem>
@@ -21,8 +25,27 @@ const ComponentLink = (props) => {
 
 
 export default class DocumentationView extends React.Component<any, any> {
+    static contextTypes: React.ValidationMap<any> = {
+        router: React.PropTypes.object
+    };
+
+
     constructor(props) {
         super(props);
+        this.state = {
+            navActiveItem: this.activeNavItem()
+        };
+    }
+
+    activeNavItem() {
+        if (this.props.location.hash) {
+            return this.props.location.hash.substring(1);
+        }
+        return documentBlocksMarkup[0].id;
+    }
+
+    handleNavClick(location) {
+        this.setState({navActiveItem: location})
     }
 
     downloadPDF() {
@@ -43,7 +66,10 @@ export default class DocumentationView extends React.Component<any, any> {
                                 <Sticky>
                                     <Nav className="flex-column">
                                         {documentBlocksMarkup.map((item, i) => {
-                                            return <ComponentLink key={i} item={item}/>;
+                                            return (<ComponentLink key={i}
+                                                                   item={item}
+                                                                   activeItem={this.state.navActiveItem}
+                                                                   onActiveChange={() => {this.handleNavClick(item.id)}}/>);
                                         })}
                                         <NavItem>
                                             <Button color="danger" size="sm" onClick={this.downloadPDF}>
