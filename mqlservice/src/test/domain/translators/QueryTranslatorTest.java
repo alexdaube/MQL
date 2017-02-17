@@ -74,7 +74,7 @@ public class QueryTranslatorTest {
 
     @Test
     public void translate4() throws Exception {
-        String query = "Employee name is less or equals to \"test\" and 10";
+        String query = "Employee name is between [10:20] or 10:20";
         System.out.println(query);
         queryTranslator.translate(new StringQuery(query));
     }

@@ -3,7 +3,7 @@ package domain.translators;
 import domain.InvalidQueryException;
 import domain.Query;
 import domain.interpreters.Interpreter;
-import domain.interpreters.OperatorInterpreter;
+import domain.interpreters.InterpreterFactory;
 import domain.keywords.KeywordsResolver;
 import domain.querybuilder.QueryBuilder;
 
@@ -13,7 +13,7 @@ public class AttributeTranslatorState implements QueryTranslatorState {
     private final KeywordsResolver keywordsResolver;
 
     public AttributeTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
-        this(queryBuilder, new OperatorInterpreter(keywordsResolver), keywordsResolver);
+        this(queryBuilder, InterpreterFactory.basicOperators(keywordsResolver), keywordsResolver);
     }
 
     public AttributeTranslatorState(QueryBuilder queryBuilder, Interpreter interpreter, KeywordsResolver keywordsResolver) {

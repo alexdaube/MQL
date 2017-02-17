@@ -3,8 +3,7 @@ package domain.translators;
 import domain.InvalidQueryException;
 import domain.Query;
 import domain.interpreters.Interpreter;
-import domain.interpreters.JunctionInterpreter;
-import domain.interpreters.ValueInterpreter;
+import domain.interpreters.InterpreterFactory;
 import domain.keywords.KeywordsResolver;
 import domain.querybuilder.QueryBuilder;
 
@@ -15,8 +14,7 @@ public class ValueTranslatorState implements QueryTranslatorState {
     private final QueryBuilder queryBuilder;
 
     public ValueTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
-        this(new ValueInterpreter(), new JunctionInterpreter(keywordsResolver.resolveAndJunctions(),
-                keywordsResolver.resolveOrJunctions()), keywordsResolver, queryBuilder);
+        this(InterpreterFactory.allValues(), InterpreterFactory.allJunctions(keywordsResolver), keywordsResolver, queryBuilder);
     }
 
     public ValueTranslatorState(Interpreter valueInterpreter, Interpreter junctionInterpreter, KeywordsResolver keywordsResolver, QueryBuilder queryBuilder) {

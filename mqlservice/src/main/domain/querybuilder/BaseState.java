@@ -1,6 +1,7 @@
 package domain.querybuilder;
 
 import com.healthmarketscience.sqlbuilder.ComboCondition;
+import com.healthmarketscience.sqlbuilder.JdbcEscape;
 
 import java.sql.Date;
 import java.util.LinkedList;
@@ -11,8 +12,12 @@ public abstract class BaseState implements OperatorState {
     protected List<Object> values;
 
     public BaseState(SqlQueryBuilder queryBuilder) {
+        this(queryBuilder, new LinkedList<>());
+    }
+
+    public BaseState(SqlQueryBuilder queryBuilder, List<Object> values) {
         this.queryBuilder = queryBuilder;
-        this.values = new LinkedList<>();
+        this.values = values;
     }
 
     @Override
@@ -52,7 +57,7 @@ public abstract class BaseState implements OperatorState {
 
     @Override
     public void withDate(Date date) {
-        values.add(date);
+        values.add(JdbcEscape.date(date));
     }
 
     @Override
@@ -69,6 +74,6 @@ public abstract class BaseState implements OperatorState {
 
     private void update() {
         queryBuilder.applyCondition(apply());
-        values = new LinkedList<>();
+        values.clear();
     }
 }

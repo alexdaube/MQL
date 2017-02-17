@@ -5,33 +5,57 @@ import com.healthmarketscience.sqlbuilder.Condition;
 import domain.InvalidQueryException;
 
 public class BetweenState extends BaseState {
-    private int count;
 
     public BetweenState(SqlQueryBuilder queryBuilder) {
         super(queryBuilder);
-        count = 0;
+    }
+
+    @Override
+    public void withEquals() {
+        validate();
+        super.withEquals();
+    }
+
+    @Override
+    public void withGreater() {
+        validate();
+        super.withGreater();
+    }
+
+    @Override
+    public void withLess() {
+        validate();
+        super.withLess();
+    }
+
+    @Override
+    public void withBetween() {
+        validate();
+        super.withBetween();
     }
 
     @Override
     public void and() {
-        if (count++ > 0 || values.size() == 2) {
+        if (values.size() >= 2) {
             super.and();
         }
     }
 
     @Override
     public void or() {
-        if (count < 1 || values.size() != 2) {
-            throw new InvalidQueryException("Use and not or with between statement...");
-        }
+        validate();
         super.or();
     }
 
     @Override
     public Condition apply() {
-        if (values.size() != 2) {
+        validate();
+        return new BetweenCondition(queryBuilder.getAttribute(), values.get(0), values.get(1));
+    }
+
+    private void validate() {
+        if (values.size() < 2) {
             throw new InvalidQueryException("Between statement needs two values");
         }
-        return new BetweenCondition(queryBuilder.getAttribute(), values.get(0), values.get(1));
     }
 }

@@ -2,7 +2,10 @@ package domain.translators;
 
 import domain.InvalidQueryException;
 import domain.Query;
-import domain.interpreters.*;
+import domain.interpreters.AttributeInterpreter;
+import domain.interpreters.EntityInterpreter;
+import domain.interpreters.Interpreter;
+import domain.interpreters.InterpreterFactory;
 import domain.keywords.KeywordsResolver;
 import domain.querybuilder.QueryBuilder;
 
@@ -17,7 +20,7 @@ public class JunctionTranslatorState implements QueryTranslatorState {
     public JunctionTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
         this(new EntityInterpreter(keywordsResolver.resolveEntities()),
                 new AttributeInterpreter(keywordsResolver.resolveAttributes()),
-                new OperatorInterpreter(keywordsResolver), new ValueInterpreter(),
+                InterpreterFactory.basicOperators(keywordsResolver), InterpreterFactory.allValues(),
                 keywordsResolver, queryBuilder);
     }
 
