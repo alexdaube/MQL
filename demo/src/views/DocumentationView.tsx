@@ -32,16 +32,10 @@ export default class DocumentationView extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
+        const locationHash = this.props.location.hash;
         this.state = {
-            navActiveItem: this.activeNavItem()
+            navActiveItem: locationHash ? locationHash.substring(1) : documentBlocksMarkup[0].id
         };
-    }
-
-    activeNavItem() {
-        if (this.props.location.hash) {
-            return this.props.location.hash.substring(1);
-        }
-        return documentBlocksMarkup[0].id;
     }
 
     handleNavClick(location) {
