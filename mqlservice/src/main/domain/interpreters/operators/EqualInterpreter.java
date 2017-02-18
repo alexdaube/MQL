@@ -1,15 +1,15 @@
 package domain.interpreters.operators;
 
-import domain.querybuilder.QueryBuilder;
-import domain.Query;
+import domain.query.Query;
 import domain.interpreters.Interpreter;
 import domain.keywords.Keywords;
+import domain.query.builder.QueryBuilder;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EqualInterpreter implements Interpreter {
-    private static final Pattern EQUAL_PATTERN = Pattern.compile("^[\\w-]+|^=");
+    static final Pattern EQUAL_PATTERN = Pattern.compile("^[\\w-]+|^=");
     private final Keywords keywords;
 
     public EqualInterpreter(Keywords keywords) {

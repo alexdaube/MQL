@@ -1,8 +1,8 @@
 package domain.interpreters.junctions;
 
-import domain.Query;
+import domain.query.Query;
 import domain.keywords.Keywords;
-import domain.querybuilder.QueryBuilder;
+import domain.query.builder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,8 +22,6 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class AndInterpreterTest {
     private static final String AND_KEYWORD = "and";
-    private Matcher andMatcher;
-    private Matcher invalidMatcher;
     @Mock
     private Keywords keywords;
     @Mock
@@ -33,11 +31,13 @@ public class AndInterpreterTest {
     @Mock
     private Query invalidQuery;
     private AndInterpreter andInterpreter;
+    private Matcher andMatcher;
+    private Matcher invalidMatcher;
 
     @Before
     public void setUp() throws Exception {
         andInterpreter = new AndInterpreter(keywords);
-        andMatcher = Pattern.compile(AND_KEYWORD).matcher(AND_KEYWORD);
+        andMatcher = AndInterpreter.AND_PATTERN.matcher(AND_KEYWORD);
         invalidMatcher = Pattern.compile("An invalid one").matcher("");
         willReturn(true).given(keywords).contains(AND_KEYWORD);
         willReturn(andMatcher).given(andQuery).findMatches(any());

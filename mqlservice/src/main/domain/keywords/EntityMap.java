@@ -1,6 +1,5 @@
 package domain.keywords;
 
-
 import domain.keyword.EntityKeyword;
 
 import java.util.HashMap;
@@ -10,15 +9,22 @@ import java.util.Set;
 
 public class EntityMap {
 
-    private Map<EntityKeyword, KeywordsSet> entities;
+    private Map<EntityKeyword, Set<String>> entities;
 
     public EntityMap() {
         this.entities = new HashMap<>();
     }
 
     public void addEntity(EntityKeyword entityKeyword) {
-        KeywordsSet associatedKeywords = new KeywordsSet(getKeywordsFromEntity(entityKeyword));
-        this.entities.put(entityKeyword, associatedKeywords);
+        this.entities.put(entityKeyword, getKeywordsFromEntity(entityKeyword));
+    }
+
+    //TODO Only attributes and entity compatible for now
+    public Set<String> getKeywordsFromType(Keywords.Type type) {
+        if (type == Keywords.Type.ATTRIBUTE) {
+            return getAttributesKeywords();
+        }
+        return getEntityKeywords();
     }
 
     private Set<String> getKeywordsFromEntity(EntityKeyword entityKeyword) {
@@ -27,15 +33,15 @@ public class EntityMap {
         return keywords;
     }
 
-    public Set<String> getEntityKeywords() {
+    private Set<String> getEntityKeywords() {
         Set<String> entities = new HashSet<>();
         this.entities.keySet().forEach(entityKeyword -> entities.add(entityKeyword.getKeyword()));
         return entities;
     }
 
-    public Set<String> getAttributesKeywords() {
+    private Set<String> getAttributesKeywords() {
         Set<String> attributes = new HashSet<>();
-        this.entities.values().forEach(keywordsSet -> attributes.addAll(keywordsSet.getKeywords()));
+        this.entities.values().forEach(keywordsSet -> attributes.addAll(keywordsSet));
         return attributes;
     }
 }

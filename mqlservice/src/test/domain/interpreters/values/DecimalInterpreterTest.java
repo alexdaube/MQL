@@ -1,56 +1,77 @@
 package domain.interpreters.values;
 
-import domain.StringQuery;
-import domain.querybuilder.QueryBuilder;
-import domain.Query;
+import domain.query.Query;
+import domain.query.builder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.BDDMockito.willReturn;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyDouble;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DecimalInterpreterTest {
-    private static final String STRING_VALUE = "9.99";
+    private static final String DECIMAL_KEYWORD = "-10.0";
     @Mock
     private QueryBuilder queryBuilder;
-    private Query validDecimalQuery;
-    private Query invalidDecimalQuery;
+    @Mock
+    private Query decimalQuery;
+    @Mock
+    private Query invalidQuery;
     private DecimalInterpreter decimalInterpreter;
+    private Matcher decimalMatcher;
+    private Matcher invalidMatcher;
 
     @Before
     public void setUp() throws Exception {
         decimalInterpreter = new DecimalInterpreter();
-        validDecimalQuery = new StringQuery(STRING_VALUE);
-        invalidDecimalQuery = new StringQuery("a" + STRING_VALUE);
+        decimalMatcher = DecimalInterpreter.DECIMAL_PATTERN.matcher(DECIMAL_KEYWORD);
+        invalidMatcher = Pattern.compile("An invalid one").matcher("");
+        willReturn(decimalMatcher).given(decimalQuery).findMatches(any());
+        willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
     }
 
     @Test
-    public void givenAValidDecimalQueryAndABuilder_whenInterpreting_thenReturnTrue() throws Exception {
-        boolean returnValue = decimalInterpreter.interpret(validDecimalQuery, queryBuilder);
-        assertTrue(returnValue);
+    public void givenAnDecimalQueryAndAQueryBuilder_whenInterpreting_thenReturnTrue() {
+        assertTrue(decimalInterpreter.interpret(decimalQuery, queryBuilder));
     }
 
     @Test
-    public void givenAValidDecimalQueryAndABuilder_whenInterpreting_thenTheValueIsAddedToTheBuilder() throws Exception {
-        decimalInterpreter.interpret(validDecimalQuery, queryBuilder);
+    public void givenAnDecimalQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
+        decimalInterpreter.interpret(decimalQuery, queryBuilder);
         verify(queryBuilder).withDecimal(anyDouble());
     }
 
     @Test
-    public void givenAnInvalidDecimalQueryAndABuilder_whenInterpreting_thenReturnFalse() throws Exception {
-        boolean returnValue = decimalInterpreter.interpret(invalidDecimalQuery, queryBuilder);
-        assertFalse(returnValue);
+    public void givenAnDecimalQueryAndAQueryBuilder_whenInterpreting_thenTheKeywordIsRemovedFromQuery() {
+        decimalInterpreter.interpret(decimalQuery, queryBuilder);
+        verify(decimalQuery).removeFirstMatch(any());
     }
 
     @Test
-    public void givenAnInvalidDecimalQueryAndABuilder_whenInterpreting_thenTheBuilderShouldNotBeCalled() throws Exception {
-        decimalInterpreter.interpret(invalidDecimalQuery, queryBuilder);
-        verifyZeroInteractions(queryBuilder);
+    public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenReturnFalse() {
+        assertFalse(decimalInterpreter.interpret(invalidQuery, queryBuilder));
+    }
+
+    @Test
+    public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsNotCalled() {
+        decimalInterpreter.interpret(invalidQuery, queryBuilder);
+        verify(queryBuilder, never()).and();
+    }
+
+    @Test
+    public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
+        decimalInterpreter.interpret(invalidQuery, queryBuilder);
+        verify(decimalQuery, never()).removeFirstMatch(any());
     }
 }

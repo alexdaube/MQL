@@ -1,29 +1,24 @@
-import domain.keywords.DefaultKeywordResolver;
-import domain.keywords.Keywords;
-import domain.keywords.KeywordsResolver;
+import domain.keywords.*;
+import infrastructure.InMemoryKeywordRepository;
 import infrastructure.KeywordDevDataFactory;
 import persistence.SQLHelper;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 import static spark.Spark.before;
 import static spark.Spark.options;
 
 public class Main {
     public static void main(String[] args) {
-        KeywordsResolver keywordsResolver = initKeywordRepositoryWithDevData(new KeywordDevDataFactory());
-        Keywords entities = keywordsResolver.resolveEntities();
-        Keywords attributes = keywordsResolver.resolveAttributes();
-        
+        initKeywordRepositoryWithDevData(new KeywordDevDataFactory());
         //initDatabaseConnection(new SQLiteHelper());
         //initServer(new QueryController());
     }
 
-    private static KeywordsResolver initKeywordRepositoryWithDevData(KeywordDevDataFactory keywordDevDataFactory) {
-        KeywordsResolver keywordsResolver = new DefaultKeywordResolver();
-        keywordsResolver.initializeKeywords(keywordDevDataFactory.readEntitiesFromJSON());
-
-        return keywordsResolver;
+    private static void initKeywordRepositoryWithDevData(KeywordDevDataFactory keywordDevDataFactory) {
+        EntityMap entityMap = keywordDevDataFactory.readEntitiesFromJSON();
+        KeywordRepository keywordRepository = new InMemoryKeywordRepository(entityMap);
     }
 
     private static void initDatabaseConnection(SQLHelper sqlHelper) {

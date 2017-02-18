@@ -1,59 +1,78 @@
 package domain.interpreters;
 
-import builders.KeywordsBuilder;
-import domain.StringQuery;
-import domain.querybuilder.QueryBuilder;
-import domain.Query;
+import domain.query.Query;
 import domain.keywords.Keywords;
+import domain.query.builder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EntityInterpreterTest {
-    private static final String ENTITY = "ENTITY";
+    private static final String ENTITY_KEYWORD = "Tablename";
+    @Mock
+    private Keywords keywords;
     @Mock
     private QueryBuilder queryBuilder;
-    private Query validQuery;
+    @Mock
+    private Query entityQuery;
+    @Mock
     private Query invalidQuery;
     private EntityInterpreter entityInterpreter;
-    private Keywords entities;
+    private Matcher entityMatcher;
+    private Matcher invalidMatcher;
 
     @Before
     public void setUp() throws Exception {
-        entities = KeywordsBuilder.create().with(ENTITY).build();
-        entityInterpreter = new EntityInterpreter(entities);
-        validQuery = new StringQuery(ENTITY + " ");
-        invalidQuery = new StringQuery("S" + ENTITY);
+        entityInterpreter = new EntityInterpreter(keywords);
+        entityMatcher = EntityInterpreter.ENTITY_PATTERN.matcher(ENTITY_KEYWORD);
+        invalidMatcher = Pattern.compile("An invalid one").matcher("");
+        willReturn(true).given(keywords).contains(ENTITY_KEYWORD);
+        willReturn(entityMatcher).given(entityQuery).findMatches(any());
+        willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
     }
 
     @Test
-    public void givenAValidStringQueryAndABuilder_whenInterpreting_thenReturnTrue() throws Exception {
-        boolean returnValue = entityInterpreter.interpret(validQuery, queryBuilder);
-        assertTrue(returnValue);
+    public void givenAnEntityQueryAndAQueryBuilder_whenInterpreting_thenReturnTrue() {
+        assertTrue(entityInterpreter.interpret(entityQuery, queryBuilder));
     }
 
     @Test
-    public void givenAValidStringQueryAndABuilder_whenInterpreting_thenTheEntityShouldBeAddedToTheBuilder() throws Exception {
-        entityInterpreter.interpret(validQuery, queryBuilder);
-        verify(queryBuilder).withEntity(ENTITY);
+    public void givenAnEntityQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
+        entityInterpreter.interpret(entityQuery, queryBuilder);
+        verify(queryBuilder).withEntity(anyString());
     }
 
     @Test
-    public void givenAnInvalidStringQueryAndABuilder_whenInterpreting_thenReturnFalse() throws Exception {
-        boolean returnValue = entityInterpreter.interpret(invalidQuery, queryBuilder);
-        assertFalse(returnValue);
+    public void givenAnEntityQueryAndAQueryBuilder_whenInterpreting_thenTheKeywordIsRemovedFromQuery() {
+        entityInterpreter.interpret(entityQuery, queryBuilder);
+        verify(entityQuery).removeFirstMatch(any());
     }
 
     @Test
-    public void givenAnInvalidStringQueryAndABuilder_whenInterpreting_thenTheBuilderShouldNotBeCalled() throws Exception {
+    public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenReturnFalse() {
+        assertFalse(entityInterpreter.interpret(invalidQuery, queryBuilder));
+    }
+
+    @Test
+    public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsNotCalled() {
         entityInterpreter.interpret(invalidQuery, queryBuilder);
-        verifyZeroInteractions(queryBuilder);
+        verify(queryBuilder, never()).and();
+    }
+
+    @Test
+    public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
+        entityInterpreter.interpret(invalidQuery, queryBuilder);
+        verify(entityQuery, never()).removeFirstMatch(any());
     }
 }

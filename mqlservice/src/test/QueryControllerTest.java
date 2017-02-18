@@ -10,15 +10,6 @@ import static org.junit.Assert.assertEquals;
 public class QueryControllerTest {
     private static final int SERVER_PORT = 4000;
     private static final String URL = "/query";
-
-    public static class QueryControllerTestSparkApplication implements SparkApplication {
-        @Override
-        public void init() {
-            QueryController queryController = new QueryController();
-            queryController.initializeEndPoints();
-        }
-    }
-
     @ClassRule
     public static SparkServer<QueryControllerTestSparkApplication> testServer = new SparkServer<>(
             QueryControllerTest.QueryControllerTestSparkApplication.class, SERVER_PORT);
@@ -30,5 +21,13 @@ public class QueryControllerTest {
         PostMethod post = testServer.post(URL, "{query: 'equipment'}", false);
         HttpResponse response = testServer.execute(post);
         assertEquals(200, response.code());
+    }
+
+    public static class QueryControllerTestSparkApplication implements SparkApplication {
+        @Override
+        public void init() {
+            QueryController queryController = new QueryController();
+            queryController.initializeEndPoints();
+        }
     }
 }
