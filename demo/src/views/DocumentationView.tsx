@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import * as Helmet from "react-helmet";
 import * as jsPDF from "jspdf";
 import * as $ from "jquery";
@@ -29,7 +30,6 @@ export default class DocumentationView extends React.Component<any, any> {
         router: React.PropTypes.object
     };
 
-
     constructor(props) {
         super(props);
         const locationHash = this.props.location.hash;
@@ -37,6 +37,21 @@ export default class DocumentationView extends React.Component<any, any> {
             navActiveItem: locationHash ? locationHash.substring(1) : documentBlocksMarkup[0].id
         };
     }
+
+    // handleScroll(ev) {
+    //     debugger;
+    //     let sections = $('#documentation-content');
+    //
+    //     console.log("Scrolling!");
+    // }
+
+    // componentDidMount() {
+    //     window.addEventListener('scroll', this.handleScroll);
+    // }
+    //
+    // componentWillUnmount() {
+    //     window.removeEventListener('scroll', this.handleScroll);
+    // }
 
     handleNavClick(location) {
         this.setState({navActiveItem: location})
