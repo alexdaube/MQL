@@ -1,15 +1,11 @@
-import * as React from "react";
-import {Button, Form, FormGroup, Label, Input, InputGroupButton, InputGroup} from "reactstrap";
+import React, {Component} from 'react';
+import {Button, Form, FormGroup, Input, InputGroupButton, InputGroup} from "reactstrap";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as actions from "../actions";
 
 
-interface ISearchBarState {
-    term: string
-}
-
-class SearchBar extends React.Component<any, ISearchBarState> {
+class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.state = {

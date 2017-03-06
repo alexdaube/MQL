@@ -1,11 +1,11 @@
-import * as React from "react";
+import React, {Component} from 'react';
 import {connect} from "react-redux";
 import { Table } from 'reactstrap';
 import DynamicListHeader from "../components/DynamicListHeader";
 import DynamicListBody from "../components/DynamicListBody";
 import {undoCamelCasing} from '../utils/strings';
 
-class DynamicList extends React.Component<any, any> {
+class DynamicList extends Component {
     extractLabels() {
         return Object.keys(this.props.query[0]).map(key => {
             return undoCamelCasing(key);

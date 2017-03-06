@@ -1,8 +1,8 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import * as Helmet from "react-helmet";
-import * as jsPDF from "jspdf";
-import * as $ from "jquery";
+import React, {Component} from 'react';
+import ReactDOM from "react-dom";
+import Helmet from "react-helmet";
+import jsPDF from "jspdf";
+import $ from "jquery";
 import {Link} from "react-router";
 import {StickyContainer, Sticky} from "react-sticky";
 import {Container, Nav, NavItem, NavLink, Row, Col, Button} from "reactstrap";
@@ -25,8 +25,8 @@ const ComponentLink = (props) => {
 };
 
 
-export default class DocumentationView extends React.Component<any, any> {
-    static contextTypes: React.ValidationMap<any> = {
+export default class DocumentationView extends Component {
+    static contextTypes = {
         router: React.PropTypes.object
     };
 

@@ -1,7 +1,6 @@
-import * as React from "react";
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import React, {Component} from 'react';
 
-export default class DocumentationBlock extends React.Component<any, any>  {
+export default class DocumentationBlock extends Component  {
     renderOrderedList() {
         if (this.props.markup.orderedList) {
             return (
