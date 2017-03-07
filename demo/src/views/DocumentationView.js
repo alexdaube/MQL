@@ -1,28 +1,12 @@
 import React, {Component} from 'react';
-import ReactDOM from "react-dom";
 import Helmet from "react-helmet";
 import jsPDF from "jspdf";
 import $ from "jquery";
-import {Link} from "react-router";
 import {StickyContainer, Sticky} from "react-sticky";
-import {Container, Nav, NavItem, NavLink, Row, Col, Button} from "reactstrap";
+import {Container, Nav, NavItem, Row, Col, Button} from "reactstrap";
 import DocumentationBlock from "../components/DocumentationBlock";
-import {documentBlocksMarkup} from "../constants/demo_text";
-
-
-const ComponentLink = (props) => {
-    const isActive = props.item.id === props.activeItem ? 'active' : '';
-    return (
-        <NavItem>
-            <NavLink tag={Link}
-                     to={`/documentation#${props.item.id}`}
-                     activeClassName={isActive}
-                     onClick={props.onActiveChange }>
-                {props.item.menuTitle}
-            </NavLink>
-        </NavItem>
-    );
-};
+import ComponentLink from "../components/ComponentLink";
+import {documentBlocksMarkup} from "../constants/demo_documentation";
 
 
 export default class DocumentationView extends Component {
@@ -86,6 +70,7 @@ export default class DocumentationView extends Component {
                                         {documentBlocksMarkup.map((item, i) => {
                                             return (<ComponentLink key={i}
                                                                    item={item}
+                                                                   toBaseUrl='/documentation#'
                                                                    activeItem={this.state.navActiveItem}
                                                                    onActiveChange={() => {this.handleNavClick(item.id)}}/>);
                                         })}
