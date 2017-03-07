@@ -20,7 +20,7 @@ export default class Header extends Component {
 
     render() {
         return (
-            <div>
+            <div id="mql-navbar">
                 <Navbar color="primary" inverse toggleable>
                     <NavbarToggler right onClick={this.toggle} />
                     <NavbarBrand href="/">MQL Demo</NavbarBrand>
