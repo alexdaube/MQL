@@ -38,31 +38,28 @@ export default class DocumentationView extends Component {
         };
     }
 
-    handleScroll(ev) {
+    handleScroll() {
         const sections = $('.documentationSection');
         const nav = $('#mql-navbar');
         const nav_height = nav.outerHeight();
 
         const cur_pos = $(window).scrollTop();
 
-        sections.each(() => {
-            debugger;
-            const top = $(this).offset().top - nav_height;
-            const bottom = top + $(this).outerHeight();
+        sections.each((index, element) => {
+            const top = $(element).offset().top - nav_height;
+            const bottom = top + $(element).outerHeight();
             if (cur_pos >= top && cur_pos <= bottom) {
-                this.setState({navActiveItem: $(this).attr('id')});
+                this.setState({navActiveItem: $(element).attr('id')});
             }
         });
-
-        console.log("Scrolling!");
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('scroll', this.handleScroll.bind(this), false);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('scroll', this.handleScroll.bind(this), false);
     }
 
     handleNavClick(location) {

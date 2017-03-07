@@ -32,6 +32,7 @@ export default class DocumentationBlock extends Component  {
     render() {
         return (
             <div id={this.props.markup.id} name={this.props.markup.id} className="documentationSection">
+                <br/><br/>
                 {this.props.markup.title}
                 {this.renderText()}
                 {this.renderOrderedList()}
