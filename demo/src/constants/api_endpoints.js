@@ -1,4 +1,4 @@
-const BASE_URL = `http://localhost:4567`;
-const QUERY_URL = `${BASE_URL}/query`;
+const BASE_URL = 'http://localhost:4567';
+const QUERY_PATH = '/query';
 
-export {BASE_URL, QUERY_URL};
+export {BASE_URL, QUERY_PATH};

@@ -1,6 +1,6 @@
 import React from 'react';
-import {NavLink} from "reactstrap";
 import ComponentLink from '../../src/components/ComponentLink';
+
 
 describe('ComponentLink', () => {
     let wrapper, props;

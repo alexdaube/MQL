@@ -1,29 +1,62 @@
-// import { expect } from "../test_helper";
-// import {fetchQuery} from "../../src/actions/index";
-// import {FETCH_QUERY} from "../../src/actions/types";
-// import axios from 'axios'
-// import sinon from 'sinon';
-//
-// const fakePayload = { foo: 'bar' };
-// describe('actions', () => {
-//     let sandbox;
-//     beforeEach(() => sandbox = sinon.sandbox.create());
-//     afterEach(() => sandbox.restore());
-//
-//     describe('fetchQuery', () => {
-//
-//         it('has correct type', () => {
-//             sandbox.stub(axios, 'get').returns('');
-//             const action = fetchQuery();
-//             expect(action.type).to.equal(FETCH_QUERY);
-//         });
-//
-//         // it('has correct payload', () => {
-//         //     const resolved = new Promise((r) => r(fakePayload));
-//         //     sandbox.stub(axios, 'get').returns(resolved);
-//         //     const query = 'sites from ...';
-//         //     const action = fetchQuery(query);
-//         //     expect(action.payload).to.equal(fakePayload);
-//         // });
-//     });
-// });
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import * as actions from '../../src/actions/index'
+import * as types from "../../src/actions/types";
+
+import moxios from 'moxios'
+
+const middlewares = [ thunk ];
+const mockStore = configureMockStore(middlewares);
+
+describe('actions', () => {
+
+    describe('that are async actions', () => {
+        let store, expectedActions;
+        const someQueryResponse = ['some query response'];
+        const query = 'some query';
+
+        const storeActionsExpectation = () => {
+            return store.dispatch(actions.fetchQuery(query))
+                .then(() => {
+                    expect(store.getActions()).to.eql(expectedActions)
+                });
+        };
+
+        beforeEach(() => {
+            expectedActions = [{ type: types.FETCH_QUERY_REQUEST }];
+            store = mockStore({ query: [] });
+            moxios.install();
+        });
+
+        afterEach(() => {
+            moxios.uninstall();
+        });
+
+        it('creates FETCH_QUERY_SUCCESS when request is successful', () => {
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.respondWith({
+                    status: 200,
+                    response: someQueryResponse
+                });
+            });
+
+            expectedActions.push({ type: types.FETCH_QUERY_SUCCESS, payload: someQueryResponse });
+
+            return storeActionsExpectation();
+        });
+
+        it('creates FETCH_QUERY_ERROR when request is not successful', () => {
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.respondWith({
+                    status: 404,
+                });
+            });
+
+            expectedActions.push({ type: types.FETCH_QUERY_ERROR });
+
+            return storeActionsExpectation();
+        });
+    });
+});

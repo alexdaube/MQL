@@ -5,7 +5,7 @@ import DynamicListHeader from "../components/DynamicListHeader";
 import DynamicListBody from "../components/DynamicListBody";
 import {undoCamelCasing} from '../utils/strings';
 
-class DynamicList extends Component {
+export class DynamicList extends Component {
     extractLabels() {
         return Object.keys(this.props.query[0]).map(key => {
             return undoCamelCasing(key);

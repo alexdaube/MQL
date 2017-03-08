@@ -50,4 +50,9 @@ describe('DocumentationView', () => {
         const wrapper = shallow(<DocumentationView {...props}/>);
         expect(wrapper.state().navActiveItem).to.equal(markupId);
     });
+
+    it('changes the active item on click', () => {
+        wrapper.instance().handleNavClick(markupId);
+        expect(wrapper.state().navActiveItem).to.equal(markupId);
+    });
 });
