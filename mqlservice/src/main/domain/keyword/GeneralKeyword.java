@@ -2,7 +2,7 @@ package domain.keyword;
 
 import java.util.Set;
 
-public class GeneralKeyword implements Keyword {
+public class GeneralKeyword implements KeywordConfig {
 
     private String keyword;
     private Set<String> synonyms;
@@ -24,7 +24,6 @@ public class GeneralKeyword implements Keyword {
     public void setSynonyms(Set<String> synonyms) {
         this.synonyms = synonyms;
     }
-
 
     @Override
     public void setKeyword(String keyword) {

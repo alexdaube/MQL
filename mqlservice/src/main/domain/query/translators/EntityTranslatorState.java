@@ -17,7 +17,7 @@ public class EntityTranslatorState implements QueryTranslatorState {
         this(new AttributeInterpreter(keywordsResolver.resolveType(Keywords.Type.ATTRIBUTE)), queryBuilder, keywordsResolver);
     }
 
-    public EntityTranslatorState(Interpreter attributeInterpreter, QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
+    protected EntityTranslatorState(Interpreter attributeInterpreter, QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
         this.attributeInterpreter = attributeInterpreter;
         this.queryBuilder = queryBuilder;
         this.keywordsResolver = keywordsResolver;

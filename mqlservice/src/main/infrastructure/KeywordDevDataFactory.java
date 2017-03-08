@@ -3,7 +3,7 @@ package infrastructure;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import domain.keyword.EntityKeyword;
-import domain.keywords.EntityMap;
+import domain.keyword.EntityMap;
 import domain.keyword.GeneralKeyword;
 import infrastructure.deserializers.EntitiesDeserializer;
 import infrastructure.deserializers.EntityKeywordDeserializer;
@@ -31,7 +31,6 @@ public class KeywordDevDataFactory {
             BufferedReader br = new BufferedReader(fileReader);
 
             this.entities = gson.fromJson(br, EntityMap.class);
-            System.out.println();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

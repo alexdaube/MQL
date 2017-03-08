@@ -1,20 +1,20 @@
 package infrastructure;
 
-import domain.keywords.EntityMap;
 import domain.keywords.KeywordRepository;
 import domain.keywords.Keywords;
+import domain.keywords.KeywordsSet;
 
 public class InMemoryKeywordRepository implements KeywordRepository {
 
-    private EntityMap entityKeywords;
+    private KeywordsSet keywordsSet;
 
-    public InMemoryKeywordRepository(EntityMap entityMap) {
-        this.entityKeywords = entityMap;
+    public InMemoryKeywordRepository(KeywordsSet keywordsSet) {
+        this.keywordsSet = keywordsSet;
     }
 
     @Override
+    //TODO Check keyword types with Nicolas,
     public Keywords findKeywordsByType(Keywords.Type type) {
-        //return this.entityKeywords.getKeywordsFromType(type);
         return null;
     }
 

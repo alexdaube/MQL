@@ -1,10 +1,10 @@
+import domain.keyword.EntityMap;
 import domain.keywords.*;
 import infrastructure.InMemoryKeywordRepository;
 import infrastructure.KeywordDevDataFactory;
 import persistence.SQLHelper;
 
 import java.sql.SQLException;
-import java.util.Map;
 
 import static spark.Spark.before;
 import static spark.Spark.options;
@@ -17,8 +17,11 @@ public class Main {
     }
 
     private static void initKeywordRepositoryWithDevData(KeywordDevDataFactory keywordDevDataFactory) {
+        //TODO Build operators and junction keywords, add to resolver
         EntityMap entityMap = keywordDevDataFactory.readEntitiesFromJSON();
-        KeywordRepository keywordRepository = new InMemoryKeywordRepository(entityMap);
+        InterpreterKeywordFactory keywordFactory = new InterpreterKeywordFactory();
+        KeywordsSet keywordsSet = keywordFactory.createKeywordsFromEntityMap(entityMap);
+        KeywordRepository keywordRepository = new InMemoryKeywordRepository(keywordsSet);
     }
 
     private static void initDatabaseConnection(SQLHelper sqlHelper) {

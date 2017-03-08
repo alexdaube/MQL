@@ -3,7 +3,6 @@ package infrastructure.deserializers;
 import com.google.gson.*;
 import domain.keyword.EntityKeyword;
 import domain.keyword.GeneralKeyword;
-import domain.keyword.Keyword;
 
 import java.lang.reflect.Type;
 import java.util.HashSet;
@@ -15,7 +14,7 @@ public class EntityKeywordDeserializer implements JsonDeserializer<EntityKeyword
         final JsonObject jsonObject = json.getAsJsonObject();
 
         GeneralKeyword[] generalKeywords = context.deserialize(jsonObject.get("attributes"), GeneralKeyword[].class);
-        final Set<Keyword> keywords = extractAttributes(generalKeywords);
+        final Set<GeneralKeyword> keywords = extractAttributes(generalKeywords);
 
         final EntityKeyword entityKeyword = extractObjectFromJSON(jsonObject);
         entityKeyword.setAttributes(keywords);
@@ -46,9 +45,9 @@ public class EntityKeywordDeserializer implements JsonDeserializer<EntityKeyword
         return synonyms;
     }
 
-    private Set<Keyword> extractAttributes(GeneralKeyword[] generalKeywords) {
-        final Set<Keyword> attributes = new HashSet<>();
-        for (Keyword keyword : generalKeywords) {
+    private Set<GeneralKeyword> extractAttributes(GeneralKeyword[] generalKeywords) {
+        final Set<GeneralKeyword> attributes = new HashSet<>();
+        for (GeneralKeyword keyword : generalKeywords) {
             attributes.add(keyword);
         }
         return attributes;

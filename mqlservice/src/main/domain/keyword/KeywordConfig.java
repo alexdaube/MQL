@@ -2,7 +2,7 @@ package domain.keyword;
 
 import java.util.Set;
 
-public interface Keyword {
+public interface KeywordConfig {
 
     String getKeyword();
 
