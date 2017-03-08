@@ -6,7 +6,7 @@ import {NavItem, NavLink} from "reactstrap";
 export default (props) => {
     const isActive = props.item.id === props.activeItem ? 'active' : '';
     return (
-        <NavItem>
+        <NavItem className="componentLink">
             <NavLink tag={Link}
                      to={`${props.toBaseUrl}${props.item.id}`}
                      activeClassName={isActive}

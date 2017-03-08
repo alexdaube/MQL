@@ -15,13 +15,13 @@ class DynamicList extends Component {
     render() {
         if (!this.props.query.length) {
             return (
-                <div style={{'textAlign': 'center'}}>
+                <div style={{'textAlign': 'center'}} className="mqlDynamicList">
                     You haven't made a valid search!
                 </div>
             );
         }
         return (
-            <Table responsive hover inverse>
+            <Table responsive hover inverse className="mqlDynamicList">
                 <DynamicListHeader labels={this.extractLabels()}/>
                 <DynamicListBody data={this.props.query}/>
             </Table>

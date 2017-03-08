@@ -4,7 +4,7 @@ export default class DocumentationBlock extends Component  {
     renderOrderedList() {
         if (this.props.markup.orderedList) {
             return (
-                <ol>
+                <ol className="mqlDocumentationOrderedList">
                     {this.props.markup.orderedList.map((lst, i) => {
                         return <li key={i}>{lst}</li>
                     })}

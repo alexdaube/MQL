@@ -30,7 +30,7 @@ class SearchBar extends Component {
 
     render() {
         return (
-            <Form onSubmit={this.onFormSubmit}>
+            <Form onSubmit={this.onFormSubmit} className="mqlSearchBar">
                 <FormGroup>
                     <InputGroup>
                         <Input

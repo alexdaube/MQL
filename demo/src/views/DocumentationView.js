@@ -6,7 +6,6 @@ import {StickyContainer, Sticky} from "react-sticky";
 import {Container, Nav, NavItem, Row, Col, Button} from "reactstrap";
 import DocumentationBlock from "../components/DocumentationBlock";
 import ComponentLink from "../components/ComponentLink";
-import {documentBlocksMarkup} from "../constants/demo_documentation";
 
 
 export default class DocumentationView extends Component {
@@ -18,7 +17,7 @@ export default class DocumentationView extends Component {
         super(props);
         const locationHash = this.props.location.hash;
         this.state = {
-            navActiveItem: locationHash ? locationHash.substring(1) : documentBlocksMarkup[0].id
+            navActiveItem: locationHash ? locationHash.substring(1) : this.props.route.markup[0].id
         };
     }
 
@@ -58,16 +57,16 @@ export default class DocumentationView extends Component {
 
     render() {
         return (
-            <StickyContainer>
+            <StickyContainer className="mqlDocumentationView">
                 <Container className="content">
                     <Helmet title="Documentation -- MQL"/>
                     <Row>
-                        <Col md={{ size: 3}}>
+                        <Col md={{ size: 3}} className="mqlDocumentationSidebar">
                             <div className="docs-sidebar mb-3">
                                 <h5>MQL</h5>
                                 <Sticky>
                                     <Nav className="flex-column">
-                                        {documentBlocksMarkup.map((item, i) => {
+                                        {this.props.route.markup.map((item, i) => {
                                             return (<ComponentLink key={i}
                                                                    item={item}
                                                                    toBaseUrl='/documentation#'
@@ -83,8 +82,8 @@ export default class DocumentationView extends Component {
                                 </Sticky>
                             </div>
                         </Col>
-                        <Col id="documentation-content" md={{ size: 9}}>
-                            {documentBlocksMarkup.map((docBlock, i) => {
+                        <Col id="documentation-content" md={{ size: 9}} className="mqlDocumentationContent">
+                            {this.props.route.markup.map((docBlock, i) => {
                                 return <DocumentationBlock key={i} markup={docBlock}/>
                             })}
                         </Col>
