@@ -17,7 +17,7 @@ public class InMemoryKeywordRepository implements KeywordRepository {
     }
 
     @Override
-    //TODO Check keyword types with Nicolas,
+    //TODO Check keywords types with Nicolas,
     public Keywords findKeywordsByType(Keywords.Type type) {
         return new KeywordsSet(getKeywordByType(type));
     }

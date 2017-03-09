@@ -1,8 +1,8 @@
 package infrastructure.deserializers;
 
 import com.google.gson.*;
-import domain.keyword.EntityKeyword;
-import domain.keyword.EntityMap;
+import configuration.keywords.EntityKeyword;
+import configuration.keywords.EntityMap;
 
 import java.lang.reflect.Type;
 import java.util.HashSet;

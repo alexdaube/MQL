@@ -1,4 +1,4 @@
-import domain.keyword.EntityMap;
+import configuration.keywords.EntityMap;
 import domain.keywords.*;
 import infrastructure.InMemoryKeywordRepository;
 import infrastructure.KeywordDevDataFactory;

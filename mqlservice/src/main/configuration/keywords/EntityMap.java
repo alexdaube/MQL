@@ -1,4 +1,4 @@
-package domain.keyword;
+package configuration.keywords;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,12 +27,6 @@ public class EntityMap {
         Set<EntityKeyword> entities = new HashSet<>();
         this.entities.keySet().forEach(entityKeyword -> entities.add(entityKeyword));
         return entities;
-    }
-
-    private Set<KeywordConfig> getAttributesKeywords() {
-        Set<KeywordConfig> attributes = new HashSet<>();
-        this.entities.values().forEach(keywordsSet -> attributes.addAll(keywordsSet));
-        return attributes;
     }
 
 }

@@ -1,6 +1,6 @@
 package domain.keywords;
 
-import domain.keyword.KeywordConfig;
+import configuration.keywords.KeywordConfig;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;

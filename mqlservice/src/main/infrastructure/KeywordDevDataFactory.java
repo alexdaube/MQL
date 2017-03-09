@@ -2,9 +2,9 @@ package infrastructure;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import domain.keyword.EntityKeyword;
-import domain.keyword.EntityMap;
-import domain.keyword.GeneralKeyword;
+import configuration.keywords.EntityKeyword;
+import configuration.keywords.EntityMap;
+import configuration.keywords.GeneralKeyword;
 import infrastructure.deserializers.EntitiesDeserializer;
 import infrastructure.deserializers.EntityKeywordDeserializer;
 import infrastructure.deserializers.GeneralKeywordDeserializer;

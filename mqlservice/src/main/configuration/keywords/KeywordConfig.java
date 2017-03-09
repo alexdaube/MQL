@@ -1,4 +1,4 @@
-package domain.keyword;
+package configuration.keywords;
 
 import java.util.Set;
 

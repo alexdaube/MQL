@@ -19,7 +19,7 @@ public class KeywordsSet implements Keywords {
 
     public String parentOf(String keyword) {
         Keyword k = keywords.stream().filter(kw -> kw.word.equals(keyword)).findFirst()
-                .orElseThrow(() -> new InvalidQueryException("No keyword found..."));
+                .orElseThrow(() -> new InvalidQueryException("No keywords found..."));
         return k.parent;
     }
 
