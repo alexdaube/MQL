@@ -23,7 +23,6 @@ public class EntityMap {
         return keywords;
     }
 
-
     public Set<EntityKeyword> getEntityKeywords() {
         Set<EntityKeyword> entities = new HashSet<>();
         this.entities.keySet().forEach(entityKeyword -> entities.add(entityKeyword));

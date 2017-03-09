@@ -22,6 +22,8 @@ public class Main {
         InterpreterKeywordFactory keywordFactory = new InterpreterKeywordFactory();
         KeywordsSet keywordsSet = keywordFactory.createKeywordsFromEntityMap(entityMap);
         KeywordRepository keywordRepository = new InMemoryKeywordRepository(keywordsSet);
+        Keywords entities = keywordRepository.findKeywordsByType(Keywords.Type.ENTITY);
+        Keywords attributes = keywordRepository.findKeywordsByType(Keywords.Type.ATTRIBUTE);
     }
 
     private static void initDatabaseConnection(SQLHelper sqlHelper) {

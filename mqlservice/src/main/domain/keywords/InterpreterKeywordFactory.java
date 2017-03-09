@@ -10,6 +10,7 @@ import java.util.Set;
 
 public class InterpreterKeywordFactory {
 
+
     public InterpreterKeywordFactory() {
 
     }
@@ -25,12 +26,12 @@ public class InterpreterKeywordFactory {
     private Set<Keyword> createAttributesKeywords(EntityKeyword entity) {
         Set<Keyword> keywords = new HashSet<>();
         String parentName = entity.getKeyword();
-        Keyword mainKeyword = new Keyword(parentName, parentName);
+        Keyword mainKeyword = new Keyword(parentName);
         mainKeyword.setSynonyms(entity.getSynonyms());
         keywords.add(mainKeyword);
 
         for (KeywordConfig keyword : entity.getAttributes()) {
-            Keyword newKeyword = new Keyword(keyword.getKeyword(), parentName);
+            Keyword newKeyword = new Keyword(keyword.getKeyword(), parentName, Keywords.Type.ATTRIBUTE);
             newKeyword.setSynonyms(keyword.getSynonyms());
             keywords.add(newKeyword);
         }
