@@ -6,14 +6,5 @@ public interface Keywords {
 
     String parentOf(String keyword);
 
-    enum Type {
-        ENTITY,
-        ATTRIBUTE,
-        EQUALS,
-        LESS,
-        GREATER,
-        BETWEEN,
-        OR,
-        OTHER, AND
-    }
+
 }

@@ -2,5 +2,5 @@ package domain.keywords;
 
 public interface KeywordRepository {
 
-    Keywords findKeywordsByType(Keywords.Type type);
+    Keywords findKeywordsByType(Keyword.Type type);
 }

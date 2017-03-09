@@ -14,13 +14,13 @@ public class KeywordsSet implements Keywords {
 
     @Override
     public boolean contains(String keyword) {
-        return keywords.stream().anyMatch(kw -> kw.word.equals(keyword));
+        return keywords.stream().anyMatch(kw -> kw.isSynonymOf(keyword));
     }
 
     public String parentOf(String keyword) {
-        Keyword k = keywords.stream().filter(kw -> kw.word.equals(keyword)).findFirst()
+        Keyword k = keywords.stream().filter(kw -> kw.isSynonymOf(keyword)).findFirst()
                 .orElseThrow(() -> new InvalidQueryException("No keywords found..."));
-        return k.parent;
+        return k.name();
     }
 
     public Set<Keyword> getKeywords() {

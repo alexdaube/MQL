@@ -1,5 +1,6 @@
 package services.keyword;
 
+import domain.keywords.Keyword;
 import domain.keywords.Keywords;
 import domain.keywords.KeywordsResolver;
 
@@ -7,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KeywordsRegistrar implements KeywordsTypeRegistrar, KeywordsValueRegistrar {
-    private Map<Keywords.Type, Keywords> keywordsMap;
+    private Map<Keyword.Type, Keywords> keywordsMap;
     private Keywords keywords;
 
     public static KeywordsValueRegistrar create() {
@@ -30,7 +31,7 @@ public class KeywordsRegistrar implements KeywordsTypeRegistrar, KeywordsValueRe
     }
 
     @Override
-    public KeywordsRegistrar as(Keywords.Type type) {
+    public KeywordsRegistrar as(Keyword.Type type) {
         // TODO: 17/02/17 Do we throw our own exception?
         keywordsMap.put(type, keywords);
         return this;

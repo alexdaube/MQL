@@ -21,7 +21,7 @@ public class InterpreterKeywordFactory {
     public KeywordsSet createKeywordsFromEntityMap(EntityMap entityMap) {
         Set<EntityKeyword> entities = entityMap.getEntityKeywords();
         Set<Keyword> allKeywords = new HashSet<>();
-        entities.stream().forEach(entityKeyword -> allKeywords.addAll(createAttributesKeywords(entityKeyword)));
+        entities.forEach(entityKeyword -> allKeywords.addAll(createAttributesKeywords(entityKeyword)));
 
         return new KeywordsSet(allKeywords);
     }
@@ -29,12 +29,12 @@ public class InterpreterKeywordFactory {
     private Set<Keyword> createAttributesKeywords(EntityKeyword entity) {
         Set<Keyword> keywords = new HashSet<>();
         String parentName = entity.getKeyword();
-        Keyword mainKeyword = new Keyword(parentName);
+        Keyword mainKeyword = new Keyword(parentName, Keyword.Type.ENTITY);
         mainKeyword.setSynonyms(entity.getSynonyms());
         keywords.add(mainKeyword);
 
         for (KeywordConfig keyword : entity.getAttributes()) {
-            Keyword newKeyword = new Keyword(keyword.getKeyword(), parentName, Keywords.Type.ATTRIBUTE);
+            Keyword newKeyword = new Keyword(keyword.getKeyword(), Keyword.Type.ATTRIBUTE);
             newKeyword.setSynonyms(keyword.getSynonyms());
             keywords.add(newKeyword);
         }

@@ -4,21 +4,40 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Keyword {
-    public String word;
-    public Set<String> synonyms;
-    public Keywords.Type type;
+    private String word;
+    private Set<String> synonyms;
+    public Type type;
 
-    public Keyword(String word, Keywords.Type type) {
+    public Keyword(String word, Type type) {
         this.word = word;
         this.type = type;
         this.synonyms = new HashSet<>();
     }
 
-    public Keyword(String word) {
-        this(word, Keywords.Type.ENTITY);
-    }
 
+    // TODO: 09/03/17 Test
     public void setSynonyms(Set<String> synonyms) {
         this.synonyms = synonyms;
+    }
+
+    // TODO: 09/03/17 test
+    public boolean isSynonymOf(String word) {
+        return this.word.equals(word) || synonyms.stream().anyMatch(s -> s.equals(word));
+    }
+
+    public String name() {
+        return word;
+    }
+
+    public enum Type {
+        ENTITY,
+        ATTRIBUTE,
+        EQUALS,
+        LESS,
+        GREATER,
+        BETWEEN,
+        OR,
+        AND,
+        OTHER
     }
 }

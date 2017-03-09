@@ -1,6 +1,7 @@
 package domain.query.translators;
 
 import domain.InvalidQueryException;
+import domain.keywords.Keyword;
 import domain.query.Query;
 import domain.interpreters.AttributeInterpreter;
 import domain.interpreters.Interpreter;
@@ -14,7 +15,7 @@ public class EntityTranslatorState implements QueryTranslatorState {
     private final KeywordsResolver keywordsResolver;
 
     public EntityTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
-        this(new AttributeInterpreter(keywordsResolver.resolveType(Keywords.Type.ATTRIBUTE)), queryBuilder, keywordsResolver);
+        this(new AttributeInterpreter(keywordsResolver.resolveType(Keyword.Type.ATTRIBUTE)), queryBuilder, keywordsResolver);
     }
 
     protected EntityTranslatorState(Interpreter attributeInterpreter, QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {

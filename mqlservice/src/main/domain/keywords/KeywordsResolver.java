@@ -2,5 +2,5 @@ package domain.keywords;
 
 public interface KeywordsResolver {
 
-    Keywords resolveType(Keywords.Type type);
+    Keywords resolveType(Keyword.Type type);
 }

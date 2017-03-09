@@ -27,7 +27,7 @@ public class KeywordDevDataFactory {
             gsonBuilder.registerTypeAdapter(EntityMap.class, new EntitiesDeserializer());
             Gson gson = gsonBuilder.create();
 
-            FileReader fileReader = new FileReader("./mqlservice/src/main/configuration/entities_config.json");
+            FileReader fileReader = new FileReader("./src/main/configuration/entities_config.json");
             BufferedReader br = new BufferedReader(fileReader);
 
             this.entities = gson.fromJson(br, EntityMap.class);

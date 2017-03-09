@@ -18,11 +18,11 @@ public class InMemoryKeywordRepository implements KeywordRepository {
 
     @Override
     //TODO Check keywords types with Nicolas,
-    public Keywords findKeywordsByType(Keywords.Type type) {
+    public Keywords findKeywordsByType(Keyword.Type type) {
         return new KeywordsSet(getKeywordByType(type));
     }
 
-    private Set<Keyword> getKeywordByType(Keywords.Type desiredType) {
+    private Set<Keyword> getKeywordByType(Keyword.Type desiredType) {
         return this.keywordsSet.getKeywords().stream()
                 .filter(keyword -> keyword.type.equals(desiredType))
                 .collect(Collectors.toSet());
