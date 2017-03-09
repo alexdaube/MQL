@@ -1,37 +1,38 @@
 package domain.translators;
 
-import domain.StringQuery;
-import domain.interpreters.ValueInterpreter;
 import domain.InvalidQueryException;
+import domain.Query;
 import domain.interpreters.Interpreter;
-import domain.interpreters.JunctionInterpreter;
-
-import java.util.HashSet;
-import java.util.Set;
+import domain.interpreters.InterpreterFactory;
+import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 
 public class ValueTranslatorState implements QueryTranslatorState {
-    private final QueryTranslator queryTranslator;
     private final Interpreter valueInterpreter;
     private final Interpreter junctionInterpreter;
+    private final KeywordsResolver keywordsResolver;
+    private final QueryBuilder queryBuilder;
 
-    public ValueTranslatorState(QueryTranslator queryTranslator) {
-        valueInterpreter = new ValueInterpreter();
-        Set<String> junctions = new HashSet<>();
-        junctions.add("and");
-        junctions.add("or");
-        junctionInterpreter = new JunctionInterpreter(junctions);
-        this.queryTranslator = queryTranslator;
+    public ValueTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
+        this(InterpreterFactory.allValues(), InterpreterFactory.allJunctions(keywordsResolver), keywordsResolver, queryBuilder);
+    }
+
+    public ValueTranslatorState(Interpreter valueInterpreter, Interpreter junctionInterpreter, KeywordsResolver keywordsResolver, QueryBuilder queryBuilder) {
+        this.valueInterpreter = valueInterpreter;
+        this.junctionInterpreter = junctionInterpreter;
+        this.keywordsResolver = keywordsResolver;
+        this.queryBuilder = queryBuilder;
     }
 
     @Override
-    public boolean translate(StringQuery stringQuery) {
-        stringQuery.strip();
-        if (stringQuery.isEmpty()) {
-            return true;
-        } else if (valueInterpreter.interpret(stringQuery, queryTranslator.getQueryBuilder())) {
-            return false;
-        } else if (junctionInterpreter.interpret(stringQuery, queryTranslator.getQueryBuilder())) {
-            return false;
+    public StateStatus translate(Query query) {
+        query.strip();
+        if (query.isEmpty()) {
+            return new StateStatus(true, this);
+        } else if (valueInterpreter.interpret(query, queryBuilder)) {
+            return new StateStatus(false, this);
+        } else if (junctionInterpreter.interpret(query, queryBuilder)) {
+            return new StateStatus(false, new JunctionTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("You specified an invalid value...");
     }

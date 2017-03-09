@@ -1,17 +1,51 @@
 package domain.translators;
 
-import domain.StringQuery;
+import domain.InvalidQueryException;
+import domain.Query;
+import domain.interpreters.AttributeInterpreter;
+import domain.interpreters.EntityInterpreter;
+import domain.interpreters.Interpreter;
+import domain.interpreters.InterpreterFactory;
+import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 
 public class JunctionTranslatorState implements QueryTranslatorState {
-    private final QueryTranslator queryTranslator;
+    private final Interpreter entityInterpreter;
+    private final Interpreter attributeInterpreter;
+    private final Interpreter operatorInterpreter;
+    private final Interpreter valueInterpreter;
+    private final KeywordsResolver keywordsResolver;
+    private final QueryBuilder queryBuilder;
 
-    public JunctionTranslatorState(QueryTranslator queryTranslator) {
-        this.queryTranslator = queryTranslator;
+    public JunctionTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
+        this(new EntityInterpreter(keywordsResolver.resolveEntities()),
+                new AttributeInterpreter(keywordsResolver.resolveAttributes()),
+                InterpreterFactory.basicOperators(keywordsResolver), InterpreterFactory.allValues(),
+                keywordsResolver, queryBuilder);
+    }
+
+    public JunctionTranslatorState(Interpreter entityInterpreter, Interpreter attributeInterpreter,
+                                   Interpreter operatorInterpreter, Interpreter valueInterpreter,
+                                   KeywordsResolver keywordsResolver, QueryBuilder queryBuilder) {
+        this.entityInterpreter = entityInterpreter;
+        this.attributeInterpreter = attributeInterpreter;
+        this.operatorInterpreter = operatorInterpreter;
+        this.valueInterpreter = valueInterpreter;
+        this.keywordsResolver = keywordsResolver;
+        this.queryBuilder = queryBuilder;
     }
 
     @Override
-    public boolean translate(StringQuery stringQuery) {
-        queryTranslator.changeState(new InitialTranslatorState(queryTranslator));
-        return false;
+    public StateStatus translate(Query query) {
+        if (entityInterpreter.interpret(query, queryBuilder)) {
+            return new StateStatus(false, new EntityTranslatorState(queryBuilder, keywordsResolver));
+        } else if (attributeInterpreter.interpret(query, queryBuilder)) {
+            return new StateStatus(false, new AttributeTranslatorState(queryBuilder, keywordsResolver));
+        } else if (operatorInterpreter.interpret(query, queryBuilder)) {
+            return new StateStatus(false, new OperatorTranslatorState(queryBuilder, keywordsResolver));
+        } else if (valueInterpreter.interpret(query, queryBuilder)) {
+            return new StateStatus(false, new ValueTranslatorState(queryBuilder, keywordsResolver));
+        }
+        throw new InvalidQueryException("A junction should be followed by an table, an attribute, an operator or a value...");
     }
 }

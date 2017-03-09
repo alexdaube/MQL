@@ -1,35 +1,31 @@
 package domain.translators;
 
 import domain.InvalidQueryException;
-import domain.StringQuery;
+import domain.Query;
 import domain.interpreters.Interpreter;
-import domain.interpreters.OperatorInterpreter;
-
-import java.util.HashSet;
-import java.util.Set;
+import domain.interpreters.InterpreterFactory;
+import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 
 public class AttributeTranslatorState implements QueryTranslatorState {
-    private final QueryTranslator queryTranslator;
+    private final QueryBuilder queryBuilder;
     private final Interpreter interpreter;
+    private final KeywordsResolver keywordsResolver;
 
-    public AttributeTranslatorState(QueryTranslator queryTranslator) {
-        Set<String> operators = new HashSet<>();
-        operators.add("is");
-        operators.add("equal");
-        operators.add("to");
-        operators.add("in");
-        operators.add("or");
-        operators.add("less");
-        operators.add("greater");
-        interpreter = new OperatorInterpreter(operators);
-        this.queryTranslator = queryTranslator;
+    public AttributeTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
+        this(queryBuilder, InterpreterFactory.basicOperators(keywordsResolver), keywordsResolver);
+    }
+
+    public AttributeTranslatorState(QueryBuilder queryBuilder, Interpreter interpreter, KeywordsResolver keywordsResolver) {
+        this.queryBuilder = queryBuilder;
+        this.interpreter = interpreter;
+        this.keywordsResolver = keywordsResolver;
     }
 
     @Override
-    public boolean translate(StringQuery stringQuery) {
-        if (interpreter.interpret(stringQuery, queryTranslator.getQueryBuilder())) {
-            queryTranslator.changeState(new OperatorTranslatorState(queryTranslator));
-            return false;
+    public StateStatus translate(Query query) {
+        if (interpreter.interpret(query, queryBuilder)) {
+            return new StateStatus(false, new OperatorTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("The attribute should be followed by an operator");
     }

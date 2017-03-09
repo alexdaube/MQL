@@ -1,31 +1,25 @@
 package domain.translators;
 
 import domain.Query;
-import domain.QueryBuilder;
-import domain.StringQuery;
+import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 
 public class QueryTranslator {
     private final QueryBuilder queryBuilder;
     private QueryTranslatorState state;
 
-    public QueryTranslator(QueryBuilder queryBuilder) {
+    public QueryTranslator(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
+        this.state = new InitialTranslatorState(queryBuilder, keywordsResolver);
         this.queryBuilder = queryBuilder;
-        this.state = new InitialTranslatorState(this);
     }
 
-    public Query translate(StringQuery stringQuery) {
+    public String translate(Query query) {
         boolean isTranslated = false;
         while (!isTranslated) {
-            isTranslated = state.translate(stringQuery);
+            StateStatus stateStatus = state.translate(query);
+            isTranslated = stateStatus.isDone();
+            state = stateStatus.nextState();
         }
         return queryBuilder.build();
-    }
-
-    public void changeState(QueryTranslatorState state) {
-        this.state = state;
-    }
-
-    public QueryBuilder getQueryBuilder() {
-        return queryBuilder;
     }
 }

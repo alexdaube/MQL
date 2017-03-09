@@ -1,6 +1,8 @@
-package domain.keyword;
+package domain.keywords;
 
 
+import domain.keyword.Keyword;
+import domain.keyword.KeywordFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

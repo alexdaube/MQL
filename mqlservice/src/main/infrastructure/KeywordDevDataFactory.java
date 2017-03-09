@@ -1,8 +1,8 @@
 package infrastructure;
 
 
-import domain.keyword.KeywordFactory;
 import domain.keyword.Keyword;
+import domain.keyword.KeywordFactory;
 
 import java.util.ArrayList;
 import java.util.List;

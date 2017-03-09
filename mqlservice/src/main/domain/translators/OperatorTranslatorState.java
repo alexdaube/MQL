@@ -1,41 +1,37 @@
 package domain.translators;
 
-import domain.StringQuery;
-import domain.interpreters.ValueInterpreter;
 import domain.InvalidQueryException;
+import domain.Query;
 import domain.interpreters.Interpreter;
-import domain.interpreters.OperatorInterpreter;
-
-import java.util.HashSet;
-import java.util.Set;
+import domain.interpreters.InterpreterFactory;
+import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 
 public class OperatorTranslatorState implements QueryTranslatorState {
-    private final QueryTranslator queryTranslator;
     private final Interpreter valueInterpreter;
-    private final OperatorInterpreter operatorInterpreter;
+    private final Interpreter operatorInterpreter;
+    private final KeywordsResolver keywordsResolver;
+    private final QueryBuilder queryBuilder;
 
-    public OperatorTranslatorState(QueryTranslator queryTranslator) {
-        valueInterpreter = new ValueInterpreter();
-        this.queryTranslator = queryTranslator;
-        Set<String> operators = new HashSet<>();
-        operators.add("is");
-        operators.add("equal");
-        operators.add("to");
-        operators.add("in");
-        operators.add("or");
-        operators.add("less");
-        operators.add("greater");
-        operatorInterpreter = new OperatorInterpreter(operators);
+    public OperatorTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
+        this(InterpreterFactory.allValues(), InterpreterFactory.allOperators(keywordsResolver), keywordsResolver, queryBuilder);
+    }
+
+    public OperatorTranslatorState(Interpreter valueInterpreter, Interpreter operatorInterpreter,
+                                   KeywordsResolver keywordsResolver, QueryBuilder queryBuilder) {
+        this.valueInterpreter = valueInterpreter;
+        this.operatorInterpreter = operatorInterpreter;
+        this.keywordsResolver = keywordsResolver;
+        this.queryBuilder = queryBuilder;
     }
 
     @Override
-    public boolean translate(StringQuery stringQuery) {
-        if (valueInterpreter.interpret(stringQuery, queryTranslator.getQueryBuilder())) {
-            queryTranslator.changeState(new ValueTranslatorState(queryTranslator));
-            return false;
-        } else if (operatorInterpreter.interpret(stringQuery, queryTranslator.getQueryBuilder())) {
-            return false;
+    public StateStatus translate(Query query) {
+        if (valueInterpreter.interpret(query, queryBuilder)) {
+            return new StateStatus(false, new ValueTranslatorState(queryBuilder, keywordsResolver));
+        } else if (operatorInterpreter.interpret(query, queryBuilder)) {
+            return new StateStatus(false, this);
         }
-        throw new InvalidQueryException("An operator should be followed by an other operator withJunction by a value...");
+        throw new InvalidQueryException("An operator should be followed by an other operator or by a value...");
     }
 }

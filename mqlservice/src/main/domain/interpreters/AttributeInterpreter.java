@@ -1,29 +1,28 @@
 package domain.interpreters;
 
-import domain.QueryBuilder;
-import domain.StringQuery;
+import domain.Query;
+import domain.keywords.Keywords;
+import domain.querybuilder.QueryBuilder;
 
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AttributeInterpreter implements Interpreter {
-    private final Set<String> attributes;
-    private final Pattern attributePattern;
+    static final Pattern ATTRIBUTE_PATTERN = Pattern.compile("^[\\w-]+");
+    private final Keywords keywords;
 
-    public AttributeInterpreter(Set<String> attributes) {
-        this.attributes = attributes;
-        attributePattern = Pattern.compile("^[\\w-]+");
+    public AttributeInterpreter(Keywords keywords) {
+        this.keywords = keywords;
     }
 
     @Override
-    public boolean interpret(StringQuery query, QueryBuilder queryBuilder) {
-        Matcher matches = query.findMatches(attributePattern);
+    public boolean interpret(Query query, QueryBuilder queryBuilder) {
+        Matcher matches = query.findMatches(ATTRIBUTE_PATTERN);
         if (matches.find()) {
             String match = matches.group();
-            if (attributes.contains(match)) {
-                query.removeFirstMatch(attributePattern);
-                queryBuilder.withAttribute(match);
+            if (keywords.contains(match)) {
+                query.removeFirstMatch(ATTRIBUTE_PATTERN);
+                queryBuilder.withAttribute(keywords.parentOf(match));
                 return true;
             }
         }

@@ -1,29 +1,31 @@
 package domain.translators;
 
 import domain.InvalidQueryException;
-import domain.StringQuery;
+import domain.Query;
 import domain.interpreters.EntityInterpreter;
 import domain.interpreters.Interpreter;
-
-import java.util.HashSet;
-import java.util.Set;
+import domain.keywords.KeywordsResolver;
+import domain.querybuilder.QueryBuilder;
 
 public class InitialTranslatorState implements QueryTranslatorState {
     private final Interpreter entityInterpreter;
-    private final QueryTranslator queryTranslator;
+    private final KeywordsResolver keywordsResolver;
+    private final QueryBuilder queryBuilder;
 
-    public InitialTranslatorState(QueryTranslator queryTranslator) {
-        this.queryTranslator = queryTranslator;
-        Set<String> entities = new HashSet<>();
-        entities.add("Employee");
-        this.entityInterpreter = new EntityInterpreter(entities);
+    public InitialTranslatorState(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
+        this(new EntityInterpreter(keywordsResolver.resolveEntities()), keywordsResolver, queryBuilder);
+    }
+
+    public InitialTranslatorState(Interpreter entityInterpreter, KeywordsResolver keywordsResolver, QueryBuilder queryBuilder) {
+        this.entityInterpreter = entityInterpreter;
+        this.keywordsResolver = keywordsResolver;
+        this.queryBuilder = queryBuilder;
     }
 
     @Override
-    public boolean translate(StringQuery stringQuery) {
-        if (entityInterpreter.interpret(stringQuery, queryTranslator.getQueryBuilder())) {
-            queryTranslator.changeState(new EntityTranslatorState(queryTranslator));
-            return false;
+    public StateStatus translate(Query query) {
+        if (entityInterpreter.interpret(query, queryBuilder)) {
+            return new StateStatus(false, new EntityTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("A query should begin with the table name...");
     }
