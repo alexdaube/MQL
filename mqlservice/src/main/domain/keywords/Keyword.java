@@ -30,7 +30,6 @@ public class Keyword {
         }else{
             throw new SynonymAlreadyExistsException();
         }
-
+        
     }
-
 }

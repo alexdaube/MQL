@@ -18,4 +18,8 @@ public class InMemoryKeywordRepository implements KeywordRepository {
         return null;
     }
 
+    private Keywords findEntityKeywords(){
+        return this.keywordsSet.getKeywords().stream().filter(keyword -> keyword.)
+    }
+
 }
