@@ -16,7 +16,7 @@ public class GeneralKeywordDeserializer implements JsonDeserializer<GeneralKeywo
     }
 
     private GeneralKeyword extractObjectFromJSON(JsonObject jsonObject) {
-        final JsonElement jsonKeyword = jsonObject.get("keywords");
+        final JsonElement jsonKeyword = jsonObject.get("keyword");
         final String keyword = jsonKeyword.getAsString();
         final Set<String> synonyms = extractKeywordSynonyms(jsonObject);
 

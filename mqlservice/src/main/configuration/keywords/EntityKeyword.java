@@ -23,6 +23,7 @@ public class EntityKeyword implements KeywordConfig {
 
     public void setSynonyms(Set<String> synonyms) {
         this.synonyms = synonyms;
+        this.synonyms.add(this.keyword);
     }
 
     public Set<GeneralKeyword> getAttributes() {

@@ -5,19 +5,17 @@ import java.util.Set;
 
 public class Keyword {
     public String word;
-    public String parent;
     public Set<String> synonyms;
     public Keywords.Type type;
 
-    public Keyword(String word, String parent, Keywords.Type type) {
+    public Keyword(String word, Keywords.Type type) {
         this.word = word;
-        this.parent = parent;
         this.type = type;
         this.synonyms = new HashSet<>();
     }
 
     public Keyword(String word) {
-        this(word, word, Keywords.Type.ENTITY);
+        this(word, Keywords.Type.ENTITY);
     }
 
     public void setSynonyms(Set<String> synonyms) {

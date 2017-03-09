@@ -23,6 +23,7 @@ public class GeneralKeyword implements KeywordConfig {
     @Override
     public void setSynonyms(Set<String> synonyms) {
         this.synonyms = synonyms;
+        this.synonyms.add(this.keyword);
     }
 
     @Override
