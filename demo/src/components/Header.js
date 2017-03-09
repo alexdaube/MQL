@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import React, {Component} from "react";
+import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink} from "reactstrap";
 
 export default class Header extends Component {
     constructor(props) {
@@ -22,7 +22,7 @@ export default class Header extends Component {
         return (
             <div id="mql-navbar" className="mqlHeader">
                 <Navbar color="primary" inverse toggleable>
-                    <NavbarToggler right onClick={this.toggle} />
+                    <NavbarToggler right onClick={this.toggle}/>
                     <NavbarBrand href="/">MQL Demo</NavbarBrand>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>

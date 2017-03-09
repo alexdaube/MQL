@@ -1,11 +1,11 @@
-import React from 'react';
-import DocumentationBlock from '../../src/components/DocumentationBlock';
+import React from "react";
+import DocumentationBlock from "../../src/components/DocumentationBlock";
 
 describe('DocumentationBlock', () => {
     let wrapper, props;
 
     beforeEach(() => {
-        props = {markup: {id: 'someId', title: 'someTitle' }};
+        props = {markup: {id: 'someId', title: 'someTitle'}};
         wrapper = mount(<DocumentationBlock  {...props} />);
     });
 

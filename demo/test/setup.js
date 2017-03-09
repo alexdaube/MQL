@@ -1,7 +1,7 @@
-import chai, { expect } from 'chai';
-import chaiEnzyme from 'chai-enzyme'
-import sinon, { spy } from 'sinon';
-import { mount, render, shallow } from 'enzyme';
+import chai, {expect} from "chai";
+import chaiEnzyme from "chai-enzyme";
+import sinon, {spy} from "sinon";
+import {mount, render, shallow} from "enzyme";
 
 chai.use(chaiEnzyme());
 

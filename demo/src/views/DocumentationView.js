@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import Helmet from "react-helmet";
 import jsPDF from "jspdf";
 import $ from "jquery";
@@ -61,7 +61,7 @@ export default class DocumentationView extends Component {
                 <Container className="content">
                     <Helmet title="Documentation -- MQL"/>
                     <Row>
-                        <Col md={{ size: 3}} className="mqlDocumentationSidebar">
+                        <Col md={{size: 3}} className="mqlDocumentationSidebar">
                             <div className="docs-sidebar mb-3">
                                 <h5>MQL</h5>
                                 <Sticky>
@@ -71,7 +71,9 @@ export default class DocumentationView extends Component {
                                                                    item={item}
                                                                    toBaseUrl='/documentation#'
                                                                    activeItem={this.state.navActiveItem}
-                                                                   onActiveChange={() => {this.handleNavClick(item.id)}}/>);
+                                                                   onActiveChange={() => {
+                                                                       this.handleNavClick(item.id)
+                                                                   }}/>);
                                         })}
                                         <NavItem>
                                             <Button color="danger" size="sm" onClick={this.downloadPDF}>
@@ -82,7 +84,7 @@ export default class DocumentationView extends Component {
                                 </Sticky>
                             </div>
                         </Col>
-                        <Col id="documentation-content" md={{ size: 9}} className="mqlDocumentationContent">
+                        <Col id="documentation-content" md={{size: 9}} className="mqlDocumentationContent">
                             {this.props.route.markup.map((docBlock, i) => {
                                 return <DocumentationBlock key={i} markup={docBlock}/>
                             })}

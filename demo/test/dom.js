@@ -1,4 +1,4 @@
-import {jsdom} from 'jsdom';
+import {jsdom} from "jsdom";
 let exposedProperties = ['window', 'navigator', 'document'];
 
 global.document = jsdom('');

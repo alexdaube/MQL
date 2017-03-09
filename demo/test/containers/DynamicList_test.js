@@ -1,7 +1,7 @@
-import React from 'react';
-import { DynamicList } from '../../src/containers/DynamicList';
-import DynamicListHeader  from '../../src/components/DynamicListHeader';
-import DynamicListBody from '../../src/components/DynamicListBody';
+import React from "react";
+import {DynamicList} from "../../src/containers/DynamicList";
+import DynamicListHeader from "../../src/components/DynamicListHeader";
+import DynamicListBody from "../../src/components/DynamicListBody";
 
 
 describe('DynamicList', () => {
@@ -14,7 +14,7 @@ describe('DynamicList', () => {
         wrapper = mount(<DynamicList {...props} />);
     });
 
-    it ('should have correct class', () => {
+    it('should have correct class', () => {
         expect(wrapper.find('.mqlDynamicList')).to.be.present();
     });
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import DocumentationView from "../../src/views/DocumentationView";
 
 
@@ -10,7 +10,7 @@ describe('DocumentationView', () => {
     beforeEach(() => {
         spy(DocumentationView.prototype, 'componentDidMount');
         spy(DocumentationView.prototype, 'componentWillUnmount');
-        props = {location: {hash: hashPath}, route: { markup: [{id: markupId}] }};
+        props = {location: {hash: hashPath}, route: {markup: [{id: markupId}]}};
         wrapper = mount(<DocumentationView {...props}/>);
     });
 
@@ -40,12 +40,12 @@ describe('DocumentationView', () => {
         expect(DocumentationView.prototype.componentWillUnmount.calledOnce).to.equal(true);
     });
 
-    it('sets navActiveItem with location hash when available' , () => {
+    it('sets navActiveItem with location hash when available', () => {
         const wrapper = shallow(<DocumentationView {...props}/>);
         expect(wrapper.state().navActiveItem).to.equal(hashPath.substring(1));
     });
 
-    it('sets navActiveItem defaults to first nav item' , () => {
+    it('sets navActiveItem defaults to first nav item', () => {
         props.location.hash = '';
         const wrapper = shallow(<DocumentationView {...props}/>);
         expect(wrapper.state().navActiveItem).to.equal(markupId);

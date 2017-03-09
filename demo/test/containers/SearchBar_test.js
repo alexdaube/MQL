@@ -1,6 +1,6 @@
-import React from 'react';
-import td from 'testdouble';
-import { SearchBar } from '../../src/containers/SearchBar';
+import React from "react";
+import td from "testdouble";
+import {SearchBar} from "../../src/containers/SearchBar";
 
 
 describe('SearchBar', () => {
@@ -13,7 +13,7 @@ describe('SearchBar', () => {
         wrapper = mount(<SearchBar {...props} />);
     });
 
-    it ('should have correct class', () => {
+    it('should have correct class', () => {
         expect(wrapper).to.have.className('mqlSearchBar');
     });
 
@@ -45,7 +45,7 @@ describe('SearchBar', () => {
     });
 
     it('state.term should update when search input text changes', () => {
-        wrapper.find('input').simulate('change', { target: { value: input }});
+        wrapper.find('input').simulate('change', {target: {value: input}});
         expect(wrapper.state().term).to.be.equal(input);
     });
 });

@@ -1,5 +1,5 @@
-import React from 'react';
-import guid from '../utils/guid';
+import React from "react";
+import guid from "../utils/guid";
 
 const renderHeader = (label) => {
     return (
@@ -10,9 +10,9 @@ const renderHeader = (label) => {
 export default (props) => {
     return (
         <thead>
-            <tr>
-                {props.labels.map(renderHeader)}
-            </tr>
+        <tr>
+            {props.labels.map(renderHeader)}
+        </tr>
         </thead>
     );
 }

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import {Button, Form, FormGroup, Input, InputGroupButton, InputGroup} from "reactstrap";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";

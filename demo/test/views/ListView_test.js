@@ -1,7 +1,6 @@
-import React from 'react';
-import Helmet from 'react-helmet';
+import React from "react";
+import Helmet from "react-helmet";
 import SearchBar from "../../src/containers/SearchBar";
-
 import ListView from "../../src/views/ListView";
 
 

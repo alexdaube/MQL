@@ -1,4 +1,4 @@
-import guid from '../../src/utils/guid';
+import guid from "../../src/utils/guid";
 
 
 describe('guid', () => {

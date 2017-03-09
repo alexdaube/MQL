@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import {connect} from "react-redux";
-import { Table } from 'reactstrap';
+import {Table} from "reactstrap";
 import DynamicListHeader from "../components/DynamicListHeader";
 import DynamicListBody from "../components/DynamicListBody";
-import {undoCamelCasing} from '../utils/strings';
+import {undoCamelCasing} from "../utils/strings";
 
 export class DynamicList extends Component {
     extractLabels() {

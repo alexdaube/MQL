@@ -1,11 +1,10 @@
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
-import * as actions from '../../src/actions/index'
+import configureMockStore from "redux-mock-store";
+import thunk from "redux-thunk";
+import * as actions from "../../src/actions/index";
 import * as types from "../../src/actions/types";
+import moxios from "moxios";
 
-import moxios from 'moxios'
-
-const middlewares = [ thunk ];
+const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('actions', () => {
@@ -23,8 +22,8 @@ describe('actions', () => {
         };
 
         beforeEach(() => {
-            expectedActions = [{ type: types.FETCH_QUERY_REQUEST }];
-            store = mockStore({ query: [] });
+            expectedActions = [{type: types.FETCH_QUERY_REQUEST}];
+            store = mockStore({query: []});
             moxios.install();
         });
 
@@ -41,7 +40,7 @@ describe('actions', () => {
                 });
             });
 
-            expectedActions.push({ type: types.FETCH_QUERY_SUCCESS, payload: someQueryResponse });
+            expectedActions.push({type: types.FETCH_QUERY_SUCCESS, payload: someQueryResponse});
 
             return storeActionsExpectation();
         });
@@ -54,7 +53,7 @@ describe('actions', () => {
                 });
             });
 
-            expectedActions.push({ type: types.FETCH_QUERY_ERROR });
+            expectedActions.push({type: types.FETCH_QUERY_ERROR});
 
             return storeActionsExpectation();
         });

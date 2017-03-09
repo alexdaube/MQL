@@ -1,5 +1,5 @@
-import React from 'react';
-import Header from '../../src/components/Header';
+import React from "react";
+import Header from "../../src/components/Header";
 
 describe('Header', () => {
     let wrapper;

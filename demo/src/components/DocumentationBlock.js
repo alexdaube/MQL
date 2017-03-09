@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 
-export default class DocumentationBlock extends Component  {
+export default class DocumentationBlock extends Component {
     renderOrderedList() {
         if (this.props.markup.orderedList) {
             return (

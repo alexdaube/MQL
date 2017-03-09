@@ -1,4 +1,4 @@
-import {undoCamelCasing} from '../../src/utils/strings';
+import {undoCamelCasing} from "../../src/utils/strings";
 
 
 describe('strings', () => {

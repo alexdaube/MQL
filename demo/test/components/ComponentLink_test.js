@@ -1,12 +1,18 @@
-import React from 'react';
-import ComponentLink from '../../src/components/ComponentLink';
+import React from "react";
+import ComponentLink from "../../src/components/ComponentLink";
 
 
 describe('ComponentLink', () => {
     let wrapper, props;
 
     beforeEach(() => {
-        props = {item: {id: 'someId', menuTitle: 'title'} , activeItem: 'someId', toBaseUrl: 'someurl/', onActiveChange : () => {} };
+        props = {
+            item: {id: 'someId', menuTitle: 'title'},
+            activeItem: 'someId',
+            toBaseUrl: 'someurl/',
+            onActiveChange: () => {
+            }
+        };
         wrapper = mount(<ComponentLink {...props} />);
     });
 
