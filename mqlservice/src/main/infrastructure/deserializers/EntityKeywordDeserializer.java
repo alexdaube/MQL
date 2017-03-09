@@ -26,10 +26,8 @@ public class EntityKeywordDeserializer implements JsonDeserializer<EntityKeyword
         final JsonElement jsonKeyword = jsonObject.get("keyword");
         final String keyword = jsonKeyword.getAsString();
         final Set<String> synonyms = extractKeywordSynonyms(jsonObject);
-
-        EntityKeyword entityKeyword = new EntityKeyword();
-        entityKeyword.setKeyword(keyword);
-        entityKeyword.setSynonyms(synonyms);
+        final Set<String> foreignKeys = extractForeignKeys(jsonObject);
+        EntityKeyword entityKeyword = new EntityKeyword(keyword, foreignKeys, synonyms);
 
         return entityKeyword;
     }
@@ -44,6 +42,18 @@ public class EntityKeywordDeserializer implements JsonDeserializer<EntityKeyword
 
         return synonyms;
     }
+
+    private Set<String> extractForeignKeys(JsonObject jsonObject) {
+        final JsonArray jsonForeignKey = jsonObject.get("foreign_keys").getAsJsonArray();
+        final Set<String> foreignKeys = new HashSet<>();
+
+        for (JsonElement jsonElement : jsonForeignKey) {
+            foreignKeys.add(jsonElement.getAsString());
+        }
+
+        return foreignKeys;
+    }
+
 
     private Set<GeneralKeyword> extractAttributes(GeneralKeyword[] generalKeywords) {
         final Set<GeneralKeyword> attributes = new HashSet<>();

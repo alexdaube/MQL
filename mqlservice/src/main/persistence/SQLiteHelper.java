@@ -25,10 +25,6 @@ public class SQLiteHelper implements SQLHelper {
                 statement.setQueryTimeout(30);
                 ResultSet rs = statement.executeQuery("select * from site");
 
-                while (rs.next()) {
-                    System.out.println("Name = " + rs.getString("Name"));
-                    System.out.println("City = " + rs.getString("City"));
-                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

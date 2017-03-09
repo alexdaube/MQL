@@ -2,6 +2,9 @@
   "entities": [
     {
       "keyword": "site",
+      "foreign_keys": [
+        "equipment"
+      ],
       "synonyms": [
         "plants",
         "building"
@@ -41,6 +44,9 @@
     },
     {
       "keyword": "equipment",
+      "foreign_keys": [
+        "foreign_key"
+      ],
       "synonyms": [
         "device",
         "stock"
