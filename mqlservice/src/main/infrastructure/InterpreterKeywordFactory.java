@@ -34,7 +34,7 @@ public class InterpreterKeywordFactory {
         keywords.add(mainKeyword);
 
         for (KeywordConfig keyword : entity.getAttributes()) {
-            Keyword newKeyword = new Keyword(keyword.getKeyword(), parentName, Keywords.Type.ATTRIBUTE);
+            Keyword newKeyword = new Keyword(keyword.getKeyword(), Keywords.Type.ATTRIBUTE);
             newKeyword.setSynonyms(keyword.getSynonyms());
             keywords.add(newKeyword);
         }
