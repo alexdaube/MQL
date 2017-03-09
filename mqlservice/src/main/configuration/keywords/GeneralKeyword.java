@@ -7,7 +7,10 @@ public class GeneralKeyword implements KeywordConfig {
     private String keyword;
     private Set<String> synonyms;
 
-    public GeneralKeyword() {
+    public GeneralKeyword(String keyword, Set<String> synonyms) {
+        this.keyword = keyword;
+        this.synonyms = synonyms;
+        this.synonyms.add(this.keyword);
     }
 
     @Override
@@ -20,14 +23,4 @@ public class GeneralKeyword implements KeywordConfig {
         return this.synonyms;
     }
 
-    @Override
-    public void setSynonyms(Set<String> synonyms) {
-        this.synonyms = synonyms;
-        this.synonyms.add(this.keyword);
-    }
-
-    @Override
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-    }
 }
