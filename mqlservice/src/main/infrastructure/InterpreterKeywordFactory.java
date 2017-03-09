@@ -1,9 +1,12 @@
-package domain.keywords;
+package infrastructure;
 
 
 import configuration.keywords.EntityKeyword;
 import configuration.keywords.EntityMap;
 import configuration.keywords.KeywordConfig;
+import domain.keywords.Keyword;
+import domain.keywords.Keywords;
+import domain.keywords.KeywordsSet;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,6 +1,7 @@
 import configuration.keywords.EntityMap;
 import domain.keywords.*;
 import infrastructure.InMemoryKeywordRepository;
+import infrastructure.InterpreterKeywordFactory;
 import infrastructure.KeywordDevDataFactory;
 import persistence.SQLHelper;
 
