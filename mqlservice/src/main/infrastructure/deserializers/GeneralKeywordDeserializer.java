@@ -20,9 +20,7 @@ public class GeneralKeywordDeserializer implements JsonDeserializer<GeneralKeywo
         final String keyword = jsonKeyword.getAsString();
         final Set<String> synonyms = extractKeywordSynonyms(jsonObject);
 
-        GeneralKeyword generalKeyword = new GeneralKeyword();
-        generalKeyword.setKeyword(keyword);
-        generalKeyword.setSynonyms(synonyms);
+        GeneralKeyword generalKeyword = new GeneralKeyword(keyword, synonyms);
 
         return generalKeyword;
     }
