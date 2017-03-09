@@ -14,15 +14,9 @@
   * [nvm-windows](https://github.com/coreybutler/nvm-windows) -- Windows.
 
 **Step 2**: Install global dependencies. Execute these commands anywhere in the command line
-  * [TypeScript](https://github.com/Microsoft/TypeScript) -- Superset language for clean Javascript
-  * [Typings](https://github.com/typings/typings) -- TypeScript Definition Manager
-  * [Gulp](https://github.com/gulpjs/gulp) -- Streaming build system
   * [Webpack](https://github.com/webpack/webpack) -- Module bundler
 
 ```shell
-$ npm install -g typescript
-$ npm install -g typings
-$ npm install -g gulp-cli
 $ npm install -g webpack
 ```
 **Step 3**: Install project dependencies.
@@ -32,11 +26,18 @@ These dependencies can be found in package.json.
 ```shell
 $ npm install
 ```
-**Step 4**: Build and start the server from the command line in the demo directory.
+**Step 4**: Build and start the server from the command line in the demo directory. <b>Make sure
+nothing is running on port 8080 on your local machine</b>.
 
 ```shell
-$ gulp serve
+$ npm start
 ```
+
+**Tests**: Run the frontend tests.
+```shell
+$ npm test
+```
+
 
 # Contributors
 
