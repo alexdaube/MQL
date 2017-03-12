@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class BaseState implements OperatorState {
 
     protected final SqlQueryBuilder queryBuilder;
-    protected List<Object> values;
+    protected final List<Object> values;
 
     public BaseState(SqlQueryBuilder queryBuilder) {
         this(queryBuilder, new LinkedList<>());

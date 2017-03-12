@@ -1,4 +1,4 @@
-package services.keyword;
+package infrastructure.KeywordResolver;
 
 import domain.keywords.Keyword;
 import domain.keywords.Keywords;

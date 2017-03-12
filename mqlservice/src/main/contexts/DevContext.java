@@ -1,4 +1,4 @@
-package services.query;
+package contexts;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,58 +6,34 @@ import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSpec;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbTable;
 import configuration.keywords.*;
-import contexts.DevContext;
-import domain.DbClient;
 import domain.keywords.Keyword;
 import domain.keywords.KeywordRepository;
 import domain.keywords.KeywordsResolver;
 import domain.keywords.KeywordsSet;
 import domain.query.builder.QueryBuilder;
 import domain.query.builder.SqlQueryBuilder;
-import domain.query.translators.MqlQueryTranslator;
 import infrastructure.InMemoryKeywordRepository;
 import infrastructure.InterpreterKeywordFactory;
 import infrastructure.KeywordDevDataFactory;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import infrastructure.KeywordResolver.KeywordsRegistrar;
+import infrastructure.KeywordResolver.KeywordsResolverGenerator;
+import services.locator.ServiceLocator;
+import services.locator.ServiceRegistrar;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-@RunWith(MockitoJUnitRunner.class)
-public class QueryServiceTest {
+public class DevContext implements Context {
 
-    @Mock
-    private DbClient dbClient;
-    private QueryService queryService;
-    private QueryDto queryDto;
-
-    @BeforeClass
-    public static void beforeSetUp() {
-        new DevContext().apply();
+    @Override
+    public void apply() {
+        ServiceRegistrar serviceRegistrar = ServiceLocator.getInstance();
+        serviceRegistrar.register(this::initKeywordRepository).asSingleInstance().of(KeywordRepository.class);
+        serviceRegistrar.register(this::initBuilder).asMultipleInstances().of(QueryBuilder.class);
+        serviceRegistrar.register(this::initResolver).asMultipleInstances().of(KeywordsResolver.class);
     }
-
-    @Before
-    public void setUp() {
-        queryService = new QueryService(dbClient);
-        queryDto = new QueryDto();
-    }
-
-    @Test
-    public void given_whenExecuteQuery_then() {
-        String query = "Site SiteId is equal to \"9999\" or less than 9999 and between 9:10 and Equipment serial is greater or equal to 0";
-        System.err.println(query);
-        queryDto.query = query;
-        queryService.executeQuery(queryDto);
-    }
-
 
     private QueryBuilder initBuilder() {
         EntityMap entityMap = new KeywordDevDataFactory().readEntitiesFromJSON();
@@ -77,6 +53,13 @@ public class QueryServiceTest {
     }
 
     private KeywordsResolver initResolver() {
+        KeywordsRegistrar registrar = KeywordsRegistrar.create();
+        ServiceLocator.getInstance().resolve(KeywordRepository.class).findAllKeywords().forEach(registrar::register);
+
+        return registrar.createKeywordsResolver();
+    }
+
+    private KeywordRepository initKeywordRepository() {
         EntityMap entityMap = new KeywordDevDataFactory().readEntitiesFromJSON();
         InterpreterKeywordFactory keywordFactory = new InterpreterKeywordFactory();
         KeywordsSet keywordsSet = keywordFactory.createKeywordsFromEntityMap(entityMap);
@@ -107,10 +90,6 @@ public class QueryServiceTest {
             e.printStackTrace();
         }
 
-        KeywordRepository keywordRepository = new InMemoryKeywordRepository(keywordsSet);
-        KeywordsRegistrar registrar = KeywordsRegistrar.create();
-        keywordRepository.findAllKeywords().forEach(registrar::register);
-
-        return registrar.createKeywordsResolver();
+        return new InMemoryKeywordRepository(keywordsSet);
     }
 }

@@ -2,6 +2,7 @@ package services.keyword;
 
 import domain.keywords.KeywordRepository;
 import domain.keywords.KeywordsResolver;
+import infrastructure.KeywordResolver.KeywordsRegistrar;
 
 public class KeywordService {
     private final KeywordRepository keywordRepository;

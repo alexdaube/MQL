@@ -33,7 +33,7 @@
       ]
     },
     {
-      "keyword": "equipment",
+      "keyword": "Equipment",
       "foreign_keys": [
         {
           "table": "Site",
@@ -53,18 +53,12 @@
         {
           "keyword": "serial_no",
           "synonyms": [
-            "serial",
-            "serial number",
-            "column"
+            "serial"
           ]
         },
         {
           "keyword": "date_in_service",
-          "synonyms": [
-            "column",
-            "column",
-            "column"
-          ]
+          "synonyms": []
         },
         {
           "keyword": "warranty_end",
