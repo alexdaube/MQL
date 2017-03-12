@@ -2,24 +2,22 @@ package infrastructure;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import configuration.keywords.EntityKeyword;
-import configuration.keywords.EntityMap;
-import configuration.keywords.GeneralKeyword;
-import infrastructure.deserializers.EntitiesDeserializer;
-import infrastructure.deserializers.EntityKeywordDeserializer;
-import infrastructure.deserializers.GeneralKeywordDeserializer;
+import configuration.keywords.*;
+import infrastructure.deserializers.*;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 public class KeywordDevDataFactory {
 
-    private EntityMap entities;
 
     public KeywordDevDataFactory() {
-        this.entities = new EntityMap();
+
     }
 
     public EntityMap readEntitiesFromJSON() {
+        EntityMap entities = new EntityMap();
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.registerTypeAdapter(GeneralKeyword.class, new GeneralKeywordDeserializer());
@@ -30,11 +28,12 @@ public class KeywordDevDataFactory {
             FileReader fileReader = new FileReader("./src/main/configuration/entities_config.json");
             BufferedReader br = new BufferedReader(fileReader);
 
-            this.entities = gson.fromJson(br, EntityMap.class);
+            entities = gson.fromJson(br, EntityMap.class);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return this.entities;
+        return entities;
     }
+
 }

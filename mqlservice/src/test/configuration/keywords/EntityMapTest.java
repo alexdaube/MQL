@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -29,6 +31,12 @@ public class EntityMapTest {
         attributes = new HashSet<>();
         attributes.add(mockedGeneralKeyword);
         when(mockedEntityKeyword.getAttributes()).thenReturn(attributes);
+    }
+
+    @Test
+    public void whenAddingKeywordToEntityMap_thenAttributesAreAccessedAndMapped() {
+        entityMap.addEntity(mockedEntityKeyword);
+        verify(mockedEntityKeyword, times(1)).getAttributes();
     }
 
     @Test

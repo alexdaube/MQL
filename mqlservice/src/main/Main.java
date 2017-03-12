@@ -4,7 +4,6 @@ import com.healthmarketscience.sqlbuilder.dbspec.basic.DbTable;
 import configuration.keywords.EntityKeyword;
 import configuration.keywords.EntityMap;
 import configuration.keywords.ForeignKey;
-import domain.keywords.Keyword;
 import domain.keywords.KeywordRepository;
 import domain.keywords.Keywords;
 import domain.keywords.KeywordsSet;
