@@ -2,10 +2,13 @@ package infrastructure.deserializers;
 
 import com.google.gson.*;
 import configuration.keywords.EntityKeyword;
+import configuration.keywords.ForeignKey;
 import configuration.keywords.GeneralKeyword;
 
 import java.lang.reflect.Type;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class EntityKeywordDeserializer implements JsonDeserializer<EntityKeyword> {
@@ -26,7 +29,7 @@ public class EntityKeywordDeserializer implements JsonDeserializer<EntityKeyword
         final JsonElement jsonKeyword = jsonObject.get("keyword");
         final String keyword = jsonKeyword.getAsString();
         final Set<String> synonyms = extractKeywordSynonyms(jsonObject);
-        final Set<String> foreignKeys = extractForeignKeys(jsonObject);
+        final List<ForeignKey> foreignKeys = extractForeignKeys(jsonObject);
         EntityKeyword entityKeyword = new EntityKeyword(keyword, foreignKeys, synonyms);
 
         return entityKeyword;
@@ -43,17 +46,18 @@ public class EntityKeywordDeserializer implements JsonDeserializer<EntityKeyword
         return synonyms;
     }
 
-    private Set<String> extractForeignKeys(JsonObject jsonObject) {
+    private List<ForeignKey> extractForeignKeys(JsonObject jsonObject) {
         final JsonArray jsonForeignKey = jsonObject.get("foreign_keys").getAsJsonArray();
-        final Set<String> foreignKeys = new HashSet<>();
+        final List<ForeignKey> foreignKeys = new LinkedList<>();
 
         for (JsonElement jsonElement : jsonForeignKey) {
-            foreignKeys.add(jsonElement.getAsString());
+            JsonObject foreignKey = jsonElement.getAsJsonObject();
+            foreignKeys.add(new ForeignKey(foreignKey.get("table").getAsString(),
+                    foreignKey.get("from_column").getAsString(), foreignKey.get("to_column").getAsString()));
         }
 
         return foreignKeys;
     }
-
 
     private Set<GeneralKeyword> extractAttributes(GeneralKeyword[] generalKeywords) {
         final Set<GeneralKeyword> attributes = new HashSet<>();

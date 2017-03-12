@@ -1,8 +1,6 @@
 package services.keyword;
 
-import domain.keywords.Keyword;
 import domain.keywords.KeywordRepository;
-import domain.keywords.Keywords;
 import domain.keywords.KeywordsResolver;
 
 public class KeywordService {
@@ -13,10 +11,8 @@ public class KeywordService {
     }
 
     public KeywordsResolver generateKeywordsResolver() {
-        KeywordsValueRegistrar keywordsRegistrar = KeywordsRegistrar.create();
-        for (Keyword.Type type:Keyword.Type.values()) {
-            keywordsRegistrar.register(keywordRepository.findKeywordsByType(type)).as(type);
-        }
+        KeywordsRegistrar keywordsRegistrar = KeywordsRegistrar.create();
+        keywordRepository.findAllKeywords().forEach(keywordsRegistrar::register);
         return keywordsRegistrar.createKeywordsResolver();
     }
 }

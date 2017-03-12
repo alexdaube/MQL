@@ -3,6 +3,7 @@ package domain.interpreters.operators;
 import domain.query.Query;
 import domain.interpreters.Interpreter;
 import domain.keywords.Keywords;
+import domain.query.builder.OperatorType;
 import domain.query.builder.QueryBuilder;
 
 import java.util.regex.Matcher;
@@ -23,7 +24,7 @@ public class EqualInterpreter implements Interpreter {
             String match = matches.group();
             if (keywords.contains(match.toLowerCase())) {
                 query.removeFirstMatch(EQUAL_PATTERN);
-                queryBuilder.withEquals();
+                queryBuilder.withOperator(OperatorType.EQUAL);
                 return true;
             }
         }

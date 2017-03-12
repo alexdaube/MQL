@@ -2,12 +2,14 @@ package domain.query.builder;
 
 import com.healthmarketscience.sqlbuilder.ComboCondition;
 import com.healthmarketscience.sqlbuilder.JdbcEscape;
+import domain.InvalidQueryException;
 
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class BaseState implements OperatorState {
+
     protected final SqlQueryBuilder queryBuilder;
     protected List<Object> values;
 
@@ -21,23 +23,23 @@ public abstract class BaseState implements OperatorState {
     }
 
     @Override
-    public void withEquals() {
-        queryBuilder.changeState(new EqualState(queryBuilder));
-    }
-
-    @Override
-    public void withGreater() {
-        queryBuilder.changeState(new GreaterState(queryBuilder));
-    }
-
-    @Override
-    public void withLess() {
-        queryBuilder.changeState(new LessState(queryBuilder));
-    }
-
-    @Override
-    public void withBetween() {
-        queryBuilder.changeState(new BetweenState(queryBuilder));
+    public void withOperator(OperatorType operator) {
+        switch (operator) {
+            case EQUAL:
+                queryBuilder.changeState(new EqualState(queryBuilder));
+                break;
+            case LESS:
+                queryBuilder.changeState(new LessState(queryBuilder));
+                break;
+            case GREATER:
+                queryBuilder.changeState(new GreaterState(queryBuilder));
+                break;
+            case BETWEEN:
+                queryBuilder.changeState(new BetweenState(queryBuilder));
+                break;
+            default:
+                throw new InvalidQueryException("The operator does not exist...");
+        }
     }
 
     @Override

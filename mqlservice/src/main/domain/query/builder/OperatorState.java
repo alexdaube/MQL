@@ -5,11 +5,7 @@ import com.healthmarketscience.sqlbuilder.Condition;
 import java.sql.Date;
 
 public interface OperatorState {
-    void withEquals();
-
-    void withGreater();
-
-    void withLess();
+    void withOperator(OperatorType operator);
 
     void withVarchar(String value);
 
@@ -24,6 +20,4 @@ public interface OperatorState {
     void or();
 
     Condition apply();
-
-    void withBetween();
 }

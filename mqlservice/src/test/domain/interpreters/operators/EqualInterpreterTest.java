@@ -2,6 +2,7 @@ package domain.interpreters.operators;
 
 import domain.query.Query;
 import domain.keywords.Keywords;
+import domain.query.builder.OperatorType;
 import domain.query.builder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class EqualInterpreterTest {
     @Test
     public void givenAnEqualQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
         equalInterpreter.interpret(equalQuery, queryBuilder);
-        verify(queryBuilder).withEquals();
+        verify(queryBuilder).withOperator(any(OperatorType.class));
     }
 
     @Test

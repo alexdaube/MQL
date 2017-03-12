@@ -38,22 +38,12 @@ public class BetweenStateTest {
 
     @Test(expected = InvalidQueryException.class)
     public void givenLessThanTwoValues_whenWithEquals_thenThrowAnException() {
-        betweenState.withEquals();
+        betweenState.withOperator(OperatorType.EQUAL);
     }
 
     @Test(expected = InvalidQueryException.class)
     public void givenLessThanTwoValues_whenWithGreater_thenThrowAnException() {
-        betweenState.withGreater();
-    }
-
-    @Test(expected = InvalidQueryException.class)
-    public void givenLessThanTwoValues_whenWithLess_thenThrowAnException() {
-        betweenState.withLess();
-    }
-
-    @Test(expected = InvalidQueryException.class)
-    public void givenLessThanTwoValues_whenWithBetween_thenThrowAnException() {
-        betweenState.withBetween();
+        betweenState.withOperator(OperatorType.GREATER);
     }
 
     @Test(expected = InvalidQueryException.class)

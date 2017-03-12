@@ -3,15 +3,16 @@ package services.keyword;
 import domain.keywords.Keyword;
 import domain.keywords.Keywords;
 import domain.keywords.KeywordsResolver;
+import domain.keywords.KeywordsSet;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
-public class KeywordsRegistrar implements KeywordsTypeRegistrar, KeywordsValueRegistrar {
+public class KeywordsRegistrar {
     private Map<Keyword.Type, Keywords> keywordsMap;
-    private Keywords keywords;
 
-    public static KeywordsValueRegistrar create() {
+    public static KeywordsRegistrar create() {
         return new KeywordsRegistrar();
     }
 
@@ -19,21 +20,16 @@ public class KeywordsRegistrar implements KeywordsTypeRegistrar, KeywordsValueRe
         keywordsMap = new HashMap<>();
     }
 
-    @Override
-    public KeywordsTypeRegistrar register(Keywords keywords) {
-        this.keywords = keywords;
+    public KeywordsRegistrar register(Keyword keyword) {
+        if (!keywordsMap.containsKey(keyword.type)) {
+            keywordsMap.put(keyword.type, new KeywordsSet(new HashSet<>()));
+        }
+        keywordsMap.get(keyword.type).add(keyword);
         return this;
     }
 
-    @Override
     public KeywordsResolver createKeywordsResolver() {
         return new KeywordsMapResolver(keywordsMap);
     }
 
-    @Override
-    public KeywordsRegistrar as(Keyword.Type type) {
-        // TODO: 17/02/17 Do we throw our own exception?
-        keywordsMap.put(type, keywords);
-        return this;
-    }
 }

@@ -13,11 +13,11 @@ public class GreaterState extends BaseState {
     }
 
     @Override
-    public void withEquals() {
-        if (!applied) {
+    public void withOperator(OperatorType operator) {
+        if (!applied && operator.equals(OperatorType.EQUAL)) {
             queryBuilder.changeState(new GreaterOrEqualState(queryBuilder));
         } else {
-            super.withEquals();
+            super.withOperator(operator);
         }
     }
 

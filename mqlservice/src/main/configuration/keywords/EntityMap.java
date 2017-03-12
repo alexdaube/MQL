@@ -19,13 +19,13 @@ public class EntityMap {
 
     public Set<GeneralKeyword> getKeywordsFromEntity(EntityKeyword entityKeyword) {
         Set<GeneralKeyword> keywords = new HashSet<>();
-        entityKeyword.getAttributes().forEach(keyword -> keywords.add(keyword));
+        entityKeyword.getAttributes().forEach(keywords::add);
         return keywords;
     }
 
     public Set<EntityKeyword> getEntityKeywords() {
         Set<EntityKeyword> entities = new HashSet<>();
-        this.entities.keySet().forEach(entityKeyword -> entities.add(entityKeyword));
+        this.entities.keySet().forEach(entities::add);
         return entities;
     }
 
