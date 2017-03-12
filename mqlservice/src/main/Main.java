@@ -1,5 +1,15 @@
+import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
+import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSpec;
+import com.healthmarketscience.sqlbuilder.dbspec.basic.DbTable;
+import configuration.keywords.EntityKeyword;
 import configuration.keywords.EntityMap;
-import domain.keywords.*;
+import configuration.keywords.ForeignKey;
+import domain.keywords.Keyword;
+import domain.keywords.KeywordRepository;
+import domain.keywords.Keywords;
+import domain.keywords.KeywordsSet;
+import domain.query.builder.QueryBuilder;
+import domain.query.builder.SqlQueryBuilder;
 import infrastructure.InMemoryKeywordRepository;
 import infrastructure.InterpreterKeywordFactory;
 import infrastructure.KeywordDevDataFactory;
@@ -23,8 +33,23 @@ public class Main {
         InterpreterKeywordFactory keywordFactory = new InterpreterKeywordFactory();
         KeywordsSet keywordsSet = keywordFactory.createKeywordsFromEntityMap(entityMap);
         KeywordRepository keywordRepository = new InMemoryKeywordRepository(keywordsSet);
-        Keywords entities = keywordRepository.findKeywordsByType(Keyword.Type.ENTITY);
-        Keywords attributes = keywordRepository.findKeywordsByType(Keyword.Type.ATTRIBUTE);
+        Keywords keywords = keywordRepository.findAllKeywords();
+    }
+
+    private static void initDatabaseSchema() {
+        EntityMap entityMap = new KeywordDevDataFactory().readEntitiesFromJSON();
+        DbSchema dbSchema = new DbSpec().addDefaultSchema();
+        for (EntityKeyword entityKeyword : entityMap.getEntityKeywords()) {
+            DbTable table = dbSchema.addTable(entityKeyword.getKeyword());
+            entityKeyword.getAttributes().forEach(c -> table.addColumn(c.getKeyword()));
+        }
+        QueryBuilder queryBuilder = new SqlQueryBuilder(dbSchema).withAllTablesColumns();
+        for (EntityKeyword entityKeyword : entityMap.getEntityKeywords()) {
+            for (ForeignKey foreignKey : entityKeyword.getForeignKeys()) {
+                queryBuilder.withJoin(entityKeyword.getKeyword(), foreignKey.getTableName(),
+                        foreignKey.getFromColumn(), foreignKey.getToColumn());
+            }
+        }
     }
 
     private static void initDatabaseConnection(SQLHelper sqlHelper) {
@@ -67,6 +92,4 @@ public class Main {
             response.type("application/json");
         });
     }
-
-    ;
 }

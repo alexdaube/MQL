@@ -1,9 +1,15 @@
 {
   "junction": [
     {
-      "keyword": "and",
-      "synonyms": [
-        "combined with"
+      "type": "and",
+      "keywords": [
+        "and"
+      ]
+    },
+    {
+      "type": "OR",
+      "keywords": [
+        "or"
       ]
     }
   ]

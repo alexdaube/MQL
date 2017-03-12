@@ -1,38 +1,28 @@
 {
   "entities": [
     {
-      "keyword": "site",
-      "foreign_keys": [
-        "equipment"
-      ],
+      "keyword": "Site",
+      "foreign_keys": [],
       "synonyms": [
         "plants",
         "building"
       ],
       "attributes": [
         {
+          "keyword": "SiteId",
+          "synonyms": []
+        },
+        {
           "keyword": "name",
-          "synonyms": [
-            "column",
-            "column",
-            "column"
-          ]
+          "synonyms": []
         },
         {
           "keyword": "address",
-          "synonyms": [
-            "column",
-            "column",
-            "column"
-          ]
+          "synonyms": []
         },
         {
           "keyword": "city",
-          "synonyms": [
-            "column",
-            "column",
-            "column"
-          ]
+          "synonyms": []
         },
         {
           "keyword": "zipcode",
@@ -45,13 +35,21 @@
     {
       "keyword": "equipment",
       "foreign_keys": [
-        "foreign_key"
+        {
+          "table": "Site",
+          "from_column": "fk_SiteId",
+          "to_column": "SiteId"
+        }
       ],
       "synonyms": [
         "device",
         "stock"
       ],
       "attributes": [
+        {
+          "keyword": "fk_SiteId",
+          "synonyms": []
+        },
         {
           "keyword": "serial_no",
           "synonyms": [

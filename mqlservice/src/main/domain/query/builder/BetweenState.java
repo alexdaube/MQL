@@ -11,27 +11,9 @@ public class BetweenState extends BaseState {
     }
 
     @Override
-    public void withEquals() {
+    public void withOperator(OperatorType operator) {
         validate();
-        super.withEquals();
-    }
-
-    @Override
-    public void withGreater() {
-        validate();
-        super.withGreater();
-    }
-
-    @Override
-    public void withLess() {
-        validate();
-        super.withLess();
-    }
-
-    @Override
-    public void withBetween() {
-        validate();
-        super.withBetween();
+        super.withOperator(operator);
     }
 
     @Override

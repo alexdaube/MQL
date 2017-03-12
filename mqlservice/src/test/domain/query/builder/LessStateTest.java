@@ -12,6 +12,7 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LessStateTest {
+    private static final OperatorType OPERATOR = OperatorType.BETWEEN;
     @Mock
     private SqlQueryBuilder queryBuilder;
     private LessState lessState;
@@ -23,7 +24,7 @@ public class LessStateTest {
 
     @Test
     public void givenNoValue_whenWithEquals_thenChangeStateToLessOrEqual() {
-        lessState.withEquals();
+        lessState.withOperator(OPERATOR);
         verify(queryBuilder).changeState(any(LessOrEqualState.class));
     }
 

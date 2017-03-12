@@ -1,17 +1,18 @@
 package configuration.keywords;
 
+import java.util.List;
 import java.util.Set;
 
 public class EntityKeyword implements KeywordConfig {
 
     private String keyword;
     private Set<String> synonyms;
-    private Set<String> foreign_keys;
+    private List<ForeignKey> foreignKeys;
     private Set<GeneralKeyword> attributes;
 
-    public EntityKeyword(String keyword, Set<String> foreign_keys, Set<String> synonyms) {
+    public EntityKeyword(String keyword, List<ForeignKey> foreignKeys, Set<String> synonyms) {
         this.keyword = keyword;
-        this.foreign_keys = foreign_keys;
+        this.foreignKeys = foreignKeys;
         this.synonyms = synonyms;
         this.synonyms.add(this.keyword);
     }
@@ -20,8 +21,8 @@ public class EntityKeyword implements KeywordConfig {
         this.attributes = attributes;
     }
 
-    public Set<String> getForeignKeys(){
-        return this.foreign_keys;
+    public List<ForeignKey> getForeignKeys() {
+        return this.foreignKeys;
     }
 
     public Set<GeneralKeyword> getAttributes() {

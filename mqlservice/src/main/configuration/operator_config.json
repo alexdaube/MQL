@@ -1,29 +1,43 @@
 {
   "operators": [
     {
-      "keyword": "equals",
-      "synonyms": [
-        "is"
+      "type": "EQUAL",
+      "keywords": [
+        "equals",
+        "is",
+        "equal",
+        "="
       ]
     },
     {
-      "keyword": "without",
-      "synonyms": [
-        "is not"
-      ]
-    },
-    {
-      "keyword": "less than",
-      "synonyms": [
+      "type": "LESS",
+      "keywords": [
         "less",
-        "lower"
+        "lower",
+        "<"
       ]
     },
     {
-      "keyword": "more than",
-      "synonyms": [
+      "type": "GREATER",
+      "keywords": [
+        "greater",
         "more",
-        "higher"
+        "higher",
+        ">"
+      ]
+    },
+    {
+      "type": "BETWEEN",
+      "keywords": [
+        "between"
+      ]
+    },
+    {
+      "type": "OTHER",
+      "keywords": [
+        "to",
+        "or",
+        "and"
       ]
     }
   ]

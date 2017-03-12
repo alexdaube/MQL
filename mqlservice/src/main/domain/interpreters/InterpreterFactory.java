@@ -8,13 +8,12 @@ import domain.interpreters.values.DecimalInterpreter;
 import domain.interpreters.values.IntegerInterpreter;
 import domain.interpreters.values.VarcharInterpreter;
 import domain.keywords.Keyword;
-import domain.keywords.Keywords;
 import domain.keywords.KeywordsResolver;
 
 public class InterpreterFactory {
     public static Interpreter allOperators(KeywordsResolver keywordsResolver) {
         return new CompositeInterpreter(
-                new EqualInterpreter(keywordsResolver.resolveType(Keyword.Type.EQUALS)),
+                new EqualInterpreter(keywordsResolver.resolveType(Keyword.Type.EQUAL)),
                 new GreaterInterpreter(keywordsResolver.resolveType(Keyword.Type.GREATER)),
                 new LessInterpreter(keywordsResolver.resolveType(Keyword.Type.LESS)),
                 new BetweenInterpreter(keywordsResolver.resolveType(Keyword.Type.BETWEEN)),
@@ -37,7 +36,7 @@ public class InterpreterFactory {
 
     public static Interpreter basicOperators(KeywordsResolver keywordsResolver) {
         return new CompositeInterpreter(
-                new EqualInterpreter(keywordsResolver.resolveType(Keyword.Type.EQUALS)),
+                new EqualInterpreter(keywordsResolver.resolveType(Keyword.Type.EQUAL)),
                 new GreaterInterpreter(keywordsResolver.resolveType(Keyword.Type.GREATER)),
                 new LessInterpreter(keywordsResolver.resolveType(Keyword.Type.LESS)),
                 new BetweenInterpreter(keywordsResolver.resolveType(Keyword.Type.BETWEEN))

@@ -12,6 +12,7 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GreaterStateTest {
+    private static final OperatorType OPERATOR = OperatorType.EQUAL;
     @Mock
     private SqlQueryBuilder queryBuilder;
     private GreaterState greaterState;
@@ -23,7 +24,7 @@ public class GreaterStateTest {
 
     @Test
     public void givenNoValue_whenWithEquals_thenChangeStateToGreaterOrEqual() {
-        greaterState.withEquals();
+        greaterState.withOperator(OPERATOR);
         verify(queryBuilder).changeState(any(GreaterOrEqualState.class));
     }
 

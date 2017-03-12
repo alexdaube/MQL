@@ -8,15 +8,11 @@ public interface QueryBuilder {
 
     QueryBuilder withEntity(String entity);
 
+    QueryBuilder withJoin(String fromTable, String toTable, String fromAttribute, String toAttribute);
+
     QueryBuilder withAttribute(String attribute);
 
-    QueryBuilder withEquals();
-
-    QueryBuilder withGreater();
-
-    QueryBuilder withLess();
-
-    QueryBuilder withBetween();
+    QueryBuilder withOperator(OperatorType operator);
 
     QueryBuilder withVarchar(String value);
 

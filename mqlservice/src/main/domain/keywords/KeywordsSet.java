@@ -2,6 +2,7 @@ package domain.keywords;
 
 import domain.InvalidQueryException;
 
+import java.util.Iterator;
 import java.util.Set;
 
 public class KeywordsSet implements Keywords {
@@ -21,6 +22,16 @@ public class KeywordsSet implements Keywords {
         Keyword k = keywords.stream().filter(kw -> kw.isSynonymOf(keyword)).findFirst()
                 .orElseThrow(() -> new InvalidQueryException("No keywords found..."));
         return k.name();
+    }
+
+    @Override
+    public void add(Keyword keyword) {
+        keywords.add(keyword);
+    }
+
+    @Override
+    public Iterator<Keyword> iterator() {
+        return keywords.iterator();
     }
 
     public Set<Keyword> getKeywords() {

@@ -4,11 +4,16 @@ import com.healthmarketscience.sqlbuilder.ComboCondition;
 import com.healthmarketscience.sqlbuilder.Condition;
 import com.healthmarketscience.sqlbuilder.SelectQuery;
 import com.healthmarketscience.sqlbuilder.dbspec.Column;
+import com.healthmarketscience.sqlbuilder.dbspec.Table;
+import com.healthmarketscience.sqlbuilder.dbspec.basic.DbJoin;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
+import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSpec;
+import com.healthmarketscience.sqlbuilder.dbspec.basic.DbTable;
 
 import java.sql.Date;
 
 public class SqlQueryBuilder implements QueryBuilder {
+
     private DbSchema schema;
     private SelectQuery selectQuery;
     private String table;
@@ -46,6 +51,14 @@ public class SqlQueryBuilder implements QueryBuilder {
         return this;
     }
 
+    public QueryBuilder withJoin(String fromTable, String toTable, String fromAttribute, String toAttribute) {
+        DbTable fTable = schema.findTable(fromTable);
+        DbTable tTable = schema.findTable(toTable);
+        selectQuery.addJoin(SelectQuery.JoinType.INNER, fTable, tTable, fTable.findColumn(fromAttribute),
+                tTable.findColumn(toAttribute));
+        return this;
+    }
+
     public SqlQueryBuilder withEntity(String entity) {
         table = entity;
         this.attribute = null;
@@ -57,23 +70,8 @@ public class SqlQueryBuilder implements QueryBuilder {
         return this;
     }
 
-    public SqlQueryBuilder withEquals() {
-        this.operatorState.withEquals();
-        return this;
-    }
-
-    public SqlQueryBuilder withGreater() {
-        this.operatorState.withGreater();
-        return this;
-    }
-
-    public SqlQueryBuilder withLess() {
-        this.operatorState.withLess();
-        return this;
-    }
-
-    public SqlQueryBuilder withBetween() {
-        this.operatorState.withBetween();
+    public SqlQueryBuilder withOperator(OperatorType operator) {
+        this.operatorState.withOperator(operator);
         return this;
     }
 
