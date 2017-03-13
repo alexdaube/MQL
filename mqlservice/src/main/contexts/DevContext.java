@@ -6,17 +6,20 @@ import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSpec;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbTable;
 import configuration.keywords.*;
+import domain.DbClient;
 import domain.keywords.Keyword;
 import domain.keywords.KeywordRepository;
 import domain.keywords.KeywordsResolver;
 import domain.keywords.KeywordsSet;
 import domain.query.builder.QueryBuilder;
 import domain.query.builder.SqlQueryBuilder;
-import infrastructure.InMemoryKeywordRepository;
-import infrastructure.InterpreterKeywordFactory;
-import infrastructure.KeywordDevDataFactory;
+import infrastructure.clients.SqlLiteClient;
+import infrastructure.repositories.InMemoryKeywordRepository;
+import infrastructure.repositories.InterpreterKeywordFactory;
+import infrastructure.repositories.KeywordDevDataFactory;
 import infrastructure.KeywordResolver.KeywordsRegistrar;
-import infrastructure.KeywordResolver.KeywordsResolverGenerator;
+import persistence.SQLHelper;
+import persistence.SQLiteHelper;
 import services.locator.ServiceLocator;
 import services.locator.ServiceRegistrar;
 
@@ -29,10 +32,14 @@ public class DevContext implements Context {
 
     @Override
     public void apply() {
+        ServiceLocator.reset();
         ServiceRegistrar serviceRegistrar = ServiceLocator.getInstance();
         serviceRegistrar.register(this::initKeywordRepository).asSingleInstance().of(KeywordRepository.class);
         serviceRegistrar.register(this::initBuilder).asMultipleInstances().of(QueryBuilder.class);
         serviceRegistrar.register(this::initResolver).asMultipleInstances().of(KeywordsResolver.class);
+        serviceRegistrar.register(SQLiteHelper::new).asSingleInstance().of(SQLHelper.class);
+        serviceRegistrar.register(() -> new SqlLiteClient(ServiceLocator.getInstance().resolve(SQLHelper.class)))
+                .asSingleInstance().of(DbClient.class);
     }
 
     private QueryBuilder initBuilder() {

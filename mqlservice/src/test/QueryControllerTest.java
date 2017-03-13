@@ -1,8 +1,12 @@
 import com.despegar.http.client.HttpResponse;
 import com.despegar.http.client.PostMethod;
 import com.despegar.sparkjava.test.SparkServer;
+import contexts.DevContext;
 import org.junit.ClassRule;
 import org.junit.Test;
+import persistence.SQLHelper;
+import services.locator.ServiceLocator;
+import services.query.QueryService;
 import spark.servlet.SparkApplication;
 
 import static org.junit.Assert.assertEquals;
@@ -18,7 +22,7 @@ public class QueryControllerTest {
     // It does start a server...
     @Test
     public void canAccessApiQueryEndpointThroughGetMethod() throws Exception {
-        PostMethod post = testServer.post(URL, "{query: 'equipment'}", false);
+        PostMethod post = testServer.post(URL, "{query: 'Site SiteId is greater than -1'}", false);
         HttpResponse response = testServer.execute(post);
         assertEquals(200, response.code());
     }
@@ -26,7 +30,9 @@ public class QueryControllerTest {
     public static class QueryControllerTestSparkApplication implements SparkApplication {
         @Override
         public void init() {
-            QueryController queryController = new QueryController();
+            new DevContext().apply();
+            Main.initDatabaseConnection(ServiceLocator.getInstance().resolve(SQLHelper.class));
+            QueryController queryController = new QueryController(new QueryService());
             queryController.initializeEndPoints();
         }
     }

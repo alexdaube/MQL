@@ -1,5 +1,8 @@
 package domain;
 
+import java.util.List;
+import java.util.Map;
+
 public interface DbClient {
-    void execute(String query);
+    List<Map<String, Object>> execute(String query);
 }

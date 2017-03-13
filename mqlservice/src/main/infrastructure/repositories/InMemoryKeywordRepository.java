@@ -1,4 +1,4 @@
-package infrastructure;
+package infrastructure.repositories;
 
 import domain.keywords.Keyword;
 import domain.keywords.KeywordRepository;

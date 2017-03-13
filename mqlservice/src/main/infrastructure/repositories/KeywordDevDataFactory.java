@@ -1,4 +1,4 @@
-package infrastructure;
+package infrastructure.repositories;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

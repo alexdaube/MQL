@@ -24,10 +24,22 @@ public class SQLiteHelper implements SQLHelper {
                 statement = connection.createStatement();
                 statement.setQueryTimeout(30);
                 ResultSet rs = statement.executeQuery("select * from site");
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public ResultSet executeQuery(String query) {
+        if (connection == null) {
+            throw new RuntimeException("the connection has to be established to execute query...");
+        }
+        try {
+            statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            return statement.executeQuery(query);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

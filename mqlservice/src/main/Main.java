@@ -1,18 +1,15 @@
-import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
-import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSpec;
-import com.healthmarketscience.sqlbuilder.dbspec.basic.DbTable;
-import configuration.keywords.EntityKeyword;
 import configuration.keywords.EntityMap;
-import configuration.keywords.ForeignKey;
+import contexts.DevContext;
 import domain.keywords.KeywordRepository;
 import domain.keywords.Keywords;
 import domain.keywords.KeywordsSet;
-import domain.query.builder.QueryBuilder;
-import domain.query.builder.SqlQueryBuilder;
-import infrastructure.InMemoryKeywordRepository;
-import infrastructure.InterpreterKeywordFactory;
-import infrastructure.KeywordDevDataFactory;
+import infrastructure.repositories.InMemoryKeywordRepository;
+import infrastructure.repositories.InterpreterKeywordFactory;
+import infrastructure.repositories.KeywordDevDataFactory;
 import persistence.SQLHelper;
+import persistence.SQLiteHelper;
+import services.locator.ServiceLocator;
+import services.query.QueryService;
 
 import java.sql.SQLException;
 
@@ -20,38 +17,14 @@ import static spark.Spark.before;
 import static spark.Spark.options;
 
 public class Main {
+
     public static void main(String[] args) {
-        initKeywordRepositoryWithDevData(new KeywordDevDataFactory());
-        //initDatabaseConnection(new SQLiteHelper());
-        //initServer(new QueryController());
+        new DevContext().apply();
+        initDatabaseConnection(ServiceLocator.getInstance().resolve(SQLHelper.class));
+        initServer(new QueryController(new QueryService()));
     }
 
-    private static void initKeywordRepositoryWithDevData(KeywordDevDataFactory keywordDevDataFactory) {
-        //TODO Build operators and junction keywords, add to resolver
-        EntityMap entityMap = keywordDevDataFactory.readEntitiesFromJSON();
-        InterpreterKeywordFactory keywordFactory = new InterpreterKeywordFactory();
-        KeywordsSet keywordsSet = keywordFactory.createKeywordsFromEntityMap(entityMap);
-        KeywordRepository keywordRepository = new InMemoryKeywordRepository(keywordsSet);
-        Keywords keywords = keywordRepository.findAllKeywords();
-    }
-
-    private static void initDatabaseSchema() {
-        EntityMap entityMap = new KeywordDevDataFactory().readEntitiesFromJSON();
-        DbSchema dbSchema = new DbSpec().addDefaultSchema();
-        for (EntityKeyword entityKeyword : entityMap.getEntityKeywords()) {
-            DbTable table = dbSchema.addTable(entityKeyword.getKeyword());
-            entityKeyword.getAttributes().forEach(c -> table.addColumn(c.getKeyword()));
-        }
-        QueryBuilder queryBuilder = new SqlQueryBuilder(dbSchema).withAllTablesColumns();
-        for (EntityKeyword entityKeyword : entityMap.getEntityKeywords()) {
-            for (ForeignKey foreignKey : entityKeyword.getForeignKeys()) {
-                queryBuilder.withJoin(entityKeyword.getKeyword(), foreignKey.getTableName(),
-                        foreignKey.getFromColumn(), foreignKey.getToColumn());
-            }
-        }
-    }
-
-    private static void initDatabaseConnection(SQLHelper sqlHelper) {
+    public static void initDatabaseConnection(SQLHelper sqlHelper) {
         try {
             sqlHelper.startConnection();
             sqlHelper.readDataBase();
