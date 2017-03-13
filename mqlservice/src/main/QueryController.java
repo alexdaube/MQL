@@ -1,13 +1,10 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonObject;
 import services.query.QueryDto;
 import services.query.QueryService;
 
-import java.util.List;
-import java.util.Map;
-
+import static spark.Spark.exception;
 import static spark.Spark.post;
 
 public class QueryController {
@@ -23,10 +20,12 @@ public class QueryController {
     public void initializeEndPoints() {
         post("/query", "application/json", (request, response) ->
                 queryService.executeQuery(gson.fromJson(request.body(), QueryDto.class)), gson::toJson);
-    }
 
-    private JsonArray toJsonArray(List<Map<String, Object>> result) {
-        return gson.toJsonTree(result, new TypeToken<List<Map<String, Object>>>() {
-        }.getType()).getAsJsonArray();
+        exception(Exception.class, (exception, request, response) -> {
+            response.status(404);
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("errorMessage", exception.getMessage());
+            response.body(jsonObject.toString());
+        });
     }
 }

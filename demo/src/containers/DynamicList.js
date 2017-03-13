@@ -7,13 +7,13 @@ import {undoCamelCasing} from "../utils/strings";
 
 export class DynamicList extends Component {
     extractLabels() {
-        return Object.keys(this.props.query[0]).map(key => {
+        return Object.keys(this.props.query.data[0]).map(key => {
             return undoCamelCasing(key);
         });
     }
 
     render() {
-        if (!this.props.query.length) {
+        if (!this.props.query.data.length) {
             return (
                 <div style={{'textAlign': 'center'}} className="mqlDynamicList">
                     You haven't made a valid search!
@@ -23,7 +23,7 @@ export class DynamicList extends Component {
         return (
             <Table responsive hover inverse className="mqlDynamicList">
                 <DynamicListHeader labels={this.extractLabels()}/>
-                <DynamicListBody data={this.props.query}/>
+                <DynamicListBody data={this.props.query.data}/>
             </Table>
         );
     }

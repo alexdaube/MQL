@@ -1,13 +1,15 @@
 import React from "react";
 import Helmet from "react-helmet";
+import {Alert} from "reactstrap";
 import SearchBar from "../../src/containers/SearchBar";
-import ListView from "../../src/views/ListView";
+import {ListView} from "../../src/views/ListView";
 
 
 describe('ListView', () => {
-    let wrapper;
+    let wrapper, props;
     beforeEach(() => {
-        wrapper = shallow(<ListView/>);
+        props = {query: {error: ''}};
+        wrapper = shallow(<ListView {...props}/>);
     });
 
     it('has the correct class', () => {
@@ -24,6 +26,16 @@ describe('ListView', () => {
 
     it('shows a dynamic list', () => {
         expect(wrapper.find(Helmet)).to.have.length(1);
+    });
+
+    it('shows an error message', () => {
+        props.query.error = 'some error';
+        wrapper = shallow(<ListView {...props}/>);
+        expect(wrapper.find(Alert)).to.have.length(1);
+    });
+
+    it('does not show an error message by default', () => {
+        expect(wrapper.find(Alert)).to.have.length(0);
     });
 });
 
