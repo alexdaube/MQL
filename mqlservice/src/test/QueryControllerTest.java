@@ -22,7 +22,7 @@ public class QueryControllerTest {
     // It does start a server...
     @Test
     public void canAccessApiQueryEndpointThroughGetMethod() throws Exception {
-        PostMethod post = testServer.post(URL, "{query: 'Site SiteId is greater than -1'}", false);
+        PostMethod post = testServer.post(URL, "{\"query\": \"Site SiteId is greater than -1\"}", false);
         HttpResponse response = testServer.execute(post);
         assertEquals(200, response.code());
     }
