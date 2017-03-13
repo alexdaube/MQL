@@ -120,7 +120,7 @@ $ npm test
   ```shell
   ./gradlew mqlservice:test
   ```
-* **windows**
+* **Windows**
   ```shell
   gradlew mqlservice:test
   ```
