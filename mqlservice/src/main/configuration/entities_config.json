@@ -133,6 +133,12 @@
       ],
       "attributes": [
         {
+          "keyword": "EquipmentId",
+          "synonyms": [
+            "id"
+          ]
+        },
+        {
           "keyword": "Name",
           "synonyms": []
         },
