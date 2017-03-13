@@ -75,11 +75,11 @@ Clone the repository and go to the root directory of the project.
   
 **Step 4**: Build and run MQL server from the root of the project. Server is listening by default on port 4567.
 * **Unix**
-  ```shell
+  ```
   ./gradlew run
   ```
 * **Windows**
-  ```shell
+  ```
   gradlew run
   ```
 
@@ -117,11 +117,11 @@ $ npm test
 
 **Backend Tests**
 * **Unix** 
-  ```shell
+  ```
   ./gradlew mqlservice:test
   ```
 * **Windows**
-  ```shell
+  ```
   gradlew mqlservice:test
   ```
 
