@@ -1,8 +1,9 @@
 package domain.interpreters.operators;
 
-import domain.Query;
 import domain.keywords.Keywords;
-import domain.querybuilder.QueryBuilder;
+import domain.query.Query;
+import domain.query.builder.OperatorType;
+import domain.query.builder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,7 +53,7 @@ public class LessInterpreterTest {
     @Test
     public void givenAnLessQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
         lessInterpreter.interpret(lessQuery, queryBuilder);
-        verify(queryBuilder).withLess();
+        verify(queryBuilder).withOperator(any(OperatorType.class));
     }
 
     @Test

@@ -1,56 +1,64 @@
 package domain.keywords;
 
-
-import domain.keyword.Keyword;
-import domain.keyword.KeywordFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.HashSet;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class KeywordTest {
-
-    private final String SITE = "SITE";
-    private final String CITY = "CITY";
-    private final String EQUIPEMENT = "EQUIPEMENT";
+    private static final String WORD = "A Word";
+    private static final Keyword.Type TYPE = Keyword.Type.EQUAL;
+    private static final String SYNONYM = "A synonym";
+    private static final String NON_SYNONYM = "A non synonym";
     @Mock
-    Keyword mockedKeyword;
-    @Mock
-    Keyword anotherMockedKeyword;
-    private KeywordFactory keywordFactory;
+    private Keywords children;
+    private HashSet<String> synonyms;
+    private Keyword keyword;
 
     @Before
-    public void setUp() throws Exception {
-        keywordFactory = new KeywordFactory();
+    public void setUp() {
+        synonyms = new HashSet<>();
+        synonyms.add(SYNONYM);
+        keyword = new Keyword(WORD, TYPE, synonyms, children);
     }
 
     @Test
-    public void whenCreationEntityKeyword_thenKeywordNotASubset() {
-        Keyword site = keywordFactory.createEntityKeyword(SITE);
-        assertFalse(site.isSubsetOf(mockedKeyword));
+    public void givenAWordATypeSynonymsAndChildren_whenInitializing_thenTheNameIsSet() {
+        assertThat(keyword.name(), is(equalTo(WORD)));
     }
 
     @Test
-    public void whenCreatingAttributeKeyword_thenKeywordHasParent() {
-        when(mockedKeyword.getKeyword()).thenReturn(SITE);
-        Keyword city = keywordFactory.createAttributeKeyword(mockedKeyword, CITY);
-        assertTrue(city.isSubsetOf(mockedKeyword));
+    public void givenAWordATypeSynonymsAndChildren_whenInitializing_thenTheTypeIsSet() {
+        assertThat(keyword.type, is(equalTo(TYPE)));
     }
 
     @Test
-    public void attributeKeyword_canValidateHisParent() {
-        when(mockedKeyword.getKeyword()).thenReturn(SITE);
-        when(anotherMockedKeyword.getKeyword()).thenReturn(EQUIPEMENT);
-
-        Keyword city = keywordFactory.createAttributeKeyword(mockedKeyword, CITY);
-
-        assertFalse(city.isSubsetOf(anotherMockedKeyword));
+    public void givenAWordATypeSynonymsAndChildren_whenInitializing_thenTheSynonymsAreSet() {
+        assertThat(keyword.getSynonyms(), is(equalTo(synonyms)));
     }
 
+    @Test
+    public void givenAWordATypeSynonymsAndChildren_whenInitializing_thenTheChildrenAreSet() {
+        assertThat(keyword.getChildren(), is(equalTo(children)));
+    }
+
+    @Test
+    public void givenASynonym_whenIsSynonymOf_thenReturnTrue() {
+        assertTrue(keyword.isSynonymOf(SYNONYM));
+    }
+
+    @Test
+    public void givenANonSynonym_whenIsSynonymOf_thenReturnFalse() {
+        assertFalse(keyword.isSynonymOf(NON_SYNONYM));
+    }
 }

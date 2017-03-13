@@ -1,33 +1,22 @@
-import domain.keyword.Keyword;
-import domain.keyword.KeywordRepository;
-import infrastructure.InMemoryKeywordRepository;
-import infrastructure.KeywordDevDataFactory;
+import contexts.DevContext;
 import persistence.SQLHelper;
-import persistence.SQLiteHelper;
+import services.locator.ServiceLocator;
+import services.query.QueryService;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import static spark.Spark.before;
 import static spark.Spark.options;
 
 public class Main {
+
     public static void main(String[] args) {
-        initKeywordRepositoryWithDevData(new KeywordDevDataFactory());
-        initDatabaseConnection(new SQLiteHelper());
-        initServer(new QueryController());
+        new DevContext().apply();
+        initDatabaseConnection(ServiceLocator.getInstance().resolve(SQLHelper.class));
+        initServer(new QueryController(new QueryService()));
     }
 
-    private static void initKeywordRepositoryWithDevData(KeywordDevDataFactory keywordDevDataFactory) {
-        KeywordRepository keywordRepository = new InMemoryKeywordRepository();
-        List<Keyword> keywords = keywordDevDataFactory.createStubKeywords();
-
-        for (Keyword keyword : keywords) {
-            keywordRepository.create(keyword);
-        }
-    }
-
-    private static void initDatabaseConnection(SQLHelper sqlHelper) {
+    public static void initDatabaseConnection(SQLHelper sqlHelper) {
         try {
             sqlHelper.startConnection();
             sqlHelper.readDataBase();
@@ -67,6 +56,4 @@ public class Main {
             response.type("application/json");
         });
     }
-
-    ;
 }

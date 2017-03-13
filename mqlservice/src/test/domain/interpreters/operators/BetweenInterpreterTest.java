@@ -1,8 +1,9 @@
 package domain.interpreters.operators;
 
-import domain.Query;
 import domain.keywords.Keywords;
-import domain.querybuilder.QueryBuilder;
+import domain.query.Query;
+import domain.query.builder.OperatorType;
+import domain.query.builder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,7 +53,7 @@ public class BetweenInterpreterTest {
     @Test
     public void givenAnBetweenQueryAndAQueryBuilder_whenInterpreting_thenTheBuilderIsCalled() {
         betweenInterpreter.interpret(betweenQuery, queryBuilder);
-        verify(queryBuilder).withBetween();
+        verify(queryBuilder).withOperator(OperatorType.BETWEEN);
     }
 
     @Test

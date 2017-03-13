@@ -1,8 +1,8 @@
 package domain.interpreters.values;
 
-import domain.Query;
 import domain.interpreters.Interpreter;
-import domain.querybuilder.QueryBuilder;
+import domain.query.Query;
+import domain.query.builder.QueryBuilder;
 
 import java.sql.Date;
 import java.text.ParseException;

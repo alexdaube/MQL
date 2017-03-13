@@ -1,0 +1,45 @@
+{
+  "operators": [
+    {
+      "type": "EQUAL",
+      "keywords": [
+        "equals",
+        "is",
+        "equal",
+        "="
+      ]
+    },
+    {
+      "type": "LESS",
+      "keywords": [
+        "less",
+        "lower",
+        "<"
+      ]
+    },
+    {
+      "type": "GREATER",
+      "keywords": [
+        "greater",
+        "more",
+        "higher",
+        ">"
+      ]
+    },
+    {
+      "type": "BETWEEN",
+      "keywords": [
+        "between"
+      ]
+    },
+    {
+      "type": "OTHER",
+      "keywords": [
+        "to",
+        "or",
+        "and",
+        "than"
+      ]
+    }
+  ]
+}

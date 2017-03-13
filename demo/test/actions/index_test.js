@@ -12,6 +12,7 @@ describe('actions', () => {
     describe('that are async actions', () => {
         let store, expectedActions;
         const someQueryResponse = ['some query response'];
+        const someQueryErrorMessage = 'Wrong Query';
         const query = 'some query';
 
         const storeActionsExpectation = () => {
@@ -23,7 +24,7 @@ describe('actions', () => {
 
         beforeEach(() => {
             expectedActions = [{type: types.FETCH_QUERY_REQUEST}];
-            store = mockStore({query: []});
+            store = mockStore({query: {}});
             moxios.install();
         });
 
@@ -50,10 +51,11 @@ describe('actions', () => {
                 const request = moxios.requests.mostRecent();
                 request.respondWith({
                     status: 404,
+                    response: {errorMessage: someQueryErrorMessage}
                 });
             });
 
-            expectedActions.push({type: types.FETCH_QUERY_ERROR});
+            expectedActions.push({type: types.FETCH_QUERY_ERROR, error: someQueryErrorMessage});
 
             return storeActionsExpectation();
         });

@@ -10,7 +10,7 @@ describe('DynamicList', () => {
     let wrapper, props;
 
     beforeEach(() => {
-        props = {query: columns};
+        props = {query: {data: columns}};
         wrapper = mount(<DynamicList {...props} />);
     });
 
@@ -29,7 +29,7 @@ describe('DynamicList', () => {
     });
 
     it('should not show a DynamicListBody and DynamicListHeader when there is no query', () => {
-        props.query = [];
+        props.query.data = [];
         const wrapper = shallow(<DynamicList {...props}/>);
         expect(wrapper.find(DynamicListHeader)).to.have.length(0);
         expect(wrapper.find(DynamicListBody)).to.have.length(0);

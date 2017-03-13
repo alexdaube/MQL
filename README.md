@@ -1,19 +1,33 @@
-# Getting Started
+# Multitel Query Language (MQL)
+<i>A user friendly language to query the database</i> 
+# Demo
+
+Clone the repository and go to the root directory of the project.
+
+#### Backend
+
+**Step 1**: Make sure that java 8 is installed on the machine.
+  * [java 8 installs](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+
+**Step 2**: Make sure that sqlite 3 is installed and running on the machine.
+  * [sqlite3 installs](https://www.tutorialspoint.com/sqlite/sqlite_installation.htm)
+  
+**Step 3**: Make sure that gradle build tool is installed and working in the command line.
+  * [gradle installs](https://gradle.org/install)
+  
+**Step 4**: Build and run MQL server from the root of the project. Server is listening by default on port 4567.
+  ```shell
+  ./gradlew mqlservice:run
+  ```
 
 
-## MQL Service
-
-### Execute
-   Run this command in the root directory <br/> <br/>
-   ```./gradlew mqlservice:run```
-
-## Demo
+#### Front-end
 
 **Step 1**: Make sure that [nodeJS](https://nodejs.org/en/) is installed. I suggest using a node version manager.  
   * [nvm](https://github.com/creationix/nvm) -- Mac or Linux.
   * [nvm-windows](https://github.com/coreybutler/nvm-windows) -- Windows.
 
-**Step 2**: Install global dependencies. Execute these commands anywhere in the command line
+**Step 2**: Install global dependencies. Execute these commands anywhere in the command line.
   * [Webpack](https://github.com/webpack/webpack) -- Module bundler
 
 ```shell
@@ -26,16 +40,22 @@ These dependencies can be found in package.json.
 ```shell
 $ npm install
 ```
-**Step 4**: Build and start the server from the command line in the demo directory. <b>Make sure
-nothing is running on port 8080 on your local machine</b>.
+**Step 4**: Build and start the server from the command line in the demo directory. <b>The server is running on port 8080 by default on your local machine</b>.
 
 ```shell
 $ npm start
 ```
+# Tests
 
-**Tests**: Run the frontend tests.
+
+**Front-end Tests**  <i>(From the demo directory)</i>
 ```shell
 $ npm test
+```
+
+**Backend Tests**
+```shell
+./gradlew mqlservice:test
 ```
 
 

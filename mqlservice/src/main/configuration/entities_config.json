@@ -1,0 +1,236 @@
+{
+  "entities": [
+    {
+      "keyword": "Site",
+      "foreign_keys": [],
+      "synonyms": [
+        "plants",
+        "building"
+      ],
+      "attributes": [
+        {
+          "keyword": "SiteId",
+          "synonyms": [
+            "id"
+          ]
+        },
+        {
+          "keyword": "Name",
+          "synonyms": []
+        },
+        {
+          "keyword": "CLLI",
+          "synonyms": []
+        },
+        {
+          "keyword": "Identifier",
+          "synonyms": []
+        },
+        {
+          "keyword": "VerificationDate",
+          "synonyms": []
+        },
+        {
+          "keyword": "AvailableToServiceDate",
+          "synonyms": []
+        },
+        {
+          "keyword": "LocationCode",
+          "synonyms": []
+        },
+        {
+          "keyword": "Address",
+          "synonyms": []
+        },
+        {
+          "keyword": "City",
+          "synonyms": []
+        },
+        {
+          "keyword": "ZipCode",
+          "synonyms": [
+            "zip"
+          ]
+        },
+        {
+          "keyword": "Latitude",
+          "synonyms": []
+        },
+        {
+          "keyword": "Longitude",
+          "synonyms": []
+        },
+        {
+          "keyword": "Longitude",
+          "synonyms": []
+        },
+        {
+          "keyword": "Url",
+          "synonyms": []
+        },
+        {
+          "keyword": "PowerFloor",
+          "synonyms": []
+        },
+        {
+          "keyword": "Phone",
+          "synonyms": []
+        },
+        {
+          "keyword": "PowerUtility",
+          "synonyms": []
+        },
+        {
+          "keyword": "PowerUtilityPhone",
+          "synonyms": []
+        },
+        {
+          "keyword": "UnderEmbargo",
+          "synonyms": []
+        },
+        {
+          "keyword": "GeneratorBackupType",
+          "synonyms": []
+        },
+        {
+          "keyword": "Ranking_NetworkCriticality",
+          "synonyms": []
+        },
+        {
+          "keyword": "Ranking_InsuranceValue",
+          "synonyms": []
+        },
+        {
+          "keyword": "Ranking_RevenueGeneration",
+          "synonyms": []
+        },
+        {
+          "keyword": "NoneUserSupervisorName",
+          "synonyms": []
+        },
+        {
+          "keyword": "NoneUserSupervisorEmail",
+          "synonyms": []
+        },
+        {
+          "keyword": "SiteSyncId",
+          "synonyms": []
+        }
+      ]
+    },
+    {
+      "keyword": "Equipment",
+      "foreign_keys": [
+        {
+          "table": "Site",
+          "from_column": "fk_SiteId",
+          "to_column": "SiteId"
+        }
+      ],
+      "synonyms": [
+        "device",
+        "stock"
+      ],
+      "attributes": [
+        {
+          "keyword": "EquipmentId",
+          "synonyms": [
+            "id"
+          ]
+        },
+        {
+          "keyword": "Name",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_ModelId",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_SiteId",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_BuildingId",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_BuildingFloorId",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_BuildingRoomId",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_BuildingRoomRowId",
+          "synonyms": []
+        },
+        {
+          "keyword": "Position",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_EquipmentId_Plant",
+          "synonyms": []
+        },
+        {
+          "keyword": "Lifetime",
+          "synonyms": []
+        },
+        {
+          "keyword": "Barcode",
+          "synonyms": []
+        },
+        {
+          "keyword": "ExpectedReplacementDate",
+          "synonyms": []
+        },
+        {
+          "keyword": "DateInService",
+          "synonyms": []
+        },
+        {
+          "keyword": "InstallationDate",
+          "synonyms": [
+            "installDate"
+          ]
+        },
+        {
+          "keyword": "ManufacturingDate",
+          "synonyms": []
+        },
+        {
+          "keyword": "SerialNumber",
+          "synonyms": [
+            "serial"
+          ]
+        },
+        {
+          "keyword": "DrawingNumber",
+          "synonyms": []
+        },
+        {
+          "keyword": "ProjectNumber",
+          "synonyms": [
+            "projectNo"
+          ]
+        },
+        {
+          "keyword": "fk_CustomPropertyId_Status",
+          "synonyms": []
+        },
+        {
+          "keyword": "WarrantyEndDate",
+          "synonyms": [
+            "warranty"
+          ]
+        },
+        {
+          "keyword": "PowerConsumption",
+          "synonyms": []
+        }
+      ]
+    }
+  ]
+}

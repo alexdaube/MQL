@@ -1,9 +1,9 @@
 package domain.interpreters.junctions;
 
-import domain.Query;
 import domain.interpreters.Interpreter;
 import domain.keywords.Keywords;
-import domain.querybuilder.QueryBuilder;
+import domain.query.Query;
+import domain.query.builder.QueryBuilder;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,7 +22,7 @@ public class AndInterpreter implements Interpreter {
         Matcher matches = query.findMatches(AND_PATTERN);
         if (matches.find()) {
             String match = matches.group();
-            if (keywords.contains(match.toLowerCase())) {
+            if (keywords.contains(match)) {
                 query.removeFirstMatch(AND_PATTERN);
                 queryBuilder.and();
                 return true;

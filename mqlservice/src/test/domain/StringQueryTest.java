@@ -1,5 +1,6 @@
 package domain;
 
+import domain.query.StringQuery;
 import org.junit.Before;
 import org.junit.Test;
 

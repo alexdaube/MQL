@@ -1,0 +1,16 @@
+{
+  "junctions": [
+    {
+      "type": "AND",
+      "keywords": [
+        "and"
+      ]
+    },
+    {
+      "type": "OR",
+      "keywords": [
+        "or"
+      ]
+    }
+  ]
+}

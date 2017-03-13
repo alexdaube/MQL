@@ -1,8 +1,8 @@
 package domain.interpreters.junctions;
 
-import domain.Query;
 import domain.keywords.Keywords;
-import domain.querybuilder.QueryBuilder;
+import domain.query.Query;
+import domain.query.builder.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
