@@ -74,10 +74,14 @@ Clone the repository and go to the root directory of the project.
   * [gradle installs](https://gradle.org/install)
   
 **Step 4**: Build and run MQL server from the root of the project. Server is listening by default on port 4567.
+* **Unix**
   ```shell
-  ./gradlew mqlservice:run
+  ./gradlew run
   ```
-
+* **Windows**
+  ```shell
+  gradlew run
+  ```
 
 #### Front-end
 
