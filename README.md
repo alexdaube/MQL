@@ -29,6 +29,28 @@ json file found at this path:
             "synonyms": []
           },
         ]
+      },
+      {
+        "keyword": "Equipment",
+        "foreign_keys": [
+          {
+            "table": "Site",
+            "from_column": "fk_SiteId",
+            "to_column": "SiteId"
+          }
+        ],
+        "synonyms": [
+          "device",
+          "stock"
+        ],
+        "attributes": [
+          {
+            "keyword": "EquipmentId",
+            "synonyms": [
+              "id"
+            ]
+          }
+        ]
       }
     ]
   }
