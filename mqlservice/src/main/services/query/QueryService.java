@@ -22,7 +22,7 @@ public class QueryService {
         this.dbClient = dbClient;
     }
 
-    public List<Map<String, String>> executeQuery(QueryDto queryDto) {
+    public List<List<AttributeDto>> executeQuery(QueryDto queryDto) {
         QueryTranslator queryTranslator = ServiceLocator.getInstance().resolve(QueryTranslator.class);
         String query = queryTranslator.translate(new StringQuery(queryDto.query));
         return dbClient.execute(query);

@@ -1,8 +1,9 @@
 package domain;
 
+import services.query.AttributeDto;
+
 import java.util.List;
-import java.util.Map;
 
 public interface DbClient {
-    List<Map<String, String>> execute(String query);
+    List<List<AttributeDto>> execute(String query);
 }
