@@ -116,10 +116,14 @@ $ npm test
 ```
 
 **Backend Tests**
-```shell
-./gradlew mqlservice:test
-```
-
+* **Unix** 
+  ```shell
+  ./gradlew mqlservice:test
+  ```
+* **windows**
+  ```shell
+  gradlew mqlservice:test
+  ```
 
 # Contributors
 
