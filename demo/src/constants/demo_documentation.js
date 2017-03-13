@@ -10,8 +10,8 @@ export const documentBlocksMarkup = [
         text: <p>
             MQL stands for <span className="font-italic">Multitel Query Language</span>.
             It is a user friendly query language that enables you to query the database
-            from a user interface while using a common tongue common tongue.
-            It enables you to make really make fined grain queries that really gives you what you need to look.
+            from a user interface while using a common tongue.
+            It enables you to make fined grain queries that shows you exactly what you want to look at.
             It just like writing SQL queries without knowing anything about the syntax!
         </p>,
     },
@@ -58,14 +58,13 @@ export const documentBlocksMarkup = [
         menuTitle: 'Attributes',
         title: <h3>Attributes</h3>,
         text: <p>
-            hey are fields owned by the <i>Entities</i>
-            inside the our database. The attributes need to be prepended by the word <i>where</i>.
-            Following the declaration of an attribute, there need to be an <i>operator</i> and a <i>value</i>
-            for the attribute to be useful.
+            They are fields owned by the <i>Entities</i> inside the database. The attributes can be prepended by the
+            word <i>where</i>, simply follow an entity, or follow a junction keyword. Following the declaration of an attribute, there need to be an <i>operator</i> and
+            a <i>value</i> for the attribute to be useful.
         </p>,
         examples: [
             <p>equipments where <kbd>id</kbd> is 3</p>,
-            <p>sites where <kbd>province</kbd> = Quebec</p>
+            <p>sites <kbd>province</kbd> = Quebec</p>
         ]
     },
     {
