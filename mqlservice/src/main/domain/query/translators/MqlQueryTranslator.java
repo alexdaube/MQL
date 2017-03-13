@@ -1,7 +1,7 @@
 package domain.query.translators;
 
-import domain.query.Query;
 import domain.keywords.KeywordsResolver;
+import domain.query.Query;
 import domain.query.builder.QueryBuilder;
 
 public class MqlQueryTranslator implements QueryTranslator {

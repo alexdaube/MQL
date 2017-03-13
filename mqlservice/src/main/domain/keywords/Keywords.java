@@ -7,4 +7,6 @@ public interface Keywords extends Iterable<Keyword> {
     String parentOf(String keyword);
 
     void add(Keyword keyword);
+
+    Keywords getChildrenOf(String name);
 }

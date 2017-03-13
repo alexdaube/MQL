@@ -15,8 +15,7 @@ public class MultipleInstance implements Instance {
         try {
             return callable.call();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new InvalidMethodException("The method call was unsuccessful...");
         }
     }
 }

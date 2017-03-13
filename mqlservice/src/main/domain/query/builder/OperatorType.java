@@ -1,6 +1,6 @@
 package domain.query.builder;
 
-public enum  OperatorType {
+public enum OperatorType {
     EQUAL,
     LESS,
     GREATER,

@@ -1,60 +1,48 @@
 package services.query;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
-import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSpec;
-import com.healthmarketscience.sqlbuilder.dbspec.basic.DbTable;
-import configuration.keywords.*;
-import contexts.DevContext;
 import domain.DbClient;
-import domain.keywords.Keyword;
-import domain.keywords.KeywordRepository;
-import domain.keywords.KeywordsResolver;
-import domain.keywords.KeywordsSet;
-import domain.query.builder.QueryBuilder;
-import domain.query.builder.SqlQueryBuilder;
-import infrastructure.repositories.InMemoryKeywordRepository;
-import infrastructure.repositories.InterpreterKeywordFactory;
-import infrastructure.repositories.KeywordDevDataFactory;
+import domain.query.Query;
+import domain.query.translators.QueryTranslator;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import infrastructure.KeywordResolver.KeywordsRegistrar;
+import services.locator.ServiceLocator;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import static org.mockito.BDDMockito.willReturn;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
 
-// TODO: 12/03/17 test
 @RunWith(MockitoJUnitRunner.class)
 public class QueryServiceTest {
 
+    private static final String QUERY = "the translated query";
     @Mock
     private DbClient dbClient;
+    @Mock
+    private QueryTranslator queryTranslator;
     private QueryService queryService;
     private QueryDto queryDto;
-
-    @BeforeClass
-    public static void beforeSetUp() {
-        new DevContext().apply();
-    }
 
     @Before
     public void setUp() {
         queryService = new QueryService(dbClient);
         queryDto = new QueryDto();
+        ServiceLocator.reset();
+        ServiceLocator.getInstance().register(() -> queryTranslator).asSingleInstance().of(QueryTranslator.class);
+        willReturn(QUERY).given(queryTranslator).translate(any(Query.class));
     }
 
     @Test
-    public void given_whenExecuteQuery_then() {
-        String query = "Site SiteId is equal to \"9999\" or less than 9999 and between 9:10 and Equipment serial is greater or equal to 0";
-        System.err.println(query);
-        queryDto.query = query;
+    public void givenAQueryDto_whenExecuteQuery_thenTheQueryIsTranslated() {
         queryService.executeQuery(queryDto);
+        verify(queryTranslator).translate(any(Query.class));
+    }
+
+    @Test
+    public void givenAQueryDto_whenExecuteQuery_thenTheQueryIsExecuted() {
+        queryService.executeQuery(queryDto);
+        verify(dbClient).execute(QUERY);
     }
 }

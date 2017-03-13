@@ -192,7 +192,9 @@
         },
         {
           "keyword": "InstallationDate",
-          "synonyms": ["install date"]
+          "synonyms": [
+            "installDate"
+          ]
         },
         {
           "keyword": "ManufacturingDate",
@@ -200,7 +202,9 @@
         },
         {
           "keyword": "SerialNumber",
-          "synonyms": ["serial"]
+          "synonyms": [
+            "serial"
+          ]
         },
         {
           "keyword": "DrawingNumber",
@@ -208,7 +212,9 @@
         },
         {
           "keyword": "ProjectNumber",
-          "synonyms": ["project no"]
+          "synonyms": [
+            "projectNo"
+          ]
         },
         {
           "keyword": "fk_CustomPropertyId_Status",
@@ -216,7 +222,9 @@
         },
         {
           "keyword": "WarrantyEndDate",
-          "synonyms": ["warranty"]
+          "synonyms": [
+            "warranty"
+          ]
         },
         {
           "keyword": "PowerConsumption",

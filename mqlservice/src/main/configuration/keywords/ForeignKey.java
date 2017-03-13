@@ -1,25 +1,12 @@
 package configuration.keywords;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ForeignKey {
-    private final String TableName;
-    private final String fromColumn;
-    private final String toColumn;
-
-    public ForeignKey(String tableName, String fromColumn, String toColumn) {
-        TableName = tableName;
-        this.fromColumn = fromColumn;
-        this.toColumn = toColumn;
-    }
-
-    public String getTableName() {
-        return TableName;
-    }
-
-    public String getFromColumn() {
-        return fromColumn;
-    }
-
-    public String getToColumn() {
-        return toColumn;
-    }
+    @SerializedName("table")
+    public String tableName;
+    @SerializedName("from_column")
+    public String fromColumn;
+    @SerializedName("to_column")
+    public String toColumn;
 }

@@ -1,8 +1,8 @@
 package domain.interpreters.operators;
 
-import domain.query.Query;
 import domain.interpreters.Interpreter;
 import domain.keywords.Keywords;
+import domain.query.Query;
 import domain.query.builder.OperatorType;
 import domain.query.builder.QueryBuilder;
 

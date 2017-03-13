@@ -1,7 +1,7 @@
 package domain.interpreters.values;
 
-import domain.query.Query;
 import domain.interpreters.Interpreter;
+import domain.query.Query;
 import domain.query.builder.QueryBuilder;
 
 import java.sql.Date;

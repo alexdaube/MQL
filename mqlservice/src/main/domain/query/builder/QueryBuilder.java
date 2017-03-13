@@ -6,6 +6,8 @@ public interface QueryBuilder {
 
     String build();
 
+    String currentTable();
+
     QueryBuilder withEntity(String entity);
 
     QueryBuilder withJoin(String fromTable, String toTable, String fromAttribute, String toAttribute);

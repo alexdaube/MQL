@@ -1,12 +1,11 @@
 package domain.query.translators;
 
 import domain.InvalidQueryException;
-import domain.keywords.Keyword;
-import domain.query.Query;
 import domain.interpreters.EntityInterpreter;
 import domain.interpreters.Interpreter;
-import domain.keywords.Keywords;
+import domain.keywords.Keyword;
 import domain.keywords.KeywordsResolver;
+import domain.query.Query;
 import domain.query.builder.QueryBuilder;
 
 public class InitialTranslatorState implements QueryTranslatorState {

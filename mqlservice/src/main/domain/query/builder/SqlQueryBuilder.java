@@ -4,10 +4,7 @@ import com.healthmarketscience.sqlbuilder.ComboCondition;
 import com.healthmarketscience.sqlbuilder.Condition;
 import com.healthmarketscience.sqlbuilder.SelectQuery;
 import com.healthmarketscience.sqlbuilder.dbspec.Column;
-import com.healthmarketscience.sqlbuilder.dbspec.Table;
-import com.healthmarketscience.sqlbuilder.dbspec.basic.DbJoin;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
-import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSpec;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbTable;
 
 import java.sql.Date;
@@ -34,6 +31,11 @@ public class SqlQueryBuilder implements QueryBuilder {
         selectQuery.addCondition(condition.setDisableParens(false));
         selectQuery.validate();
         return selectQuery.toString();
+    }
+
+    @Override
+    public String currentTable() {
+        return table;
     }
 
     public SqlQueryBuilder withAllTablesColumns() {

@@ -1,14 +1,9 @@
-package infrastructure.KeywordResolver;
+package domain.keywords;
 
-import domain.keywords.Keyword;
-import domain.keywords.Keywords;
-import domain.keywords.KeywordsResolver;
-import domain.keywords.KeywordsSet;
-
-import java.util.HashSet;
 import java.util.Map;
 
 public class KeywordsMapResolver implements KeywordsResolver {
+
     private final Map<Keyword.Type, Keywords> keywordsMap;
 
     public KeywordsMapResolver(Map<Keyword.Type, Keywords> map) {
@@ -20,6 +15,15 @@ public class KeywordsMapResolver implements KeywordsResolver {
         if (keywordsMap.containsKey(type)) {
             return keywordsMap.get(type);
         }
-        return new KeywordsSet(new HashSet<>());
+        return new KeywordsSet();
+    }
+
+    @Override
+    public Keywords resolveAttributesOf(String tableName) {
+        Keywords keywords = this.resolveType(Keyword.Type.ENTITY);
+        if (keywords.contains(tableName)) {
+            return keywords.getChildrenOf(tableName);
+        }
+        return new KeywordsSet();
     }
 }

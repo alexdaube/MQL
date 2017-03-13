@@ -4,12 +4,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import services.query.QueryDto;
 import services.query.QueryService;
-import spark.Request;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static spark.Spark.post;
 
@@ -29,6 +26,7 @@ public class QueryController {
     }
 
     private JsonArray toJsonArray(List<Map<String, Object>> result) {
-        return gson.toJsonTree(result, new TypeToken<List<Map<String, Object>>>() {}.getType()).getAsJsonArray();
+        return gson.toJsonTree(result, new TypeToken<List<Map<String, Object>>>() {
+        }.getType()).getAsJsonArray();
     }
 }

@@ -1,12 +1,8 @@
 package infrastructure.repositories;
 
-import domain.keywords.Keyword;
 import domain.keywords.KeywordRepository;
 import domain.keywords.Keywords;
 import domain.keywords.KeywordsSet;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class InMemoryKeywordRepository implements KeywordRepository {
 
@@ -17,7 +13,6 @@ public class InMemoryKeywordRepository implements KeywordRepository {
     }
 
     @Override
-    //TODO Check keywords types with Nicolas,
     public Keywords findAllKeywords() {
         return keywordsSet;
     }

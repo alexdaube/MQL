@@ -6,9 +6,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -23,14 +20,12 @@ public class KeywordsSetTest {
     private Keyword validKeyword;
     @Mock
     private Keyword invalidKeyword;
-    private Set<Keyword> children;
     private Keywords keywords;
 
     @Before
     public void setUp() throws Exception {
-        children = new HashSet<>();
-        children.add(validKeyword);
-        keywords = new KeywordsSet(children);
+        keywords = new KeywordsSet();
+        keywords.add(validKeyword);
         willReturn(VALID_WORD).given(validKeyword).name();
         willReturn(INVALID_WORD).given(invalidKeyword).name();
         willReturn(true).given(validKeyword).isSynonymOf(SYNONIM);

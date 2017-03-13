@@ -10,7 +10,7 @@ public class SingleInstance implements Instance {
         try {
             this.instance = instance.call();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new InvalidMethodException("The method call was unsuccessful...");
         }
     }
 

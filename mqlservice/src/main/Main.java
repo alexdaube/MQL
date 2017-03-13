@@ -1,13 +1,5 @@
-import configuration.keywords.EntityMap;
 import contexts.DevContext;
-import domain.keywords.KeywordRepository;
-import domain.keywords.Keywords;
-import domain.keywords.KeywordsSet;
-import infrastructure.repositories.InMemoryKeywordRepository;
-import infrastructure.repositories.InterpreterKeywordFactory;
-import infrastructure.repositories.KeywordDevDataFactory;
 import persistence.SQLHelper;
-import persistence.SQLiteHelper;
 import services.locator.ServiceLocator;
 import services.query.QueryService;
 

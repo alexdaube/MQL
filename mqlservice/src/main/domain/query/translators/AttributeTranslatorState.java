@@ -1,10 +1,10 @@
 package domain.query.translators;
 
 import domain.InvalidQueryException;
-import domain.query.Query;
 import domain.interpreters.Interpreter;
 import domain.interpreters.InterpreterFactory;
 import domain.keywords.KeywordsResolver;
+import domain.query.Query;
 import domain.query.builder.QueryBuilder;
 
 public class AttributeTranslatorState implements QueryTranslatorState {
