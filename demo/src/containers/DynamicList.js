@@ -7,8 +7,8 @@ import {undoCamelCasing} from "../utils/strings";
 
 export class DynamicList extends Component {
     extractLabels() {
-        return Object.keys(this.props.query.data[0]).map(key => {
-            return undoCamelCasing(key);
+        return this.props.query.data[0].map(obj => {
+            return undoCamelCasing(obj.name);
         });
     }
 

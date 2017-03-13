@@ -5,7 +5,7 @@ import DynamicListBody from "../../src/components/DynamicListBody";
 
 
 describe('DynamicList', () => {
-    const columns = [{SomeColumn: 'SomeColumn', 'someOther': 'SomeColumn'}];
+    const columns = [[{name: 'SomeColumn', 'someOther': 'SomeColumn'}]];
     const formattedColumns = ['Some Column', 'Some Other'];
     let wrapper, props;
 
