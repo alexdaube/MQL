@@ -133,25 +133,88 @@
       ],
       "attributes": [
         {
+          "keyword": "Name",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_ModelId",
+          "synonyms": []
+        },
+        {
           "keyword": "fk_SiteId",
           "synonyms": []
         },
         {
-          "keyword": "serial_no",
-          "synonyms": [
-            "serial"
-          ]
-        },
-        {
-          "keyword": "date_in_service",
+          "keyword": "fk_BuildingId",
           "synonyms": []
         },
         {
-          "keyword": "warranty_end",
-          "synonyms": [
-            "warranty",
-            "expired"
-          ]
+          "keyword": "fk_BuildingFloorId",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_BuildingRoomId",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_BuildingRoomRowId",
+          "synonyms": []
+        },
+        {
+          "keyword": "Position",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_EquipmentId_Plant",
+          "synonyms": []
+        },
+        {
+          "keyword": "Lifetime",
+          "synonyms": []
+        },
+        {
+          "keyword": "Barcode",
+          "synonyms": []
+        },
+        {
+          "keyword": "ExpectedReplacementDate",
+          "synonyms": []
+        },
+        {
+          "keyword": "DateInService",
+          "synonyms": []
+        },
+        {
+          "keyword": "InstallationDate",
+          "synonyms": ["install date"]
+        },
+        {
+          "keyword": "ManufacturingDate",
+          "synonyms": []
+        },
+        {
+          "keyword": "SerialNumber",
+          "synonyms": ["serial"]
+        },
+        {
+          "keyword": "DrawingNumber",
+          "synonyms": []
+        },
+        {
+          "keyword": "ProjectNumber",
+          "synonyms": ["project no"]
+        },
+        {
+          "keyword": "fk_CustomPropertyId_Status",
+          "synonyms": []
+        },
+        {
+          "keyword": "WarrantyEndDate",
+          "synonyms": ["warranty"]
+        },
+        {
+          "keyword": "PowerConsumption",
+          "synonyms": []
         }
       ]
     }
