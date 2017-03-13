@@ -32,13 +32,6 @@ describe('SearchBar', () => {
         td.verify(props.fetchQuery(wrapper.state().term));
     });
 
-    it('onFormSubmit should reset state.term after fetch', () => {
-        wrapper.setState({term: input});
-        wrapper.instance().onFormSubmit(event);
-        td.verify(props.fetchQuery(input));
-        expect(wrapper.state().term).to.be.empty;
-    });
-
     it('button fires onFormSubmit', () => {
         wrapper.find('button').get(0).click();
         td.verify(props.fetchQuery(wrapper.state().term));

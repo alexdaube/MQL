@@ -1,5 +1,41 @@
 # Multitel Query Language (MQL)
-<i>A user friendly language to query the database</i> 
+<i>A user friendly language to query the database</i>
+
+# Configurations
+
+Entities and their respective attributes must be specified inside the 
+json file found at this path:
+<i>mqlservice/src/main/configuration/entities_config.json</i>
+<br><b>The file must follow this format</b>:
+  ```
+  {
+    "entities": [
+      {
+        "keyword": "Site",
+        "foreign_keys": [],
+        "synonyms": [
+          "plants",
+          "building"
+        ],
+        "attributes": [
+          {
+            "keyword": "SiteId",
+            "synonyms": [
+              "id"
+            ]
+          },
+          {
+            "keyword": "Name",
+            "synonyms": []
+          },
+        ]
+      }
+    ]
+  }
+  ```
+It is important not to modify the junction 
+and operator configurations files!
+
 # Demo
 
 Clone the repository and go to the root directory of the project.
