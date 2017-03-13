@@ -22,7 +22,7 @@ public class AndInterpreter implements Interpreter {
         Matcher matches = query.findMatches(AND_PATTERN);
         if (matches.find()) {
             String match = matches.group();
-            if (keywords.contains(match.toLowerCase())) {
+            if (keywords.contains(match)) {
                 query.removeFirstMatch(AND_PATTERN);
                 queryBuilder.and();
                 return true;

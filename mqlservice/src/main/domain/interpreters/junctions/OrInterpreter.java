@@ -21,7 +21,7 @@ public class OrInterpreter implements Interpreter {
         Matcher matches = query.findMatches(OR_PATTERN);
         if (matches.find()) {
             String match = matches.group();
-            if (keywords.contains(match.toLowerCase())) {
+            if (keywords.contains(match)) {
                 query.removeFirstMatch(OR_PATTERN);
                 queryBuilder.or();
                 return true;

@@ -22,7 +22,7 @@ public class EqualInterpreter implements Interpreter {
         Matcher matches = query.findMatches(EQUAL_PATTERN);
         if (matches.find()) {
             String match = matches.group();
-            if (keywords.contains(match.toLowerCase())) {
+            if (keywords.contains(match)) {
                 query.removeFirstMatch(EQUAL_PATTERN);
                 queryBuilder.withOperator(OperatorType.EQUAL);
                 return true;

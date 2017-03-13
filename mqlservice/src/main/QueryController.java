@@ -25,7 +25,7 @@ public class QueryController {
 
     public void initializeEndPoints() {
         post("/query", "application/json", (request, response) ->
-                toJsonArray(queryService.executeQuery(gson.fromJson(request.body(), QueryDto.class))));
+                queryService.executeQuery(gson.fromJson(request.body(), QueryDto.class)), gson::toJson);
     }
 
     private JsonArray toJsonArray(List<Map<String, Object>> result) {

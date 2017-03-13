@@ -22,7 +22,7 @@ public class GreaterInterpreter implements Interpreter {
         Matcher matches = query.findMatches(GREATER_PATTERN);
         if (matches.find()) {
             String match = matches.group();
-            if (keywords.contains(match.toLowerCase())) {
+            if (keywords.contains(match)) {
                 query.removeFirstMatch(GREATER_PATTERN);
                 queryBuilder.withOperator(OperatorType.GREATER);
                 return true;

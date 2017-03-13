@@ -22,7 +22,7 @@ public class BetweenInterpreter implements Interpreter {
         Matcher matches = query.findMatches(BETWEEN_PATTERN);
         if (matches.find()) {
             String match = matches.group();
-            if (keywords.contains(match.toLowerCase())) {
+            if (keywords.contains(match)) {
                 query.removeFirstMatch(BETWEEN_PATTERN);
                 queryBuilder.withOperator(OperatorType.BETWEEN);
                 return true;

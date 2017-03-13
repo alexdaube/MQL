@@ -21,7 +21,7 @@ public class OtherInterpreter implements Interpreter {
         Matcher matches = query.findMatches(OTHER_PATTERN);
         if (matches.find()) {
             String match = matches.group();
-            if (keywords.contains(match.toLowerCase())) {
+            if (keywords.contains(match)) {
                 query.removeFirstMatch(OTHER_PATTERN);
                 return true;
             }

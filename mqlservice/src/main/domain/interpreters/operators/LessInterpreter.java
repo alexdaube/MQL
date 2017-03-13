@@ -22,7 +22,7 @@ public class LessInterpreter implements Interpreter {
         Matcher matches = query.findMatches(LESS_PATTERN);
         if (matches.find()) {
             String match = matches.group();
-            if (keywords.contains(match.toLowerCase())) {
+            if (keywords.contains(match)) {
                 query.removeFirstMatch(LESS_PATTERN);
                 queryBuilder.withOperator(OperatorType.LESS);
                 return true;

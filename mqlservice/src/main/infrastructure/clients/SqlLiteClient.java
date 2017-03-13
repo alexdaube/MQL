@@ -20,18 +20,18 @@ public class SqlLiteClient implements DbClient {
     }
 
     @Override
-    public List<Map<String, Object>> execute(String query) {
+    public List<Map<String, String>> execute(String query) {
         ResultSet resultSet = sqlHelper.executeQuery(query);
-        List<Map<String, Object>> result = new LinkedList<>();
+        List<Map<String, String>> result = new LinkedList<>();
         try {
             ResultSetMetaData metaData = resultSet.getMetaData();
             int numberOfColumns = metaData.getColumnCount();
             while (resultSet.next()) {
-                Map<String, Object> columnMap = new HashMap<>();
+                Map<String, String> columnMap = new HashMap<>();
                 result.add(columnMap);
 
                 for (int i = 1; i <= numberOfColumns; ++i) {
-                    columnMap.put(metaData.getColumnName(i), resultSet.getObject(i));
+                    columnMap.put(metaData.getColumnName(i), resultSet.getString(i));
                 }
             }
             return result;

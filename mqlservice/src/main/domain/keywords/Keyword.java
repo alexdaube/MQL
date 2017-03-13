@@ -25,7 +25,8 @@ public class Keyword {
 
     // TODO: 09/03/17 test
     public boolean isSynonymOf(String word) {
-        return this.word.equals(word) || synonyms.stream().anyMatch(s -> s.equals(word));
+        return this.word.toLowerCase().equals(word.toLowerCase()) ||
+                synonyms.stream().anyMatch(s -> s.toLowerCase().equals(word.toLowerCase()));
     }
 
     public String name() {
@@ -34,18 +35,6 @@ public class Keyword {
 
     public Set<String> getSynonyms() {
         return synonyms;
-    }
-
-    public enum Type {
-        ENTITY,
-        ATTRIBUTE,
-        EQUAL,
-        LESS,
-        GREATER,
-        BETWEEN,
-        OR,
-        AND,
-        OTHER
     }
 
     @Override
@@ -66,5 +55,17 @@ public class Keyword {
         result = 31 * result + (synonyms != null ? synonyms.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
+    }
+
+    public enum Type {
+        ENTITY,
+        ATTRIBUTE,
+        EQUAL,
+        LESS,
+        GREATER,
+        BETWEEN,
+        OR,
+        AND,
+        OTHER
     }
 }
