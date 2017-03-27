@@ -17,29 +17,29 @@ describe('SearchBar', () => {
         expect(wrapper).to.have.className('mqlSearchBar');
     });
 
-    it('state.term must be empty on init', () => {
-        expect(wrapper.state().term).to.be.empty;
+    it('state.value must be empty on init', () => {
+        expect(wrapper.state().value).to.be.empty;
     });
 
-    it('onInputChange should update state.term', () => {
+    it('onInputChange should update state.value', () => {
         wrapper.instance().onInputChange(event);
-        expect(wrapper.state().term).to.be.equal(input);
+        expect(wrapper.state().value).to.be.equal(input);
     });
 
     it('onFormSubmit should preventDefault and call fetchQuery', () => {
         wrapper.instance().onFormSubmit(event);
         td.verify(event.preventDefault());
-        td.verify(props.fetchQuery(wrapper.state().term));
+        td.verify(props.fetchQuery(wrapper.state().value));
     });
 
     it('button fires onFormSubmit', () => {
         wrapper.find('button').get(0).click();
-        td.verify(props.fetchQuery(wrapper.state().term));
+        td.verify(props.fetchQuery(wrapper.state().value));
     });
 
-    it('state.term should update when search input text changes', () => {
+    it('state.value should update when search input text changes', () => {
         wrapper.find('input').simulate('change', {target: {value: input}});
-        expect(wrapper.state().term).to.be.equal(input);
+        expect(wrapper.state().value).to.be.equal(input);
     });
 });
 
