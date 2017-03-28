@@ -7,7 +7,7 @@
     "start": "node src/index.js ../config.json",
     "dev": "nodemon src/index.js ../config.json",
     "test": "mochista test/**/*.js src/**/*-{test,spec}.js",
-    "tdd": "npm run test:mochista -- --watch",
+    "tdd": "npm test -- --watch",
     "coverage": "opn ./coverage/lcov-report/index.html"
   },
   "repository": {
