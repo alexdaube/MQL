@@ -1,32 +1,25 @@
 export const suggestions = [
     {
-        title: 'A',
-        suggestions: [
+        title: '1970s',
+        languages: [
             {
-                id: '100',
-                text: 'Apple'
+                name: 'C',
+                year: 1972
+            }
+        ]
+    },
+
+
+    {
+        title: '1980s',
+        languages: [
+            {
+                name: 'C++',
+                year: 1983
             },
             {
-                id: '101',
-                text: 'Apricot'
-            }
-        ]
-    },
-    {
-        title: 'B',
-        suggestions: [
-            {
-                id: '102',
-                text: 'Banana'
-            }
-        ]
-    },
-    {
-        title: 'C',
-        suggestions: [
-            {
-                id: '103',
-                text: 'Cherry'
+                name: 'Perl',
+                year: 1987
             }
         ]
     }
