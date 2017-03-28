@@ -1,0 +1,43 @@
+{
+  "name": "node-starter",
+  "version": "1.0.0",
+  "description": "NodeJS Starter pack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js ../config.json",
+    "dev": "nodemon src/index.js ../config.json",
+    "test": "mochista test/**/*.js src/**/*-{test,spec}.js",
+    "tdd": "npm run test:mochista -- --watch",
+    "coverage": "opn ./coverage/lcov-report/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexdaube/NodeJsStarter.git"
+  },
+  "author": "Alex D Aube",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexdaube/NodeJsStarter/issues"
+  },
+  "homepage": "https://github.com/GLO3112/backend-starter-packs#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "fs": "0.0.1-security",
+    "mongoose": "^4.8.4",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "mochista": "^0.10.0",
+    "nodemon": "^1.11.0",
+    "opn-cli": "^3.1.0",
+    "sinon": "^1.17.7",
+    "testdouble": "^1.11.1"
+  }
+}
