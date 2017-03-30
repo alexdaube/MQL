@@ -1,9 +1,9 @@
 package domain.query.translators;
 
-import com.google.gson.JsonArray;
 import domain.query.Query;
+import domain.query.builder.SuggestionBuilder;
 
 public interface QueryTranslatorState {
     StateStatus translate(Query query);
-    JsonArray translateNextSuggestion(Query query);
+    void translateNextSuggestion(SuggestionBuilder suggestionBuilder);
 }

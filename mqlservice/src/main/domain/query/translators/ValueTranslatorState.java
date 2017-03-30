@@ -1,12 +1,12 @@
 package domain.query.translators;
 
-import com.google.gson.JsonArray;
 import domain.InvalidQueryException;
 import domain.interpreters.Interpreter;
 import domain.interpreters.InterpreterFactory;
 import domain.keywords.KeywordsResolver;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 
 public class ValueTranslatorState implements QueryTranslatorState {
     private final Interpreter valueInterpreter;
@@ -39,7 +39,9 @@ public class ValueTranslatorState implements QueryTranslatorState {
     }
 
     @Override
-    public JsonArray translateNextSuggestion(Query query) {
-        return new JsonArray();
+    public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
+        suggestionBuilder.withHint("Value").withHint("Junction");
+        valueInterpreter.suggest(suggestionBuilder);
+        junctionInterpreter.suggest(suggestionBuilder);
     }
 }

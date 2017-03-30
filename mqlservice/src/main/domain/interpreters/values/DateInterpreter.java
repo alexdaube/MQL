@@ -3,6 +3,7 @@ package domain.interpreters.values;
 import domain.interpreters.Interpreter;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 
 import java.sql.Date;
 import java.text.ParseException;
@@ -27,6 +28,11 @@ public class DateInterpreter implements Interpreter {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void suggest(SuggestionBuilder suggestionBuilder) {
+        suggestionBuilder.withValue("Date");
     }
 
     private Date parseDate(Matcher matches) throws ParseException {

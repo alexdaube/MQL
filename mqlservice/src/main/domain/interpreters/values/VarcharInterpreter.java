@@ -3,6 +3,7 @@ package domain.interpreters.values;
 import domain.interpreters.Interpreter;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,5 +21,10 @@ public class VarcharInterpreter implements Interpreter {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void suggest(SuggestionBuilder suggestionBuilder) {
+        suggestionBuilder.withValue("Varchar");
     }
 }

@@ -1,6 +1,5 @@
 package domain.interpreters;
 
-import com.google.gson.JsonArray;
 import domain.keywords.Keywords;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
@@ -31,10 +30,8 @@ public class AttributeInterpreter implements Interpreter {
         return false;
     }
 
-    public JsonArray suggest(Query query) {
-        SuggestionBuilder builder = new SuggestionBuilder();
-        return builder
-                .withHint("Query needs an attribute!").withQuery("Choices", query, keywords )
-                .withAll("Possible Attributes", keywords).getSuggestions();
+    @Override
+    public void suggest(SuggestionBuilder suggestionBuilder) {
+        suggestionBuilder.withQueryMatching(keywords).withAllowed(keywords);
     }
 }
