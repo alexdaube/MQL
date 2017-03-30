@@ -3,7 +3,7 @@ package domain.query;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public interface Query {
+public interface Query<T> {
 
     void strip();
 
@@ -11,7 +11,9 @@ public interface Query {
 
     void removeFirstMatch(Pattern pattern);
 
-    boolean isEqualTo(String other);
+    boolean isEqualTo(T other);
 
     boolean isEmpty();
+
+    T getQuery();
 }

@@ -1,5 +1,6 @@
 package domain.query.translators;
 
+import com.google.gson.JsonArray;
 import domain.InvalidQueryException;
 import domain.interpreters.Interpreter;
 import domain.interpreters.InterpreterFactory;
@@ -33,5 +34,10 @@ public class OperatorTranslatorState implements QueryTranslatorState {
             return new StateStatus(false, this);
         }
         throw new InvalidQueryException("An operator should be followed by an other operator or by a value...");
+    }
+
+    @Override
+    public JsonArray translateNextSuggestion(Query query) {
+        return new JsonArray();
     }
 }

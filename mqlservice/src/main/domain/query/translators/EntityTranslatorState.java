@@ -1,5 +1,7 @@
 package domain.query.translators;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import domain.InvalidQueryException;
 import domain.interpreters.AttributeInterpreter;
 import domain.interpreters.Interpreter;
@@ -29,5 +31,10 @@ public class EntityTranslatorState implements QueryTranslatorState {
             return new StateStatus(false, new AttributeTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("The table name should be followed by an attribute");
+    }
+
+    @Override
+    public JsonArray translateNextSuggestion(Query query) {
+        return ((AttributeInterpreter) attributeInterpreter).suggest(query);
     }
 }

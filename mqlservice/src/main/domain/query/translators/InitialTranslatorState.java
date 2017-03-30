@@ -1,5 +1,7 @@
 package domain.query.translators;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import domain.InvalidQueryException;
 import domain.interpreters.EntityInterpreter;
 import domain.interpreters.Interpreter;
@@ -29,5 +31,12 @@ public class InitialTranslatorState implements QueryTranslatorState {
             return new StateStatus(false, new EntityTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("A query should begin with the table name...");
+    }
+
+    @Override
+    public JsonArray translateNextSuggestion(Query query) {
+        //List<JsonObject> sections = ((EntityInterpreter) entityInterpreter).suggest();
+
+        return new JsonArray();
     }
 }

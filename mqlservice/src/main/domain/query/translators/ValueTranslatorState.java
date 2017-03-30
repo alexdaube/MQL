@@ -1,5 +1,6 @@
 package domain.query.translators;
 
+import com.google.gson.JsonArray;
 import domain.InvalidQueryException;
 import domain.interpreters.Interpreter;
 import domain.interpreters.InterpreterFactory;
@@ -35,5 +36,10 @@ public class ValueTranslatorState implements QueryTranslatorState {
             return new StateStatus(false, new JunctionTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("You specified an invalid value...");
+    }
+
+    @Override
+    public JsonArray translateNextSuggestion(Query query) {
+        return new JsonArray();
     }
 }

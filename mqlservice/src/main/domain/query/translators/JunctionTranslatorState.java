@@ -1,5 +1,6 @@
 package domain.query.translators;
 
+import com.google.gson.JsonArray;
 import domain.InvalidQueryException;
 import domain.interpreters.AttributeInterpreter;
 import domain.interpreters.EntityInterpreter;
@@ -48,5 +49,10 @@ public class JunctionTranslatorState implements QueryTranslatorState {
             return new StateStatus(false, new ValueTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("A junction should be followed by an table, an attribute, an operator or a value...");
+    }
+
+    @Override
+    public JsonArray translateNextSuggestion(Query query) {
+        return new JsonArray();
     }
 }
