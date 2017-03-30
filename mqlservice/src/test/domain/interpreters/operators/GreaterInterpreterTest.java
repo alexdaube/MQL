@@ -4,6 +4,7 @@ import domain.keywords.Keywords;
 import domain.query.Query;
 import domain.query.builder.OperatorType;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +32,8 @@ public class GreaterInterpreterTest {
     private Query greaterQuery;
     @Mock
     private Query invalidQuery;
+    @Mock
+    SuggestionBuilder suggestionBuilder;
     private GreaterInterpreter greaterInterpreter;
     private Matcher greaterMatcher;
     private Matcher invalidMatcher;
@@ -43,6 +46,8 @@ public class GreaterInterpreterTest {
         willReturn(true).given(keywords).contains(GREATER_KEYWORD);
         willReturn(greaterMatcher).given(greaterQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
+        willReturn(suggestionBuilder).given(suggestionBuilder).withQueryMatching(keywords);
+        willReturn(suggestionBuilder).given(suggestionBuilder).withAllowed(keywords);
     }
 
     @Test
@@ -77,5 +82,16 @@ public class GreaterInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         greaterInterpreter.interpret(invalidQuery, queryBuilder);
         verify(greaterQuery, never()).removeFirstMatch(any());
+    }
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsMatchingTheQuery() {
+        greaterInterpreter.suggest(suggestionBuilder);
+        verify(suggestionBuilder).withQueryMatching(keywords);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenAddAllPossibleSuggestions() {
+        greaterInterpreter.suggest(suggestionBuilder);
+        verify(suggestionBuilder).withAllowed(keywords);
     }
 }

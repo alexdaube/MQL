@@ -2,6 +2,7 @@ package domain.interpreters.values;
 
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,12 +20,15 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class IntegerInterpreterTest {
     private static final String INTEGER_KEYWORD = "-10";
+    private static final String INTEGER = "Integer";
     @Mock
     private QueryBuilder queryBuilder;
     @Mock
     private Query integerQuery;
     @Mock
     private Query invalidQuery;
+    @Mock
+    SuggestionBuilder suggestionBuilder;
     private IntegerInterpreter integerInterpreter;
     private Matcher integerMatcher;
     private Matcher invalidMatcher;
@@ -70,5 +74,11 @@ public class IntegerInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         integerInterpreter.interpret(invalidQuery, queryBuilder);
         verify(integerQuery, never()).removeFirstMatch(any());
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsForValueType() {
+        integerInterpreter.suggest(suggestionBuilder);
+        verify(suggestionBuilder).withValue(INTEGER);
     }
 }

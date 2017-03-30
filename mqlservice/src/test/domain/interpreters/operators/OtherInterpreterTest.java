@@ -3,6 +3,7 @@ package domain.interpreters.operators;
 import domain.keywords.Keywords;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +31,8 @@ public class OtherInterpreterTest {
     private Query otherQuery;
     @Mock
     private Query invalidQuery;
+    @Mock
+    SuggestionBuilder suggestionBuilder;
     private OtherInterpreter otherInterpreter;
     private Matcher otherMatcher;
     private Matcher invalidMatcher;
@@ -42,6 +45,8 @@ public class OtherInterpreterTest {
         willReturn(true).given(keywords).contains(OTHER_KEYWORD);
         willReturn(otherMatcher).given(otherQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
+        willReturn(suggestionBuilder).given(suggestionBuilder).withQueryMatching(keywords);
+        willReturn(suggestionBuilder).given(suggestionBuilder).withAllowed(keywords);
     }
 
     @Test
@@ -70,5 +75,17 @@ public class OtherInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         otherInterpreter.interpret(invalidQuery, queryBuilder);
         verify(otherQuery, never()).removeFirstMatch(any());
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsMatchingTheQuery() {
+        otherInterpreter.suggest(suggestionBuilder);
+        verify(suggestionBuilder).withQueryMatching(keywords);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenAddAllPossibleSuggestions() {
+        otherInterpreter.suggest(suggestionBuilder);
+        verify(suggestionBuilder).withAllowed(keywords);
     }
 }

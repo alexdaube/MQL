@@ -5,6 +5,7 @@ import domain.interpreters.Interpreter;
 import domain.keywords.KeywordsResolver;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,9 +17,15 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.willReturn;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JunctionTranslatorStateTest {
+    private static final String ENTITY = "Entity";
+    private static final String ATTRIBUTE = "Attribute";
+    private static final String OPERATOR = "Operator";
+    private static final String VALUE = "Value";
+
     @Mock
     private Interpreter entityInterpreter;
     @Mock
@@ -41,6 +48,8 @@ public class JunctionTranslatorStateTest {
     private KeywordsResolver keywordsResolver;
     @Mock
     private QueryBuilder queryBuilder;
+    @Mock
+    private SuggestionBuilder suggestionBuilder;
     private JunctionTranslatorState junctionTranslatorState;
 
     @Before
@@ -51,6 +60,11 @@ public class JunctionTranslatorStateTest {
         willReturn(true).given(attributeInterpreter).interpret(attributeQuery, queryBuilder);
         willReturn(true).given(operatorInterpreter).interpret(operatorQuery, queryBuilder);
         willReturn(true).given(valueInterpreter).interpret(valueQuery, queryBuilder);
+        willReturn(suggestionBuilder).given(suggestionBuilder).withHint(ENTITY);
+        willReturn(suggestionBuilder).given(suggestionBuilder).withHint(ATTRIBUTE);
+        willReturn(suggestionBuilder).given(suggestionBuilder).withHint(OPERATOR);
+        willReturn(suggestionBuilder).given(suggestionBuilder).withHint(VALUE);
+        junctionTranslatorState.translateNextSuggestion(suggestionBuilder);
     }
 
     @Test
@@ -104,5 +118,45 @@ public class JunctionTranslatorStateTest {
     @Test(expected = InvalidQueryException.class)
     public void givenAnInvalidQuery_whenTranslating_thenThrowAnException() {
         junctionTranslatorState.translate(invalidQuery);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenAddEntityHint() {
+        verify(suggestionBuilder).withHint(ENTITY);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenAddAttributeHint() {
+        verify(suggestionBuilder).withHint(ATTRIBUTE);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenAddOperatorHint() {
+        verify(suggestionBuilder).withHint(OPERATOR);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenAddValueHint() {
+        verify(suggestionBuilder).withHint(VALUE);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenSuggestBasedOnEntityInterpreter() {
+        verify(entityInterpreter).suggest(suggestionBuilder);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenSuggestBasedOnAttributeInterpreter() {
+        verify(attributeInterpreter).suggest(suggestionBuilder);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenSuggestBasedOnOperatorInterpreter() {
+        verify(operatorInterpreter).suggest(suggestionBuilder);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenSuggestBasedOnValueInterpreter() {
+        verify(valueInterpreter).suggest(suggestionBuilder);
     }
 }

@@ -3,6 +3,7 @@ package domain.interpreters.junctions;
 import domain.keywords.Keywords;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +31,8 @@ public class OrInterpreterTest {
     private Query orQuery;
     @Mock
     private Query invalidQuery;
+    @Mock
+    SuggestionBuilder suggestionBuilder;
     private OrInterpreter orInterpreter;
     private Matcher orMatcher;
     private Matcher invalidMatcher;
@@ -42,6 +45,8 @@ public class OrInterpreterTest {
         willReturn(true).given(keywords).contains(OR_KEYWORD);
         willReturn(orMatcher).given(orQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
+        willReturn(suggestionBuilder).given(suggestionBuilder).withQueryMatching(keywords);
+        willReturn(suggestionBuilder).given(suggestionBuilder).withAllowed(keywords);
     }
 
     @Test
@@ -76,5 +81,18 @@ public class OrInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         orInterpreter.interpret(invalidQuery, queryBuilder);
         verify(orQuery, never()).removeFirstMatch(any());
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsMatchingTheQuery() {
+        orInterpreter.suggest(suggestionBuilder);
+        verify(suggestionBuilder).withQueryMatching(keywords);
+    }
+
+
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenAddAllPossibleSuggestions() {
+        orInterpreter.suggest(suggestionBuilder);
+        verify(suggestionBuilder).withAllowed(keywords);
     }
 }

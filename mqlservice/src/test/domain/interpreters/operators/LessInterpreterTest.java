@@ -4,6 +4,7 @@ import domain.keywords.Keywords;
 import domain.query.Query;
 import domain.query.builder.OperatorType;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +32,8 @@ public class LessInterpreterTest {
     private Query lessQuery;
     @Mock
     private Query invalidQuery;
+    @Mock
+    SuggestionBuilder suggestionBuilder;
     private LessInterpreter lessInterpreter;
     private Matcher lessMatcher;
     private Matcher invalidMatcher;
@@ -43,6 +46,8 @@ public class LessInterpreterTest {
         willReturn(true).given(keywords).contains(LESS_KEYWORD);
         willReturn(lessMatcher).given(lessQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
+        willReturn(suggestionBuilder).given(suggestionBuilder).withQueryMatching(keywords);
+        willReturn(suggestionBuilder).given(suggestionBuilder).withAllowed(keywords);
     }
 
     @Test
@@ -77,5 +82,17 @@ public class LessInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         lessInterpreter.interpret(invalidQuery, queryBuilder);
         verify(lessQuery, never()).removeFirstMatch(any());
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsMatchingTheQuery() {
+        lessInterpreter.suggest(suggestionBuilder);
+        verify(suggestionBuilder).withQueryMatching(keywords);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenAddAllPossibleSuggestions() {
+        lessInterpreter.suggest(suggestionBuilder);
+        verify(suggestionBuilder).withAllowed(keywords);
     }
 }

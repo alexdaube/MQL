@@ -2,6 +2,7 @@ package domain.interpreters;
 
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,8 @@ public class CompositeInterpreterTest {
     private Query query;
     @Mock
     private QueryBuilder queryBuilder;
+    @Mock
+    SuggestionBuilder suggestionBuilder;
     private CompositeInterpreter compositeInterpreter;
 
     @Before
@@ -33,5 +36,12 @@ public class CompositeInterpreterTest {
         compositeInterpreter.interpret(query, queryBuilder);
         verify(firstInterpreter).interpret(query, queryBuilder);
         verify(secondInterpreter).interpret(query, queryBuilder);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenCallsSuggestForEachChildInterpreter() {
+        compositeInterpreter.suggest(suggestionBuilder);
+        verify(firstInterpreter).suggest(suggestionBuilder);
+        verify(secondInterpreter).suggest(suggestionBuilder);
     }
 }
