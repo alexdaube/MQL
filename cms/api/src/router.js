@@ -24,7 +24,12 @@ module.exports = function (app) {
 
     app.post('/entities/add', (req, res) => {
         keyword.addEntity(req.body.name, req.body.synonyms);
-        res.send("Showtime");
+        res.send("Hello");
+    });
+
+    app.post('/entities/add/:name', (req, res) => {
+        keyword.addAttribute(req.params.name, req.body.name, req.body.synonyms);
+        res.send("Hello");
     });
 
     app.post('/entities', (req, res) => {

@@ -1,19 +1,22 @@
 var exports = module.exports = {};
-let Table = require('./table.js');
-let Attribute = require('./attribute.js');
+var Table = require('./table.js');
+var Attribute = require('./attribute.js');
+var _ = require('underscore');
 
 var entities = [];
 
 exports.addEntity = function (value, synonyms) {
-    console.log(value);
     var entity = new Table(value, synonyms);
     entities.push(entity);
-
 };
 
 exports.addAttribute = function (entity_name, value, synonyms) {
     var attribute = new Attribute(value, synonyms);
-    // var entity = _.findWhere(entities, {name: entity_name});
+    var entity = _.findWhere(entities, {name: entity_name});
+
+    if (typeof entity !== "undefined") {
+        entity.addColumn(attribute);
+    }
 };
 
 

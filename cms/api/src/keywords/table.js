@@ -15,9 +15,11 @@ class Table {
         }
     }
 
-    addAttribute(attribute) {
-        if (!this.attributes.contains(attribute)) {
+    addColumn(attribute) {
+        if (this.attributes.indexOf(attribute) == -1) {
             this.attributes.push(attribute);
+        }else{
+            console.log("Column already exists");
         }
     }
 
