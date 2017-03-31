@@ -1,6 +1,6 @@
 var exports = module.exports = {};
 var Table = require('./table.js');
-var Attribute = require('./attribute.js');
+var Attribute = require('./column.js');
 var _ = require('underscore');
 
 var entities = [];

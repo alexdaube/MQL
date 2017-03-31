@@ -1,19 +1,17 @@
 "use strict";
 
-class Attribute {
+class Column {
     constructor(name, synonyms) {
         this.synonyms = synonyms;
         this.name = name;
-        this.synonyms.push(name);
+        this.addSynonym(name);
     }
 
     addSynonym(keyword) {
-        if (!this.synonyms.contains(keyword)) {
+        if (this.synonyms.indexOf(keyword) == -1) {
             this.synonyms.push(keyword);
         }
     }
-
-
 }
 
-module.exports = Attribute;
+module.exports = Column;
