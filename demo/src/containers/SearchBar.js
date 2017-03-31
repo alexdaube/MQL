@@ -128,7 +128,7 @@ export class SearchBar extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({fetchQuery: actions.fetchQuery}, dispatch);
+    return bindActionCreators({fetchQuery: actions.fetchQuery, fetchSuggestions: actions.fetchSuggestions}, dispatch);
 };
 
 

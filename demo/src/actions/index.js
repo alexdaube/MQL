@@ -1,24 +1,24 @@
 import axios from "axios";
-import * as Types  from "./types";
-import {BASE_URL, QUERY_PATH} from "../constants/api_endpoints";
+import * as types  from "./types";
+import {BASE_URL, QUERY_PATH, SUGGESTIONS_PATH} from "../constants/api_endpoints";
 
 const fetchQueryError = (error) => {
     return {
-        type: Types.FETCH_QUERY_ERROR,
+        type: types.FETCH_QUERY_ERROR,
         error
     };
 };
 
 const fetchQuerySuccess = (payload) => {
     return {
-        type: Types.FETCH_QUERY_SUCCESS,
+        type: types.FETCH_QUERY_SUCCESS,
         payload
     };
 };
 
 const fetchQueryRequest = () => {
     return {
-        type: Types.FETCH_QUERY_REQUEST
+        type: types.FETCH_QUERY_REQUEST
     }
 };
 
@@ -37,28 +37,28 @@ export const fetchQuery = (query) => {
 
 const fetchSuggestionError = (error) => {
     return {
-        type: Types.FETCH_SUGGESTIONS_ERROR,
+        type: types.FETCH_SUGGESTIONS_ERROR,
         error
     };
 };
 
 const fetchSuggestionSuccess = (payload) => {
     return {
-        type: Types.FETCH_SUGGESTIONS_SUCCESS,
+        type: types.FETCH_SUGGESTIONS_SUCCESS,
         payload
     };
 };
 
 const fetchSuggestionRequest = () => {
     return {
-        type: Types.FETCH_SUGGESTIONS_REQUEST
+        type: types.FETCH_SUGGESTIONS_REQUEST
     }
 };
 
-export const fetchSuggestion = (query) => {
+export const fetchSuggestions = (query) => {
     return (dispatch) => {
         dispatch(fetchSuggestionRequest());
-        return axios.post(`${BASE_URL}${QUERY_PATH}`, {query})
+        return axios.post(`${BASE_URL}${SUGGESTIONS_PATH}`, {query})
             .then(response => {
                 dispatch(fetchSuggestionSuccess(response.data));
             })
