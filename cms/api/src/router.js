@@ -25,7 +25,7 @@ module.exports = function (app) {
         res.send("Hello");
     });
 
-    app.post('/entities/add/:name', (req, res) => {
+    app.post('/entities/:name/add', (req, res) => {
         keyword.addAttribute(req.params.name, req.body.name, req.body.synonyms);
         res.send("Hello");
     });
