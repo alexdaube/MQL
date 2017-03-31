@@ -17,9 +17,7 @@ db.open((err, db) => {
 
 module.exports = function (app) {
     app.get('/entities', (req, res) => {
-        db.collection('entities').find().toArray((error, items) => {
-            res.send(items);
-        });
+        res.send(keyword.getEntities());
     });
 
     app.post('/entities/add', (req, res) => {

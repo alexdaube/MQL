@@ -1,25 +1,26 @@
 var exports = module.exports = {};
 var Table = require('./table.js');
-var Attribute = require('./column.js');
+var Column = require('./column.js');
 var _ = require('underscore');
 
-var entities = [];
+var tables = [];
 
-exports.addEntity = function (value, synonyms) {
-    var entity = new Table(value, synonyms);
-    entities.push(entity);
+exports.addEntity = function (name, synonyms) {
+    var table = new Table(name, synonyms);
+    tables.push(table);
 };
 
-exports.addAttribute = function (entity_name, value, synonyms) {
-    var attribute = new Attribute(value, synonyms);
-    var entity = _.findWhere(entities, {name: entity_name});
+exports.addAttribute = function (entity_name, name, synonyms) {
+    var column = new Column(name, synonyms);
+    var table = _.findWhere(tables, {name: entity_name});
 
-    if (typeof entity !== "undefined") {
-        entity.addColumn(attribute);
+    if (typeof table !== "undefined") {
+        table.addColumn(column);
     }
 };
 
 
 exports.getEntities = function () {
-    return entities;
+    var keywords = {entities: tables};
+    return keywords;
 };
