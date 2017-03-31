@@ -39,11 +39,14 @@ const getSuggestions = value => {
 const getSuggestionValue = suggestion => suggestion.name;
 
 // Use your imagination to render suggestions.
-const renderSuggestion = suggestion => (
-    <div>
-        {suggestion.name + " created in: " + suggestion.year}
-    </div>
-);
+const renderSuggestion = suggestion => {
+    return (
+        <div>
+            {suggestion.name + " created in: " + suggestion.year}
+        </div>
+    );
+};
+
 
 
 export class SearchBar extends Component {
@@ -95,7 +98,8 @@ export class SearchBar extends Component {
     };
 
     render() {
-        const { value, suggestions } = this.state;
+        const { value } = this.state;
+        const { suggestions, fetchSuggestions, clearSuggestions } = this.props;
 
         const inputProps = {
             placeholder: 'Basic query format is Keyword + Operator + Value',
@@ -107,9 +111,9 @@ export class SearchBar extends Component {
             <Form onSubmit={this.onFormSubmit} className="mqlSearchBar">
                 <FormGroup>
                     <InputGroup>
-                        <Autosuggest suggestions={suggestions}
-                                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                        <Autosuggest suggestions={suggestions.suggestions}
+                                     onSuggestionsFetchRequested={fetchSuggestions}
+                                     onSuggestionsClearRequested={clearSuggestions}
                                      getSuggestionValue={getSuggestionValue}
                                      renderSuggestion={renderSuggestion}
                                      inputProps={inputProps}
@@ -131,7 +135,11 @@ const mapStateToProps = ({suggestions}) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({fetchQuery: actions.fetchQuery, fetchSuggestions: actions.fetchSuggestions}, dispatch);
+    return bindActionCreators({
+        fetchQuery: actions.fetchQuery,
+        fetchSuggestions: actions.fetchSuggestions,
+        clearSuggestions: actions.clearSuggestions
+    }, dispatch);
 };
 
 

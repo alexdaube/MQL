@@ -9,11 +9,13 @@ const mockStore = configureMockStore(middlewares);
 
 
 describe('actions', () => {
+
     describe('that are async actions', () => {
         let store, expectedActions;
         const someQueryResponse = ['some query response'];
         const someQueryErrorMessage = 'Wrong Query';
         const query = 'some query';
+        let value = {value: 'some query'};
 
         const storeActionsExpectation = (actionInvocation) => {
             return store.dispatch(actionInvocation)
@@ -74,8 +76,18 @@ describe('actions', () => {
                 expectedActions = [{type: types.FETCH_SUGGESTIONS_REQUEST}];
                 store = mockStore({suggestions: {}});
             });
-            successCallbackTest(types.FETCH_SUGGESTIONS_SUCCESS, actions.fetchSuggestions(query));
-            errorCallBackTest(types.FETCH_SUGGESTIONS_ERROR, actions.fetchSuggestions(query));
+            successCallbackTest(types.FETCH_SUGGESTIONS_SUCCESS, actions.fetchSuggestions(value));
+            errorCallBackTest(types.FETCH_SUGGESTIONS_ERROR, actions.fetchSuggestions(value));
+
+            it('clears all suggestions if value if empty', () =>{
+                value = {value: ''};
+                actions.fetchSuggestions(value);
+                expect(actions.fetchSuggestions(value).type).to.eql(types.CLEAR_SUGGESTIONS);
+            });
         });
+    });
+
+    it('clears all suggestions', () => {
+        expect(actions.clearSuggestions().type).to.eql(types.CLEAR_SUGGESTIONS);
     });
 });

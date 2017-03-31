@@ -15,6 +15,8 @@ export default function (state = initialState, action) {
             return {suggestions: [], error: action.error, isLoading: false};
         case types.FETCH_SUGGESTIONS_REQUEST:
             return {...state, isLoading: true};
+        case types.CLEAR_SUGGESTIONS:
+            return initialState
     }
     return state;
 }

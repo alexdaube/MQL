@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as types  from "./types";
 import {BASE_URL, QUERY_PATH, SUGGESTIONS_PATH} from "../constants/api_endpoints";
+import {lowerCaseInput, isInputEmpty} from "../utils/strings";
 
 const fetchQueryError = (error) => {
     return {
@@ -55,10 +56,14 @@ const fetchSuggestionRequest = () => {
     }
 };
 
-export const fetchSuggestions = (query) => {
+export const fetchSuggestions = ({value}) => {
+    if (isInputEmpty(value)) {
+        return clearSuggestions();
+    }
+
     return (dispatch) => {
         dispatch(fetchSuggestionRequest());
-        return axios.post(`${BASE_URL}${SUGGESTIONS_PATH}`, {query})
+        return axios.post(`${BASE_URL}${SUGGESTIONS_PATH}`, {query: lowerCaseInput(value)})
             .then(response => {
                 dispatch(fetchSuggestionSuccess(response.data));
             })
@@ -66,4 +71,10 @@ export const fetchSuggestions = (query) => {
                 dispatch(fetchSuggestionError(error.response.data.errorMessage));
             });
     };
+};
+
+export const clearSuggestions = () => {
+    return {
+        type: types.CLEAR_SUGGESTIONS
+    }
 };

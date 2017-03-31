@@ -9,7 +9,12 @@ describe('SearchBar', () => {
 
     beforeEach(() => {
         event = {target: {value: input}, preventDefault: td.function('preventDefault')};
-        props = {fetchQuery: td.function('fetchQuery')};
+        props = {
+            fetchQuery: td.function('fetchQuery'),
+            fetchSuggestions: td.function('fetchSuggestions'),
+            clearSuggestions: td.function('clearSuggestions'),
+            suggestions: {suggestions: [], error: '', isLoading: false}
+        };
         wrapper = mount(<SearchBar {...props} />);
     });
 
