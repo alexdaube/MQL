@@ -58,7 +58,6 @@ export class SearchBar extends Component {
             value: '',
             suggestions: []
         };
-
         this.onInputChange = this.onInputChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
@@ -127,9 +126,13 @@ export class SearchBar extends Component {
 
 }
 
+const mapStateToProps = ({suggestions}) => {
+    return {suggestions};
+};
+
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({fetchQuery: actions.fetchQuery, fetchSuggestions: actions.fetchSuggestions}, dispatch);
 };
 
 
-export default connect(null, mapDispatchToProps)(SearchBar)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)
