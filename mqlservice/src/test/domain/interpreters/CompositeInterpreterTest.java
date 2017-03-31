@@ -28,7 +28,6 @@ public class CompositeInterpreterTest {
     @Before
     public void setUp() throws Exception {
         compositeInterpreter = new CompositeInterpreter(firstInterpreter, secondInterpreter);
-
     }
 
     @Test
