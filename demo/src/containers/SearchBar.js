@@ -23,15 +23,33 @@ const languages = [
 ];
 
 
-// Teach Autosuggest how to calculate suggestions for any given input value.
-const getSuggestions = value => {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
 
-    return inputLength === 0 ? [] : languages.filter(lang =>
-            lang.name.toLowerCase().slice(0, inputLength) === inputValue
-        );
+const renderSectionTitle = (section) => {
+    debugger;
+    return (
+        <strong>{section.title}</strong>
+    );
 };
+
+
+const getSectionSuggestions = (section) => {
+    debugger;
+    if(section.hints) {
+        return section;
+    }
+    return section.suggestions;
+};
+
+
+// Teach Autosuggest how to calculate suggestions for any given input value.
+// const getSuggestions = value => {
+//     const inputValue = value.trim().toLowerCase();
+//     const inputLength = inputValue.length;
+//
+//     return inputLength === 0 ? [] : languages.filter(lang =>
+//             lang.name.toLowerCase().slice(0, inputLength) === inputValue
+//         );
+// };
 
 // When suggestion is clicked, Autosuggest needs to populate the input element
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
@@ -40,9 +58,11 @@ const getSuggestionValue = suggestion => suggestion.name;
 
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => {
+    debugger;
+    const suggestionText = suggestion.hints ? suggestion.hints : `${suggestion.name} with type: ${suggestion.type}`;
     return (
         <div>
-            {suggestion.name + " created in: " + suggestion.year}
+            {suggestionText}
         </div>
     );
 };
@@ -118,6 +138,10 @@ export class SearchBar extends Component {
                                      renderSuggestion={renderSuggestion}
                                      inputProps={inputProps}
                                      theme={theme}
+                                     multiSection={true}
+                                     renderSectionTitle={renderSectionTitle}
+                                     getSectionSuggestions={getSectionSuggestions}
+
                         />
                         <InputGroupButton className="searchBarButton">
                             <Button color="success">Submit</Button>
