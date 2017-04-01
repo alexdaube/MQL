@@ -1,0 +1,48 @@
+.keyword-name {
+    display: table-cell;
+    padding-left: 15px;
+}
+
+.keyword-icon {
+    display: table-cell;
+}
+
+.keyword-close {
+    display: table-cell;
+    width: 100%;
+    text-align: right;
+}
+
+.keyword-close > .btn {
+    background-color: darkred;
+    color: black;
+}
+
+.keyword-children {
+    height: 0;
+    overflow: hidden;
+    margin-left: 25px;
+}
+
+.keyword-container {
+    display: table;
+    text-align: left;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+    padding-right: 15px;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.keyword-button {
+    width: 100%;
+    background-color: white;
+    border-bottom: groove;
+}
+
+.keyword-container > .keyword-active {
+    height: 100%;
+}

@@ -1,0 +1,17 @@
+.keywords-layout {
+    display: table;
+    margin-top: 25px;
+
+}
+
+.keywords-menu {
+    display: table-cell;
+}
+
+.keywords-children {
+    display: table-cell;
+    width: 100%;
+    text-align: left;
+    padding-left: 25px;
+    border-left: groove;
+}
