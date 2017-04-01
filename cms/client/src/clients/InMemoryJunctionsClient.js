@@ -21,15 +21,36 @@ export default class InMemoryJunctionsClient {
         });
     }
 
-    addSynonyms(synonym) {
+    addSynonym(junctionName, synonym) {
         return new Promise((resolve) => {
             this.junctions = this.junctions.map(j => {
-                if (j.synonyms.filter(s => s === synonym).length === 0) {
-                    return {...j, synonyms: j.synonyms.concat(synonym)};
+                if (j.name === junctionName) {
+                    if (j.synonyms.filter(s => s === synonym).length === 0) {
+                        return {...j, synonyms: j.synonyms.concat(synonym)};
+                    }
                 }
                 return j;
             });
             resolve(this.junctions);
         });
+    }
+
+    removeJunction(name) {
+        return new Promise((resolve) => {
+            this.junctions = this.junctions.filter(j => j.name !== name);
+            resolve(this.junctions);
+        });
+    }
+
+    removeSynonym(junctionName, synonym) {
+        return new Promise((resolve) => {
+            this.junctions = this.junctions.map(j => {
+                if (j.name === junctionName) {
+                    return {...j, synonyms: j.synonyms.filter(s => s !== synonym)};
+                }
+                return j;
+            });
+            resolve(this.junctions);
+        })
     }
 }

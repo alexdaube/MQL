@@ -15,10 +15,6 @@ export default class Keyword extends React.Component {
         this.setState({...this.state, active: !this.state.active});
     }
 
-    removeKeyword() {
-        this.props.removeKeyword(this.props.name);
-    }
-
     render() {
         const {children} = this.props;
         let iconClasses = "glyphicon glyphicon-plus";
@@ -39,7 +35,7 @@ export default class Keyword extends React.Component {
                         <span className={"keyword-icon " + iconClasses} />
                         <h4 className="keyword-name">{this.props.name}</h4>
                         <div className="keyword-close">
-                            <a className="btn" onClick={this.removeKeyword.bind(this)}>✖</a>
+                            <a className="btn" onClick={this.props.removeKeyword.bind(this)}>✖</a>
                         </div>
                     </div>
                     <div className={childClasses}>

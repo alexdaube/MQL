@@ -17,6 +17,7 @@ export default class KeywordEntry extends React.Component {
     submit(event) {
         if (this.state.name.length !== 0) {
             this.props.addKeyword(this.state.name);
+            this.setState({...this.state, name: ""});
         }
         event.preventDefault();
     }

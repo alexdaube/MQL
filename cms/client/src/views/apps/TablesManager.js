@@ -57,15 +57,15 @@ export default class TablesManager extends React.Component {
         const tables = this.props.tables.map((t, key) => {
             const attributes = t.attributes.map((a, key) => {
                 const synonyms = a.synonyms.map((s, key) =>
-                    <Keyword key={key} name={s} removeKeyword={(name)=>this.removeAttributeSynonym(t.name, a.name, name)} />);
-                return <Keyword key={key} name={a.name} removeKeyword={(name)=>this.removeAttribute(t.name, name)}>
+                    <Keyword key={key} name={s} removeKeyword={()=>this.removeAttributeSynonym(t.name, a.name, s)} />);
+                return <Keyword key={key} name={a.name} removeKeyword={()=>this.removeAttribute(t.name, a.name)}>
                         <h3>Synonyms:</h3>
                         <KeywordEntry addKeyword={(name) => this.addAttributeSynonym(t.name, a.name, name)}/>
                         {synonyms}
                 </Keyword>
             });
-            const synonyms = t.synonyms.map((s, key) => <Keyword key={key} name={s} removeKeyword={(name)=>this.removeTableSynonym(t.name, name)} />);
-            return <Keyword key={key} name={t.name} removeKeyword={(name)=>this.removeTable(name)}>
+            const synonyms = t.synonyms.map((s, key) => <Keyword key={key} name={s} removeKeyword={()=>this.removeTableSynonym(t.name, s)} />);
+            return <Keyword key={key} name={t.name} removeKeyword={()=>this.removeTable(t.name)}>
                 <Menu top={true}>
                     <Menu>
                         <h3>Synonyms:</h3>
