@@ -27,6 +27,5 @@ exports.addAttribute = function (entity_name, name, synonyms) {
 
 
 exports.getEntities = function () {
-    var keywords = {entities: tables};
-    return keywords;
+    return tables;
 };
