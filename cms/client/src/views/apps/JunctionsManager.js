@@ -1,10 +1,15 @@
-import React from 'react';
-import {connect} from 'react-redux';
-
-import Keyword from '../components/Keyword';
-import KeywordEntry from '../components/KeywordEntry';
-import Menu from '../components/Menu';
-import {addJunction, addJunctionSynonym, removeJunction, removeJunctionSynonym, fetchJunctions} from "../../actions/junctionsAction";
+import React from "react";
+import {connect} from "react-redux";
+import Keyword from "../components/Keyword";
+import KeywordEntry from "../components/KeywordEntry";
+import Menu from "../components/Menu";
+import {
+    addJunction,
+    addJunctionSynonym,
+    removeJunction,
+    removeJunctionSynonym,
+    fetchJunctions
+} from "../../actions/junctionsAction";
 
 @connect((store) => {
     return {
@@ -36,10 +41,10 @@ export default class JunctionsManager extends React.Component {
     render() {
         const junctions = this.props.junctions.map((j, key) => {
             const synonyms = j.synonyms.map((s, key) =>
-                <Keyword removeKeyword={()=>this.removeSynonym(j.name, s)} name={s} key={key} />);
-            return <Keyword removeKeyword={()=>this.removeJunction(j.name)} name={j.name} key={key}>
+                <Keyword removeKeyword={() => this.removeSynonym(j.name, s)} name={s} key={key}/>);
+            return <Keyword removeKeyword={() => this.removeJunction(j.name)} name={j.name} key={key}>
                 <h3>Synonyms:</h3>
-                <KeywordEntry addKeyword={(name)=>this.addSynonym(j.name, name)} />
+                <KeywordEntry addKeyword={(name) => this.addSynonym(j.name, name)}/>
                 {synonyms}
             </Keyword>
         });
@@ -47,7 +52,7 @@ export default class JunctionsManager extends React.Component {
             <div className="junctions">
                 <h1>Junctions</h1>
                 <Menu>
-                    <KeywordEntry addKeyword={this.addJunction.bind(this)} />
+                    <KeywordEntry addKeyword={this.addJunction.bind(this)}/>
                     {junctions}
                 </Menu>
             </div>

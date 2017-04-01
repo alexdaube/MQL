@@ -1,8 +1,7 @@
-import React from 'react';
-import {Link} from 'react-router';
-
-import Menu from '../components/Menu';
-import './Layout.css';
+import React from "react";
+import {Link} from "react-router";
+import Menu from "../components/Menu";
+import "./Layout.css";
 
 export default class Layout extends React.Component {
     render() {

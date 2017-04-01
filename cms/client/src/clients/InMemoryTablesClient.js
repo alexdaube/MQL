@@ -1,4 +1,4 @@
-import Promise from 'promise';
+import Promise from "promise";
 
 export default class InMemoryTablesClient {
 
@@ -7,7 +7,9 @@ export default class InMemoryTablesClient {
     }
 
     fetchTables() {
-        return new Promise((resolve) => {resolve(this.tables)});
+        return new Promise((resolve) => {
+            resolve(this.tables)
+        });
     }
 
     addTable(table) {
@@ -47,6 +49,34 @@ export default class InMemoryTablesClient {
         });
     }
 
+    addForeignKey(fromTableName, fromAttributeName, toTableName, toAttributeName) {
+        return new Promise((resolve) => {
+            const fromTable = this.tables.find((t) => t.name === fromTableName);
+            const toTable = this.tables.find((t) => t.name === toTableName);
+            if (fromTable && toTable) {
+                const fromAttribute = fromTable.find((a) => a.name === fromAttributeName);
+                const toAttribute = toTable.find((a) => a.name === toAttributeName);
+                if (fromAttribute && toAttribute) {
+                    this.tables = this.tables.map((t) => {
+                        if (t.name === fromTableName) {
+                            if (t.foreignKeys.find((f) => f.fromAttribute !== fromAttributeName || f.toTable !== toTableName || f.toAttribute !== toAttributeName)) {
+                                return {
+                                    ...t,
+                                    foreignKeys: t.foreignKeys.concat({
+                                        fromAttribute: fromAttributeName,
+                                        toTable: toTableName,
+                                        toAttribute: toAttributeName
+                                    })
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+            resolve(this.tables);
+        });
+    }
+
     addAttributeSynonym(tableName, attributeName, synonym) {
         return new Promise((resolve) => {
             this.tables = this.tables.map(t => {
@@ -70,17 +100,23 @@ export default class InMemoryTablesClient {
     removeTable(name) {
         return new Promise((resolve) => {
             this.tables = this.tables.filter(t => t.name !== name);
+            this.tables = this.tables.map((t) => {
+                return {...t, foreignKeys: t.foreignKeys.filter(f => f.toTable !== name)};
+            });
             resolve(this.tables);
         });
     }
 
     removeAttribute(tableName, attributeName) {
         return new Promise((resolve) => {
-             this.tables = this.tables.map(t => {
-                 if (t.name === tableName) {
-                     return {...t, attributes: t.attributes.filter(a => a.name !== attributeName)}
-                 }
-             });
+            this.tables = this.tables.map(t => {
+                if (t.name === tableName) {
+                    return {...t, attributes: t.attributes.filter(a => a.name !== attributeName)}
+                }
+            });
+            this.tables = this.tables.map(t => {
+               return {...t, foreignKeys: t.foreignKeys.filter(f => f.toAttribute !== attributeName)};
+            });
             resolve(this.tables);
         });
     }
@@ -92,6 +128,28 @@ export default class InMemoryTablesClient {
                     return {...t, synonyms: t.synonyms.filter(s => s !== synonym)}
                 }
             });
+            resolve(this.tables);
+        });
+    }
+
+    removeForeignKey(fromTableName, fromAttributeName, toTableName, toAttributeName) {
+        return new Promise((resolve) => {
+            const fromTable = this.tables.find((t) => t.name === fromTableName);
+            const toTable = this.tables.find((t) => t.name === toTableName);
+            if (fromTable && toTable) {
+                const fromAttribute = fromTable.find((a) => a.name === fromAttributeName);
+                const toAttribute = toTable.find((a) => a.name === toAttributeName);
+                if (fromAttribute && toAttribute) {
+                    this.tables = this.tables.map((t) => {
+                        if (t.name === fromTableName) {
+                            return {
+                                ...t,
+                                foreignKeys: t.foreignKeys.filter((f) => f.fromAttribute !== fromAttributeName || f.toTable !== toTableName || f.toAttribute !== toAttributeName)
+                            }
+                        }
+                    })
+                }
+            }
             resolve(this.tables);
         });
     }

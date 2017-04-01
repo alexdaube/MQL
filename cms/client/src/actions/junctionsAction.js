@@ -1,4 +1,4 @@
-import { junctionsClient } from '../clients/clients'
+import {junctionsClient} from "../clients/clients";
 
 export const FETCH_JUNCTIONS_PENDING = "FETCH_JUNCTIONS_PENDING",
     FETCH_JUNCTIONS_FULFILLED = "FETCH_JUNCTIONS_FULFILLED",

@@ -1,6 +1,5 @@
-import React from 'react';
-
-import './Keyword.css';
+import React from "react";
+import "./Keyword.css";
 
 export default class Keyword extends React.Component {
 
@@ -31,8 +30,8 @@ export default class Keyword extends React.Component {
         return (
             <div>
                 <div className="keyword-container">
-                    <div className={"keyword-button " + buttonClasses} onClick={this.clicked.bind(this)} >
-                        <span className={"keyword-icon " + iconClasses} />
+                    <div className={"keyword-button " + buttonClasses} onClick={this.clicked.bind(this)}>
+                        <span className={"keyword-icon " + iconClasses}/>
                         <h4 className="keyword-name">{this.props.name}</h4>
                         <div className="keyword-close">
                             <a className="btn" onClick={this.props.removeKeyword.bind(this)}>✖</a>

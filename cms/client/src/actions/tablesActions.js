@@ -1,4 +1,4 @@
-import { tablesClient } from '../clients/clients'
+import {tablesClient} from "../clients/clients";
 
 export const FETCH_TABLES_PENDING = "FETCH_TABLES_PENDING",
     FETCH_TABLES_FULFILLED = "FETCH_TABLES_FULFILLED",
@@ -16,17 +16,23 @@ export const ADD_TABLE_PENDING = "ADD_TABLE_PENDING",
 
 export function createTable(name) {
     return dispatch => {
-        dispatch({type: "ADD_TABLE", payload: tablesClient.addTable({name: name, synonyms: [], attributes: []})})
+        dispatch({
+            type: "ADD_TABLE",
+            payload: tablesClient.addTable({name: name, synonyms: [], attributes: [], foreignKeys: []})
+        })
     }
 }
 
-export const ADD_ATTRIBUTE_PENDING = "ADD_ATTRIBUTE_PENDING",
-    ADD_ATTRIBUTE_FULFILLED = "ADD_ATTRIBUTE_FULFILLED",
-    ADD_ATTRIBUTE_REJECTED = "ADD_ATTRIBUTE_REJECTED";
+export const ADD_TABLE_ATTRIBUTE_PENDING = "ADD_TABLE_ATTRIBUTE_PENDING",
+    ADD_TABLE_ATTRIBUTE_FULFILLED = "ADD_TABLE_ATTRIBUTE_FULFILLED",
+    ADD_TABLE_ATTRIBUTE_REJECTED = "ADD_TABLE_ATTRIBUTE_REJECTED";
 
 export function addAttribute(tableName, attributeName) {
     return dispatch => {
-        dispatch({type: "ADD_ATTRIBUTE", payload: tablesClient.addAttribute(tableName, {name: attributeName, synonyms: []})})
+        dispatch({
+            type: "ADD_TABLE_ATTRIBUTE",
+            payload: tablesClient.addAttribute(tableName, {name: attributeName, synonyms: []})
+        })
     }
 }
 
@@ -46,7 +52,10 @@ export const ADD_ATTRIBUTE_SYNONYM_PENDING = "ADD_ATTRIBUTE_SYNONYM_PENDING",
 
 export function addAttributeSynonym(tableName, attributeTable, synonym) {
     return dispatch => {
-        dispatch({type: "ADD_ATTRIBUTE_SYNONYM", payload: tablesClient.addAttributeSynonym(tableName, attributeTable, synonym)})
+        dispatch({
+            type: "ADD_ATTRIBUTE_SYNONYM",
+            payload: tablesClient.addAttributeSynonym(tableName, attributeTable, synonym)
+        })
     }
 }
 
@@ -86,6 +95,36 @@ export const REMOVE_ATTRIBUTE_SYNONYM_PENDING = "REMOVE_ATTRIBUTE_SYNONYM_PENDIN
 
 export function removeAttributeSynonym(tableName, attributeName, synonym) {
     return dispatch => {
-        dispatch({type: "REMOVE_ATTRIBUTE_SYNONYM", payload: tablesClient.removeAttributeSynonym(tableName, attributeName, synonym)})
+        dispatch({
+            type: "REMOVE_ATTRIBUTE_SYNONYM",
+            payload: tablesClient.removeAttributeSynonym(tableName, attributeName, synonym)
+        })
     }
 }
+
+export const ADD_TABLE_FOREIGN_KEY_PENDING = "ADD_TABLE_FOREIGN_KEY_PENDING",
+    ADD_TABLE_FOREIGN_KEY_FULFILLED = "ADD_TABLE_FOREIGN_KEY_FULFILLED",
+    ADD_TABLE_FOREIGN_KEY_REJECTED = "ADD_TABLE_FOREIGN_KEY_REJECTED";
+
+export function addTableForeignKey(fromTableName, fromAttributeName, toTableName, toAttributeName) {
+    return dispatch => {
+        dispatch({
+            type: "ADD_TABLE_FOREIGN_KEY",
+            payload: tablesClient.addForeignKey(fromTableName, fromAttributeName, toTableName, toAttributeName)
+        })
+    }
+}
+
+export const REMOVE_TABLE_FOREIGN_KEY_PENDING = "REMOVE_TABLE_FOREIGN_KEY_PENDING",
+    REMOVE_TABLE_FOREIGN_KEY_FULFILLED = "REMOVE_TABLE_FOREIGN_KEY_FULFILLED",
+    REMOVE_TABLE_FOREIGN_KEY_REJECTED = "REMOVE_TABLE_FOREIGN_KEY_REJECTED";
+
+export function removeTableForeignKey(fromTableName, fromAttributeName, toTableName, toAttributeName) {
+    return dispatch => {
+        dispatch({
+            type: "REMOVE_TABLE_FOREIGN_KEY",
+            payload: tablesClient.removeForeignKey(fromTableName, fromAttributeName, toTableName, toAttributeName)
+        })
+    }
+}
+

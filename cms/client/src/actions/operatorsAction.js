@@ -1,4 +1,4 @@
-import { operatorsClient } from '../clients/clients'
+import {operatorsClient} from "../clients/clients";
 
 export const FETCH_OPERATORS_PENDING = "FETCH_OPERATORS_PENDING",
     FETCH_OPERATORS_FULFILLED = "FETCH_OPERATORS_FULFILLED",

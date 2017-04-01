@@ -1,4 +1,4 @@
-import * as actions from '../actions/operatorsAction';
+import * as actions from "../actions/operatorsAction";
 
 const initialState = {
     operators: [],

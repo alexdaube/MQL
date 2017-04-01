@@ -1,5 +1,5 @@
-import axios from 'axios'
-import Promise from 'promise'
+import axios from "axios";
+import Promise from "promise";
 
 class KeywordsClient {
     constructor(uri) {
