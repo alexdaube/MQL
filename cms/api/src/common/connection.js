@@ -14,10 +14,37 @@ db.open((err, db) => {
     }
 });
 
-exports.exportSchema = function (entities) {
-    db.collection('entities').remove({});
-    db.collection('entities').insert(entities, function (error) {
-        if (error) throw error;
-        console.log("Data inserted to db");
+exports.exportTables = function (entities) {
+    db.collection('entities').drop();
+    db.createCollection('entities', function (err, collection) {
+        collection.insertMany(entities, function (err, result) {
+            if (err) throw err;
+        })
+    });
+};
+
+exports.exportJunctions = function (junctions) {
+    db.collection('junctions').drop();
+    db.createCollection('junctions', function (err, collection) {
+        collection.insertMany(junctions, function (err, result) {
+            if (err) throw err;
+        })
+    });
+};
+
+exports.exportOperators = function (operators) {
+    db.collection('operators').drop();
+    db.createCollection('operators', function (err, collection) {
+        collection.insertMany(operators, function (err, result) {
+            if (err) throw err;
+        })
+    });
+};
+
+exports.printTables = function () {
+    var collection = db.collection('entities');
+    var stream = collection.find().stream();
+    stream.on('data', function (doc) {
+        console.log(doc);
     });
 };
