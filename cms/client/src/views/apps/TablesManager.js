@@ -23,9 +23,11 @@ export default class TablesManager extends TableModifier {
                 const synonyms = a.synonyms.map((s, key) =>
                     <Keyword key={key} name={s} removeKeyword={() => this.removeAttributeSynonym(t.name, a.name, s)}/>);
                 return <Keyword key={key} name={a.name} removeKeyword={() => this.removeAttribute(t.name, a.name)}>
-                    <h3>Synonyms:</h3>
-                    <KeywordEntry addKeyword={(name) => this.addAttributeSynonym(t.name, a.name, name)}/>
-                    {synonyms}
+                    <div className="table-container">
+                        <h3>Synonyms:</h3>
+                        <KeywordEntry addKeyword={(name) => this.addAttributeSynonym(t.name, a.name, name)}/>
+                        {synonyms}
+                    </div>
                 </Keyword>
             });
             const synonyms = t.synonyms.map((s, key) => <Keyword key={key} name={s}

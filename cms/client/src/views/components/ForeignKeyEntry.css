@@ -1,10 +1,14 @@
 .foreign-key-form {
+    display: table;
+    table-layout: fixed;
 }
 
 .foreign-key-select {
+    display: table-cell;
 }
 
 .foreign-key-select .Select-menu-outer {
     position: relative;
+    overflow-x: hidden;
     z-index: 999;
 }

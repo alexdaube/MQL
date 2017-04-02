@@ -1,5 +1,6 @@
 .keywords-layout {
     display: table;
+    table-layout: fixed;
 }
 
 .keywords-menu {

@@ -4,8 +4,6 @@ import 'react-select/dist/react-select.css';
 
 import './ForeignKeyEntry.css';
 
-import Menu from './Menu';
-
 export default class ForeignKeyEntry extends React.Component {
     constructor() {
         super(...arguments);
@@ -47,15 +45,13 @@ export default class ForeignKeyEntry extends React.Component {
         const toAttributeOptions = currentToTable ? currentToTable.attributes.map(a => {return {value: a.name, label: a.name}}):[];
         return (
             <form className="form-inline foreign-key-form" onSubmit={this.submit.bind(this)}>
-                <Menu top={true}>
-                    <Select className="foreign-key-select" value={this.state.fromAttribute} autosize={false}
-                            placeholder="From attribute" options={fromAttributeOptions} onChange={this.changeFromAttribute.bind(this)} />
-                    <Select className="foreign-key-select" value={this.state.toTable} autosize={false}
-                            placeholder="To table" options={tableOptions} onChange={this.changeToTable.bind(this)} />
-                    <Select className="foreign-key-select" value={this.state.toAttribute} autosize={false}
-                            placeholder="To attribute" options={toAttributeOptions} onChange={this.changeToAttribute.bind(this)} />
-                    <input className="btn btn-primary" type="submit" value="Add"/>
-                </Menu>
+                <Select className="foreign-key-select" value={this.state.fromAttribute} autosize={false}
+                        placeholder="From attribute" options={fromAttributeOptions} onChange={this.changeFromAttribute.bind(this)} />
+                <Select className="foreign-key-select" value={this.state.toTable} autosize={false}
+                        placeholder="To table" options={tableOptions} onChange={this.changeToTable.bind(this)} />
+                <Select className="foreign-key-select" value={this.state.toAttribute} autosize={false}
+                        placeholder="To attribute" options={toAttributeOptions} onChange={this.changeToAttribute.bind(this)} />
+                <input className="btn btn-primary" type="submit" value="Add"/>
             </form>
         );
     }
