@@ -4,5 +4,5 @@ public enum OperatorType {
     EQUAL,
     LESS,
     GREATER,
-    BETWEEN
+    LIKE, NOT, BETWEEN
 }

@@ -1,0 +1,15 @@
+.keywords-layout {
+    display: table;
+    table-layout: fixed;
+}
+
+.keywords-menu {
+    display: table-cell;
+}
+
+.keywords-children {
+    display: table-cell;
+    width: 100%;
+    text-align: left;
+    border-left: groove;
+}

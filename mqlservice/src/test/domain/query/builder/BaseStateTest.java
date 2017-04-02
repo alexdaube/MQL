@@ -36,27 +36,33 @@ public class BaseStateTest {
     }
 
     @Test
-    public void whenWithEquals_thenChangeStateToEqual() throws Exception {
+    public void givenAnEqualOperator_whenWithOperator_thenChangeStateToEqual() throws Exception {
         baseState.withOperator(OperatorType.EQUAL);
         verify(sqlQueryBuilder).changeState(any(EqualState.class));
     }
 
     @Test
-    public void whenWithGreater_thenChangeStateToGreater() {
+    public void givenAGreaterOperator_whenWithOperator_thenChangeStateToGreater() {
         baseState.withOperator(OperatorType.GREATER);
         verify(sqlQueryBuilder).changeState(any(GreaterState.class));
     }
 
     @Test
-    public void whenWithBetween_thenChangeStateToBetween() throws Exception {
+    public void givenABetweenOperator_whenWithOperator_thenChangeStateToBetween() throws Exception {
         baseState.withOperator(OperatorType.BETWEEN);
         verify(sqlQueryBuilder).changeState(any(BetweenState.class));
     }
 
     @Test
-    public void whenWithLess_thenChangeStateToLess() throws Exception {
+    public void givenALessOperator_whenWithOperator_thenChangeStateToLess() throws Exception {
         baseState.withOperator(OperatorType.LESS);
         verify(sqlQueryBuilder).changeState(any(LessState.class));
+    }
+
+    @Test
+    public void givenALikeOperator_whenWithOperator_thenChangeStateToLike() throws Exception {
+        baseState.withOperator(OperatorType.LIKE);
+        verify(sqlQueryBuilder).changeState(any(LikeState.class));
     }
 
     @Test

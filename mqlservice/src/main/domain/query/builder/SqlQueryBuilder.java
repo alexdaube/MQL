@@ -2,6 +2,7 @@ package domain.query.builder;
 
 import com.healthmarketscience.sqlbuilder.ComboCondition;
 import com.healthmarketscience.sqlbuilder.Condition;
+import com.healthmarketscience.sqlbuilder.NotCondition;
 import com.healthmarketscience.sqlbuilder.SelectQuery;
 import com.healthmarketscience.sqlbuilder.dbspec.Column;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
@@ -19,15 +20,17 @@ public class SqlQueryBuilder implements QueryBuilder {
     private Condition condition;
     private Condition prevCondition;
     private ComboCondition.Op junction;
+    private boolean not;
 
     public SqlQueryBuilder(DbSchema schema) {
         this.schema = schema;
         this.selectQuery = new SelectQuery();
         this.operatorState = new EqualState(this);
+        this.not = false;
     }
 
     public String build() {
-        applyCondition(operatorState.apply());
+        operatorState.update();
         selectQuery.addCondition(condition.setDisableParens(false));
         selectQuery.validate();
         return selectQuery.toString();
@@ -113,10 +116,18 @@ public class SqlQueryBuilder implements QueryBuilder {
 
     public void applyCondition(Condition condition) {
         this.condition = condition;
+        if (this.not) {
+            this.condition = new NotCondition(this.condition);
+        }
         if (junction != null) {
-            this.condition = new ComboCondition(junction, prevCondition, condition).setDisableParens(true);
+            this.not = false;
+            this.condition = new ComboCondition(junction, prevCondition, this.condition).setDisableParens(true);
         }
         prevCondition = this.condition;
+    }
+
+    public void toggleNot() {
+        this.not = !this.not;
     }
 
     public void setJunction(ComboCondition.Op junction) {
@@ -125,5 +136,9 @@ public class SqlQueryBuilder implements QueryBuilder {
 
     public Column getAttribute() {
         return schema.findTable(table).findColumn(attribute);
+    }
+
+    public Condition getCondition() {
+        return condition;
     }
 }
