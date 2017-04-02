@@ -11,13 +11,16 @@ import domain.keywords.Keyword;
 import domain.keywords.KeywordsResolver;
 
 public class InterpreterFactory {
+
     public static Interpreter allOperators(KeywordsResolver keywordsResolver) {
         return new CompositeInterpreter(
                 new EqualInterpreter(keywordsResolver.resolveType(Keyword.Type.EQUAL)),
                 new GreaterInterpreter(keywordsResolver.resolveType(Keyword.Type.GREATER)),
                 new LessInterpreter(keywordsResolver.resolveType(Keyword.Type.LESS)),
                 new BetweenInterpreter(keywordsResolver.resolveType(Keyword.Type.BETWEEN)),
-                new OtherInterpreter(keywordsResolver.resolveType(Keyword.Type.OTHER))
+                new OtherInterpreter(keywordsResolver.resolveType(Keyword.Type.OTHER)),
+                new LikeInterpreter(keywordsResolver.resolveType(Keyword.Type.LIKE)),
+                new NotInterpreter(keywordsResolver.resolveType(Keyword.Type.NOT))
         );
     }
 
@@ -39,7 +42,9 @@ public class InterpreterFactory {
                 new EqualInterpreter(keywordsResolver.resolveType(Keyword.Type.EQUAL)),
                 new GreaterInterpreter(keywordsResolver.resolveType(Keyword.Type.GREATER)),
                 new LessInterpreter(keywordsResolver.resolveType(Keyword.Type.LESS)),
-                new BetweenInterpreter(keywordsResolver.resolveType(Keyword.Type.BETWEEN))
+                new BetweenInterpreter(keywordsResolver.resolveType(Keyword.Type.BETWEEN)),
+                new LikeInterpreter(keywordsResolver.resolveType(Keyword.Type.LIKE)),
+                new NotInterpreter(keywordsResolver.resolveType(Keyword.Type.NOT))
         );
     }
 }
