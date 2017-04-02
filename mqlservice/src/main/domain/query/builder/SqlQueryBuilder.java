@@ -118,6 +118,7 @@ public class SqlQueryBuilder implements QueryBuilder {
         this.condition = condition;
         if (this.not) {
             this.condition = new NotCondition(this.condition);
+            this.not = false;
         }
         if (junction != null) {
             this.not = false;
