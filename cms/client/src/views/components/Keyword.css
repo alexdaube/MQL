@@ -21,7 +21,6 @@
 .keyword-children {
     height: 0;
     overflow: hidden;
-    margin-left: 25px;
 }
 
 .keyword-container {
@@ -30,7 +29,6 @@
     table-layout: fixed;
     height: 100%;
     width: 100%;
-    padding-right: 15px;
 }
 
 .hidden {

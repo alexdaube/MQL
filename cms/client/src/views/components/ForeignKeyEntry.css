@@ -1,0 +1,10 @@
+.foreign-key-form {
+}
+
+.foreign-key-select {
+}
+
+.foreign-key-select .Select-menu-outer {
+    position: relative;
+    z-index: 999;
+}

@@ -32,21 +32,25 @@ export default class TablesManager extends TableModifier {
                                                                  removeKeyword={() => this.removeTableSynonym(t.name, s)}/>);
             return <Keyword key={key} name={t.name} removeKeyword={() => this.removeTable(t.name)}>
                 <Menu top={true}>
-                    <Menu>
-                        <h3>Synonyms:</h3>
-                        <KeywordEntry addKeyword={(name) => this.addSynonym(t.name, name)}/>
-                        {synonyms}
-                    </Menu>
-                    <Menu>
-                        <h3>Attributes:</h3>
-                        <KeywordEntry addKeyword={(name) => this.addAttribute(t.name, name)}/>
-                        {attributes}
-                    </Menu>
+                    <div className="table-container">
+                        <Menu>
+                            <h3>Synonyms:</h3>
+                            <KeywordEntry addKeyword={(name) => this.addSynonym(t.name, name)}/>
+                            {synonyms}
+                        </Menu>
+                    </div>
+                    <div className="table-container">
+                        <Menu>
+                            <h3>Attributes:</h3>
+                            <KeywordEntry addKeyword={(name) => this.addAttribute(t.name, name)}/>
+                            {attributes}
+                        </Menu>
+                    </div>
                 </Menu>
             </Keyword>;
         });
         return (
-            <div className="tables">
+            <div className="tables-manager">
                 <h1>Tables</h1>
                 <Menu>
                     <KeywordEntry addKeyword={this.addTable.bind(this)}/>

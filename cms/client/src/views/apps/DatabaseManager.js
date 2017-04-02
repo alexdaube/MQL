@@ -1,9 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
 
+import './DatabaseManager.css'
 import TableModifier from "./TableModifier";
 import Keyword from '../components/Keyword';
+import KeywordEntry from '../components/KeywordEntry';
 import Menu from '../components/Menu';
+import ForeignKeyEntry from '../components/ForeignKeyEntry';
 
 @connect((store) => {
     return {
@@ -11,6 +14,10 @@ import Menu from '../components/Menu';
     };
 })
 export default class DatabaseManager extends TableModifier {
+
+    componentWillMount() {
+        this.fetchTables();
+    }
 
     render() {
         const tables = this.props.tables.map((t, key) => {
@@ -20,20 +27,29 @@ export default class DatabaseManager extends TableModifier {
                 <Keyword key={key} name={f.toAttribute} removeKeyword={()=>this.removeForeignKey(t.name, f.fromAttribute, f.toTable, f.toAttribute)} />);
             return <Keyword key={key} name={t.name} removeKeyword={()=>this.removeTable(t.name)}>
                 <Menu top={true}>
-                    <Menu>
-                        <h3>Attributes:</h3>
-                        {attributes}
-                    </Menu>
-                    <Menu>
-                        <h3>Foreign keys:</h3>
-                        {foreignKeys}
-                    </Menu>
+                    <div className="database-container">
+                        <Menu>
+                            <h3>Attributes:</h3>
+                            <KeywordEntry addKeyword={(name)=>this.addAttribute(t.name, name)}/>
+                            {attributes}
+                        </Menu>
+                    </div>
+                    <div className="database-container">
+                        <Menu>
+                            <h3>Foreign keys:</h3>
+                            <ForeignKeyEntry addKeyword={(fromAttribute, toTable, toAttribute) =>
+                                this.addForeignKey(t.name, fromAttribute, toTable, toAttribute)}
+                                             fromTable={t} tables={this.props.tables}/>
+                            {foreignKeys}
+                        </Menu>
+                    </div>
                 </Menu>
             </Keyword>
         });
         return (
-            <div>
-                <h1>Database</h1>
+            <div className="database-manager">
+                <h1>Tables</h1>
+                <KeywordEntry addKeyword={this.addTable.bind(this)} />
                 {tables}
             </div>
         );

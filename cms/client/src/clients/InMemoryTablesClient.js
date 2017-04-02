@@ -54,12 +54,12 @@ export default class InMemoryTablesClient {
             const fromTable = this.tables.find((t) => t.name === fromTableName);
             const toTable = this.tables.find((t) => t.name === toTableName);
             if (fromTable && toTable) {
-                const fromAttribute = fromTable.find((a) => a.name === fromAttributeName);
-                const toAttribute = toTable.find((a) => a.name === toAttributeName);
+                const fromAttribute = fromTable.attributes.find((a) => a.name === fromAttributeName);
+                const toAttribute = toTable.attributes.find((a) => a.name === toAttributeName);
                 if (fromAttribute && toAttribute) {
                     this.tables = this.tables.map((t) => {
                         if (t.name === fromTableName) {
-                            if (t.foreignKeys.find((f) => f.fromAttribute !== fromAttributeName || f.toTable !== toTableName || f.toAttribute !== toAttributeName)) {
+                            if (!t.foreignKeys.find((f) => f.fromAttribute === fromAttributeName && f.toTable === toTableName && f.toAttribute === toAttributeName)) {
                                 return {
                                     ...t,
                                     foreignKeys: t.foreignKeys.concat({
@@ -70,6 +70,7 @@ export default class InMemoryTablesClient {
                                 }
                             }
                         }
+                        return t;
                     })
                 }
             }
@@ -113,9 +114,10 @@ export default class InMemoryTablesClient {
                 if (t.name === tableName) {
                     return {...t, attributes: t.attributes.filter(a => a.name !== attributeName)}
                 }
+                return t;
             });
             this.tables = this.tables.map(t => {
-               return {...t, foreignKeys: t.foreignKeys.filter(f => f.toAttribute !== attributeName)};
+               return {...t, foreignKeys: t.foreignKeys.filter(f => f.toAttribute !== attributeName && f.fromAttribute !== attributeName)};
             });
             resolve(this.tables);
         });
@@ -127,6 +129,7 @@ export default class InMemoryTablesClient {
                 if (t.name === tableName) {
                     return {...t, synonyms: t.synonyms.filter(s => s !== synonym)}
                 }
+                return t;
             });
             resolve(this.tables);
         });
@@ -137,8 +140,8 @@ export default class InMemoryTablesClient {
             const fromTable = this.tables.find((t) => t.name === fromTableName);
             const toTable = this.tables.find((t) => t.name === toTableName);
             if (fromTable && toTable) {
-                const fromAttribute = fromTable.find((a) => a.name === fromAttributeName);
-                const toAttribute = toTable.find((a) => a.name === toAttributeName);
+                const fromAttribute = fromTable.attributes.find((a) => a.name === fromAttributeName);
+                const toAttribute = toTable.attributes.find((a) => a.name === toAttributeName);
                 if (fromAttribute && toAttribute) {
                     this.tables = this.tables.map((t) => {
                         if (t.name === fromTableName) {
@@ -147,6 +150,7 @@ export default class InMemoryTablesClient {
                                 foreignKeys: t.foreignKeys.filter((f) => f.fromAttribute !== fromAttributeName || f.toTable !== toTableName || f.toAttribute !== toAttributeName)
                             }
                         }
+                        return t;
                     })
                 }
             }
@@ -166,6 +170,7 @@ export default class InMemoryTablesClient {
                     });
                     return {...t, attributes: attributes}
                 }
+                return t;
             });
             resolve(this.tables);
         });

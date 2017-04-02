@@ -1,5 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
+
+import './OperatorsManager.css';
 import Keyword from "../components/Keyword";
 import KeywordEntry from "../components/KeywordEntry";
 import Menu from "../components/Menu";
@@ -43,13 +45,15 @@ export default class OperatorsManager extends React.Component {
             const synonyms = o.synonyms.map((s, key) =>
                 <Keyword removeKeyword={() => this.removeSynonym(o.name, s)} name={s} key={key}/>);
             return <Keyword removeKeyword={() => this.removeOperator(o.name)} name={o.name} key={key}>
-                <h3>Synonyms:</h3>
-                <KeywordEntry addKeyword={(name) => this.addSynonym(o.name, name)}/>
-                {synonyms}
+                <div className="operator-container">
+                    <h3>Synonyms:</h3>
+                    <KeywordEntry addKeyword={(name) => this.addSynonym(o.name, name)}/>
+                    {synonyms}
+                </div>
             </Keyword>
         });
         return (
-            <div className="operators">
+            <div className="operator-manager">
                 <h1>Operators</h1>
                 <Menu>
                     <KeywordEntry addKeyword={this.addOperator.bind(this)}/>
