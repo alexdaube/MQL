@@ -1,13 +1,18 @@
 import InMemoryKeywordsClient from "./InMemoryTablesClient";
 import InMemoryJunctionsClient from "./InMemoryJunctionsClient";
 import InMemoryOperatorsClient from "./InMemoryOperatorsClient";
+import OperatorsClient from "./OperatorsClient";
+import JunctionsClient from "./JunctionsClient";
+import TablesClient from "./TablesClient";
 
-//const tablesClient = new KeywordsClient("http://rest.learncode.academy/api/test123/tweets");
-const tablesClient = new InMemoryKeywordsClient();
+//const tablesClient = new InMemoryKeywordsClient();
+const tablesClient = new TablesClient("http://localhost:4000/tables");
 
-const junctionsClient = new InMemoryJunctionsClient();
+//const junctionsClient = new InMemoryJunctionsClient();
+const junctionsClient = new JunctionsClient("http://localhost:4000/junctions");
 
-const operatorsClient = new InMemoryOperatorsClient();
+//const operatorsClient = new InMemoryOperatorsClient();
+const operatorsClient = new OperatorsClient("http://localhost:4000/operators");
 
 module.exports = {
     tablesClient,

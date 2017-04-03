@@ -4,16 +4,25 @@ var _ = require('underscore');
 
 var operators = [];
 
-exports.addOperator = function (type, keywords) {
-    var operator = _.findWhere(operators, {type: type});
-
-    if (typeof operator == 'undefined') {
-        operator = new Operator(type, keywords);
-        operators.push(operator);
-    } else {
-        console.log("Operator exists");
+exports.addOperator = function (type) {
+    if (!operators.find(o => o.getType() === type)) {
+        operators.push(new Operator(type));
     }
-    return operator;
+};
+
+exports.addKeyword = function(type, keyword) {
+    operators.find(o => o.getType() === type).addKeyword(keyword);
+};
+
+exports.remove = function (type) {
+    const index = operators.indexOf(operators.find(o => o.getType() === type));
+    if (index > -1) {
+        operators.splice(index, 1);
+    }
+};
+
+exports.removeKeyword = function (type, keyword) {
+    operators.find(o => o.getType() === type).removeKeyword(keyword);
 };
 
 exports.getOperators = function () {

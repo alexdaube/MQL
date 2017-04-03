@@ -40,9 +40,9 @@ export const ADD_TABLE_SYNONYM_PENDING = "ADD_TABLE_SYNONYM_PENDING",
     ADD_TABLE_SYNONYM_FULFILLED = "ADD_TABLE_SYNONYM_FULFILLED",
     ADD_TABLE_SYNONYM_REJECTED = "ADD_TABLE_SYNONYM_REJECTED";
 
-export function addTableSynonym(tableName, table_synonym) {
+export function addTableSynonym(tableName, tableSynonym) {
     return dispatch => {
-        dispatch({type: "ADD_TABLE_SYNONYM", payload: tablesClient.addSynonym(tableName, table_synonym)})
+        dispatch({type: "ADD_TABLE_SYNONYM", payload: tablesClient.addSynonym(tableName, tableSynonym)})
     }
 }
 
@@ -110,7 +110,11 @@ export function addTableForeignKey(fromTableName, fromAttributeName, toTableName
     return dispatch => {
         dispatch({
             type: "ADD_TABLE_FOREIGN_KEY",
-            payload: tablesClient.addForeignKey(fromTableName, fromAttributeName, toTableName, toAttributeName)
+            payload: tablesClient.addForeignKey(fromTableName, {
+                fromAttribute: fromAttributeName,
+                toTable: toTableName,
+                toAttribute: toAttributeName
+            })
         })
     }
 }
@@ -123,7 +127,11 @@ export function removeTableForeignKey(fromTableName, fromAttributeName, toTableN
     return dispatch => {
         dispatch({
             type: "REMOVE_TABLE_FOREIGN_KEY",
-            payload: tablesClient.removeForeignKey(fromTableName, fromAttributeName, toTableName, toAttributeName)
+            payload: tablesClient.removeForeignKey(fromTableName, {
+                fromAttribute: fromAttributeName,
+                toTable: toTableName,
+                toAttribute: toAttributeName
+            })
         })
     }
 }

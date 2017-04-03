@@ -4,16 +4,25 @@ var _ = require('underscore');
 
 var junctions = [];
 
-exports.addJunction = function (type, keywords) {
-    var junction = _.findWhere(junctions, {type: type});
-
-    if (typeof junction == 'undefined') {
-        junction = new Junction(type, keywords);
-        junctions.push(junction);
-    } else {
-        console.log("Junction exists");
+exports.addJunction = function (type) {
+    if (!junctions.find(j => j.getType() === type)) {
+        junctions.push(new Junction(type));
     }
-    return junction;
+};
+
+exports.addKeyword = function(type, keyword) {
+    junctions.find(j => j.getType() === type).addKeyword(keyword);
+};
+
+exports.remove = function (type) {
+    const index = junctions.indexOf(junctions.find(j => j.getType() === type));
+    if (index > -1) {
+        junctions.splice(index, 1);
+    }
+};
+
+exports.removeKeyword = function (type, keyword) {
+    junctions.find(j => j.getType() === type).removeKeyword(keyword);
 };
 
 exports.getJunctions = function () {

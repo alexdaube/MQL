@@ -1,9 +1,10 @@
 "use strict";
 
-class Operator {
-    constructor(type, keywords = []) {
+class Column {
+
+    constructor(name, keywords = []) {
         this.keywords = keywords;
-        this.type = type;
+        this.name = name;
     }
 
     addKeyword(keyword) {
@@ -19,9 +20,13 @@ class Operator {
         }
     }
 
-    getType() {
-        return this.type;
+    getName() {
+        return this.name;
+    }
+
+    getKeywords() {
+        return this.keywords;
     }
 }
 
-module.exports = Operator;
+module.exports = Column;
