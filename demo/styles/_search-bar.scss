@@ -1,26 +1,9 @@
 .searchBarContainer {
   width: 100%;
+  position: relative;
 }
 .searchBarInput {
   width: 100% !important;
-}
-
-.searchBarButton {
-  max-height: 38px;
-}
-
-
-body {
-  font-family: Helvetica, sans-serif;
-}
-
-.react-autosuggest__container {
-  position: relative;
-}
-
-.react-autosuggest__input {
-  width: 240px;
-  height: 30px;
   padding: 10px 20px;
   font-family: Helvetica, sans-serif;
   font-weight: 300;
@@ -29,24 +12,28 @@ body {
   border-radius: 4px;
 }
 
-.react-autosuggest__input--focused {
+.searchBarButton {
+  max-height: 43px;
+}
+
+.searchBarInputFocused {
   outline: none;
 }
 
-.react-autosuggest__input--open {
+.searchBarInputOpen {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.react-autosuggest__suggestions-container {
+.searchBarSuggestionsContainer {
   display: none;
 }
 
-.react-autosuggest__suggestions-container--open {
+.searchBarSuggestionsContainerOpen {
   display: block;
   position: absolute;
   top: 51px;
-  width: 280px;
+  width: 100%;
   border: 1px solid #aaa;
   background-color: #fff;
   font-family: Helvetica, sans-serif;
@@ -57,30 +44,30 @@ body {
   z-index: 2;
 }
 
-.react-autosuggest__suggestions-list {
+.searchBarSuggestionsList {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-.react-autosuggest__suggestion {
+.searchBarSuggestion {
   cursor: pointer;
   padding: 10px 20px;
 }
 
-.react-autosuggest__suggestion--highlighted {
+.searchBarSuggestionHighlighted {
   background-color: #ddd;
 }
 
-.react-autosuggest__section-container {
+.searchBarSectionContainer {
   border-top: 1px dashed #ccc;
 }
 
-.react-autosuggest__section-container--first {
+.searchBarSectionContainerFirst {
   border-top: 0;
 }
 
-.react-autosuggest__section-title {
+.searchBarSectionTitle {
   padding: 10px 0 0 10px;
   font-size: 12px;
   color: #777;

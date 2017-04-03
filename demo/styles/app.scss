@@ -3,6 +3,10 @@
 @import "search-bar";
 @import "documentation";
 
+body {
+  font-family: Helvetica, sans-serif;
+}
+
 td, th {
   vertical-align: middle !important;
   text-align: center !important;
