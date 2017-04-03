@@ -72,8 +72,8 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "prod": "npm run build && pushstate-server build",
+    "start": "PORT=8000 node scripts/start.js",
+    "prod": "npm run build && pushstate-server build 8000",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
