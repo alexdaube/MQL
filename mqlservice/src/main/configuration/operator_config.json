@@ -41,6 +41,19 @@
         "and",
         "than"
       ]
+    },
+    {
+      "type": "LIKE",
+      "keywords": [
+        "contain",
+        "contains"
+      ]
+    },
+    {
+      "type": "NOT",
+      "keywords": [
+        "!"
+      ]
     }
   ]
 }

@@ -64,6 +64,6 @@ public class Keyword {
         BETWEEN,
         OR,
         AND,
-        OTHER
+        LIKE, NOT, OTHER
     }
 }
