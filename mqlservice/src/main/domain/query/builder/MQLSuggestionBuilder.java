@@ -11,29 +11,27 @@ import java.util.stream.StreamSupport;
 public class MQLSuggestionBuilder implements SuggestionBuilder {
     private Query<String> query;
     private JsonArray suggestions;
+    private JsonArray hints;
     private JsonArray queryMatchingSuggestions;
     private JsonArray allowedSuggestions;
     private JsonArray valueSuggestions;
-    private String hint = "";
 
     public MQLSuggestionBuilder(Query<String> query) {
         this.query = query;
         this.suggestions = new JsonArray();
+        this.hints = new JsonArray();
         this.queryMatchingSuggestions = new JsonArray();
         this.allowedSuggestions = new JsonArray();
         this.valueSuggestions = new JsonArray();
     }
 
     public MQLSuggestionBuilder withValue(String type) {
-        JsonObject suggestion = new JsonObject();
-        suggestion.addProperty("name", type);
-        suggestion.addProperty("type", type.toUpperCase());
-        valueSuggestions.add(suggestion);
+        valueSuggestions.add(createSuggestionFromString(type));
         return this;
     }
 
     public MQLSuggestionBuilder withHint(String hintToAdd) {
-        hint = hint + " " + hintToAdd;
+        hints.add(createSuggestionFromString(hintToAdd));
         return this;
     }
 
@@ -56,21 +54,19 @@ public class MQLSuggestionBuilder implements SuggestionBuilder {
     }
 
     public JsonArray buildSuggestion() {
-        createHintSection("Type of KEYWORDS allowed next");
-        createSuggestionsSection(String.format("Allowed Keyword matching '%s'",
+        createSuggestionsSection("Type of 'KEYWORDS' to enter", hints);
+        createSuggestionsSection(String.format("'KEYWORDS' matching '%s'",
                 query.getQuery()), queryMatchingSuggestions);
-        createSuggestionsSection("Allowed Next", allowedSuggestions);
-        createSuggestionsSection("Possible Values", valueSuggestions);
+        createSuggestionsSection("Possible 'KEYWORDS'", allowedSuggestions);
+        createSuggestionsSection("Possible 'VALUES", valueSuggestions);
         return this.suggestions;
     }
 
-    private void createHintSection(String title) {
-        if (!hint.isEmpty()) {
-            JsonObject section = new JsonObject();
-            section.addProperty("title", title);
-            section.addProperty("hints", hint);
-            suggestions.add(section);
-        }
+    private JsonObject createSuggestionFromString(String type) {
+        JsonObject suggestion = new JsonObject();
+        suggestion.addProperty("name", type);
+        suggestion.addProperty("type", type.toUpperCase());
+        return suggestion;
     }
 
     private void createSuggestionsSection(String title, JsonArray sectionSuggestions) {

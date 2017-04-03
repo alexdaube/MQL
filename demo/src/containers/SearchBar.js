@@ -1,31 +1,30 @@
 import React, {Component} from "react";
 import Autosuggest from 'react-autosuggest';
-import {Button, Form, FormGroup, Input, InputGroupButton, InputGroup} from "reactstrap";
+import {Button, Form, FormGroup, InputGroupButton, InputGroup, Badge} from "reactstrap";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as actions from "../actions";
+import {getQueryKeywordBadgeDetails} from "../utils/badge";
 
 
 const theme = {
-    container: 'searchBarContainer',
-    input: 'searchBarInput form-control'
+    container: 'searchBarContainer', // 'react-autosuggest__container'
+    containerOpen: 'react-autosuggest__container--open',
+    input: 'searchBarInput form-control', // 'react-autosuggest__input'
+    inputOpen:                'react-autosuggest__input--open',
+    inputFocused:             'react-autosuggest__input--focused',
+    suggestionsContainer:     'react-autosuggest__suggestions-container',
+    suggestionsContainerOpen: 'react-autosuggest__suggestions-container--open',
+    suggestionsList:          'react-autosuggest__suggestions-list',
+    suggestion:               'react-autosuggest__suggestion',
+    suggestionFirst:          'react-autosuggest__suggestion--first',
+    suggestionHighlighted:    'react-autosuggest__suggestion--highlighted',
+    sectionContainer:         'react-autosuggest__section-container',
+    sectionContainerFirst:    'react-autosuggest__section-container--first',
+    sectionTitle:             'react-autosuggest__section-title'
 };
 
-const languages = [
-    {
-        name: 'C',
-        year: 1972
-    },
-    {
-        name: 'Elm',
-        year: 2012
-    }
-];
-
-
-
 const renderSectionTitle = (section) => {
-    debugger;
     return (
         <strong>{section.title}</strong>
     );
@@ -33,48 +32,21 @@ const renderSectionTitle = (section) => {
 
 
 const getSectionSuggestions = (section) => {
-    debugger;
-    if(section.hints) {
-        return section;
-    }
     return section.suggestions;
 };
 
 
-// Teach Autosuggest how to calculate suggestions for any given input value.
-// const getSuggestions = value => {
-//     const inputValue = value.trim().toLowerCase();
-//     const inputLength = inputValue.length;
-//
-//     return inputLength === 0 ? [] : languages.filter(lang =>
-//             lang.name.toLowerCase().slice(0, inputLength) === inputValue
-//         );
-// };
-
-// When suggestion is clicked, Autosuggest needs to populate the input element
-// based on the clicked suggestion. Teach Autosuggest how to calculate the
-// input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.name;
-
-// Use your imagination to render suggestions.
 const renderSuggestion = suggestion => {
-    debugger;
-    const suggestionText = suggestion.hints ? suggestion.hints : `${suggestion.name} with type: ${suggestion.type}`;
+    let suggestionType = getQueryKeywordBadgeDetails(suggestion.type);
     return (
         <div>
-            {suggestionText}
+            <Badge color={suggestionType.color}>&nbsp;{suggestionType.letter}&nbsp;</Badge>&nbsp;
+            {`${suggestion.name}`}
         </div>
     );
 };
 
-
-
 export class SearchBar extends Component {
-    // Autosuggest is a controlled component.
-    // This means that you need to provide an input value
-    // and an onChange handler that updates this value (see below).
-    // Suggestions also need to be provided to the Autosuggest,
-    // and they are initially empty because the Autosuggest is closed.
     constructor(props) {
         super(props);
         this.state = {
@@ -83,6 +55,7 @@ export class SearchBar extends Component {
         };
         this.onInputChange = this.onInputChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
+        this.getSuggestionValue = this.getSuggestionValue.bind(this);
     }
 
     onChange = (event, { newValue }) => {
@@ -97,25 +70,16 @@ export class SearchBar extends Component {
         });
     }
 
+    getSuggestionValue(suggestion) {
+        const lastIndex = this.state.value.lastIndexOf(" ");
+        const previousInput = this.state.value.substring(0, lastIndex);
+        return `${previousInput} ${suggestion.name.toLowerCase()}`;
+    };
+
     onFormSubmit(event) {
         event.preventDefault();
         this.props.fetchQuery(this.state.value);
     }
-
-    // Autosuggest will call this function every time you need to update suggestions.
-    // You already implemented this logic above, so just use it.
-    onSuggestionsFetchRequested = ({ value }) => {
-        this.setState({
-            suggestions: getSuggestions(value)
-        });
-    };
-
-    // Autosuggest will call this function every time you need to clear suggestions.
-    onSuggestionsClearRequested = () => {
-        this.setState({
-            suggestions: []
-        });
-    };
 
     render() {
         const { value } = this.state;
@@ -134,7 +98,7 @@ export class SearchBar extends Component {
                         <Autosuggest suggestions={suggestions.suggestions}
                                      onSuggestionsFetchRequested={fetchSuggestions}
                                      onSuggestionsClearRequested={clearSuggestions}
-                                     getSuggestionValue={getSuggestionValue}
+                                     getSuggestionValue={this.getSuggestionValue}
                                      renderSuggestion={renderSuggestion}
                                      inputProps={inputProps}
                                      theme={theme}
