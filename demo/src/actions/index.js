@@ -68,7 +68,6 @@ export const fetchSuggestions = ({value}) => {
                 dispatch(fetchSuggestionSuccess(response.data));
             })
             .catch(error => {
-                debugger;
                 dispatch(fetchSuggestionError(error.response.data.errorMessage));
             });
     };

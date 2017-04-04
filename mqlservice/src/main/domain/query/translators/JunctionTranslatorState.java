@@ -53,8 +53,8 @@ public class JunctionTranslatorState implements QueryTranslatorState {
 
     @Override
     public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
-        suggestionBuilder.withHint("Entity").withHint("Attribute")
-                .withHint("Operator").withHint("Value");
+        //suggestionBuilder.withHint("Entity").withHint("Attribute")
+        //       .withHint("Operator").withHint("Value");
         entityInterpreter.suggest(suggestionBuilder);
         attributeInterpreter.suggest(suggestionBuilder);
         operatorInterpreter.suggest(suggestionBuilder);

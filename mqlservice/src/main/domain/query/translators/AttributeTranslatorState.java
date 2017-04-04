@@ -33,7 +33,7 @@ public class AttributeTranslatorState implements QueryTranslatorState {
 
     @Override
     public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
-        suggestionBuilder.withHint("Operator");
+        //suggestionBuilder.withHint("Operator");
         interpreter.suggest(suggestionBuilder);
     }
 }

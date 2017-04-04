@@ -1,11 +1,12 @@
 import React, {Component} from "react";
 import _ from "lodash";
+import moment from "moment";
 import Autosuggest from 'react-autosuggest';
 import {Button, Form, FormGroup, InputGroupButton, InputGroup, Badge} from "reactstrap";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as actions from "../actions";
-import {getQueryKeywordBadgeDetails} from "../utils/badge";
+import {getQueryKeywordBadgeDetails, KEYWORDS} from "../utils/badge";
 
 
 const theme = {
@@ -38,7 +39,7 @@ const getSectionSuggestions = (section) => {
 const renderSuggestion = suggestion => {
     let synonyms = '';
     let suggestionType = getQueryKeywordBadgeDetails(suggestion.type);
-    if (suggestion.synonyms) {
+    if (suggestion.hasOwnProperty("synonyms")) {
         synonyms = suggestion.synonyms.join(', ');
     }
     return (
@@ -82,6 +83,22 @@ export class SearchBar extends Component {
     getSuggestionValue(suggestion) {
         const lastIndex = this.state.value.lastIndexOf(" ");
         const previousInput = this.state.value.substring(0, lastIndex);
+        if (suggestion.type === 'DATE') {
+            return `${previousInput} ${moment().format('YYYY-MM-DD')}`;
+        }
+
+        if (suggestion.type === 'INTEGER') {
+            return `${previousInput} 0`;
+        }
+
+        if (suggestion.type === 'DECIMAL') {
+            return `${previousInput} 0.0`;
+        }
+
+        if (suggestion.type === 'VARCHAR') {
+            return `${previousInput} "value"`;
+        }
+
         return `${previousInput} ${suggestion.name.toLowerCase()}`;
     };
 

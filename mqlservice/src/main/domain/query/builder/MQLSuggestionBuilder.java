@@ -56,10 +56,10 @@ public class MQLSuggestionBuilder implements SuggestionBuilder {
 
     public JsonArray buildSuggestion() {
         createSuggestionsSection("Type of 'KEYWORDS' to enter", hints);
-        createSuggestionsSection(String.format("'KEYWORDS' matching '%s'",
+        createSuggestionsSection(String.format("Possible 'KEYWORDS' matching '%s'",
                 query.getQuery()), queryMatchingSuggestions);
         createSuggestionsSection("Possible 'KEYWORDS'", allowedSuggestions);
-        createSuggestionsSection("Possible 'VALUES", valueSuggestions);
+        createSuggestionsSection("Possible 'VALUES' to enter", valueSuggestions);
         return this.suggestions;
     }
 

@@ -34,7 +34,7 @@ public class EntityTranslatorState implements QueryTranslatorState {
 
     @Override
     public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
-        suggestionBuilder.withHint("Attribute");
+        //suggestionBuilder.withHint("Attribute");
         attributeInterpreter.suggest(suggestionBuilder);
     }
 }

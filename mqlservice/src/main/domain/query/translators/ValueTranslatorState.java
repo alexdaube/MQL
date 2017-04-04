@@ -40,7 +40,7 @@ public class ValueTranslatorState implements QueryTranslatorState {
 
     @Override
     public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
-        suggestionBuilder.withHint("Value").withHint("Junction");
+        //suggestionBuilder.withHint("Value").withHint("Junction");
         valueInterpreter.suggest(suggestionBuilder);
         junctionInterpreter.suggest(suggestionBuilder);
     }

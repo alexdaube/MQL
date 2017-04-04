@@ -38,7 +38,7 @@ public class OperatorTranslatorState implements QueryTranslatorState {
 
     @Override
     public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
-        suggestionBuilder.withHint("Operator").withHint("Value");
+        //suggestionBuilder.withHint("Operator").withHint("Value");
         valueInterpreter.suggest(suggestionBuilder);
         operatorInterpreter.suggest(suggestionBuilder);
     }
