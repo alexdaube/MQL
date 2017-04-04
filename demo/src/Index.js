@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {createStore, applyMiddleware} from "redux";
+import {applyMiddleware, createStore} from "redux";
 import {anchorate} from "anchorate";
 import {Provider} from "react-redux";
-import {Router, browserHistory} from "react-router";
+import {browserHistory, Router} from "react-router";
 import reduxThunk from "redux-thunk";
 import reducers from "./reducers/rootReducer";
 import routes from "./routes";

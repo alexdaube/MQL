@@ -1,4 +1,4 @@
-import {undoCamelCasing, lowerCaseInput, isInputEmpty} from "../../src/utils/strings";
+import {isInputEmpty, lowerCaseInput, undoCamelCasing} from "../../src/utils/strings";
 
 
 describe('strings', () => {

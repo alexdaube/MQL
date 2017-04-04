@@ -1,4 +1,4 @@
-import {FETCH_QUERY_SUCCESS, FETCH_QUERY_ERROR, FETCH_QUERY_REQUEST} from "../../src/actions/types";
+import {FETCH_QUERY_ERROR, FETCH_QUERY_REQUEST, FETCH_QUERY_SUCCESS} from "../../src/actions/types";
 import queryReducer from "../../src/reducers/queryReducer";
 
 describe('queryReducer', () => {

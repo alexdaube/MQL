@@ -4,7 +4,6 @@ import domain.keywords.Keywords;
 import domain.query.Query;
 import domain.query.builder.OperatorType;
 import domain.query.builder.QueryBuilder;
-import domain.query.builder.SuggestionBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

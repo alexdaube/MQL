@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import {Badge} from "reactstrap";
-import {KEYWORDS, getQueryKeywordBadgeDetails} from "../utils/badge"
-import guid from "../utils/guid"
+import {getQueryKeywordBadgeDetails, KEYWORDS} from "../utils/badge";
+import guid from "../utils/guid";
 
 export default class QueryKeywordsLegend extends Component {
     showQueryBadgesLegend() {

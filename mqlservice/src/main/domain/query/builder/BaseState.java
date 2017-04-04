@@ -3,7 +3,6 @@ package domain.query.builder;
 import com.healthmarketscience.sqlbuilder.ComboCondition;
 import com.healthmarketscience.sqlbuilder.Condition;
 import com.healthmarketscience.sqlbuilder.JdbcEscape;
-import com.healthmarketscience.sqlbuilder.NotCondition;
 import domain.InvalidQueryException;
 
 import java.sql.Date;

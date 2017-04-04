@@ -39,7 +39,8 @@ public class BaseInterpreterTest {
     }
 
     private BaseInterpreter createBaseInterpreter() {
-        return new BaseInterpreter(keywords) {};
+        return new BaseInterpreter(keywords) {
+        };
     }
 }
 

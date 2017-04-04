@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import Helmet from "react-helmet";
 import jsPDF from "jspdf";
 import $ from "jquery";
-import {StickyContainer, Sticky} from "react-sticky";
-import {Container, Nav, NavItem, Row, Col, Button} from "reactstrap";
+import {Sticky, StickyContainer} from "react-sticky";
+import {Button, Col, Container, Nav, NavItem, Row} from "reactstrap";
 import DocumentationBlock from "../components/DocumentationBlock";
 import ComponentLink from "../components/ComponentLink";
 

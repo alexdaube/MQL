@@ -4,8 +4,8 @@ import com.google.gson.JsonArray;
 import domain.InvalidQueryException;
 import domain.keywords.KeywordsResolver;
 import domain.query.Query;
-import domain.query.builder.QueryBuilder;
 import domain.query.builder.MQLSuggestionBuilder;
+import domain.query.builder.QueryBuilder;
 
 public class MqlQueryTranslator implements QueryTranslator {
     private final QueryBuilder queryBuilder;
@@ -24,7 +24,7 @@ public class MqlQueryTranslator implements QueryTranslator {
     public JsonArray translateNextSuggestion(Query query) {
         try {
             translateQuery(query);
-        } catch(InvalidQueryException ex) {
+        } catch (InvalidQueryException ex) {
             MQLSuggestionBuilder suggestionBuilder = new MQLSuggestionBuilder(query);
             state.translateNextSuggestion(suggestionBuilder);
             return suggestionBuilder.buildSuggestion();

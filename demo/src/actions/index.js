@@ -1,7 +1,7 @@
 import axios from "axios";
-import * as types  from "./types";
+import * as types from "./types";
 import {BASE_URL, QUERY_PATH, SUGGESTIONS_PATH} from "../constants/api_endpoints";
-import {lowerCaseInput, isInputEmpty} from "../utils/strings";
+import {isInputEmpty, lowerCaseInput} from "../utils/strings";
 
 const fetchQueryError = (error) => {
     return {

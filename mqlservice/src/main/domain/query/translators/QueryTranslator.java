@@ -5,5 +5,6 @@ import domain.query.Query;
 
 public interface QueryTranslator {
     String translate(Query query);
+
     JsonArray translateNextSuggestion(Query query);
 }

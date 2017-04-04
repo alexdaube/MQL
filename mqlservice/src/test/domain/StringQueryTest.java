@@ -9,9 +9,7 @@ import java.util.regex.Pattern;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class StringQueryTest {
     private static final String FIRST_TERM = "QUERY1";
@@ -54,6 +52,6 @@ public class StringQueryTest {
 
     @Test
     public void givenAPattern_whenGetQuery_thenReturnsTheQuery() {
-        assertEquals(query.getQuery(),QUERY);
+        assertEquals(query.getQuery(), QUERY);
     }
 }

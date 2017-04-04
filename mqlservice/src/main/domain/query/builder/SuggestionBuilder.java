@@ -5,7 +5,10 @@ import domain.keywords.Keywords;
 
 public interface SuggestionBuilder {
     SuggestionBuilder withValue(String type);
+
     SuggestionBuilder withQueryMatching(Keywords keywords);
+
     SuggestionBuilder withAllowed(Keywords keywords);
+
     JsonArray buildSuggestion();
 }

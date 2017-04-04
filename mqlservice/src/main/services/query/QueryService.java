@@ -2,17 +2,11 @@ package services.query;
 
 import com.google.gson.JsonArray;
 import domain.DbClient;
-import domain.InvalidQueryException;
-import domain.keywords.KeywordsResolver;
 import domain.query.StringQuery;
-import domain.query.builder.QueryBuilder;
-import domain.query.translators.MqlQueryTranslator;
 import domain.query.translators.QueryTranslator;
-import services.locator.InvalidMethodException;
 import services.locator.ServiceLocator;
 
 import java.util.List;
-import java.util.Map;
 
 public class QueryService {
     private final DbClient dbClient;

@@ -27,6 +27,6 @@ public class CompositeInterpreter implements Interpreter {
 
     @Override
     public void suggest(SuggestionBuilder suggestionBuilder) {
-        interpreters.forEach(interpreter ->  interpreter.suggest(suggestionBuilder));
+        interpreters.forEach(interpreter -> interpreter.suggest(suggestionBuilder));
     }
 }

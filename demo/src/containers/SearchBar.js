@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import _ from "lodash";
 import moment from "moment";
-import Autosuggest from 'react-autosuggest';
-import {Button, Form, FormGroup, InputGroupButton, InputGroup, Badge} from "reactstrap";
+import Autosuggest from "react-autosuggest";
+import {Badge, Button, Form, FormGroup, InputGroup, InputGroupButton} from "reactstrap";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as actions from "../actions";
@@ -12,16 +12,16 @@ import {getQueryKeywordBadgeDetails} from "../utils/badge";
 const theme = {
     container: 'searchBarContainer',
     input: 'searchBarInput form-control',
-    inputOpen:                'searchBarInputOpen',
-    inputFocused:             'searchBarInputFocused',
-    suggestionsContainer:     'searchBarSuggestionsContainer',
+    inputOpen: 'searchBarInputOpen',
+    inputFocused: 'searchBarInputFocused',
+    suggestionsContainer: 'searchBarSuggestionsContainer',
     suggestionsContainerOpen: 'searchBarSuggestionsContainerOpen',
-    suggestionsList:          'searchBarSuggestionsList',
-    suggestion:               'searchBarSuggestion',
-    suggestionHighlighted:    'searchBarSuggestionHighlighted',
-    sectionContainer:         'searchBarSectionContainer',
-    sectionContainerFirst:    'searchBarSectionContainerFirst',
-    sectionTitle:             'searchBarSectionTitle'
+    suggestionsList: 'searchBarSuggestionsList',
+    suggestion: 'searchBarSuggestion',
+    suggestionHighlighted: 'searchBarSuggestionHighlighted',
+    sectionContainer: 'searchBarSectionContainer',
+    sectionContainerFirst: 'searchBarSectionContainerFirst',
+    sectionTitle: 'searchBarSectionTitle'
 };
 
 const renderSectionTitle = (section) => {
@@ -54,8 +54,7 @@ export class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: '',
-            suggestions: []
+            value: ''
         };
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.getSuggestionValue = this.getSuggestionValue.bind(this);
@@ -67,7 +66,7 @@ export class SearchBar extends Component {
         this.debouncedLoadSuggestions(value);
     }
 
-    onChange = (event, { newValue }) => {
+    onChange = (event, {newValue}) => {
         this.setState({
             value: newValue
         });
@@ -101,8 +100,8 @@ export class SearchBar extends Component {
     }
 
     render() {
-        const { value } = this.state;
-        const { suggestions, clearSuggestions } = this.props;
+        const {value} = this.state;
+        const {suggestions, clearSuggestions} = this.props;
 
         const inputProps = {
             placeholder: 'Basic query format is Keyword + Operator + Value',

@@ -81,7 +81,7 @@ public class MQLSuggestionBuilder implements SuggestionBuilder {
 
     private JsonArray addSynonyms(Keyword keyword) {
         JsonArray synonyms = new JsonArray();
-        keyword.getSynonyms().forEach( synonym -> {
+        keyword.getSynonyms().forEach(synonym -> {
             synonyms.add(new JsonPrimitive(synonym));
         });
         return synonyms;

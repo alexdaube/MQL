@@ -6,12 +6,11 @@ import domain.keywords.Keywords;
 import domain.query.Query;
 import domain.query.builder.OperatorType;
 import domain.query.builder.QueryBuilder;
-import domain.query.builder.SuggestionBuilder;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-    public class LessInterpreter extends BaseInterpreter implements Interpreter {
+public class LessInterpreter extends BaseInterpreter implements Interpreter {
     static final Pattern LESS_PATTERN = Pattern.compile("^[\\w-]+|^<");
 
     public LessInterpreter(Keywords keywords) {

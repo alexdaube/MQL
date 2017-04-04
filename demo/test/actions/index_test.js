@@ -79,7 +79,7 @@ describe('actions', () => {
             successCallbackTest(types.FETCH_SUGGESTIONS_SUCCESS, actions.fetchSuggestions(value));
             errorCallBackTest(types.FETCH_SUGGESTIONS_ERROR, actions.fetchSuggestions(value));
 
-            it('clears all suggestions if value if empty', () =>{
+            it('clears all suggestions if value if empty', () => {
                 value = {value: ''};
                 actions.fetchSuggestions(value);
                 expect(actions.fetchSuggestions(value).type).to.eql(types.CLEAR_SUGGESTIONS);
