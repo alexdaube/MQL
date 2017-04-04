@@ -21,11 +21,6 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JunctionTranslatorStateTest {
-    private static final String ENTITY = "Entity";
-    private static final String ATTRIBUTE = "Attribute";
-    private static final String OPERATOR = "Operator";
-    private static final String VALUE = "Value";
-
     @Mock
     private Interpreter entityInterpreter;
     @Mock
@@ -60,10 +55,6 @@ public class JunctionTranslatorStateTest {
         willReturn(true).given(attributeInterpreter).interpret(attributeQuery, queryBuilder);
         willReturn(true).given(operatorInterpreter).interpret(operatorQuery, queryBuilder);
         willReturn(true).given(valueInterpreter).interpret(valueQuery, queryBuilder);
-        willReturn(suggestionBuilder).given(suggestionBuilder).withHint(ENTITY);
-        willReturn(suggestionBuilder).given(suggestionBuilder).withHint(ATTRIBUTE);
-        willReturn(suggestionBuilder).given(suggestionBuilder).withHint(OPERATOR);
-        willReturn(suggestionBuilder).given(suggestionBuilder).withHint(VALUE);
         junctionTranslatorState.translateNextSuggestion(suggestionBuilder);
     }
 
@@ -118,26 +109,6 @@ public class JunctionTranslatorStateTest {
     @Test(expected = InvalidQueryException.class)
     public void givenAnInvalidQuery_whenTranslating_thenThrowAnException() {
         junctionTranslatorState.translate(invalidQuery);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenAddEntityHint() {
-        verify(suggestionBuilder).withHint(ENTITY);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenAddAttributeHint() {
-        verify(suggestionBuilder).withHint(ATTRIBUTE);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenAddOperatorHint() {
-        verify(suggestionBuilder).withHint(OPERATOR);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenAddValueHint() {
-        verify(suggestionBuilder).withHint(VALUE);
     }
 
     @Test

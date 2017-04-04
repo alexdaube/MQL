@@ -6,7 +6,7 @@ import {Button, Form, FormGroup, InputGroupButton, InputGroup, Badge} from "reac
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as actions from "../actions";
-import {getQueryKeywordBadgeDetails, KEYWORDS} from "../utils/badge";
+import {getQueryKeywordBadgeDetails} from "../utils/badge";
 
 
 const theme = {

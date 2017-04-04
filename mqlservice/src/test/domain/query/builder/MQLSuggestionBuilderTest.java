@@ -15,7 +15,6 @@ import static org.mockito.BDDMockito.willReturn;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MQLSuggestionBuilderTest {
-    private static final String HINT = "hint";
     private static final String KEYWORD_NAME = "name";
     private static final String KEYWORD_TYPE = "ATTRIBUTE";
     private static final String MATCHING_QUERY = "na";
@@ -43,12 +42,6 @@ public class MQLSuggestionBuilderTest {
     }
 
     @Test
-    public void givenAnHintToAdd_whenWithHint_thenReturnsAnHintSuggestionSection() {
-        suggestionBuilder.withHint(HINT);
-        assertEquals(1, suggestionBuilder.buildSuggestion().size());
-    }
-
-    @Test
     public void givenKeywordsToAdd_whenWithAllowed_thenReturnsAnAllowedSuggestionSection() {
         suggestionBuilder.withAllowed(keywords);
         assertEquals(1, suggestionBuilder.buildSuggestion().size());
@@ -73,11 +66,10 @@ public class MQLSuggestionBuilderTest {
         assertEquals(0, suggestionBuilder.buildSuggestion().size());
     }
 
-    // Test all together -> the builder
     @Test
     public void givenChainedBuilderMethodCalls_whenBuildSuggestion_thenReturnsManySuggestionSections() {
-        suggestionBuilder.withHint(HINT).withValue(KEYWORD_TYPE)
+        suggestionBuilder.withValue(KEYWORD_TYPE)
                 .withAllowed(keywords).withQueryMatching(keywords);
-        assertEquals(4, suggestionBuilder.buildSuggestion().size());
+        assertEquals(3, suggestionBuilder.buildSuggestion().size());
     }
 }

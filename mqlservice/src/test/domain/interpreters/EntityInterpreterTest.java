@@ -29,8 +29,6 @@ public class EntityInterpreterTest {
     private Query entityQuery;
     @Mock
     private Query invalidQuery;
-    @Mock
-    SuggestionBuilder suggestionBuilder;
     private EntityInterpreter entityInterpreter;
     private Matcher entityMatcher;
     private Matcher invalidMatcher;
@@ -43,8 +41,6 @@ public class EntityInterpreterTest {
         willReturn(true).given(keywords).contains(ENTITY_KEYWORD);
         willReturn(entityMatcher).given(entityQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
-        willReturn(suggestionBuilder).given(suggestionBuilder).withQueryMatching(keywords);
-        willReturn(suggestionBuilder).given(suggestionBuilder).withAllowed(keywords);
     }
 
     @Test
@@ -79,17 +75,5 @@ public class EntityInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         entityInterpreter.interpret(invalidQuery, queryBuilder);
         verify(entityQuery, never()).removeFirstMatch(any());
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsMatchingTheQuery() {
-        entityInterpreter.suggest(suggestionBuilder);
-        verify(suggestionBuilder).withQueryMatching(keywords);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenSuggest_thenAddAllPossibleSuggestions() {
-        entityInterpreter.suggest(suggestionBuilder);
-        verify(suggestionBuilder).withAllowed(keywords);
     }
 }

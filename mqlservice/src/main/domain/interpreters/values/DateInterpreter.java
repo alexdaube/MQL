@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DateInterpreter implements Interpreter {
+    private static final String VALUE = "Date";
     static final Pattern DATE_PATTERN = Pattern.compile("^((\\d{4})\\W(\\d{2})\\W(\\d{2}))");
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
 
@@ -32,7 +33,7 @@ public class DateInterpreter implements Interpreter {
 
     @Override
     public void suggest(SuggestionBuilder suggestionBuilder) {
-        suggestionBuilder.withValue("Date");
+        suggestionBuilder.withValue(VALUE);
     }
 
     private Date parseDate(Matcher matches) throws ParseException {

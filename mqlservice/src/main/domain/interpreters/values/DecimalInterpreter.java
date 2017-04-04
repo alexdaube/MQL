@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DecimalInterpreter implements Interpreter {
+    private static final String VALUE = "Decimal";
     static final Pattern DECIMAL_PATTERN = Pattern.compile("^([-]?(\\d+)(\\.\\d*))");
 
     @Override
@@ -25,6 +26,6 @@ public class DecimalInterpreter implements Interpreter {
 
     @Override
     public void suggest(SuggestionBuilder suggestionBuilder) {
-        suggestionBuilder.withValue("Decimal");
+        suggestionBuilder.withValue(VALUE);
     }
 }

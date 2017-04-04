@@ -32,8 +32,6 @@ public class EqualInterpreterTest {
     private Query equalQuery;
     @Mock
     private Query invalidQuery;
-    @Mock
-    SuggestionBuilder suggestionBuilder;
     private EqualInterpreter equalInterpreter;
     private Matcher equalMatcher;
     private Matcher invalidMatcher;
@@ -46,8 +44,6 @@ public class EqualInterpreterTest {
         willReturn(true).given(keywords).contains(EQUAL_KEYWORD);
         willReturn(equalMatcher).given(equalQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
-        willReturn(suggestionBuilder).given(suggestionBuilder).withQueryMatching(keywords);
-        willReturn(suggestionBuilder).given(suggestionBuilder).withAllowed(keywords);
     }
 
     @Test
@@ -82,17 +78,5 @@ public class EqualInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         equalInterpreter.interpret(invalidQuery, queryBuilder);
         verify(equalQuery, never()).removeFirstMatch(any());
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsMatchingTheQuery() {
-        equalInterpreter.suggest(suggestionBuilder);
-        verify(suggestionBuilder).withQueryMatching(keywords);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenSuggest_thenAddAllPossibleSuggestions() {
-        equalInterpreter.suggest(suggestionBuilder);
-        verify(suggestionBuilder).withAllowed(keywords);
     }
 }

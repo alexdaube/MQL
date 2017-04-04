@@ -29,8 +29,6 @@ public class AttributeInterpreterTest {
     private Query attributeQuery;
     @Mock
     private Query invalidQuery;
-    @Mock
-    SuggestionBuilder suggestionBuilder;
     private AttributeInterpreter attributeInterpreter;
     private Matcher attributeMatcher;
     private Matcher invalidMatcher;
@@ -43,8 +41,6 @@ public class AttributeInterpreterTest {
         willReturn(true).given(keywords).contains(ATTRIBUTE_KEYWORD);
         willReturn(attributeMatcher).given(attributeQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
-        willReturn(suggestionBuilder).given(suggestionBuilder).withQueryMatching(keywords);
-        willReturn(suggestionBuilder).given(suggestionBuilder).withAllowed(keywords);
     }
 
     @Test
@@ -79,17 +75,5 @@ public class AttributeInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         attributeInterpreter.interpret(invalidQuery, queryBuilder);
         verify(attributeQuery, never()).removeFirstMatch(any());
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsMatchingTheQuery() {
-        attributeInterpreter.suggest(suggestionBuilder);
-        verify(suggestionBuilder).withQueryMatching(keywords);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenSuggest_thenAddAllPossibleSuggestions() {
-        attributeInterpreter.suggest(suggestionBuilder);
-        verify(suggestionBuilder).withAllowed(keywords);
     }
 }

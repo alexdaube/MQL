@@ -1,5 +1,6 @@
 package domain.interpreters.operators;
 
+import domain.interpreters.BaseInterpreter;
 import domain.interpreters.Interpreter;
 import domain.keywords.Keywords;
 import domain.query.Query;
@@ -10,12 +11,11 @@ import domain.query.builder.SuggestionBuilder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-    public class LessInterpreter implements Interpreter {
+    public class LessInterpreter extends BaseInterpreter implements Interpreter {
     static final Pattern LESS_PATTERN = Pattern.compile("^[\\w-]+|^<");
-    private final Keywords keywords;
 
     public LessInterpreter(Keywords keywords) {
-        this.keywords = keywords;
+        super(keywords);
     }
 
     @Override
@@ -30,10 +30,5 @@ import java.util.regex.Pattern;
             }
         }
         return false;
-    }
-
-    @Override
-    public void suggest(SuggestionBuilder suggestionBuilder) {
-        suggestionBuilder.withQueryMatching(keywords).withAllowed(keywords);
     }
 }

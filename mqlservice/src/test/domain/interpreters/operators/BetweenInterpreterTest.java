@@ -32,8 +32,6 @@ public class BetweenInterpreterTest {
     private Query betweenQuery;
     @Mock
     private Query invalidQuery;
-    @Mock
-    SuggestionBuilder suggestionBuilder;
     private BetweenInterpreter betweenInterpreter;
     private Matcher betweenMatcher;
     private Matcher invalidMatcher;
@@ -46,8 +44,6 @@ public class BetweenInterpreterTest {
         willReturn(true).given(keywords).contains(BETWEEN_KEYWORD);
         willReturn(betweenMatcher).given(betweenQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
-        willReturn(suggestionBuilder).given(suggestionBuilder).withQueryMatching(keywords);
-        willReturn(suggestionBuilder).given(suggestionBuilder).withAllowed(keywords);
     }
 
     @Test
@@ -82,17 +78,5 @@ public class BetweenInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         betweenInterpreter.interpret(invalidQuery, queryBuilder);
         verify(betweenQuery, never()).removeFirstMatch(any());
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsMatchingTheQuery() {
-        betweenInterpreter.suggest(suggestionBuilder);
-        verify(suggestionBuilder).withQueryMatching(keywords);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenSuggest_thenAddAllPossibleSuggestions() {
-        betweenInterpreter.suggest(suggestionBuilder);
-        verify(suggestionBuilder).withAllowed(keywords);
     }
 }

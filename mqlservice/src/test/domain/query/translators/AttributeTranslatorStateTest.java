@@ -21,8 +21,6 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AttributeTranslatorStateTest {
-    private static final String OPERATOR = "Operator";
-
     @Mock
     private QueryBuilder queryBuilder;
     @Mock
@@ -58,12 +56,6 @@ public class AttributeTranslatorStateTest {
     @Test(expected = InvalidQueryException.class)
     public void givenANonOperatorQuery_whenTranslating_thenThrowAnInvalidQueryException() throws Exception {
         attributeTranslatorState.translate(attributeQuery);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenAddOperatorHint() {
-        attributeTranslatorState.translateNextSuggestion(suggestionBuilder);
-        verify(suggestionBuilder).withHint(OPERATOR);
     }
 
     @Test

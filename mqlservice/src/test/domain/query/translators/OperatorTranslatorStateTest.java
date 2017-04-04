@@ -21,9 +21,6 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OperatorTranslatorStateTest {
-    private static final String OPERATOR = "Operator";
-    private static final String VALUE = "Value";
-
     @Mock
     private QueryBuilder queryBuilder;
     @Mock
@@ -47,8 +44,6 @@ public class OperatorTranslatorStateTest {
         operatorTranslatorState = new OperatorTranslatorState(valueInterpreter, operatorInterpreter, keywordsResolver, queryBuilder);
         willReturn(true).given(valueInterpreter).interpret(valueQuery, queryBuilder);
         willReturn(true).given(operatorInterpreter).interpret(operatorQuery, queryBuilder);
-        willReturn(suggestionBuilder).given(suggestionBuilder).withHint(OPERATOR);
-        willReturn(suggestionBuilder).given(suggestionBuilder).withHint(VALUE);
     }
 
     @Test
@@ -72,18 +67,6 @@ public class OperatorTranslatorStateTest {
     @Test(expected = InvalidQueryException.class)
     public void givenANonOperatorQuery_whenTranslating_thenThrowAnInvalidQueryException() throws Exception {
         operatorTranslatorState.translate(attributeQuery);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenAddOperatorHint() {
-        operatorTranslatorState.translateNextSuggestion(suggestionBuilder);
-        verify(suggestionBuilder).withHint(OPERATOR);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenAddValueHint() {
-        operatorTranslatorState.translateNextSuggestion(suggestionBuilder);
-        verify(suggestionBuilder).withHint(VALUE);
     }
 
     @Test

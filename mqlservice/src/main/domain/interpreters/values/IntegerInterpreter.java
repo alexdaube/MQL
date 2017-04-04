@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class IntegerInterpreter implements Interpreter {
+    private static final String VALUE = "Integer";
     static final Pattern INTEGER_PATTERN = Pattern.compile("^([-]?(\\d+))");
 
     @Override
@@ -25,6 +26,6 @@ public class IntegerInterpreter implements Interpreter {
 
     @Override
     public void suggest(SuggestionBuilder suggestionBuilder) {
-        suggestionBuilder.withValue("Integer");
+        suggestionBuilder.withValue(VALUE);
     }
 }

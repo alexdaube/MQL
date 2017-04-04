@@ -31,8 +31,6 @@ public class AndInterpreterTest {
     private Query andQuery;
     @Mock
     private Query invalidQuery;
-    @Mock
-    SuggestionBuilder suggestionBuilder;
     private AndInterpreter andInterpreter;
     private Matcher andMatcher;
     private Matcher invalidMatcher;
@@ -45,8 +43,6 @@ public class AndInterpreterTest {
         willReturn(true).given(keywords).contains(AND_KEYWORD);
         willReturn(andMatcher).given(andQuery).findMatches(any());
         willReturn(invalidMatcher).given(invalidQuery).findMatches(any());
-        willReturn(suggestionBuilder).given(suggestionBuilder).withQueryMatching(keywords);
-        willReturn(suggestionBuilder).given(suggestionBuilder).withAllowed(keywords);
     }
 
     @Test
@@ -81,17 +77,5 @@ public class AndInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         andInterpreter.interpret(invalidQuery, queryBuilder);
         verify(andQuery, never()).removeFirstMatch(any());
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsMatchingTheQuery() {
-        andInterpreter.suggest(suggestionBuilder);
-        verify(suggestionBuilder).withQueryMatching(keywords);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenSuggest_thenAddAllPossibleSuggestions() {
-        andInterpreter.suggest(suggestionBuilder);
-        verify(suggestionBuilder).withAllowed(keywords);
     }
 }

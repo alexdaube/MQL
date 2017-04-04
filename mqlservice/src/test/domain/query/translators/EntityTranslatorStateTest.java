@@ -21,8 +21,6 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EntityTranslatorStateTest {
-    private static final String ATTRIBUTE = "Attribute";
-
     @Mock
     private QueryBuilder queryBuilder;
     @Mock
@@ -58,12 +56,6 @@ public class EntityTranslatorStateTest {
     @Test(expected = InvalidQueryException.class)
     public void givenANonAttributeQuery_whenTranslating_thenThrowAnInvalidQueryException() throws Exception {
         entityTranslatorState.translate(operatorQuery);
-    }
-
-    @Test
-    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenAddAttributeHint() {
-        entityTranslatorState.translateNextSuggestion(suggestionBuilder);
-        verify(suggestionBuilder).withHint(ATTRIBUTE);
     }
 
     @Test

@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class VarcharInterpreter implements Interpreter {
+    private static final String VALUE = "Varchar";
     static final Pattern VARCHAR_PATTERN = Pattern.compile("^(\"([^\"]+)\")");
 
     @Override
@@ -25,6 +26,6 @@ public class VarcharInterpreter implements Interpreter {
 
     @Override
     public void suggest(SuggestionBuilder suggestionBuilder) {
-        suggestionBuilder.withValue("Varchar");
+        suggestionBuilder.withValue(VALUE);
     }
 }

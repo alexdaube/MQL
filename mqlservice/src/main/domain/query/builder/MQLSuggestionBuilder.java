@@ -12,7 +12,6 @@ import java.util.stream.StreamSupport;
 public class MQLSuggestionBuilder implements SuggestionBuilder {
     private Query<String> query;
     private JsonArray suggestions;
-    private JsonArray hints;
     private JsonArray queryMatchingSuggestions;
     private JsonArray allowedSuggestions;
     private JsonArray valueSuggestions;
@@ -20,7 +19,6 @@ public class MQLSuggestionBuilder implements SuggestionBuilder {
     public MQLSuggestionBuilder(Query<String> query) {
         this.query = query;
         this.suggestions = new JsonArray();
-        this.hints = new JsonArray();
         this.queryMatchingSuggestions = new JsonArray();
         this.allowedSuggestions = new JsonArray();
         this.valueSuggestions = new JsonArray();
@@ -28,11 +26,6 @@ public class MQLSuggestionBuilder implements SuggestionBuilder {
 
     public MQLSuggestionBuilder withValue(String type) {
         valueSuggestions.add(createSuggestionFromString(type));
-        return this;
-    }
-
-    public MQLSuggestionBuilder withHint(String hintToAdd) {
-        hints.add(createSuggestionFromString(hintToAdd));
         return this;
     }
 
@@ -55,7 +48,6 @@ public class MQLSuggestionBuilder implements SuggestionBuilder {
     }
 
     public JsonArray buildSuggestion() {
-        createSuggestionsSection("Type of 'KEYWORDS' to enter", hints);
         createSuggestionsSection(String.format("Possible 'KEYWORDS' matching '%s'",
                 query.getQuery()), queryMatchingSuggestions);
         createSuggestionsSection("Possible 'KEYWORDS'", allowedSuggestions);

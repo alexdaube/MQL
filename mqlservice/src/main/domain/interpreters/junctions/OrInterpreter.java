@@ -1,20 +1,19 @@
 package domain.interpreters.junctions;
 
+import domain.interpreters.BaseInterpreter;
 import domain.interpreters.Interpreter;
 import domain.keywords.Keywords;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
-import domain.query.builder.SuggestionBuilder;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class OrInterpreter implements Interpreter {
+public class OrInterpreter extends BaseInterpreter implements Interpreter {
     static final Pattern OR_PATTERN = Pattern.compile("^[\\w]+");
-    private final Keywords keywords;
 
     public OrInterpreter(Keywords keywords) {
-        this.keywords = keywords;
+        super(keywords);
     }
 
     @Override
@@ -29,10 +28,5 @@ public class OrInterpreter implements Interpreter {
             }
         }
         return false;
-    }
-
-    @Override
-    public void suggest(SuggestionBuilder suggestionBuilder) {
-        suggestionBuilder.withQueryMatching(keywords).withAllowed(keywords);
     }
 }

@@ -34,7 +34,6 @@ public class InitialTranslatorState implements QueryTranslatorState {
 
     @Override
     public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
-        //suggestionBuilder.withHint("Entity");
         entityInterpreter.suggest(suggestionBuilder);
     }
 }
