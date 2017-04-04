@@ -2,6 +2,7 @@ package domain.query.builder;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import domain.keywords.Keyword;
 import domain.keywords.Keywords;
 import domain.query.Query;
@@ -82,6 +83,16 @@ public class MQLSuggestionBuilder implements SuggestionBuilder {
         JsonObject suggestion = new JsonObject();
         suggestion.addProperty("name", keyword.name());
         suggestion.addProperty("type", keyword.type.name());
+        suggestion.add("synonyms", addSynonyms(keyword));
         return suggestion;
     }
+
+    private JsonArray addSynonyms(Keyword keyword) {
+        JsonArray synonyms = new JsonArray();
+        keyword.getSynonyms().forEach( synonym -> {
+            synonyms.add(new JsonPrimitive(synonym));
+        });
+        return synonyms;
+    }
 }
+

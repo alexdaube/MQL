@@ -11,7 +11,7 @@ export default class QueryKeywordsLegend extends Component {
             result.push(
                 <li key={guid()} className="list-inline-item">
                     <h6>
-                        <Badge color={details.color}>&nbsp;{details.letter}&nbsp;</Badge>
+                        <Badge color={details.color}>&nbsp;{details.label}&nbsp;</Badge>
                         &nbsp;{KEYWORDS[key]}&nbsp;
                     </h6>
                 </li>

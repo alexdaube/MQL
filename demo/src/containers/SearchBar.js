@@ -36,11 +36,15 @@ const getSectionSuggestions = (section) => {
 
 
 const renderSuggestion = suggestion => {
+    let synonyms = '';
     let suggestionType = getQueryKeywordBadgeDetails(suggestion.type);
+    if (suggestion.synonyms) {
+        synonyms = suggestion.synonyms.join(', ');
+    }
     return (
         <div>
-            <Badge color={suggestionType.color}>&nbsp;{suggestionType.letter}&nbsp;</Badge>&nbsp;
-            {`${suggestion.name}`}
+            <Badge color={suggestionType.color}>&nbsp;{suggestionType.label}&nbsp;</Badge>&nbsp;
+            {`${suggestion.name} ${synonyms}`}
         </div>
     );
 };

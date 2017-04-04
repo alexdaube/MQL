@@ -5,24 +5,26 @@ const getQueryKeywordBadgeDetails = (queryKeywordType) => {
         case 'GREATER':
         case 'LESS':
         case 'EQUAL':
+        case 'NOT':
+        case 'LIKE':
         case 'OTHER':
-            return {color: 'default', letter: 'O'};
+            return {color: 'default', label: 'O'};
         case 'ATTRIBUTE':
-            return {color: 'danger', letter: 'A'};
+            return {color: 'danger', label: 'A'};
         case 'ENTITY':
-            return {color: 'primary', letter: 'E'};
+            return {color: 'primary', label: 'E'};
         case 'VALUE':
         case "DATE":
         case "DECIMAL":
         case "VARCHAR":
         case "INTEGER":
-            return {color: 'success', letter: 'V'};
+            return {color: 'success', label: 'V'};
         case 'JUNCTION':
         case "AND":
         case "OR":
-            return {color: 'warning', letter: 'J'};
+            return {color: 'warning', label: 'J'};
         default:
-            return {color: 'default', letter: suggestion.type};
+            return {color: 'default', label: queryKeywordType.toUpperCase()};
     }
 };
 

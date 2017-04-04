@@ -15,7 +15,7 @@ describe('strings', () => {
             expect(undoCamelCasing(CamelCase)).to.be.eql(formattedCamelCase);
         });
 
-        it('Should upper case the first letter of each words', () => {
+        it('Should upper case the first label of each words', () => {
             expect(undoCamelCasing(camelCase)).to.be.eql(formattedCamelCase);
         });
     });
