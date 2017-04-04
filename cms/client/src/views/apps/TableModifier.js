@@ -1,12 +1,12 @@
 import React from "react";
 import {
     fetchTables,
-    createTable,
-    addAttribute,
+    addTable,
+    addTableAttribute,
     addTableSynonym,
     addAttributeSynonym,
     removeTable,
-    removeAttribute,
+    removeTableAttribute,
     removeTableSynonym,
     removeAttributeSynonym,
     removeTableForeignKey,
@@ -20,11 +20,11 @@ export default class TableModifier extends React.Component {
     }
 
     addTable(name) {
-        this.props.dispatch(createTable(name));
+        this.props.dispatch(addTable(name));
     }
 
     addAttribute(tableName, attributeName) {
-        this.props.dispatch(addAttribute(tableName, attributeName))
+        this.props.dispatch(addTableAttribute(tableName, attributeName))
     }
 
     addSynonym(tableName, synonym) {
@@ -44,7 +44,7 @@ export default class TableModifier extends React.Component {
     }
 
     removeAttribute(tableName, attributeName) {
-        this.props.dispatch(removeAttribute(tableName, attributeName));
+        this.props.dispatch(removeTableAttribute(tableName, attributeName));
     }
 
     removeTableSynonym(tableName, synonym) {

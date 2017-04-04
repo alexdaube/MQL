@@ -14,7 +14,7 @@ export const ADD_TABLE_PENDING = "ADD_TABLE_PENDING",
     ADD_TABLE_FULFILLED = "ADD_TABLE_FULFILLED",
     ADD_TABLE_REJECTED = "ADD_TABLE_REJECTED";
 
-export function createTable(name) {
+export function addTable(name) {
     return dispatch => {
         dispatch({
             type: "ADD_TABLE",
@@ -27,7 +27,7 @@ export const ADD_TABLE_ATTRIBUTE_PENDING = "ADD_TABLE_ATTRIBUTE_PENDING",
     ADD_TABLE_ATTRIBUTE_FULFILLED = "ADD_TABLE_ATTRIBUTE_FULFILLED",
     ADD_TABLE_ATTRIBUTE_REJECTED = "ADD_TABLE_ATTRIBUTE_REJECTED";
 
-export function addAttribute(tableName, attributeName) {
+export function addTableAttribute(tableName, attributeName) {
     return dispatch => {
         dispatch({
             type: "ADD_TABLE_ATTRIBUTE",
@@ -79,13 +79,13 @@ export function removeTableSynonym(tableName, synonym) {
     }
 }
 
-export const REMOVE_ATTRIBUTE_PENDING = "REMOVE_ATTRIBUTE_PENDING",
-    REMOVE_ATTRIBUTE_FULFILLED = "REMOVE_ATTRIBUTE_FULFILLED",
-    REMOVE_ATTRIBUTE_REJECTED = "REMOVE_ATTRIBUTE_REJECTED";
+export const REMOVE_TABLE_ATTRIBUTE_PENDING = "REMOVE_TABLE_ATTRIBUTE_PENDING",
+    REMOVE_TABLE_ATTRIBUTE_FULFILLED = "REMOVE_TABLE_ATTRIBUTE_FULFILLED",
+    REMOVE_TABLE_ATTRIBUTE_REJECTED = "REMOVE_TABLE_ATTRIBUTE_REJECTED";
 
-export function removeAttribute(tableName, attributeName) {
+export function removeTableAttribute(tableName, attributeName) {
     return dispatch => {
-        dispatch({type: "REMOVE_ATTRIBUTE", payload: tablesClient.removeAttribute(tableName, attributeName)})
+        dispatch({type: "REMOVE_TABLE_ATTRIBUTE", payload: tablesClient.removeAttribute(tableName, attributeName)})
     }
 }
 

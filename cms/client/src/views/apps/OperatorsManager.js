@@ -11,7 +11,7 @@ import {
     removeOperator,
     removeOperatorSynonym,
     fetchOperators
-} from "../../actions/operatorsAction";
+} from "../../actions/operatorsActions";
 
 @connect((store) => {
     return {

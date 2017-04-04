@@ -12,7 +12,7 @@ export default class JunctionsClient {
     fetchJunctions() {
         return new Promise((resolve, reject) => {
             axios.get(this.uri).then(response => {
-                resolve(response.data.map(fromDto));
+                resolve(response.data.map(j => fromDto(j)));
             }).catch(error => {
                 reject(error);
             });

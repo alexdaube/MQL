@@ -13,7 +13,7 @@ export default class InMemoryTablesClient {
     fetchTables() {
         return new Promise((resolve, reject) => {
             axios.get(this.uri).then(response => {
-                resolve(response.data.map(fromDto));
+                resolve(response.data.map(t => fromDto(t)));
             }).catch(error => {
                 reject(error);
             });

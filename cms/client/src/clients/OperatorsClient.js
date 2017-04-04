@@ -12,7 +12,7 @@ export default class OperatorsClient {
     fetchOperators() {
         return new Promise((resolve, reject) => {
             axios.get(this.uri).then(response => {
-                resolve(response.data.map(fromDto));
+                resolve(response.data.map(o => fromDto(o)));
             }).catch(error => {
                 reject(error);
             });

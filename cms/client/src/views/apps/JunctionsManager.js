@@ -11,7 +11,7 @@ import {
     removeJunction,
     removeJunctionSynonym,
     fetchJunctions
-} from "../../actions/junctionsAction";
+} from "../../actions/junctionsActions";
 
 @connect((store) => {
     return {
