@@ -56,7 +56,7 @@ export class SearchBar extends Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.getSuggestionValue = this.getSuggestionValue.bind(this);
         this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
-        this.debouncedLoadSuggestions = _.debounce(this.props.fetchSuggestions, 300);
+        this.debouncedLoadSuggestions = _.debounce(this.props.fetchSuggestions, props.suggestionRate);
     }
 
     onSuggestionsFetchRequested(value) {
