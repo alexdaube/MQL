@@ -57,7 +57,6 @@ export class SearchBar extends Component {
             value: '',
             suggestions: []
         };
-        this.onInputChange = this.onInputChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.getSuggestionValue = this.getSuggestionValue.bind(this);
         this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
@@ -73,12 +72,6 @@ export class SearchBar extends Component {
             value: newValue
         });
     };
-
-    onInputChange(event) {
-        this.setState({
-            value: event.target.value
-        });
-    }
 
     getSuggestionValue(suggestion) {
         const lastIndex = this.state.value.lastIndexOf(" ");
@@ -141,7 +134,6 @@ export class SearchBar extends Component {
             </Form>
         );
     }
-
 }
 
 const mapStateToProps = ({suggestions}) => {

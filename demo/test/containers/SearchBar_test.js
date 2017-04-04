@@ -1,11 +1,12 @@
 import React from "react";
 import td from "testdouble";
+import moment from "moment";
 import {SearchBar} from "../../src/containers/SearchBar";
 
 
 describe('SearchBar', () => {
     const input = 'query';
-    let wrapper, props, event;
+    let wrapper, props, event, someSuggestion;
 
     beforeEach(() => {
         event = {target: {value: input}, preventDefault: td.function('preventDefault')};
@@ -26,10 +27,27 @@ describe('SearchBar', () => {
         expect(wrapper.state().value).to.be.empty;
     });
 
-    it('onInputChange should update state.value', () => {
-        wrapper.instance().onInputChange(event);
+    it('onChange should update state.value', () => {
+        wrapper.instance().onChange(event, {newValue: input});
         expect(wrapper.state().value).to.be.equal(input);
     });
+
+    const getSuggestionValueMethodTest = (type, suggestionToAppend) => {
+        it(`should auto suggest with suggestion as ${type} inside input box`, () => {
+            wrapper.setState({value: `${input} `});
+            someSuggestion = {name: "name", type: type};
+
+            const newInput = wrapper.instance().getSuggestionValue(someSuggestion);
+
+            expect(newInput).to.be.eql(`${input} ${suggestionToAppend}`);
+        });
+    };
+
+    getSuggestionValueMethodTest("VARCHAR", '"value"');
+    getSuggestionValueMethodTest("DECIMAL", '0.0');
+    getSuggestionValueMethodTest("INTEGER", '0');
+    getSuggestionValueMethodTest("DATE", moment().format('YYYY-MM-DD'));
+    getSuggestionValueMethodTest("NAME", 'name');
 
     it('onFormSubmit should preventDefault and call fetchQuery', () => {
         wrapper.instance().onFormSubmit(event);
