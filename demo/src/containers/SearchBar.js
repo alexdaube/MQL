@@ -104,7 +104,7 @@ export class SearchBar extends Component {
         const {suggestions, clearSuggestions} = this.props;
 
         const inputProps = {
-            placeholder: 'Basic query format is Keyword + Operator + Value',
+            placeholder: 'Basic query format is Entity + Attribute + Operator + Value',
             value,
             onChange: this.onChange
         };
