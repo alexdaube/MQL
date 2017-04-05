@@ -30,9 +30,9 @@ const getQueryKeywordBadgeDetails = (queryKeywordType) => {
 
 
 const KEYWORDS = {
-    operator: 'OPERATOR',
-    attribute: 'ATTRIBUTE',
     entity: 'ENTITY',
+    attribute: 'ATTRIBUTE',
+    operator: 'OPERATOR',
     value: 'VALUE',
     junction: 'JUNCTION'
 };
