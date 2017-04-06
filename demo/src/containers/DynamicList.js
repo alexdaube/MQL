@@ -1,9 +1,11 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Table} from "reactstrap";
+import {Table, Button} from "reactstrap";
+import converter from "json-2-csv";
 import DynamicListHeader from "../components/DynamicListHeader";
 import DynamicListBody from "../components/DynamicListBody";
 import {undoCamelCasing} from "../utils/strings";
+import {flattenData} from "../utils/data";
 
 export class DynamicList extends Component {
     extractLabels() {
@@ -12,6 +14,12 @@ export class DynamicList extends Component {
         });
     }
 
+    dataToCsv() {
+        converter.json2csv(flattenData(this.props.query.data), (err, csv) =>{
+            if (err) throw err;
+            console.log(csv);
+        });
+    }
     render() {
         if (!this.props.query.data.length) {
             return (
@@ -21,10 +29,14 @@ export class DynamicList extends Component {
             );
         }
         return (
+        <div>
             <Table responsive hover inverse className="mqlDynamicList">
                 <DynamicListHeader labels={this.extractLabels()}/>
                 <DynamicListBody data={this.props.query.data}/>
             </Table>
+            <br/>
+            <Button color="danger" onClick={this.dataToCsv.bind(this)}>To Excel</Button>
+        </div>
         );
     }
 }
