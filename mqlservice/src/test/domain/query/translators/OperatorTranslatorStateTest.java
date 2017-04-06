@@ -5,6 +5,7 @@ import domain.interpreters.Interpreter;
 import domain.keywords.KeywordsResolver;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.willReturn;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OperatorTranslatorStateTest {
@@ -33,6 +35,8 @@ public class OperatorTranslatorStateTest {
     private Interpreter valueInterpreter;
     @Mock
     private Interpreter operatorInterpreter;
+    @Mock
+    private SuggestionBuilder suggestionBuilder;
     private OperatorTranslatorState operatorTranslatorState;
 
     @Before
@@ -64,4 +68,17 @@ public class OperatorTranslatorStateTest {
     public void givenANonOperatorQuery_whenTranslating_thenThrowAnInvalidQueryException() throws Exception {
         operatorTranslatorState.translate(attributeQuery);
     }
+
+    @Test
+    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenSuggestBasedOnValueInterpreter() {
+        operatorTranslatorState.translateNextSuggestion(suggestionBuilder);
+        verify(valueInterpreter).suggest(suggestionBuilder);
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenTranslateNextSuggestion_thenSuggestBasedOnOperatorInterpreter() {
+        operatorTranslatorState.translateNextSuggestion(suggestionBuilder);
+        verify(operatorInterpreter).suggest(suggestionBuilder);
+    }
+
 }

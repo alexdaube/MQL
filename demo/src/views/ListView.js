@@ -4,6 +4,8 @@ import {Alert} from "reactstrap";
 import {connect} from "react-redux";
 import SearchBar from "../containers/SearchBar";
 import DynamicList from "../containers/DynamicList";
+import QueryKeywordsLegend from "../components/QueryKeywordsLegend";
+
 
 export class ListView extends Component {
     showAlert() {
@@ -20,9 +22,10 @@ export class ListView extends Component {
         return (
             <div className="mqlListView">
                 <Helmet title="List Search -- MQL"/>
+                <QueryKeywordsLegend />
                 {this.showAlert()}
                 <div>
-                    <SearchBar />
+                    <SearchBar suggestionRate={250}/>
                 </div>
                 <div>
                     <DynamicList />

@@ -7,6 +7,7 @@ import moxios from "moxios";
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
+
 describe('actions', () => {
 
     describe('that are async actions', () => {
@@ -14,12 +15,41 @@ describe('actions', () => {
         const someQueryResponse = ['some query response'];
         const someQueryErrorMessage = 'Wrong Query';
         const query = 'some query';
+        let value = {value: 'some query'};
 
-        const storeActionsExpectation = () => {
-            return store.dispatch(actions.fetchQuery(query))
+        const storeActionsExpectation = (actionInvocation) => {
+            return store.dispatch(actionInvocation)
                 .then(() => {
                     expect(store.getActions()).to.eql(expectedActions)
                 });
+        };
+
+        const successCallbackTest = (type, actionInvocation) => {
+            it(`creates ${type} when request is successful`, () => {
+                moxios.wait(() => {
+                    const request = moxios.requests.mostRecent();
+                    request.respondWith({
+                        status: 200,
+                        response: someQueryResponse
+                    });
+                });
+                expectedActions.push({type: type, payload: someQueryResponse});
+                return storeActionsExpectation(actionInvocation);
+            });
+        };
+
+        const errorCallBackTest = (type, actionInvocation) => {
+            it(`creates ${type} when request is not successful`, () => {
+                moxios.wait(() => {
+                    const request = moxios.requests.mostRecent();
+                    request.respondWith({
+                        status: 404,
+                        response: {errorMessage: someQueryErrorMessage}
+                    });
+                });
+                expectedActions.push({type: type, error: someQueryErrorMessage});
+                return storeActionsExpectation(actionInvocation);
+            });
         };
 
         beforeEach(() => {
@@ -32,32 +62,32 @@ describe('actions', () => {
             moxios.uninstall();
         });
 
-        it('creates FETCH_QUERY_SUCCESS when request is successful', () => {
-            moxios.wait(() => {
-                const request = moxios.requests.mostRecent();
-                request.respondWith({
-                    status: 200,
-                    response: someQueryResponse
-                });
+        describe('fetch query', () => {
+            beforeEach(() => {
+                expectedActions = [{type: types.FETCH_QUERY_REQUEST}];
+                store = mockStore({query: {}});
             });
-
-            expectedActions.push({type: types.FETCH_QUERY_SUCCESS, payload: someQueryResponse});
-
-            return storeActionsExpectation();
+            successCallbackTest(types.FETCH_QUERY_SUCCESS, actions.fetchQuery(query));
+            errorCallBackTest(types.FETCH_QUERY_ERROR, actions.fetchQuery(query));
         });
 
-        it('creates FETCH_QUERY_ERROR when request is not successful', () => {
-            moxios.wait(() => {
-                const request = moxios.requests.mostRecent();
-                request.respondWith({
-                    status: 404,
-                    response: {errorMessage: someQueryErrorMessage}
-                });
+        describe('fetch suggestions', () => {
+            beforeEach(() => {
+                expectedActions = [{type: types.FETCH_SUGGESTIONS_REQUEST}];
+                store = mockStore({suggestions: {}});
             });
+            successCallbackTest(types.FETCH_SUGGESTIONS_SUCCESS, actions.fetchSuggestions(value));
+            errorCallBackTest(types.FETCH_SUGGESTIONS_ERROR, actions.fetchSuggestions(value));
 
-            expectedActions.push({type: types.FETCH_QUERY_ERROR, error: someQueryErrorMessage});
-
-            return storeActionsExpectation();
+            it('clears all suggestions if value if empty', () => {
+                value = {value: ''};
+                actions.fetchSuggestions(value);
+                expect(actions.fetchSuggestions(value).type).to.eql(types.CLEAR_SUGGESTIONS);
+            });
         });
+    });
+
+    it('clears all suggestions', () => {
+        expect(actions.clearSuggestions().type).to.eql(types.CLEAR_SUGGESTIONS);
     });
 });

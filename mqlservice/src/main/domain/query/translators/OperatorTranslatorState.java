@@ -6,6 +6,7 @@ import domain.interpreters.InterpreterFactory;
 import domain.keywords.KeywordsResolver;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 
 public class OperatorTranslatorState implements QueryTranslatorState {
     private final Interpreter valueInterpreter;
@@ -33,5 +34,12 @@ public class OperatorTranslatorState implements QueryTranslatorState {
             return new StateStatus(false, this);
         }
         throw new InvalidQueryException("An operator should be followed by an other operator or by a value...");
+    }
+
+    @Override
+    public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
+        //suggestionBuilder.withHint("Operator").withHint("Value");
+        valueInterpreter.suggest(suggestionBuilder);
+        operatorInterpreter.suggest(suggestionBuilder);
     }
 }
