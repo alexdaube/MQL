@@ -8,7 +8,6 @@ var tables = [];
 
 exports.addTable = function (name) {
     //var table = _.findWhere(tables, {name: name});
-
     if (!tables.find(t => t.getName() === name)) {
         tables.push(new Table(name));
     }
@@ -27,13 +26,13 @@ exports.removeTable = function (name) {
     }
 };
 
-exports.addKeyword = function(name, keyword) {
+exports.addKeyword = function (name, keyword) {
     if (tables.find(t => t.getName() === name)) {
         tables.find(t => t.getName() === name).addKeyword(keyword);
     }
 };
 
-exports.removeKeyword = function(name, keyword) {
+exports.removeKeyword = function (name, keyword) {
     if (tables.find(t => t.getName() === name)) {
         tables.find(t => t.getName() === name).removeKeyword(keyword);
     }
@@ -88,4 +87,8 @@ exports.removeColumnKeyword = function (tableName, columnName, keyword) {
 
 exports.getTables = function () {
     return tables;
+};
+
+exports.getTableFromName = function (tableName) {
+    return tables.find(t => t.getName() === tableName);
 };

@@ -63,6 +63,14 @@ class Table {
     getForeignKeys() {
         return this.foreignKeys;
     }
+
+    getColumns(){
+        return this.columns;
+    }
+
+    getKeywords(){
+        return this.keywords;
+    }
 }
 
 module.exports = Table;

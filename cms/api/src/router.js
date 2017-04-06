@@ -14,12 +14,17 @@ operators.addOperator(mockOperator.type);
 module.exports = function (app) {
 
     app.get('/tables', (req, res) => {
-        res.send(tables.getTables());
+        connection.getExistingTables(function (result) {
+            res.send(result);
+        });
     });
 
     app.post('/tables', (req, res) => {
         tables.addTable(req.body.name);
-        res.sendStatus(201);
+        let table = tables.getTableFromName(req.body.name);
+        connection.saveTable(table, function (result) {
+            res.send(result);
+        });
     });
 
     app.delete('/tables/:name', (req, res) => {
@@ -29,7 +34,11 @@ module.exports = function (app) {
 
     app.post('/tables/:name/keywords', (req, res) => {
         tables.addKeyword(req.params.name, req.body.keyword);
-        res.sendStatus(201);
+
+        let table = tables.getTableFromName(req.params.name);
+        connection.updateTable(table, function (result) {
+            res.send(result);
+        });
     });
 
     app.delete('/tables/:name/keywords/:keyword', (req, res) => {

@@ -14,6 +14,33 @@ db.open((err, db) => {
     }
 });
 
+exports.getExistingTables = function (callback) {
+    var tables = [];
+    var cursor = db.collection('entities').find();
+    cursor.each(function (err, doc) {
+        if (doc != null) {
+            tables.push(doc);
+            console.dir(doc);
+        } else {
+            callback(tables);
+        }
+    });
+};
+
+exports.saveTable = function (table, callback) {
+    db.collection('entities').insertOne(table, function (err, doc) {
+        callback(doc);
+    });
+};
+
+exports.updateTable = function (table, callback) {
+    db.collection('entities').update({name: table.getName()}, {$set: {keywords: table.getKeywords()}}, function (err, doc) {
+        if (err) throw err;
+        debugger;
+        callback(doc);
+    });
+};
+
 exports.exportTables = function (entities) {
     db.collection('entities').drop();
     db.createCollection('entities', function (err, collection) {
@@ -31,6 +58,7 @@ exports.exportJunctions = function (junctions) {
         })
     });
 };
+
 
 exports.exportOperators = function (operators) {
     db.collection('operators').drop();
