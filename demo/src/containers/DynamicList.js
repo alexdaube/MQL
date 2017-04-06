@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Table, Button} from "reactstrap";
-import {CSVLink} from 'react-csv';
-import moment from 'moment';
+import {Button, Table} from "reactstrap";
+import {CSVLink} from "react-csv";
+import moment from "moment";
 import DynamicListHeader from "../components/DynamicListHeader";
 import DynamicListBody from "../components/DynamicListBody";
 import {undoCamelCasing} from "../utils/strings";
@@ -15,7 +15,7 @@ export class DynamicList extends Component {
         });
     }
 
-    getFlattenData () {
+    getFlattenData() {
         return flattenData(this.props.query.data)
     }
 
@@ -28,20 +28,20 @@ export class DynamicList extends Component {
             );
         }
         return (
-        <div>
-            <Table responsive hover inverse className="mqlDynamicList">
-                <DynamicListHeader labels={this.extractLabels()}/>
-                <DynamicListBody data={this.props.query.data}/>
-            </Table>
-            <br/>
-            <div className="text-center">
-                <CSVLink
-                    data={this.getFlattenData.bind(this)()}
-                    filename={`mql_result_${moment().format('YYYY_MM_DD_HH_mm_ss')}.csv`}>
-                    <Button outline color="danger" size="lg">Export</Button>
-                </CSVLink>
+            <div>
+                <Table responsive hover inverse className="mqlDynamicList">
+                    <DynamicListHeader labels={this.extractLabels()}/>
+                    <DynamicListBody data={this.props.query.data}/>
+                </Table>
+                <br/>
+                <div className="text-center">
+                    <CSVLink
+                        data={this.getFlattenData.bind(this)()}
+                        filename={`mql_result_${moment().format('YYYY_MM_DD_HH_mm_ss')}.csv`}>
+                        <Button outline color="danger" size="lg">Export</Button>
+                    </CSVLink>
+                </div>
             </div>
-        </div>
         );
     }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import {CSVLink} from 'react-csv';
+import {CSVLink} from "react-csv";
 import {DynamicList} from "../../src/containers/DynamicList";
 import DynamicListHeader from "../../src/components/DynamicListHeader";
 import DynamicListBody from "../../src/components/DynamicListBody";
