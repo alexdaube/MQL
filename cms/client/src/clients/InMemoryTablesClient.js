@@ -117,7 +117,10 @@ export default class InMemoryTablesClient {
                 return t;
             });
             this.tables = this.tables.map(t => {
-               return {...t, foreignKeys: t.foreignKeys.filter(f => f.toAttribute !== attributeName && f.fromAttribute !== attributeName)};
+                return {
+                    ...t,
+                    foreignKeys: t.foreignKeys.filter(f => f.toAttribute !== attributeName && f.fromAttribute !== attributeName)
+                };
             });
             resolve(this.tables);
         });

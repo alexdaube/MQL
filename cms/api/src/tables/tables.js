@@ -7,7 +7,7 @@ var _ = require('underscore');
 var tables = [];
 
 exports.addTable = function (name) {
-    //var table = _.findWhere(tables, {name: name});
+    //var table = _.findWhere(operators, {name: name});
     if (!tables.find(t => t.getName() === name)) {
         tables.push(new Table(name));
     }
@@ -39,7 +39,7 @@ exports.removeKeyword = function (name, keyword) {
 };
 
 exports.addColumn = function (tableName, name) {
-    //var table = _.findWhere(tables, {name: target_table_name});
+    //var table = _.findWhere(operators, {name: target_table_name});
     if (tables.find(t => t.getName() === tableName)) {
         tables.find(t => t.getName() === tableName).addColumn(new Column(name));
     }
@@ -47,7 +47,7 @@ exports.addColumn = function (tableName, name) {
 
 
 exports.removeColumn = function (tableName, name) {
-    //var table = _.findWhere(tables, {name: target_table_name});
+    //var table = _.findWhere(operators, {name: target_table_name});
     if (tables.find(t => t.getName() === tableName)) {
         tables.find(t => t.getName() === tableName).removeColumn(name);
         tables.forEach(t => {

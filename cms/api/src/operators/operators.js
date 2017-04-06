@@ -10,7 +10,7 @@ exports.addOperator = function (type) {
     }
 };
 
-exports.addKeyword = function(type, keyword) {
+exports.addKeyword = function (type, keyword) {
     operators.find(o => o.getType() === type).addKeyword(keyword);
 };
 
@@ -27,4 +27,8 @@ exports.removeKeyword = function (type, keyword) {
 
 exports.getOperators = function () {
     return operators;
+};
+
+exports.getOperatorFromType = function (type) {
+    return operators.find(o => o.getType() === type);
 };

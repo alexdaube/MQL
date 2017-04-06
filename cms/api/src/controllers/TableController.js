@@ -8,6 +8,7 @@ class TableController {
     }
 
     addTable(table_name, res) {
+        debugger;
         tables.addTable(table_name);
         let table = tables.getTableFromName(table_name);
         this.connection.saveTable(table, function () {
@@ -24,7 +25,6 @@ class TableController {
 
     addColumn(req, res) {
         tables.addColumn(req.params.name, req.body.name);
-
         let table = tables.getTableFromName(req.params.name);
         this.connection.updateTable(table, function () {
             res.sendStatus(200);
@@ -33,7 +33,6 @@ class TableController {
 
     removeColumn(req, res) {
         tables.removeColumn(req.params.name, req.params.column);
-
         let table = tables.getTableFromName(req.params.name);
         this.connection.updateTable(table, function () {
             res.sendStatus(200);

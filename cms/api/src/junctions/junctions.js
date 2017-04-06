@@ -10,7 +10,7 @@ exports.addJunction = function (type) {
     }
 };
 
-exports.addKeyword = function(type, keyword) {
+exports.addKeyword = function (type, keyword) {
     junctions.find(j => j.getType() === type).addKeyword(keyword);
 };
 
@@ -27,4 +27,8 @@ exports.removeKeyword = function (type, keyword) {
 
 exports.getJunctions = function () {
     return junctions;
+};
+
+exports.getJunctionFromType = function (type) {
+    return junctions.find(j => j.getType() === type);
 };

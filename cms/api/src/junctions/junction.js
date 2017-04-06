@@ -22,6 +22,10 @@ class Junction {
     getType() {
         return this.type;
     }
+
+    getKeywords() {
+        return this.keywords;
+    }
 }
 
 module.exports = Junction;

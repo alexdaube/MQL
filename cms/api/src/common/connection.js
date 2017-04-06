@@ -14,6 +14,86 @@ db.open((err, db) => {
     }
 });
 
+exports.saveTable = function (table, callback) {
+    db.collection('entities').insertOne(table, function (err, doc) {
+        if (err) throw err;
+        callback(doc);
+    });
+};
+
+exports.deleteTable = function (name, callback) {
+    db.collection('entities').findOneAndDelete({name: name}, function (err, doc) {
+        if (err) throw err;
+        callback();
+    });
+};
+
+exports.updateTable = function (table, callback) {
+    db.collection('entities').update({name: table.getName()}, {
+            $set: {
+                keywords: table.getKeywords(),
+                columns: table.getColumns(),
+                foreignKeys: table.getForeignKeys()
+            }
+        },
+        function (err, doc) {
+            if (err) throw err;
+            callback();
+        });
+};
+
+exports.saveOperator = function (operator, callback) {
+    db.collection('operators').insertOne(operator, function (err, doc) {
+        if (err) throw err;
+        callback(doc);
+    });
+};
+
+exports.deleteOperator = function (name, callback) {
+    db.collection('operators').findOneAndDelete({type: name}, function (err, doc) {
+        if (err) throw err;
+        callback();
+    });
+};
+
+exports.updateOperator = function (operator, callback) {
+    db.collection('operators').update({type: operator.getType()}, {
+            $set: {
+                keywords: operator.getKeywords()
+            }
+        },
+        function (err, doc) {
+            if (err) throw err;
+            callback();
+        });
+};
+
+exports.saveJunction = function (operator, callback) {
+    db.collection('junctions').insertOne(operator, function (err, doc) {
+        if (err) throw err;
+        callback(doc);
+    });
+};
+
+exports.deleteJunction = function (name, callback) {
+    db.collection('junctions').findOneAndDelete({type: name}, function (err, doc) {
+        if (err) throw err;
+        callback();
+    });
+};
+
+exports.updateJunction = function (junction, callback) {
+    db.collection('junctions').update({type: junction.getType()}, {
+            $set: {
+                keywords: junction.getKeywords()
+            }
+        },
+        function (err, doc) {
+            if (err) throw err;
+            callback();
+        });
+};
+
 exports.getExistingTables = function (callback) {
     var tables = [];
     var cursor = db.collection('entities').find();
@@ -27,70 +107,28 @@ exports.getExistingTables = function (callback) {
     });
 };
 
-exports.saveTable = function (table, callback) {
-    db.collection('entities').insertOne(table, function (err, doc) {
+exports.getExistingOperators = function (callback) {
+    var operators = [];
+    var cursor = db.collection('operators').find();
+    cursor.each(function (err, doc) {
         if (err) throw err;
-        callback(doc);
+        if (doc != null) {
+            operators.push(doc);
+        } else {
+            callback(operators);
+        }
     });
 };
 
-exports.deleteTable = function (table_name, callback) {
-    db.collection('entities').findOneAndDelete({name: table_name}, function (err, doc) {
+exports.getExistingJunctions = function (callback) {
+    var junctions = [];
+    var cursor = db.collection('junctions').find();
+    cursor.each(function (err, doc) {
         if (err) throw err;
-        callback();
-    });
-};
-
-
-exports.updateTable = function (table, callback) {
-    if (table) {
-        db.collection('entities').update({name: table.getName()}, {
-                $set: {
-                    keywords: table.getKeywords(),
-                    columns: table.getColumns(),
-                    foreignKeys: table.getForeignKeys()
-                }
-            },
-            function (err, doc) {
-                if (err) throw err;
-                callback();
-            });
-    }
-
-};
-
-exports.exportTables = function (entities) {
-    db.collection('entities').drop();
-    db.createCollection('entities', function (err, collection) {
-        collection.insertMany(entities, function (err, result) {
-            if (err) throw err;
-        })
-    });
-};
-
-exports.exportJunctions = function (junctions) {
-    db.collection('junctions').drop();
-    db.createCollection('junctions', function (err, collection) {
-        collection.insertMany(junctions, function (err, result) {
-            if (err) throw err;
-        })
-    });
-};
-
-
-exports.exportOperators = function (operators) {
-    db.collection('operators').drop();
-    db.createCollection('operators', function (err, collection) {
-        collection.insertMany(operators, function (err, result) {
-            if (err) throw err;
-        })
-    });
-};
-
-exports.printTables = function () {
-    var collection = db.collection('entities');
-    var stream = collection.find().stream();
-    stream.on('data', function (doc) {
-        console.log(doc);
+        if (doc != null) {
+            junctions.push(doc);
+        } else {
+            callback(junctions);
+        }
     });
 };

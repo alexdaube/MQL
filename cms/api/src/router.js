@@ -1,10 +1,11 @@
 const connection = require('./common/connection');
-// const tables = require("./tables/tables");
-const operators = require("./operators/operators");
-const junctions = require("./junctions/junctions");
 let TableController = require("./controllers/TableController");
+let JunctionController = require("./controllers/JunctionController");
+let OperatorController = require("./controllers/OperatorController");
 
 let tableController = new TableController(connection);
+let operatorController = new OperatorController(connection);
+let junctionController = new JunctionController(connection);
 
 module.exports = function (app) {
     app.get('/tables', (req, res) => {
@@ -53,66 +54,47 @@ module.exports = function (app) {
         tableController.removeColumnKeyword(req, res);
     });
 
-    app.post('/tables/export', (req, res) => {
-        connection.exportTables(tables.getTables());
-        res.sendStatus(200);
-    });
-
     app.get('/operators', (req, res) => {
-        res.send(operators.getOperators());
+        connection.getExistingOperators(function (result) {
+            res.send(result);
+        });
     });
 
     app.post('/operators', (req, res) => {
-        operators.addOperator(req.body.type);
-        res.sendStatus(201);
+        operatorController.addOperator(req.body.type, res);
     });
 
     app.delete('/operators/:type', (req, res) => {
-        operators.remove(req.params.type);
-        res.sendStatus(200);
+        operatorController.removeOperator(req.params.type, res);
     });
 
     app.post('/operators/:type/keywords', (req, res) => {
-        operators.addKeyword(req.params.type, req.body.keyword);
-        res.sendStatus(201);
+        operatorController.addKeyword(req, res);
     });
 
     app.delete('/operators/:type/keywords/:keyword', (req, res) => {
-        operators.removeKeyword(req.params.type, req.params.keyword);
-        res.sendStatus(200);
-    });
-
-    app.post('/operators/export', (req, res) => {
-        connection.exportOperators(operators.getOperators());
-        res.sendStatus(200);
+        operatorController.removeKeyword(req, res);
     });
 
     app.get('/junctions', (req, res) => {
-        res.send(junctions.getJunctions());
+        connection.getExistingJunctions(function (result) {
+            res.send(result);
+        });
     });
 
     app.post('/junctions', (req, res) => {
-        junctions.addJunction(req.body.type);
-        res.sendStatus(201);
+        junctionController.addJunction(req.body.type, res);
     });
 
     app.delete('/junctions/:type', (req, res) => {
-        junctions.remove(req.params.type);
-        res.sendStatus(200);
+        junctionController.removeJunction(req.params.type, res);
     });
 
     app.post('/junctions/:type/keywords', (req, res) => {
-        junctions.addKeyword(req.params.type, req.body.keyword);
-        res.sendStatus(201);
+        junctionController.addKeyword(req, res);
     });
 
     app.delete('/junctions/:type/keywords/:keyword', (req, res) => {
-        junctions.removeKeyword(req.params.type, req.params.keyword);
-        res.sendStatus(200);
-    });
-
-    app.post('/junctions/export', (req, res) => {
-        connection.exportJunctions(junctions.getJunctions());
-        res.sendStatus(200);
+        junctionController.removeKeyword(req, res);
     });
 };
