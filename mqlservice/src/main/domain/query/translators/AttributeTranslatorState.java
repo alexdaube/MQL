@@ -6,6 +6,7 @@ import domain.interpreters.InterpreterFactory;
 import domain.keywords.KeywordsResolver;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 
 public class AttributeTranslatorState implements QueryTranslatorState {
     private final QueryBuilder queryBuilder;
@@ -28,5 +29,11 @@ public class AttributeTranslatorState implements QueryTranslatorState {
             return new StateStatus(false, new OperatorTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("The attribute should be followed by an operator");
+    }
+
+    @Override
+    public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
+        //suggestionBuilder.withHint("Operator");
+        interpreter.suggest(suggestionBuilder);
     }
 }

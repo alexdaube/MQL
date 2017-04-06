@@ -59,7 +59,8 @@ export const documentBlocksMarkup = [
         title: <h3>Attributes</h3>,
         text: <p>
             They are fields owned by the <i>Entities</i> inside the database. The attributes can be prepended by the
-            word <i>where</i>, simply follow an entity, or follow a junction keyword. Following the declaration of an attribute, there need to be an <i>operator</i> and
+            word <i>where</i>, simply follow an entity, or follow a junction keyword. Following the declaration of an
+            attribute, there need to be an <i>operator</i> and
             a <i>value</i> for the attribute to be useful.
         </p>,
         examples: [

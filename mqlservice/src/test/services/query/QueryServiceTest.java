@@ -1,5 +1,6 @@
 package services.query;
 
+import com.google.gson.JsonArray;
 import domain.DbClient;
 import domain.query.Query;
 import domain.query.translators.QueryTranslator;
@@ -24,11 +25,13 @@ public class QueryServiceTest {
     private QueryTranslator queryTranslator;
     private QueryService queryService;
     private QueryDto queryDto;
+    private JsonArray suggestion;
 
     @Before
     public void setUp() {
         queryService = new QueryService(dbClient);
         queryDto = new QueryDto();
+        suggestion = new JsonArray();
         ServiceLocator.reset();
         ServiceLocator.getInstance().register(() -> queryTranslator).asSingleInstance().of(QueryTranslator.class);
         willReturn(QUERY).given(queryTranslator).translate(any(Query.class));
@@ -44,5 +47,12 @@ public class QueryServiceTest {
     public void givenAQueryDto_whenExecuteQuery_thenTheQueryIsExecuted() {
         queryService.executeQuery(queryDto);
         verify(dbClient).execute(QUERY);
+    }
+
+    @Test
+    public void givenAQueryDto_whenGetNextSuggestion_thenTheNextSuggestionIsFetched() {
+        willReturn(suggestion).given(queryTranslator).translateNextSuggestion(any(Query.class));
+        queryService.getNextSuggestion(queryDto);
+        verify(queryTranslator).translateNextSuggestion(any(Query.class));
     }
 }

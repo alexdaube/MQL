@@ -3,11 +3,13 @@ package domain.interpreters.values;
 import domain.interpreters.Interpreter;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DecimalInterpreter implements Interpreter {
+    private static final String VALUE = "Decimal";
     static final Pattern DECIMAL_PATTERN = Pattern.compile("^([-]?(\\d+)(\\.\\d*))");
 
     @Override
@@ -20,5 +22,10 @@ public class DecimalInterpreter implements Interpreter {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void suggest(SuggestionBuilder suggestionBuilder) {
+        suggestionBuilder.withValue(VALUE);
     }
 }

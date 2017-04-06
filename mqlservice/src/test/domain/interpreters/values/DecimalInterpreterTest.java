@@ -2,6 +2,7 @@ package domain.interpreters.values;
 
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,12 +23,15 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class DecimalInterpreterTest {
     private static final String DECIMAL_KEYWORD = "-10.0";
+    private static final String DECIMAL = "Decimal";
     @Mock
     private QueryBuilder queryBuilder;
     @Mock
     private Query decimalQuery;
     @Mock
     private Query invalidQuery;
+    @Mock
+    SuggestionBuilder suggestionBuilder;
     private DecimalInterpreter decimalInterpreter;
     private Matcher decimalMatcher;
     private Matcher invalidMatcher;
@@ -73,5 +77,11 @@ public class DecimalInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         decimalInterpreter.interpret(invalidQuery, queryBuilder);
         verify(decimalQuery, never()).removeFirstMatch(any());
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsForValueType() {
+        decimalInterpreter.suggest(suggestionBuilder);
+        verify(suggestionBuilder).withValue(DECIMAL);
     }
 }

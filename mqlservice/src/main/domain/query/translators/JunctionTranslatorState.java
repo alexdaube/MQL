@@ -9,6 +9,7 @@ import domain.keywords.Keyword;
 import domain.keywords.KeywordsResolver;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 
 public class JunctionTranslatorState implements QueryTranslatorState {
     private final Interpreter entityInterpreter;
@@ -48,5 +49,13 @@ public class JunctionTranslatorState implements QueryTranslatorState {
             return new StateStatus(false, new ValueTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("A junction should be followed by an table, an attribute, an operator or a value...");
+    }
+
+    @Override
+    public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
+        entityInterpreter.suggest(suggestionBuilder);
+        attributeInterpreter.suggest(suggestionBuilder);
+        operatorInterpreter.suggest(suggestionBuilder);
+        valueInterpreter.suggest(suggestionBuilder);
     }
 }

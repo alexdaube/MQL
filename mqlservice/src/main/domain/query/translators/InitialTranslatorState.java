@@ -7,6 +7,7 @@ import domain.keywords.Keyword;
 import domain.keywords.KeywordsResolver;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 
 public class InitialTranslatorState implements QueryTranslatorState {
     private final Interpreter entityInterpreter;
@@ -29,5 +30,10 @@ public class InitialTranslatorState implements QueryTranslatorState {
             return new StateStatus(false, new EntityTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("A query should begin with the table name...");
+    }
+
+    @Override
+    public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
+        entityInterpreter.suggest(suggestionBuilder);
     }
 }

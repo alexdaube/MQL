@@ -18,8 +18,6 @@ public class QueryControllerTest {
     public static SparkServer<QueryControllerTestSparkApplication> testServer = new SparkServer<>(
             QueryControllerTest.QueryControllerTestSparkApplication.class, SERVER_PORT);
 
-    // This would probably be more of a functional test than a unit test.
-    // It does start a server...
     @Test
     public void canAccessApiQueryEndpointThroughGetMethod() throws Exception {
         PostMethod post = testServer.post(URL, "{\"query\": \"Site SiteId is greater than -1\"}", false);

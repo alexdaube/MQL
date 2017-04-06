@@ -2,6 +2,7 @@ package domain.interpreters.values;
 
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,12 +23,15 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class VarcharInterpreterTest {
     private static final String VARCHAR_KEYWORD = "\"Something!!\"";
+    private static final String VARCHAR = "Varchar";
     @Mock
     private QueryBuilder queryBuilder;
     @Mock
     private Query varcharQuery;
     @Mock
     private Query invalidQuery;
+    @Mock
+    SuggestionBuilder suggestionBuilder;
     private VarcharInterpreter varcharInterpreter;
     private Matcher varcharMatcher;
     private Matcher invalidMatcher;
@@ -73,6 +77,12 @@ public class VarcharInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         varcharInterpreter.interpret(invalidQuery, queryBuilder);
         verify(varcharQuery, never()).removeFirstMatch(any());
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsForValueType() {
+        varcharInterpreter.suggest(suggestionBuilder);
+        verify(suggestionBuilder).withValue(VARCHAR);
     }
 }
 

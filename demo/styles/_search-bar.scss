@@ -1,0 +1,75 @@
+.searchBarContainer {
+  width: 100%;
+  position: relative;
+}
+
+.searchBarInput {
+  width: 100% !important;
+  padding: 10px 20px;
+  font-family: Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+.searchBarButton {
+  max-height: 43px;
+}
+
+.searchBarInputFocused {
+  outline: none;
+}
+
+.searchBarInputOpen {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.searchBarSuggestionsContainer {
+  display: none;
+}
+
+.searchBarSuggestionsContainerOpen {
+  display: block;
+  position: absolute;
+  top: 51px;
+  width: 100%;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  font-family: Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  z-index: 2;
+}
+
+.searchBarSuggestionsList {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.searchBarSuggestion {
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.searchBarSuggestionHighlighted {
+  background-color: #ddd;
+}
+
+.searchBarSectionContainer {
+  border-top: 1px dashed #ccc;
+}
+
+.searchBarSectionContainerFirst {
+  border-top: 0;
+}
+
+.searchBarSectionTitle {
+  padding: 10px 0 0 10px;
+  font-size: 12px;
+  color: #777;
+}
