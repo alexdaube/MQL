@@ -18,9 +18,9 @@ exports.getExistingTables = function (callback) {
     var tables = [];
     var cursor = db.collection('entities').find();
     cursor.each(function (err, doc) {
+        if (err) throw err;
         if (doc != null) {
             tables.push(doc);
-            console.dir(doc);
         } else {
             callback(tables);
         }
@@ -29,16 +29,31 @@ exports.getExistingTables = function (callback) {
 
 exports.saveTable = function (table, callback) {
     db.collection('entities').insertOne(table, function (err, doc) {
+        if (err) throw err;
         callback(doc);
     });
 };
 
-exports.updateTable = function (table, callback) {
-    db.collection('entities').update({name: table.getName()}, {$set: {keywords: table.getKeywords()}}, function (err, doc) {
+exports.deleteTable = function (table_name, callback) {
+    db.collection('entities').findOneAndDelete({name: table_name}, function (err, doc) {
         if (err) throw err;
-        debugger;
-        callback(doc);
+        callback();
     });
+};
+
+
+exports.updateTable = function (table, callback) {
+    db.collection('entities').update({name: table.getName()}, {
+            $set: {
+                keywords: table.getKeywords(),
+                columns: table.getColumns(),
+                foreignKeys: table.getForeignKeys()
+            }
+        },
+        function (err, doc) {
+            if (err) throw err;
+            callback();
+        });
 };
 
 exports.exportTables = function (entities) {

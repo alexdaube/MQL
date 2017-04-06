@@ -22,58 +22,90 @@ module.exports = function (app) {
     app.post('/tables', (req, res) => {
         tables.addTable(req.body.name);
         let table = tables.getTableFromName(req.body.name);
-        connection.saveTable(table, function (result) {
-            res.send(result);
+        connection.saveTable(table, function () {
+            res.sendStatus(200);
         });
     });
 
     app.delete('/tables/:name', (req, res) => {
         tables.removeTable(req.params.name);
-        res.sendStatus(200);
+        connection.deleteTable(req.params.name, function () {
+            res.sendStatus(200);
+        });
     });
 
     app.post('/tables/:name/keywords', (req, res) => {
         tables.addKeyword(req.params.name, req.body.keyword);
 
         let table = tables.getTableFromName(req.params.name);
-        connection.updateTable(table, function (result) {
-            res.send(result);
+        connection.updateTable(table, function () {
+            res.sendStatus(200);
         });
     });
 
     app.delete('/tables/:name/keywords/:keyword', (req, res) => {
         tables.removeKeyword(req.params.name, req.params.keyword);
-        res.sendStatus(200);
+
+        let table = tables.getTableFromName(req.params.name);
+        connection.updateTable(table, function () {
+            res.sendStatus(200);
+        });
     });
 
     app.post('/tables/:name/foreign_keys', (req, res) => {
         tables.addForeignKey(req.params.name, req.body);
-        res.sendStatus(201);
+
+        let table = tables.getTableFromName(req.params.name);
+        connection.updateTable(table, function () {
+            res.sendStatus(200);
+        });
+
     });
 
     app.post('/tables/:name/foreign_keys/remove', (req, res) => {
         tables.removeForeignKey(req.params.name, req.body);
-        res.sendStatus(200);
+
+        let table = tables.getTableFromName(req.params.name);
+        connection.updateTable(table, function () {
+            res.sendStatus(200);
+        });
     });
 
     app.post('/tables/:name/columns', (req, res) => {
         tables.addColumn(req.params.name, req.body.name);
-        res.sendStatus(201);
+
+        let table = tables.getTableFromName(req.params.name);
+        connection.updateTable(table, function () {
+            res.sendStatus(200);
+        });
     });
 
     app.delete('/tables/:name/columns/:column', (req, res) => {
         tables.removeColumn(req.params.name, req.params.column);
-        res.sendStatus(200);
+
+        let table = tables.getTableFromName(req.params.name);
+        connection.updateTable(table, function () {
+            res.sendStatus(200);
+        });
     });
 
     app.post('/tables/:name/columns/:column/keywords', (req, res) => {
         tables.addColumnKeyword(req.params.name, req.params.column, req.body.keyword);
-        res.sendStatus(201);
+
+        let table = tables.getTableFromName(req.params.name);
+        connection.updateTable(table, function () {
+            res.sendStatus(200);
+        });
     });
 
     app.post('/tables/:name/columns/:column/keywords/:keyword', (req, res) => {
         tables.removeColumnKeyword(req.params.name, req.params.column, req.params.keyword);
-        res.sendStatus(200);
+
+        let table = tables.getTableFromName(req.params.name);
+        connection.updateTable(table, function () {
+            res.sendStatus(200);
+        });
+
     });
 
     app.post('/tables/export', (req, res) => {
