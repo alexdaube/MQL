@@ -42,7 +42,6 @@
   "dependencies": {
     "anchorate": "^1.1.0",
     "axios": "^0.15.3",
-    "json-2-csv": "^2.1.0",
     "jspdf": "^1.3.2",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
@@ -50,6 +49,7 @@
     "react-addons-css-transition-group": "^15.4.2",
     "react-addons-transition-group": "^15.4.2",
     "react-autosuggest": "^9.0.0",
+    "react-csv": "^1.0.5",
     "react-dom": "^15.4.2",
     "react-helmet": "^4.0.0",
     "react-redux": "^5.0.2",

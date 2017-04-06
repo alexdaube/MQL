@@ -31,6 +31,7 @@ export const fetchQuery = (query) => {
                 dispatch(fetchQuerySuccess(response.data));
             })
             .catch(error => {
+                debugger;
                 dispatch(fetchQueryError(error.response.data.errorMessage));
             });
     };

@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Table, Button} from "reactstrap";
-import converter from "json-2-csv";
+import {CSVLink} from 'react-csv';
+import moment from 'moment';
 import DynamicListHeader from "../components/DynamicListHeader";
 import DynamicListBody from "../components/DynamicListBody";
 import {undoCamelCasing} from "../utils/strings";
@@ -14,12 +15,10 @@ export class DynamicList extends Component {
         });
     }
 
-    dataToCsv() {
-        converter.json2csv(flattenData(this.props.query.data), (err, csv) =>{
-            if (err) throw err;
-            console.log(csv);
-        });
+    getFlattenData () {
+        return flattenData(this.props.query.data)
     }
+
     render() {
         if (!this.props.query.data.length) {
             return (
@@ -35,7 +34,13 @@ export class DynamicList extends Component {
                 <DynamicListBody data={this.props.query.data}/>
             </Table>
             <br/>
-            <Button color="danger" onClick={this.dataToCsv.bind(this)}>To Excel</Button>
+            <div className="text-center">
+                <CSVLink
+                    data={this.getFlattenData.bind(this)()}
+                    filename={`mql_result_${moment().format('YYYY_MM_DD_HH_mm_ss')}.csv`}>
+                    <Button outline color="danger" size="lg">Export</Button>
+                </CSVLink>
+            </div>
         </div>
         );
     }
