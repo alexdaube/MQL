@@ -43,17 +43,20 @@ exports.deleteTable = function (table_name, callback) {
 
 
 exports.updateTable = function (table, callback) {
-    db.collection('entities').update({name: table.getName()}, {
-            $set: {
-                keywords: table.getKeywords(),
-                columns: table.getColumns(),
-                foreignKeys: table.getForeignKeys()
-            }
-        },
-        function (err, doc) {
-            if (err) throw err;
-            callback();
-        });
+    if (table) {
+        db.collection('entities').update({name: table.getName()}, {
+                $set: {
+                    keywords: table.getKeywords(),
+                    columns: table.getColumns(),
+                    foreignKeys: table.getForeignKeys()
+                }
+            },
+            function (err, doc) {
+                if (err) throw err;
+                callback();
+            });
+    }
+
 };
 
 exports.exportTables = function (entities) {
