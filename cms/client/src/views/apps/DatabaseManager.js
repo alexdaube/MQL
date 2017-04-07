@@ -30,7 +30,7 @@ export default class DatabaseManager extends TableModifier {
                     <div className="database-container">
                         <Menu>
                             <h3>Attributes:</h3>
-                            <KeywordEntry addKeyword={(name)=>this.addAttribute(t.name, name)}/>
+                            <KeywordEntry className="attribute-entry" addKeyword={(name)=>this.addAttribute(t.name, name)}/>
                             {attributes}
                         </Menu>
                     </div>
@@ -49,7 +49,7 @@ export default class DatabaseManager extends TableModifier {
         return (
             <div className="database-manager">
                 <h1>Tables</h1>
-                <KeywordEntry addKeyword={this.addTable.bind(this)} />
+                <KeywordEntry className="table-entry" addKeyword={(name) => this.addTable(name)} />
                 {tables}
             </div>
         );

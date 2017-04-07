@@ -24,11 +24,13 @@ export default class KeywordEntry extends React.Component {
 
     render() {
         return (
-            <form className="form-inline" onSubmit={this.submit.bind(this)}>
-                <input className="form-control" type="text" placeholder="Name" value={this.state.name}
-                       onChange={this.handleChange.bind(this)}/>
-                <input className="btn btn-primary" type="submit" value="Add"/>
-            </form>
+            <div className={this.props.className}>
+                <form className="form-inline" onSubmit={this.submit.bind(this)}>
+                    <input className="form-control" type="text" placeholder="Name" value={this.state.name}
+                           onChange={this.handleChange.bind(this)}/>
+                    <input className="btn btn-primary" type="submit" value="Add"/>
+                </form>
+            </div>
         );
     }
 }
