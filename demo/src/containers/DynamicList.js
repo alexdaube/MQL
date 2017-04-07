@@ -1,15 +1,22 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Table} from "reactstrap";
+import {Button, Table} from "reactstrap";
+import {CSVLink} from "react-csv";
+import moment from "moment";
 import DynamicListHeader from "../components/DynamicListHeader";
 import DynamicListBody from "../components/DynamicListBody";
 import {undoCamelCasing} from "../utils/strings";
+import {flattenData} from "../utils/data";
 
 export class DynamicList extends Component {
     extractLabels() {
         return this.props.query.data[0].map(obj => {
             return undoCamelCasing(obj.name);
         });
+    }
+
+    getFlattenData() {
+        return flattenData(this.props.query.data)
     }
 
     render() {
@@ -21,10 +28,22 @@ export class DynamicList extends Component {
             );
         }
         return (
-            <Table responsive hover inverse className="mqlDynamicList">
-                <DynamicListHeader labels={this.extractLabels()}/>
-                <DynamicListBody data={this.props.query.data}/>
-            </Table>
+            <div>
+                <Table responsive hover inverse className="mqlDynamicList">
+                    <DynamicListHeader labels={this.extractLabels()}/>
+                    <DynamicListBody data={this.props.query.data}/>
+                </Table>
+                <br/>
+                <div className="text-center">
+                    <CSVLink
+                        data={this.getFlattenData.bind(this)()}
+                        filename={`mql_result_${moment().format('YYYY_MM_DD_HH_mm_ss')}.csv`}>
+                        <Button outline color="danger" size="lg">
+                            Export
+                        </Button>
+                    </CSVLink>
+                </div>
+            </div>
         );
     }
 }
