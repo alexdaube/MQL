@@ -38,7 +38,9 @@ export class DynamicList extends Component {
                     <CSVLink
                         data={this.getFlattenData.bind(this)()}
                         filename={`mql_result_${moment().format('YYYY_MM_DD_HH_mm_ss')}.csv`}>
-                        <Button outline color="danger" size="lg">Export</Button>
+                        <Button outline color="danger" size="lg">
+                            Export
+                        </Button>
                     </CSVLink>
                 </div>
             </div>
