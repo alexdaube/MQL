@@ -1,4 +1,5 @@
 var _ = require('underscore');
+var Column = require('./column');
 "use strict";
 
 class Table {
@@ -53,7 +54,13 @@ class Table {
     }
 
     removeColumnKeyword(columnName, keyword) {
-        this.columns = this.columns.filter(c => c.getName() !== columnName || !c.getKeywords().find(k => k === keyword));
+        console.log(columnName, keyword);
+        this.columns = this.columns.map(c => {
+            if (c.getName() === columnName) {
+                return new Column(columnName, c.getKeywords().filter(k => k !== keyword));
+            }
+            return c;
+        });
     }
 
     getName() {
