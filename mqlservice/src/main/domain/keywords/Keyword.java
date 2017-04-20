@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public class Keyword {
 
-    public final Type type;
+    public Type type;
     private final String word;
     private final Collection<String> synonyms;
     private final Keywords children;

@@ -11,8 +11,7 @@ const ATTRIBUTE_NAME = 'an attribute name';
 const FROM_ATTRIBUTE = 'a from attribute';
 const TO_TABLE = 'a to table';
 const TO_ATTRIBUTE = 'a to attribute';
-
-let databaseManager, attribute, foreignKey, table, tables, dispatch, store;
+let databaseManager, attribute, foreignKey, table, tables, store;
 
 beforeEach(() => {
     store = td.object();
@@ -20,6 +19,9 @@ beforeEach(() => {
     td.replace(actions, 'addTable');
     td.replace(actions, 'addTableAttribute');
     td.replace(actions, 'addTableForeignKey');
+    td.replace(actions, 'removeTable');
+    td.replace(actions, 'removeTableAttribute');
+    td.replace(actions, 'removeTableForeignKey');
     attribute = {name: ATTRIBUTE_NAME};
     foreignKey = {fromAttribute: FROM_ATTRIBUTE, toTable: TO_TABLE, toAttribute: TO_ATTRIBUTE};
     table = {name: TABLE_NAME, synonyms: [], attributes: [attribute], foreignKeys: [foreignKey]};
@@ -46,13 +48,13 @@ test('Given no table, then it should still contain a table entry', () => {
 
 test('Given no table, then it should not contain an attribute entry', () => {
     td.when(store.getState()).thenReturn({tables:{tables:[]}});
-    databaseManager = mount(<DatabaseManager dispatch={dispatch} store={store} />);
+    databaseManager = mount(<DatabaseManager store={store} />);
     expect(databaseManager.find(".attribute-entry").length).toBe(0);
 });
 
 test('Given no table, then it should not contain an attribute entry', () => {
     td.when(store.getState()).thenReturn({tables:{tables:[]}});
-    databaseManager = mount(<DatabaseManager dispatch={dispatch} store={store} />);
+    databaseManager = mount(<DatabaseManager store={store} />);
     expect(databaseManager.find('ForeignKeyEntry').length).toBe(0);
 });
 
@@ -74,3 +76,20 @@ test('When adding foreign key, then the addTableForeignKeyAction should be calle
     td.verify(actions.addTableForeignKey(TABLE_NAME, FROM_ATTRIBUTE, TO_TABLE, TO_ATTRIBUTE))
 });
 
+test('When removing table, then the removeTableAction should be called', () => {
+    const removeKeyword = databaseManager.find('Keyword').filterWhere(k => k.hasClass('database-table')).props().removeKeyword;
+    removeKeyword();
+    td.verify(actions.removeTable(TABLE_NAME));
+});
+
+test('When removing attribute, then the removeTableAttributeAction should be called', () => {
+    const removeKeyword = databaseManager.find('Keyword').filterWhere(k => k.hasClass('database-attribute')).props().removeKeyword;
+    removeKeyword();
+    td.verify(actions.removeTableAttribute(TABLE_NAME, ATTRIBUTE_NAME));
+});
+
+test('When removing foreign key, then the removeTableForeignKeyAction should be called', () => {
+    const removeKeyword = databaseManager.find('Keyword').filterWhere(k => k.hasClass('database-foreignKey')).props().removeKeyword;
+    removeKeyword();
+    td.verify(actions.removeTableForeignKey(TABLE_NAME, FROM_ATTRIBUTE, TO_TABLE, TO_ATTRIBUTE))
+});

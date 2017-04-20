@@ -6,6 +6,7 @@ import domain.interpreters.InterpreterFactory;
 import domain.keywords.KeywordsResolver;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 
 public class ValueTranslatorState implements QueryTranslatorState {
     private final Interpreter valueInterpreter;
@@ -35,5 +36,12 @@ public class ValueTranslatorState implements QueryTranslatorState {
             return new StateStatus(false, new JunctionTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("You specified an invalid value...");
+    }
+
+    @Override
+    public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
+        //suggestionBuilder.withHint("Value").withHint("Junction");
+        valueInterpreter.suggest(suggestionBuilder);
+        junctionInterpreter.suggest(suggestionBuilder);
     }
 }

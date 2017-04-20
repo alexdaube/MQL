@@ -2,6 +2,7 @@ package domain.interpreters.values;
 
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,12 +22,15 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class DateInterpreterTest {
     private static final String DATE_KEYWORD = "1990-10-10";
+    private static final String DATE = "Date";
     @Mock
     private QueryBuilder queryBuilder;
     @Mock
     private Query dateQuery;
     @Mock
     private Query invalidQuery;
+    @Mock
+    SuggestionBuilder suggestionBuilder;
     private DateInterpreter dateInterpreter;
     private Matcher dateMatcher;
     private Matcher invalidMatcher;
@@ -72,5 +76,11 @@ public class DateInterpreterTest {
     public void givenAnInvalidQueryAndAQueryBuilder_whenInterpreting_thenNoKeywordsIsRemovedFromQuery() {
         dateInterpreter.interpret(invalidQuery, queryBuilder);
         verify(dateQuery, never()).removeFirstMatch(any());
+    }
+
+    @Test
+    public void givenASuggestionBuilder_whenSuggest_thenAddSuggestionsForValueType() {
+        dateInterpreter.suggest(suggestionBuilder);
+        verify(suggestionBuilder).withValue(DATE);
     }
 }

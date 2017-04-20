@@ -62,7 +62,7 @@ module.exports = function (app) {
         res.sendStatus(201);
     });
 
-    app.post('/tables/:name/columns/:column/keywords/:keyword', (req, res) => {
+    app.delete('/tables/:name/columns/:column/keywords/:keyword', (req, res) => {
         tables.removeColumnKeyword(req.params.name, req.params.column, req.params.keyword);
         res.sendStatus(200);
     });

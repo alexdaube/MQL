@@ -2,6 +2,7 @@ package domain.interpreters;
 
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -22,5 +23,10 @@ public class CompositeInterpreter implements Interpreter {
             }
         }
         return false;
+    }
+
+    @Override
+    public void suggest(SuggestionBuilder suggestionBuilder) {
+        interpreters.forEach(interpreter -> interpreter.suggest(suggestionBuilder));
     }
 }
