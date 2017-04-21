@@ -1,53 +1,40 @@
 import React from "react";
 import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 
 import './OperatorsManager.css';
 import Keyword from "../components/Keyword";
 import KeywordEntry from "../components/KeywordEntry";
 import Menu from "../components/Menu";
-import {
-    addOperator,
-    addOperatorSynonym,
-    removeOperator,
-    removeOperatorSynonym,
-    fetchOperators
-} from "../../actions/operatorsAction";
+import * as actions from "../../actions/operatorsAction";
 
 @connect((store) => {
     return {
         operators: store.operators.operators
     }
+}, (dispatch) => {
+    return bindActionCreators({
+        fetchOperators: actions.fetchOperators,
+        addOperator: actions.addOperator,
+        addSynonym: actions.addOperatorSynonym,
+        removeOperator: actions.removeOperator,
+        removeSynonym: actions.removeOperatorSynonym,
+    }, dispatch);
 })
 export default class OperatorsManager extends React.Component {
 
     componentWillMount() {
-        this.props.dispatch(fetchOperators())
-    }
-
-    addOperator(name) {
-        this.props.dispatch(addOperator(name));
-    }
-
-    addSynonym(operatorName, synonym) {
-        this.props.dispatch(addOperatorSynonym(operatorName, synonym));
-    }
-
-    removeOperator(name) {
-        this.props.dispatch(removeOperator(name));
-    }
-
-    removeSynonym(operatorName, synonym) {
-        this.props.dispatch(removeOperatorSynonym(operatorName, synonym));
+        this.props.fetchOperators();
     }
 
     render() {
         const operators = this.props.operators.map((o, key) => {
             const synonyms = o.synonyms.map((s, key) =>
-                <Keyword removeKeyword={() => this.removeSynonym(o.name, s)} name={s} key={key}/>);
-            return <Keyword removeKeyword={() => this.removeOperator(o.name)} name={o.name} key={key}>
+                <Keyword removeKeyword={this.props.removeSynonym.bind(this, o.name, s)} name={s} key={key}/>);
+            return <Keyword removeKeyword={this.props.removeOperator.bind(this, o.name)} name={o.name} key={key}>
                 <div className="operator-container">
                     <h3>Synonyms:</h3>
-                    <KeywordEntry addKeyword={(name) => this.addSynonym(o.name, name)}/>
+                    <KeywordEntry addKeyword={this.props.addSynonym.bind(this, o.name)}/>
                     {synonyms}
                 </div>
             </Keyword>
@@ -56,7 +43,7 @@ export default class OperatorsManager extends React.Component {
             <div className="operator-manager">
                 <h1>Operators</h1>
                 <Menu>
-                    <KeywordEntry addKeyword={this.addOperator.bind(this)}/>
+                    <KeywordEntry addKeyword={this.props.addOperator.bind(this)}/>
                     {operators}
                 </Menu>
             </div>

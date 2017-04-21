@@ -7,12 +7,11 @@ import domain.query.builder.QueryBuilder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AttributeInterpreter implements Interpreter {
+public class AttributeInterpreter extends BaseInterpreter implements Interpreter {
     static final Pattern ATTRIBUTE_PATTERN = Pattern.compile("^[\\w-]+");
-    private final Keywords keywords;
 
     public AttributeInterpreter(Keywords keywords) {
-        this.keywords = keywords;
+        super(keywords);
     }
 
     @Override

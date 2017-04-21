@@ -20,4 +20,6 @@ public interface OperatorState {
     void or();
 
     Condition apply();
+
+    void update();
 }

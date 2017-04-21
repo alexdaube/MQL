@@ -50,7 +50,7 @@ module.exports = function (app) {
         tableController.addColumnKeyword(req, res);
     });
 
-    app.post('/tables/:name/columns/:column/keywords/:keyword', (req, res) => {
+    app.delete('/tables/:name/columns/:column/keywords/:keyword', (req, res) => {
         tableController.removeColumnKeyword(req, res);
     });
 

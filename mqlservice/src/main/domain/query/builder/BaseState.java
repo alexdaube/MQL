@@ -1,6 +1,7 @@
 package domain.query.builder;
 
 import com.healthmarketscience.sqlbuilder.ComboCondition;
+import com.healthmarketscience.sqlbuilder.Condition;
 import com.healthmarketscience.sqlbuilder.JdbcEscape;
 import domain.InvalidQueryException;
 
@@ -36,6 +37,13 @@ public abstract class BaseState implements OperatorState {
                 break;
             case BETWEEN:
                 queryBuilder.changeState(new BetweenState(queryBuilder));
+                break;
+            case LIKE:
+                queryBuilder.changeState(new LikeState(queryBuilder));
+                break;
+            case NOT:
+                queryBuilder.toggleNot();
+                queryBuilder.changeState(new EqualState(queryBuilder));
                 break;
             default:
                 throw new InvalidQueryException("The operator does not exist...");
@@ -74,8 +82,10 @@ public abstract class BaseState implements OperatorState {
         queryBuilder.setJunction(ComboCondition.Op.OR);
     }
 
-    private void update() {
-        queryBuilder.applyCondition(apply());
+    @Override
+    public void update() {
+        Condition newCondition = apply();
+        queryBuilder.applyCondition(newCondition);
         values.clear();
     }
 }

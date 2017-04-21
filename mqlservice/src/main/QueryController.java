@@ -21,6 +21,9 @@ public class QueryController {
         post("/query", "application/json", (request, response) ->
                 queryService.executeQuery(gson.fromJson(request.body(), QueryDto.class)), gson::toJson);
 
+        post("/suggestions", "application/json", (request, response) ->
+                queryService.getNextSuggestion(gson.fromJson(request.body(), QueryDto.class)), gson::toJson);
+
         exception(Exception.class, (exception, request, response) -> {
             response.status(404);
             JsonObject jsonObject = new JsonObject();

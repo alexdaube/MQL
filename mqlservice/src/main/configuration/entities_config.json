@@ -23,6 +23,10 @@
           "synonyms": []
         },
         {
+          "keyword": "CLLI_Host",
+          "synonyms": []
+        },
+        {
           "keyword": "Identifier",
           "synonyms": []
         },
@@ -32,6 +36,10 @@
         },
         {
           "keyword": "AvailableToServiceDate",
+          "synonyms": []
+        },
+        {
+          "keyword": "LATA",
           "synonyms": []
         },
         {
@@ -53,18 +61,6 @@
           ]
         },
         {
-          "keyword": "Latitude",
-          "synonyms": []
-        },
-        {
-          "keyword": "Longitude",
-          "synonyms": []
-        },
-        {
-          "keyword": "Longitude",
-          "synonyms": []
-        },
-        {
           "keyword": "Url",
           "synonyms": []
         },
@@ -82,6 +78,10 @@
         },
         {
           "keyword": "PowerUtilityPhone",
+          "synonyms": []
+        },
+        {
+          "keyword": "PowerUtilityReference",
           "synonyms": []
         },
         {
@@ -105,11 +105,23 @@
           "synonyms": []
         },
         {
+          "keyword": "PortableHookUp",
+          "synonyms": []
+        },
+        {
           "keyword": "NoneUserSupervisorName",
           "synonyms": []
         },
         {
           "keyword": "NoneUserSupervisorEmail",
+          "synonyms": []
+        },
+        {
+          "keyword": "Latitude",
+          "synonyms": []
+        },
+        {
+          "keyword": "Longitude",
           "synonyms": []
         },
         {
@@ -151,27 +163,7 @@
           "synonyms": []
         },
         {
-          "keyword": "fk_BuildingId",
-          "synonyms": []
-        },
-        {
-          "keyword": "fk_BuildingFloorId",
-          "synonyms": []
-        },
-        {
-          "keyword": "fk_BuildingRoomId",
-          "synonyms": []
-        },
-        {
-          "keyword": "fk_BuildingRoomRowId",
-          "synonyms": []
-        },
-        {
           "keyword": "Position",
-          "synonyms": []
-        },
-        {
-          "keyword": "fk_EquipmentId_Plant",
           "synonyms": []
         },
         {
@@ -217,10 +209,6 @@
           ]
         },
         {
-          "keyword": "fk_CustomPropertyId_Status",
-          "synonyms": []
-        },
-        {
           "keyword": "WarrantyEndDate",
           "synonyms": [
             "warranty"
@@ -228,6 +216,30 @@
         },
         {
           "keyword": "PowerConsumption",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_BuildingId",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_BuildingFloorId",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_BuildingRoomId",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_BuildingRoomRowId",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_EquipmentId_Plant",
+          "synonyms": []
+        },
+        {
+          "keyword": "fk_CustomPropertyId_Status",
           "synonyms": []
         }
       ]

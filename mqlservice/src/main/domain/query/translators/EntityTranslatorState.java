@@ -6,6 +6,7 @@ import domain.interpreters.Interpreter;
 import domain.keywords.KeywordsResolver;
 import domain.query.Query;
 import domain.query.builder.QueryBuilder;
+import domain.query.builder.SuggestionBuilder;
 
 public class EntityTranslatorState implements QueryTranslatorState {
     private final Interpreter attributeInterpreter;
@@ -29,5 +30,10 @@ public class EntityTranslatorState implements QueryTranslatorState {
             return new StateStatus(false, new AttributeTranslatorState(queryBuilder, keywordsResolver));
         }
         throw new InvalidQueryException("The table name should be followed by an attribute");
+    }
+
+    @Override
+    public void translateNextSuggestion(SuggestionBuilder suggestionBuilder) {
+        attributeInterpreter.suggest(suggestionBuilder);
     }
 }

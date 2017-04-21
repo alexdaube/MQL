@@ -80,7 +80,7 @@ exports.addColumnKeyword = function (tableName, columnName, keyword) {
 };
 
 exports.removeColumnKeyword = function (tableName, columnName, keyword) {
-    if (!tables.find(t => t.getName() === tableName)) {
+    if (tables.find(t => t.getName() === tableName)) {
         tables.find(t => t.getName() === tableName).removeColumnKeyword(columnName, keyword);
     }
 };

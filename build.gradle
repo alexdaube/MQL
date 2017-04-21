@@ -6,15 +6,14 @@ buildscript {
 }
 
 allprojects {
-    apply plugin: "idea"
-    version '1.0-SNAPSHOT'
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
+    version '1.0.0'
 }
 
 project(":mqlservice") {
     apply plugin: "java"
     apply plugin: 'application'
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
 }

@@ -3,12 +3,12 @@ package domain.query;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringQuery implements Query {
+public class StringQuery implements Query<String> {
     private final Pattern stripPattern;
     private String query;
 
     public StringQuery(String query) {
-        this.stripPattern = Pattern.compile("^[^\\w\"<>=-]+");
+        this.stripPattern = Pattern.compile("^[^\\w\"<>!=-]+");
         this.query = query;
     }
 
@@ -38,5 +38,9 @@ public class StringQuery implements Query {
 
     public boolean isEmpty() {
         return query.isEmpty();
+    }
+
+    public String getQuery() {
+        return this.query;
     }
 }
