@@ -24,8 +24,6 @@ public class MongoDbHelperTest {
     @Test
     public void canReadEntitiesFromDatabase() {
         mongoHelper.startConnection();
-        assertFalse(mongoHelper.findEntities().isEmpty());
+        assertFalse(mongoHelper.findEntityDocuments().isEmpty());
     }
-
-
 }

@@ -36,20 +36,20 @@ public class MongoDbHelper {
         }
     }
 
-    public List<BsonDocument> findEntities() {
+    public List<BsonDocument> findEntityDocuments() {
         MongoCollection<BsonDocument> entityCollection = this.mongoDB.getCollection(ENTITY, BsonDocument.class);
         List<BsonDocument> entities = entityCollection.find().into(new ArrayList<BsonDocument>());
         return entities;
     }
 
-    public List<BsonDocument> findJunctions() {
+    public List<BsonDocument> findJunctionDocuments() {
         MongoCollection<BsonDocument> junctionCollection = this.mongoDB.getCollection(JUNCTION, BsonDocument.class);
         List<BsonDocument> junctions = junctionCollection.find().into(new ArrayList<BsonDocument>());
         return junctions;
     }
 
-    public List<BsonDocument> findOperators() {
-        MongoCollection<BsonDocument> operatorCollection = this.mongoDB.getCollection(ENTITY, BsonDocument.class);
+    public List<BsonDocument> findOperatorDocuments() {
+        MongoCollection<BsonDocument> operatorCollection = this.mongoDB.getCollection(OPERATOR, BsonDocument.class);
         List<BsonDocument> operators = operatorCollection.find().into(new ArrayList<BsonDocument>());
         return operators;
     }
