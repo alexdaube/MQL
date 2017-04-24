@@ -35,7 +35,8 @@ export default class DatabaseManager extends React.Component {
             const attributes = t.attributes.map((a, key) =>
                 <Keyword className="database-attribute" key={key} name={a.name} removeKeyword={this.props.removeAttribute.bind(this, t.name, a.name)} />);
             const foreignKeys = t.foreignKeys.map((f, key) =>
-                <Keyword className="database-foreignKey" key={key} name={f.toAttribute} removeKeyword={this.props.removeForeignKey.bind(this, t.name, f.fromAttribute, f.toTable, f.toAttribute)} />);
+                <Keyword className="database-foreignKey" key={key} name={"'" + f.fromAttribute + "'" + " is joined to '" + f.toTable + "." + f.toAttribute + "'"}
+                         removeKeyword={this.props.removeForeignKey.bind(this, t.name, f.fromAttribute, f.toTable, f.toAttribute)} />);
             return <Keyword className="database-table" key={key} name={t.name} removeKeyword={this.props.removeTable.bind(this, t.name)}>
                 <Menu top={true}>
                     <div className="database-container">
