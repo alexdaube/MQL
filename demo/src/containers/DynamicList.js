@@ -29,11 +29,6 @@ export class DynamicList extends Component {
         }
         return (
             <div>
-                <Table responsive hover inverse className="mqlDynamicList">
-                    <DynamicListHeader labels={this.extractLabels()}/>
-                    <DynamicListBody data={this.props.query.data}/>
-                </Table>
-                <br/>
                 <div className="text-center">
                     <CSVLink
                         data={this.getFlattenData.bind(this)()}
@@ -43,6 +38,11 @@ export class DynamicList extends Component {
                         </Button>
                     </CSVLink>
                 </div>
+                <br/>
+                <Table responsive hover inverse className="mqlDynamicList">
+                    <DynamicListHeader labels={this.extractLabels()}/>
+                    <DynamicListBody data={this.props.query.data}/>
+                </Table>
             </div>
         );
     }
