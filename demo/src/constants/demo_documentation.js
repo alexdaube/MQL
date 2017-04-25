@@ -10,9 +10,9 @@ export const documentBlocksMarkup = [
         text: <p>
             MQL stands for <span className="font-italic">Multitel Query Language</span>.
             It is a user friendly query language that enables you to query the database
-            from a user interface while using a common tongue.
+            while using a common tongue.
             It enables you to make fined grain queries that shows you exactly what you want to look at.
-            It just like writing SQL queries without knowing anything about the syntax!
+            It's just like writing SQL queries without knowing anything about the syntax!
         </p>,
     },
 
@@ -73,11 +73,17 @@ export const documentBlocksMarkup = [
         menuTitle: 'Simple Operators',
         title: <h3>Simple Operators</h3>,
         text: <p>
-            <Badge className="font-weight-bold">Equals</Badge> is called with <span className="font-weight-bold">is, =, in</span>
+            <Badge className="font-weight-bold">Equals</Badge> is called with <span className="font-weight-bold">is, =, in, equals, equal</span>
             <br/>
-            <Badge className="font-weight-bold">Less than</Badge> is called with <span className="font-weight-bold">less than, {'<'}</span>
+            <Badge className="font-weight-bold">Like</Badge> is called with <span className="font-weight-bold">like, contain, contains</span>
             <br/>
-            <Badge className="font-weight-bold">Greater than</Badge> is called with <span className="font-weight-bold">greater than, {'>'}</span>
+            <Badge className="font-weight-bold">Less than</Badge> is called with <span className="font-weight-bold">less than, {'<'}, lower than</span>.
+            The <span className="font-weight-bold">than</span> is optional.
+            <br/>
+            <Badge className="font-weight-bold">Greater than</Badge> is called with <span className="font-weight-bold">greater than, {'>'}, higher than</span>.
+            The <span className="font-weight-bold">than</span> is optional.
+            <br/>
+            <Badge className="font-weight-bold">Not</Badge> is called with <span className="font-weight-bold">not, !</span>
         </p>,
         examples: [
             <p>
@@ -134,16 +140,40 @@ export const documentBlocksMarkup = [
         menuTitle: 'Types',
         title: <h3>Types</h3>,
         text: <p>
-            MQL supports numbers, strings and dates. Dates will have to follow this simple pattern
+            MQL supports integers, decimals, strings and dates as values. Strings must be included in between quotation marks "". Dates will have to follow this simple pattern
             to be valid: yyyy-MM-dd
         </p>,
         examples: [
             <p>
                 Entity dateAttribute is between <kbd>1997-10-30</kbd> and <kbd>2016-06-26</kbd>
             </p>,
+            <p>
+                Entity stringAttribute = <kbd>"hello_mql"</kbd>
+            </p>,
         ]
     },
-
+    {
+        id: "junctions",
+        menuTitle: 'Junctions',
+        title: <h3>Junctions</h3>,
+        text: <p>
+            <Badge className="font-weight-bold">And</Badge> allows to chain queries, or conditions inside a query.
+            Both sides must be true for the query to show anything
+            <br/>
+            <Badge className="font-weight-bold">Or</Badge> is like <Badge className="font-weight-bold">And</Badge>,
+            but only one side must be true for the query to show anything
+        </p>,
+        examples: [
+            <p>
+                <Badge color="success" className="font-weight-bold">and</Badge> Entity attribute is in 10, 99,
+                11 <kbd>and</kbd> attribute_2 is 3
+            </p>,
+            <p>
+                <Badge color="success" className="font-weight-bold">or</Badge> Entity attribute is between 10
+                and 99 <kbd>or</kbd> between 50:80
+            </p>
+        ]
+    },
     {
         id: "keyword-fallback",
         menuTitle: 'Keyword Fallback',
@@ -154,7 +184,7 @@ export const documentBlocksMarkup = [
             value.
             In MQL, we can omit renaming the attribute after the junction keyword. MQL will always default back
             to the last specified keyword in the query. This principle can be applied for entity, attribute and
-            operator keywords.
+            operator keywords. This keyword fallback concept is valid for entities, attributes and operators.
         </p>,
         examples: [
             <p>
@@ -166,5 +196,18 @@ export const documentBlocksMarkup = [
                 <Badge color="success">MQL Way</Badge>
             </p>,
         ]
+    },
+    {
+        id: "synonyms",
+        menuTitle: 'Synonyms',
+        title: <h3>Synonyms</h3>,
+        text: <div>
+            <p>
+            Any keyword defined within the MQL configurations can have multiple synonyms that will
+            result in the same query syntactically. Usually the auto-suggestion feature will give you
+            the specific synonyms for each keywords as you experience MQL inside the application.
+            </p>
+            <img src="../../assets/images/auto_suggest.png" alt="Auto Suggest Example" height="500" width="650" />
+        </div>,
     }
 ];
