@@ -7,7 +7,8 @@ import configuration.keywords.EntityKeyword;
 import configuration.keywords.ForeignKey;
 import domain.query.builder.QueryBuilder;
 import domain.query.builder.SqlQueryBuilder;
-import infrastructure.clients.ConfigClient;
+import infrastructure.clients.MongoDBClient;
+import services.locator.ServiceLocator;
 
 import java.util.Collection;
 
@@ -17,7 +18,7 @@ public class QueryBuilderCreator {
 
     public static QueryBuilder create() {
         if (entities == null) {
-            entities = new ConfigClient().findAllEntityKeyword();
+            entities = ServiceLocator.getInstance().resolve(MongoDBClient.class).findAllEntityKeyword();
         }
         DbSchema dbSchema = new DbSpec().addDefaultSchema();
         for (EntityKeyword entityKeyword : entities) {

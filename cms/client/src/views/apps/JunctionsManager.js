@@ -6,7 +6,7 @@ import './JunctionsManager.css';
 import Keyword from "../components/Keyword";
 import KeywordEntry from "../components/KeywordEntry";
 import Menu from "../components/Menu";
-import * as actions from "../../actions/junctionsAction";
+import * as actions from "../../actions/junctionsActions";
 
 @connect((store) => {
     return {

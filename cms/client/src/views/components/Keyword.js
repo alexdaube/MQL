@@ -28,11 +28,11 @@ export default class Keyword extends React.Component {
             iconClasses = "";
         }
         return (
-            <div>
+            <div className={this.props.className}>
                 <div className="keyword-container">
                     <div className={"keyword-button " + buttonClasses} onClick={this.clicked.bind(this)}>
                         <span className={"keyword-icon " + iconClasses}/>
-                        <h4 className="keyword-name">{this.props.name}</h4>
+                        <h4 className="keyword-name"><nobr>{this.props.name}</nobr></h4>
                         <div className="keyword-close">
                             <a className="btn" onClick={this.props.removeKeyword.bind(this)}>✖</a>
                         </div>

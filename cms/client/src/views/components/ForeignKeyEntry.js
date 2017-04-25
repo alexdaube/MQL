@@ -45,11 +45,11 @@ export default class ForeignKeyEntry extends React.Component {
         const toAttributeOptions = currentToTable ? currentToTable.attributes.map(a => {return {value: a.name, label: a.name}}):[];
         return (
             <form className="form-inline foreign-key-form" onSubmit={this.submit.bind(this)}>
-                <Select className="foreign-key-select" value={this.state.fromAttribute} autosize={false}
+                <Select className="foreign-key-select foreign-key-from-attribute" value={this.state.fromAttribute} autosize={false}
                         placeholder="From attribute" options={fromAttributeOptions} onChange={this.changeFromAttribute.bind(this)} />
-                <Select className="foreign-key-select" value={this.state.toTable} autosize={false}
+                <Select className="foreign-key-select foreign-key-to-table" value={this.state.toTable} autosize={false}
                         placeholder="To table" options={tableOptions} onChange={this.changeToTable.bind(this)} />
-                <Select className="foreign-key-select" value={this.state.toAttribute} autosize={false}
+                <Select className="foreign-key-select foreign-key-to-attribute" value={this.state.toAttribute} autosize={false}
                         placeholder="To attribute" options={toAttributeOptions} onChange={this.changeToAttribute.bind(this)} />
                 <input className="btn btn-primary" type="submit" value="Add"/>
             </form>
