@@ -30,11 +30,9 @@ const renderSectionTitle = (section) => {
     );
 };
 
-
 const getSectionSuggestions = (section) => {
     return section.suggestions;
 };
-
 
 const renderSuggestion = suggestion => {
     let synonyms = '';
