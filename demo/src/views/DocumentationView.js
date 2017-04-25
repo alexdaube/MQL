@@ -9,9 +9,6 @@ import DocumentationBlock from "../components/DocumentationBlock";
 import ComponentLink from "../components/ComponentLink";
 
 
-// TODO
-// Junctions in how it works
-
 export default class DocumentationView extends Component {
     static contextTypes = {
         router: PropTypes.object
