@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from 'prop-types';
 import Helmet from "react-helmet";
 import jsPDF from "jspdf";
 import $ from "jquery";
@@ -10,7 +11,7 @@ import ComponentLink from "../components/ComponentLink";
 
 export default class DocumentationView extends Component {
     static contextTypes = {
-        router: React.PropTypes.object
+        router: PropTypes.object
     };
 
     constructor(props) {
