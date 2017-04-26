@@ -28,7 +28,7 @@ describe('badge utils', () => {
     detailsCaseTest(KEYWORDS.junction, 'warning', 'J');
     detailsCaseTest("AND", 'warning', 'J');
     detailsCaseTest("OR", 'warning', 'J');
-    detailsCaseTest("DEFAULT_CASE", 'default', 'DEFAULT_CASE');
+    detailsCaseTest("DEFAULT_CASE", 'default', 'N/A');
 });
 
 
