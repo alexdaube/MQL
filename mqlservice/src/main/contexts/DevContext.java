@@ -4,9 +4,7 @@ import domain.DbClient;
 import domain.keywords.KeywordRepository;
 import domain.query.translators.MqlQueryTranslator;
 import domain.query.translators.QueryTranslator;
-import infrastructure.clients.MongoDBClient;
 import infrastructure.clients.SqlLiteClient;
-import persistence.MongoDbHelper;
 import persistence.SQLHelper;
 import persistence.SQLiteHelper;
 import services.locator.ServiceLocator;
@@ -18,9 +16,6 @@ public class DevContext implements Context {
     public void apply() {
         ServiceLocator.reset();
         ServiceRegistrar serviceRegistrar = ServiceLocator.getInstance();
-
-        serviceRegistrar.register(() -> new MongoDBClient(new MongoDbHelper()))
-                .asSingleInstance();
 
         serviceRegistrar.register(KeywordRepositoryCreator::create).asSingleInstance().of(KeywordRepository.class);
 
