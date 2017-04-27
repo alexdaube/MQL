@@ -100,7 +100,13 @@ exports.getExistingTables = function (callback) {
     cursor.each(function (err, doc) {
         if (err) throw err;
         if (doc != null) {
-            tables.push(doc);
+            let table = {
+                "keyword": doc.name,
+                "synonyms": doc.keywords,
+                "foreign_keys": doc.foreignKeys,
+                "attributes": doc.columns
+            };
+            tables.push(table);
         } else {
             callback(tables);
         }

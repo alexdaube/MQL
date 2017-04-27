@@ -9,10 +9,10 @@ export function toDto(table) {
 
 export function fromDto(table) {
     return {
-        name: table.name,
-        synonyms: table.keywords,
-        attributes: table.columns.map(fromAttributeDto),
-        foreignKeys: table.foreignKeys.map(fromForeignKeyDto)
+        name: table.keyword,
+        synonyms: table.synonyms,
+        attributes: table.attributes.map(fromAttributeDto),
+        foreignKeys: table.foreign_keys.map(fromForeignKeyDto)
     }
 }
 
