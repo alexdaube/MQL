@@ -1,23 +1,29 @@
+"use strict";
 const junctions = require("../junctions/junctions");
 
-"use strict";
 class JunctionController {
 
-    constructor(connection) {
-        this.connection = connection;
+    constructor(repository) {
+        this.repository = repository;
     }
 
-    addJunction(type, res) {
+    getAll(req, res) {
+
+    }
+
+    addJunction(req, res) {
+        const type = req.body.type;
         junctions.addJunction(type);
         let junction = junctions.getJunctionFromType(type);
-        this.connection.saveJunction(junction, function () {
+        this.repository.save(junction, function () {
             res.sendStatus(200);
         });
     }
 
-    removeJunction(type, res) {
+    removeJunction(req, res) {
+        const type = req.params.type;
         junctions.remove(type);
-        this.connection.deleteJunction(type, function () {
+        this.repository.destroy(type, function () {
             res.sendStatus(200);
         });
     }
@@ -25,7 +31,7 @@ class JunctionController {
     addKeyword(req, res) {
         junctions.addKeyword(req.params.type, req.body.keyword);
         let junction = junctions.getJunctionFromType(req.params.type);
-        this.connection.updateJunction(junction, function () {
+        this.repository.update(junction, function () {
             res.sendStatus(200);
         });
     };
@@ -33,7 +39,7 @@ class JunctionController {
     removeKeyword(req, res) {
         junctions.removeKeyword(req.params.type, req.params.keyword);
         let junction = junctions.getJunctionFromType(req.params.type);
-        this.connection.updateJunction(junction, function () {
+        this.repository.update(junction, function () {
             res.sendStatus(200);
         });
     };

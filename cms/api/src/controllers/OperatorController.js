@@ -7,18 +7,24 @@ class OperatorController {
         this.connection = connection;
     }
 
-    addOperator(type, res) {
+    getAll(req, res) {
+
+    }
+
+    addOperator(req, res) {
+        const type = req.body.type;
         operators.addOperator(type);
         let operator = operators.getOperatorFromType(type);
-        this.connection.saveOperator(operator, function () {
+        this.connection.save(operator, function () {
             res.sendStatus(200);
         });
     }
 
-    removeOperator(type, res) {
+    removeOperator(req, res) {
+        const type = req.params.type;
         operators.remove(type);
         let operator = operators.getOperatorFromType(type);
-        this.connection.deleteOperator(operator, function () {
+        this.connection.destroy(operator, function () {
             res.sendStatus(200);
         });
     }
@@ -26,7 +32,7 @@ class OperatorController {
     addKeyword(req, res) {
         operators.addKeyword(req.params.type, req.body.keyword);
         let operator = operators.getOperatorFromType(req.params.type);
-        this.connection.updateOperator(operator, function () {
+        this.connection.update(operator, function () {
             res.sendStatus(200);
         });
     };
@@ -34,7 +40,7 @@ class OperatorController {
     removeKeyword(req, res) {
         operators.removeKeyword(req.params.type, req.params.keyword);
         let operator = operators.getOperatorFromType(req.params.type);
-        this.connection.updateOperator(operator, function () {
+        this.connection.update(operator, function () {
             res.sendStatus(200);
         });
     };

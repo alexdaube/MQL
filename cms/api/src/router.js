@@ -1,4 +1,4 @@
-const connection = require('./common/connection');
+const connection = require('./persitence/connection');
 let TableController = require("./controllers/TableController");
 let JunctionController = require("./controllers/JunctionController");
 let OperatorController = require("./controllers/OperatorController");
