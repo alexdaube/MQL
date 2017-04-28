@@ -16,9 +16,9 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 
 public class KeywordClient {
-    private final String TABLES_URL = "http://localhost:3000/tables/";
-    private final String JUNCTIONS_URL = "http://localhost:3000/junctions/";
-    private final String OPERATORS_URL = "http://localhost:3000/operators/";
+    private final String TABLES_URL = "http://localhost:3000/tables";
+    private final String JUNCTIONS_URL = "http://localhost:3000/junctions";
+    private final String OPERATORS_URL = "http://localhost:3000/operators";
     private OkHttpClient client;
     private Gson gson;
 

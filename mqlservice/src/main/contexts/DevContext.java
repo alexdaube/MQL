@@ -19,7 +19,9 @@ public class DevContext implements Context {
         ServiceLocator.reset();
         ServiceRegistrar serviceRegistrar = ServiceLocator.getInstance();
 
-        serviceRegistrar.register(()-> new CmsKeywordRepository(new KeywordClient())).asSingleInstance().of(KeywordRepository.class);
+        serviceRegistrar.register(KeywordClient::new).asSingleInstance().of(KeywordClient.class);
+        serviceRegistrar.register(() -> new CmsKeywordRepository(ServiceLocator.getInstance().resolve(KeywordClient.class)))
+                .asSingleInstance().of(KeywordRepository.class);
 
         serviceRegistrar.register(SQLiteHelper::new).asSingleInstance().of(SQLHelper.class);
         serviceRegistrar.register(() -> new SqlLiteClient(ServiceLocator.getInstance().resolve(SQLHelper.class)))

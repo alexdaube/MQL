@@ -8,6 +8,7 @@ import configuration.keywords.ForeignKey;
 import domain.query.builder.QueryBuilder;
 import domain.query.builder.SqlQueryBuilder;
 import infrastructure.clients.KeywordClient;
+import services.locator.ServiceLocator;
 
 import java.util.Collection;
 
@@ -16,9 +17,7 @@ public class QueryBuilderCreator {
     private static Collection<EntityKeyword> entities;
 
     public static QueryBuilder create() {
-        if (entities == null) {
-            entities = new KeywordClient().fetchEntities();
-        }
+        entities = ServiceLocator.getInstance().resolve(KeywordClient.class).fetchEntities();
         DbSchema dbSchema = new DbSpec().addDefaultSchema();
         for (EntityKeyword entityKeyword : entities) {
             DbTable table = dbSchema.addTable(entityKeyword.keyword);
