@@ -4,12 +4,17 @@ import com.despegar.sparkjava.test.SparkServer;
 import contexts.DevContext;
 import org.junit.ClassRule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import persistence.SQLHelper;
 import services.locator.ServiceLocator;
 import services.query.QueryService;
+import services.query.QueryServiceTest;
 import spark.servlet.SparkApplication;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class QueryControllerTest {
     private static final int SERVER_PORT = 4000;
@@ -20,7 +25,7 @@ public class QueryControllerTest {
 
     @Test
     public void canAccessApiQueryEndpointThroughGetMethod() throws Exception {
-        PostMethod post = testServer.post(URL, "{\"query\": \"Site SiteId is greater than -1\"}", false);
+        PostMethod post = testServer.post(URL, "{\"query\": \"Site SiteId is 1\"}", false);
         HttpResponse response = testServer.execute(post);
         assertEquals(200, response.code());
     }
@@ -28,9 +33,8 @@ public class QueryControllerTest {
     public static class QueryControllerTestSparkApplication implements SparkApplication {
         @Override
         public void init() {
-            new DevContext().apply();
-            Main.initDatabaseConnection(ServiceLocator.getInstance().resolve(SQLHelper.class));
-            QueryController queryController = new QueryController(new QueryService());
+            QueryService queryService = mock(QueryService.class);
+            QueryController queryController = new QueryController(queryService);
             queryController.initializeEndPoints();
         }
     }
