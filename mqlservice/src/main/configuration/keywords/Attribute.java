@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Attribute {
-    @SerializedName("keyword")
+    @SerializedName("name")
     public String keyword;
-    @SerializedName("synonyms")
+    @SerializedName("keywords")
     public Set<String> synonyms = new HashSet<>();
 }

@@ -15,12 +15,12 @@ import * as actions from "../../actions/tablesActions";
 }, (dispatch) => {
     return bindActionCreators({
         fetchTables: actions.fetchTables,
-        addTable: actions.createTable,
-        addAttribute: actions.addAttribute,
+        addTable: actions.addTable,
+        addAttribute: actions.addTableAttribute,
         addSynonym: actions.addTableSynonym,
         addAttributeSynonym: actions.addAttributeSynonym,
         removeTable: actions.removeTable,
-        removeAttribute: actions.removeAttribute,
+        removeAttribute: actions.removeTableAttribute,
         removeTableSynonym: actions.removeTableSynonym,
         removeAttributeSynonym: actions.removeAttributeSynonym
     }, dispatch);

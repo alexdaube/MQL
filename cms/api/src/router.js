@@ -1,132 +1,100 @@
 const connection = require('./common/connection');
-const tables = require("./tables/tables");
-const operators = require("./operators/operators");
-const junctions = require("./junctions/junctions");
+let TableController = require("./controllers/TableController");
+let JunctionController = require("./controllers/JunctionController");
+let OperatorController = require("./controllers/OperatorController");
 
-var mockTable = {name: "Site", keywords: ["plant", "building"]};
-var mockJunction = {type: "OR", keywords: []};
-var mockOperator = {type: "EQUAL", keywords: ["is", "equals"]};
-
-tables.addTable(mockTable.name);
-junctions.addJunction(mockJunction.type);
-operators.addOperator(mockOperator.type);
+let tableController = new TableController(connection);
+let operatorController = new OperatorController(connection);
+let junctionController = new JunctionController(connection);
 
 module.exports = function (app) {
-
     app.get('/tables', (req, res) => {
-        res.send(tables.getTables());
+        connection.getExistingTables(function (result) {
+            res.send(result);
+        });
     });
 
     app.post('/tables', (req, res) => {
-        tables.addTable(req.body.name);
-        res.sendStatus(201);
+        tableController.addTable(req.body.name, res);
     });
 
     app.delete('/tables/:name', (req, res) => {
-        tables.removeTable(req.params.name);
-        res.sendStatus(200);
-    });
-
-    app.post('/tables/:name/keywords', (req, res) => {
-        tables.addKeyword(req.params.name, req.body.keyword);
-        res.sendStatus(201);
-    });
-
-    app.delete('/tables/:name/keywords/:keyword', (req, res) => {
-        tables.removeKeyword(req.params.name, req.params.keyword);
-        res.sendStatus(200);
-    });
-
-    app.post('/tables/:name/foreign_keys', (req, res) => {
-        tables.addForeignKey(req.params.name, req.body);
-        res.sendStatus(201);
-    });
-
-    app.post('/tables/:name/foreign_keys/remove', (req, res) => {
-        tables.removeForeignKey(req.params.name, req.body);
-        res.sendStatus(200);
+        tableController.removeTable(req.params.name, res);
     });
 
     app.post('/tables/:name/columns', (req, res) => {
-        tables.addColumn(req.params.name, req.body.name);
-        res.sendStatus(201);
+        tableController.addColumn(req, res);
     });
 
     app.delete('/tables/:name/columns/:column', (req, res) => {
-        tables.removeColumn(req.params.name, req.params.column);
-        res.sendStatus(200);
+        tableController.removeColumn(req, res);
+    });
+
+    app.post('/tables/:name/keywords', (req, res) => {
+        tableController.addKeyword(req, res);
+    });
+
+    app.delete('/tables/:name/keywords/:keyword', (req, res) => {
+        tableController.removeKeyword(req, res);
+    });
+
+    app.post('/tables/:name/foreign_keys', (req, res) => {
+        tableController.addForeignKey(req, res);
+    });
+
+    app.post('/tables/:name/foreign_keys/remove', (req, res) => {
+        tableController.removeForeignKey(req, res);
     });
 
     app.post('/tables/:name/columns/:column/keywords', (req, res) => {
-        tables.addColumnKeyword(req.params.name, req.params.column, req.body.keyword);
-        res.sendStatus(201);
+        tableController.addColumnKeyword(req, res);
     });
 
     app.delete('/tables/:name/columns/:column/keywords/:keyword', (req, res) => {
-        tables.removeColumnKeyword(req.params.name, req.params.column, req.params.keyword);
-        res.sendStatus(200);
-    });
-
-    app.post('/tables/export', (req, res) => {
-        connection.exportTables(tables.getTables());
-        res.sendStatus(200);
+        tableController.removeColumnKeyword(req, res);
     });
 
     app.get('/operators', (req, res) => {
-        res.send(operators.getOperators());
+        connection.getExistingOperators(function (result) {
+            res.send(result);
+        });
     });
 
     app.post('/operators', (req, res) => {
-        operators.addOperator(req.body.type);
-        res.sendStatus(201);
+        operatorController.addOperator(req.body.type, res);
     });
 
     app.delete('/operators/:type', (req, res) => {
-        operators.remove(req.params.type);
-        res.sendStatus(200);
+        operatorController.removeOperator(req.params.type, res);
     });
 
     app.post('/operators/:type/keywords', (req, res) => {
-        operators.addKeyword(req.params.type, req.body.keyword);
-        res.sendStatus(201);
+        operatorController.addKeyword(req, res);
     });
 
     app.delete('/operators/:type/keywords/:keyword', (req, res) => {
-        operators.removeKeyword(req.params.type, req.params.keyword);
-        res.sendStatus(200);
-    });
-
-    app.post('/operators/export', (req, res) => {
-        connection.exportOperators(operators.getOperators());
-        res.sendStatus(200);
+        operatorController.removeKeyword(req, res);
     });
 
     app.get('/junctions', (req, res) => {
-        res.send(junctions.getJunctions());
+        connection.getExistingJunctions(function (result) {
+            res.send(result);
+        });
     });
 
     app.post('/junctions', (req, res) => {
-        junctions.addJunction(req.body.type);
-        res.sendStatus(201);
+        junctionController.addJunction(req.body.type, res);
     });
 
     app.delete('/junctions/:type', (req, res) => {
-        junctions.remove(req.params.type);
-        res.sendStatus(200);
+        junctionController.removeJunction(req.params.type, res);
     });
 
     app.post('/junctions/:type/keywords', (req, res) => {
-        junctions.addKeyword(req.params.type, req.body.keyword);
-        res.sendStatus(201);
+        junctionController.addKeyword(req, res);
     });
 
     app.delete('/junctions/:type/keywords/:keyword', (req, res) => {
-        junctions.removeKeyword(req.params.type, req.params.keyword);
-        res.sendStatus(200);
-    });
-
-    app.post('/junctions/export', (req, res) => {
-        connection.exportJunctions(junctions.getJunctions());
-        res.sendStatus(200);
+        junctionController.removeKeyword(req, res);
     });
 };

@@ -22,6 +22,10 @@ class Operator {
     getType() {
         return this.type;
     }
+
+    getKeywords() {
+        return this.keywords;
+    }
 }
 
 module.exports = Operator;

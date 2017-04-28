@@ -1,4 +1,130 @@
 {
+  "_id": {
+    "$oid": "58fa1211dd122ecbf542efe9"
+  },
+  "keyword": "Site",
+  "foreign_keys": [],
+  "synonyms": [
+    "plants",
+    "building"
+  ],
+  "attributes": [
+    {
+      "keyword": "SiteId",
+      "synonyms": [
+        "id"
+      ]
+    },
+    {
+      "keyword": "Name",
+      "synonyms": []
+    },
+    {
+      "keyword": "CLLI",
+      "synonyms": []
+    },
+    {
+      "keyword": "Identifier",
+      "synonyms": []
+    },
+    {
+      "keyword": "VerificationDate",
+      "synonyms": []
+    },
+    {
+      "keyword": "AvailableToServiceDate",
+      "synonyms": []
+    },
+    {
+      "keyword": "LocationCode",
+      "synonyms": []
+    },
+    {
+      "keyword": "Address",
+      "synonyms": []
+    },
+    {
+      "keyword": "City",
+      "synonyms": []
+    },
+    {
+      "keyword": "ZipCode",
+      "synonyms": [
+        "zip"
+      ]
+    },
+    {
+      "keyword": "Latitude",
+      "synonyms": []
+    },
+    {
+      "keyword": "Longitude",
+      "synonyms": []
+    },
+    {
+      "keyword": "Longitude",
+      "synonyms": []
+    },
+    {
+      "keyword": "Url",
+      "synonyms": []
+    },
+    {
+      "keyword": "PowerFloor",
+      "synonyms": []
+    },
+    {
+      "keyword": "Phone",
+      "synonyms": []
+    },
+    {
+      "keyword": "PowerUtility",
+      "synonyms": []
+    },
+    {
+      "keyword": "PowerUtilityPhone",
+      "synonyms": []
+    },
+    {
+      "keyword": "UnderEmbargo",
+      "synonyms": []
+    },
+    {
+      "keyword": "GeneratorBackupType",
+      "synonyms": []
+    },
+    {
+      "keyword": "Ranking_NetworkCriticality",
+      "synonyms": []
+    },
+    {
+      "keyword": "Ranking_InsuranceValue",
+      "synonyms": []
+    },
+    {
+      "keyword": "Ranking_RevenueGeneration",
+      "synonyms": []
+    },
+    {
+      "keyword": "NoneUserSupervisorName",
+      "synonyms": []
+    },
+    {
+      "keyword": "NoneUserSupervisorEmail",
+      "synonyms": []
+    },
+    {
+      "keyword": "SiteSyncId",
+      "synonyms": []
+    }
+  ]
+}
+
+
+
+
+
+{
   "entities": [
     {
       "keyword": "Site",

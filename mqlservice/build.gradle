@@ -16,4 +16,6 @@ dependencies {
     compile 'org.xerial:sqlite-jdbc:3.16.1'
     compile 'org.slf4j:slf4j-simple:1.7.21'
     compile 'com.healthmarketscience.sqlbuilder:sqlbuilder:2.1.6'
+    compile 'org.mongodb:mongo-java-driver:3.4.2'
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
 }

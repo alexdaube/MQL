@@ -50,11 +50,11 @@ export default function (state = initialState, action) {
             return {...state, tables: action.payload, fetching: false};
         case actions.REMOVE_TABLE_SYNONYM_REJECTED:
             return {...state, error: action.payload, fetching: false};
-        case actions.REMOVE_ATTRIBUTE_PENDING:
+        case actions.REMOVE_TABLE_ATTRIBUTE_PENDING:
             return {...state, fetching: true, error: null};
-        case actions.REMOVE_ATTRIBUTE_FULFILLED:
+        case actions.REMOVE_TABLE_ATTRIBUTE_FULFILLED:
             return {...state, tables: action.payload, fetching: false};
-        case actions.REMOVE_ATTRIBUTE_REJECTED:
+        case actions.REMOVE_TABLE_ATTRIBUTE_REJECTED:
             return {...state, error: action.payload, fetching: false};
         case actions.REMOVE_ATTRIBUTE_SYNONYM_PENDING:
             return {...state, fetching: true, error: null};

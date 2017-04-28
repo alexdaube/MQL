@@ -6,7 +6,7 @@ import './OperatorsManager.css';
 import Keyword from "../components/Keyword";
 import KeywordEntry from "../components/KeywordEntry";
 import Menu from "../components/Menu";
-import * as actions from "../../actions/operatorsAction";
+import * as actions from "../../actions/operatorsActions";
 
 @connect((store) => {
     return {

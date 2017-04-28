@@ -2,29 +2,39 @@ var exports = module.exports = {};
 var Operator = require('./operator.js');
 var _ = require('underscore');
 
-var operators = [];
-
-exports.addOperator = function (type) {
-    if (!operators.find(o => o.getType() === type)) {
-        operators.push(new Operator(type));
+class Operators {
+    constructor(operators = []) {
+        this.operators = operators;
     }
-};
 
-exports.addKeyword = function(type, keyword) {
-    operators.find(o => o.getType() === type).addKeyword(keyword);
-};
-
-exports.remove = function (type) {
-    const index = operators.indexOf(operators.find(o => o.getType() === type));
-    if (index > -1) {
-        operators.splice(index, 1);
+    addOperator(type) {
+        if (!this.operators.find(o => o.getType() === type)) {
+            this.operators.push(new Operator(type));
+        }
     }
-};
 
-exports.removeKeyword = function (type, keyword) {
-    operators.find(o => o.getType() === type).removeKeyword(keyword);
-};
+    addKeyword(type, keyword) {
+        this.operators.find(o => o.getType() === type).addKeyword(keyword);
+    }
 
-exports.getOperators = function () {
-    return operators;
-};
+    remove(type) {
+        const index = this.operators.indexOf(this.operators.find(o => o.getType() === type));
+        if (index > -1) {
+            this.operators.splice(index, 1);
+        }
+    }
+
+    removeKeyword(type, keyword) {
+        this.operators.find(o => o.getType() === type).removeKeyword(keyword);
+    }
+
+    getOperators() {
+        return this.operators;
+    }
+    
+    getOperatorFromType(type) {
+        return this.operators.find(o => o.getType() === type);
+    }
+}
+
+module.exports = Operators;

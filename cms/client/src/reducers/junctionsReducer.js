@@ -1,4 +1,4 @@
-import * as actions from "../actions/junctionsAction";
+import * as actions from "../actions/junctionsActions";
 
 const initialState = {
     junctions: [],

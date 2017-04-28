@@ -3,7 +3,7 @@ var Column = require('./column');
 "use strict";
 
 class Table {
-    
+
     constructor(name, keywords = [], columns = [], foreignKeys = []) {
         this.keywords = keywords;
         this.columns = columns;
@@ -69,6 +69,14 @@ class Table {
 
     getForeignKeys() {
         return this.foreignKeys;
+    }
+
+    getColumns() {
+        return this.columns;
+    }
+
+    getKeywords() {
+        return this.keywords;
     }
 }
 

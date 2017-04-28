@@ -7,4 +7,4 @@ exports.genericErrorHandler = (error, req, res, next) => {
     } else {
         res.status(500).send('Something broke!', error);
     }
-}
+};

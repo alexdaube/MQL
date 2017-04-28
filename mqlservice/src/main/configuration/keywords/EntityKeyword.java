@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Set;
 
 public class EntityKeyword {
-    @SerializedName("keyword")
+    @SerializedName("name")
     public String keyword;
-    @SerializedName("synonyms")
+    @SerializedName("keywords")
     public Set<String> synonyms = new HashSet<>();
-    @SerializedName("foreign_keys")
+    @SerializedName("foreignKeys")
     public List<ForeignKey> foreignKeys = new LinkedList<>();
-    @SerializedName("attributes")
+    @SerializedName("columns")
     public Set<Attribute> attributes = new HashSet<>();
 }

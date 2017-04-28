@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
-import tables from "./TablesReducer";
-import junctions from "./JunctionsReducer";
-import operators from "./OperatorsReducer";
+import tables from "./tablesReducer";
+import junctions from "./junctionsReducer";
+import operators from "./operatorsReducer";
 
 export default combineReducers({
     tables,

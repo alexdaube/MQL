@@ -13,8 +13,17 @@ public class Main {
     public static void main(String[] args) {
         new DevContext().apply();
         initDatabaseConnection(ServiceLocator.getInstance().resolve(SQLHelper.class));
+//        initMongoConnection(ServiceLocator.getInstance().resolve(MongoDbHelper.class));
         initServer(new QueryController(new QueryService()));
     }
+//
+//    private static void initMongoConnection(MongoDbHelper mongoDbHelper) {
+//        try {
+//            mongoDbHelper.startConnection();
+//        } catch (IllegalArgumentException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public static void initDatabaseConnection(SQLHelper sqlHelper) {
         try {
