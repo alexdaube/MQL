@@ -1,63 +1,6 @@
 # Multitel Query Language (MQL)
 <i>A user friendly language to query the database</i>
 
-# Configurations
-
-Entities and their respective attributes must be specified inside the 
-json file found at this path:
-<i>mqlservice/src/main/configuration/entities_config.json</i>
-<br><b>The file must follow this format</b>:
-  ```
-  {
-    "entities": [
-      {
-        "keyword": "Site",
-        "foreign_keys": [],
-        "synonyms": [
-          "plants",
-          "building"
-        ],
-        "attributes": [
-          {
-            "keyword": "SiteId",
-            "synonyms": [
-              "id"
-            ]
-          },
-          {
-            "keyword": "Name",
-            "synonyms": []
-          },
-        ]
-      },
-      {
-        "keyword": "Equipment",
-        "foreign_keys": [
-          {
-            "table": "Site",
-            "from_column": "fk_SiteId",
-            "to_column": "SiteId"
-          }
-        ],
-        "synonyms": [
-          "device",
-          "stock"
-        ],
-        "attributes": [
-          {
-            "keyword": "EquipmentId",
-            "synonyms": [
-              "id"
-            ]
-          }
-        ]
-      }
-    ]
-  }
-  ```
-It is important not to modify the junction 
-and operator configurations files!
-
 # Demo
 
 Clone the repository and go to the root directory of the project.
@@ -107,23 +50,75 @@ $ npm install
 ```shell
 $ npm start
 ```
-# Tests
-
-
+##### Tests
 **Front-end Tests**  <i>(From the demo directory)</i>
 ```shell
 $ npm test
 ```
 
-**Backend Tests**
+**Back-end Tests**
 * **Unix** 
   ```
-  ./gradlew mqlservice:test
+  ./gradlew test
   ```
 * **Windows**
   ```
-  gradlew mqlservice:test
+  gradlew test
   ```
+
+# Configurations (CMS)
+#### Front-end
+
+**Step 1**: Make sure that [nodeJS](https://nodejs.org/en/) is installed. I suggest using a node version manager.  
+  * [nvm](https://github.com/creationix/nvm) -- Mac or Linux.
+  * [nvm-windows](https://github.com/coreybutler/nvm-windows) -- Windows.
+
+**Step 2**: Install project dependencies.
+Go to the CMS client directory of the project and execute the instruction below from the command line.
+These dependencies can be found in package.json.
+
+```shell
+$ npm install
+```
+**Step 3**: Build and start the server from the command line in the CMS client directory. <b>The server is running on port 8000 by default on your local machine</b>.
+
+```shell
+$ npm start
+```
+
+#### Back-end
+
+**Step 1**: Make sure that [nodeJS](https://nodejs.org/en/) is installed. I suggest using a node version manager.  
+  * [nvm](https://github.com/creationix/nvm) -- Mac or Linux.
+  * [nvm-windows](https://github.com/coreybutler/nvm-windows) -- Windows.
+
+**Step 2**: Install global dependencies. Execute these commands anywhere in the command line.
+  * [Webpack](https://github.com/webpack/webpack) -- Module bundler
+
+```shell
+$ npm install -g webpack
+```
+**Step 3**: Install project dependencies.
+Go to the CMS api directory of the project and execute the instruction below from the command line.
+These dependencies can be found in package.json.
+
+```shell
+$ npm install
+```
+**Step 4**: Build and start the server from the command line in the api directory. <b>The server is running on port 3000 by default on your local machine</b>.
+
+```shell
+$ npm start
+```
+##### Tests
+**From the CMS client directory**</i>
+```shell
+$ npm test
+```
+**From the CMS api directory**</i>
+```shell
+$ npm test
+```
 
 # Architecture
 * https://drive.google.com/file/d/0B3RTyKNvD1VTYy1FRUhZRlRySkU/view?usp=sharing
