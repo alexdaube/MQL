@@ -2,93 +2,99 @@ var exports = module.exports = {};
 var Table = require('./table.js');
 var Column = require('./column.js');
 var ForeignKey = require('./foreignKey');
+const connection = require('../common/connection');
 var _ = require('underscore');
 
-var tables = [];
-
-exports.addTable = function (name) {
-    //var table = _.findWhere(operators, {name: name});
-    if (!tables.find(t => t.getName() === name)) {
-        tables.push(new Table(name));
+class Tables {
+    constructor(tables = []) {
+        this.tables = tables;
     }
-};
 
-exports.removeTable = function (name) {
-    const index = tables.indexOf(tables.find(t => t.getName() === name));
-    if (index > -1) {
-        tables.splice(index, 1);
-        tables.forEach(t => {
-            const i = t.getForeignKeys().indexOf(t.getForeignKeys().find(f => f.getToTable() === name));
-            if (i > -1) {
-                t.getForeignKeys().splice(i, 1);
-            }
-        })
+    addTable(name) {
+        if (!this.tables.find(t => t.getName() === name)) {
+            this.tables.push(new Table(name));
+        }
     }
-};
 
-exports.addKeyword = function (name, keyword) {
-    if (tables.find(t => t.getName() === name)) {
-        tables.find(t => t.getName() === name).addKeyword(keyword);
+    removeTable(name) {
+        const index = this.tables.indexOf(this.tables.find(t => t.getName() === name));
+        if (index > -1) {
+            this.tables.splice(index, 1);
+            this.tables.forEach(t => {
+                const i = t.getForeignKeys().indexOf(t.getForeignKeys().find(f => f.getToTable() === name));
+                if (i > -1) {
+                    t.getForeignKeys().splice(i, 1);
+                }
+            });
+        }
     }
-};
 
-exports.removeKeyword = function (name, keyword) {
-    if (tables.find(t => t.getName() === name)) {
-        tables.find(t => t.getName() === name).removeKeyword(keyword);
+    addKeyword(name, keyword) {
+        if (this.tables.find(t => t.getName() === name)) {
+            this.tables.find(t => t.getName() === name).addKeyword(keyword);
+        }
     }
-};
 
-exports.addColumn = function (tableName, name) {
-    //var table = _.findWhere(operators, {name: target_table_name});
-    if (tables.find(t => t.getName() === tableName)) {
-        tables.find(t => t.getName() === tableName).addColumn(new Column(name));
+    removeKeyword(name, keyword) {
+        if (this.tables.find(t => t.getName() === name)) {
+            this.tables.find(t => t.getName() === name).removeKeyword(keyword);
+        }
     }
-};
 
-
-exports.removeColumn = function (tableName, name) {
-    //var table = _.findWhere(operators, {name: target_table_name});
-    if (tables.find(t => t.getName() === tableName)) {
-        tables.find(t => t.getName() === tableName).removeColumn(name);
-        tables.forEach(t => {
-            const i = t.getForeignKeys().indexOf(t.getForeignKeys().find(f => f.getFromColumn() === name || f.getToColumn() === name));
-            if (i > -1) {
-                t.getForeignKeys().splice(i, 1);
-            }
-        })
+    addColumn(tableName, name) {
+        //var table = _.findWhere(operators, {name: target_table_name});
+        if (this.tables.find(t => t.getName() === tableName)) {
+            this.tables.find(t => t.getName() === tableName).addColumn(new Column(name));
+        }
     }
-};
 
-exports.addForeignKey = function (tableName, foreignKey) {
-    if (tables.find(t => t.getName() === tableName)) {
-        tables.find(t => t.getName() === tableName)
-            .addForeignKey(new ForeignKey(foreignKey.fromColumn, foreignKey.toTable, foreignKey.toColumn));
+
+    removeColumn(tableName, name) {
+        //var table = _.findWhere(operators, {name: target_table_name});
+        if (this.tables.find(t => t.getName() === tableName)) {
+            this.tables.find(t => t.getName() === tableName).removeColumn(name);
+            this.tables.forEach(t => {
+                const i = t.getForeignKeys().indexOf(t.getForeignKeys().find(f => f.getFromColumn() === name || f.getToColumn() === name));
+                if (i > -1) {
+                    t.getForeignKeys().splice(i, 1);
+                }
+            });
+        }
     }
-};
 
-exports.removeForeignKey = function (tableName, foreignKey) {
-    if (tables.find(t => t.getName() === tableName)) {
-        tables.find(t => t.getName() === tableName)
-            .removeForeignKey(new ForeignKey(foreignKey.fromColumn, foreignKey.toTable, foreignKey.toColumn));
+    addForeignKey(tableName, foreignKey) {
+        if (this.tables.find(t => t.getName() === tableName)) {
+            this.tables.find(t => t.getName() === tableName)
+        .addForeignKey(new ForeignKey(foreignKey.fromColumn, foreignKey.toTable, foreignKey.toColumn));
+        }
     }
-};
 
-exports.addColumnKeyword = function (tableName, columnName, keyword) {
-    if (tables.find(t => t.getName() === tableName)) {
-        tables.find(t => t.getName() === tableName).addColumnKeyword(columnName, keyword);
+    removeForeignKey(tableName, foreignKey) {
+        if (this.tables.find(t => t.getName() === tableName)) {
+            this.tables.find(t => t.getName() === tableName)
+        .removeForeignKey(new ForeignKey(foreignKey.fromColumn, foreignKey.toTable, foreignKey.toColumn));
+        }
     }
-};
 
-exports.removeColumnKeyword = function (tableName, columnName, keyword) {
-    if (tables.find(t => t.getName() === tableName)) {
-        tables.find(t => t.getName() === tableName).removeColumnKeyword(columnName, keyword);
+    addColumnKeyword(tableName, columnName, keyword) {
+        if (this.tables.find(t => t.getName() === tableName)) {
+            this.tables.find(t => t.getName() === tableName).addColumnKeyword(columnName, keyword);
+        }
     }
-};
 
-exports.getTables = function () {
-    return tables;
-};
+    removeColumnKeyword(tableName, columnName, keyword) {
+        if (this.tables.find(t => t.getName() === tableName)) {
+            this.tables.find(t => t.getName() === tableName).removeColumnKeyword(columnName, keyword);
+        }
+    }
 
-exports.getTableFromName = function (tableName) {
-    return tables.find(t => t.getName() === tableName);
-};
+    getTables() {
+        return this.tables;
+    }
+
+    getTableFromName(tableName) {
+        return this.tables.find(t => t.getName() === tableName);
+    }
+}
+
+module.exports = Tables;

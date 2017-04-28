@@ -1,5 +1,6 @@
 var exports = module.exports = {};
 var _ = require('underscore');
+var Table = require('../tables/table');
 const mongodb = require("mongodb");
 const Server = mongodb.Server;
 const BSON = mongodb.BSONPure;
@@ -100,13 +101,7 @@ exports.getExistingTables = function (callback) {
     cursor.each(function (err, doc) {
         if (err) throw err;
         if (doc != null) {
-            let table = {
-                "keyword": doc.name,
-                "synonyms": doc.keywords,
-                "foreign_keys": doc.foreignKeys,
-                "attributes": doc.columns
-            };
-            tables.push(table);
+            tables.push(doc);
         } else {
             callback(tables);
         }
