@@ -2,7 +2,7 @@ const MongoRepository = require("./mongoRepository");
 
 class JunctionRepository extends MongoRepository{
     get() {}
-    save() {}
+    save(junction, callback) {}
     destroy() {}
     update() {}
 }

@@ -8,4 +8,4 @@ class MongoRepository {
     update() {}
 }
 
-module.exports = JunctionRepository;
+module.exports = MongoRepository;

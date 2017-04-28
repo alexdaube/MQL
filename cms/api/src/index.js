@@ -13,6 +13,7 @@ const TableRepository = require('./persitence/repositories/tableRepository');
 const TableController = require("./controllers/TableController");
 const JunctionController = require("./controllers/JunctionController");
 const OperatorController = require("./controllers/OperatorController");
+const Junctions = require("./junctions/junctions");
 const junctionRouter = require('./routers/junctionRouter');
 const operatorRouter = require('./routers/operatorRouter');
 const tableRouter = require('./routers/tableRouter');
@@ -51,7 +52,7 @@ const junctionRepository = new JunctionRepository(connection);
 const operatorRepository = new OperatorRepository(connection);
 const tableRepository = new TableRepository(connection);
 
-const junctionController = new JunctionController(junctionRepository);
+const junctionController = new JunctionController(junctionRepository, new Junctions());
 const operatorController = new OperatorController(operatorRepository);
 const tableController = new TableController(tableRepository);
 

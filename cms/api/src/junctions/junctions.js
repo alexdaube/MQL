@@ -1,34 +1,39 @@
-var exports = module.exports = {};
-var Junction = require('./junction.js');
-var _ = require('underscore');
+const Junction = require('./junction.js');
+const _ = require('underscore');
 
-var junctions = [];
-
-exports.addJunction = function (type) {
-    if (!junctions.find(j => j.getType() === type)) {
-        junctions.push(new Junction(type));
+class Junctions {
+    constructor() {
+        this.junctions = [];
     }
-};
 
-exports.addKeyword = function (type, keyword) {
-    junctions.find(j => j.getType() === type).addKeyword(keyword);
-};
-
-exports.remove = function (type) {
-    const index = junctions.indexOf(junctions.find(j => j.getType() === type));
-    if (index > -1) {
-        junctions.splice(index, 1);
+    addJunction(type) {
+        if (!this.junctions.find(j => j.getType() === type)) {
+            this.junctions.push(new Junction(type));
+        }
     }
-};
 
-exports.removeKeyword = function (type, keyword) {
-    junctions.find(j => j.getType() === type).removeKeyword(keyword);
-};
+    addKeyword(type, keyword) {
+        this.junctions.find(j => j.getType() === type).addKeyword(keyword);
+    }
 
-exports.getJunctions = function () {
-    return junctions;
-};
+    remove(type) {
+        const index = this.junctions.indexOf(this.junctions.find(j => j.getType() === type));
+        if (index > -1) {
+            this.junctions.splice(index, 1);
+        }
+    }
 
-exports.getJunctionFromType = function (type) {
-    return junctions.find(j => j.getType() === type);
-};
+    removeKeyword(type, keyword) {
+        this.junctions.find(j => j.getType() === type).removeKeyword(keyword);
+    }
+
+    getJunctions() {
+        return this.junctions;
+    }
+
+    getJunctionFromType(type) {
+        return this.junctions.find(j => j.getType() === type);
+    }
+}
+
+module.exports = Junctions;
