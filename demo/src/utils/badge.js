@@ -24,7 +24,7 @@ const getQueryKeywordBadgeDetails = (queryKeywordType) => {
         case "OR":
             return {color: 'warning', label: 'J'};
         default:
-            return {color: 'default', label: queryKeywordType.toUpperCase()};
+            return {color: 'default', label: `N/A`};
     }
 };
 
