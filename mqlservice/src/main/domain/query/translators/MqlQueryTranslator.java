@@ -2,7 +2,6 @@ package domain.query.translators;
 
 import com.google.gson.JsonArray;
 import domain.InvalidQueryException;
-import domain.keywords.KeywordsResolver;
 import domain.query.Query;
 import domain.query.builder.MQLSuggestionBuilder;
 import domain.query.builder.QueryBuilder;
@@ -11,8 +10,8 @@ public class MqlQueryTranslator implements QueryTranslator {
     private final QueryBuilder queryBuilder;
     private QueryTranslatorState state;
 
-    public MqlQueryTranslator(QueryBuilder queryBuilder, KeywordsResolver keywordsResolver) {
-        this.state = new InitialTranslatorState(queryBuilder, keywordsResolver);
+    public MqlQueryTranslator(QueryTranslatorState initialState, QueryBuilder queryBuilder) {
+        this.state = initialState;
         this.queryBuilder = queryBuilder;
     }
 

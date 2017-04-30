@@ -37,7 +37,7 @@ public class KeywordTest {
 
     @Test
     public void givenAWordATypeSynonymsAndChildren_whenInitializing_thenTheTypeIsSet() {
-        assertThat(keyword.type, is(equalTo(TYPE)));
+        assertThat(keyword.getType(), is(equalTo(TYPE)));
     }
 
     @Test

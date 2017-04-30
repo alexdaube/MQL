@@ -19,6 +19,7 @@ public class MQLSuggestionBuilderTest {
     private static final String KEYWORD_TYPE = "ATTRIBUTE";
     private static final String MATCHING_QUERY = "na";
     private static final String NON_MATCHING_QUERY = "tam";
+    private static final Keyword.Type TYPE = Keyword.Type.ATTRIBUTE;
     @Mock
     private Keyword keyword;
     @Mock
@@ -29,11 +30,11 @@ public class MQLSuggestionBuilderTest {
     @Before
     public void setUp() throws Exception {
         keywords = new KeywordsSet();
-        keyword.type = Keyword.Type.ATTRIBUTE;
         keywords.add(keyword);
         suggestionBuilder = new MQLSuggestionBuilder(query);
         willReturn(KEYWORD_NAME).given(keyword).name();
         willReturn(MATCHING_QUERY).given(query).getQuery();
+        willReturn(TYPE).given(keyword).getType();
     }
 
     @Test

@@ -14,9 +14,9 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class BaseInterpreterTest {
     @Mock
-    private Keywords keywords;
-    @Mock
     SuggestionBuilder suggestionBuilder;
+    @Mock
+    private Keywords keywords;
     private BaseInterpreter interpreter;
 
     @Before

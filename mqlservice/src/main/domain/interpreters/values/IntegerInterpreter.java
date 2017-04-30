@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class IntegerInterpreter implements Interpreter {
-    private static final String VALUE = "Integer";
     static final Pattern INTEGER_PATTERN = Pattern.compile("^([-]?(\\d+))");
+    private static final String VALUE = "Integer";
 
     @Override
     public boolean interpret(Query query, QueryBuilder queryBuilder) {

@@ -22,13 +22,13 @@ public class IntegerInterpreterTest {
     private static final String INTEGER_KEYWORD = "-10";
     private static final String INTEGER = "Integer";
     @Mock
+    SuggestionBuilder suggestionBuilder;
+    @Mock
     private QueryBuilder queryBuilder;
     @Mock
     private Query integerQuery;
     @Mock
     private Query invalidQuery;
-    @Mock
-    SuggestionBuilder suggestionBuilder;
     private IntegerInterpreter integerInterpreter;
     private Matcher integerMatcher;
     private Matcher invalidMatcher;

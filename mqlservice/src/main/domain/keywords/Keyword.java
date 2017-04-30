@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public class Keyword {
 
-    public Type type;
+    private final Type type;
     private final String word;
     private final Collection<String> synonyms;
     private final Keywords children;
@@ -31,6 +31,10 @@ public class Keyword {
 
     public Keywords getChildren() {
         return children;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     @Override

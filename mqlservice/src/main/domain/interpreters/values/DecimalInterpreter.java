@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DecimalInterpreter implements Interpreter {
-    private static final String VALUE = "Decimal";
     static final Pattern DECIMAL_PATTERN = Pattern.compile("^([-]?(\\d+)(\\.\\d*))");
+    private static final String VALUE = "Decimal";
 
     @Override
     public boolean interpret(Query query, QueryBuilder queryBuilder) {

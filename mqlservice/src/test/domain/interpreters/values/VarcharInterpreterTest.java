@@ -25,13 +25,13 @@ public class VarcharInterpreterTest {
     private static final String VARCHAR_KEYWORD = "\"Something!!\"";
     private static final String VARCHAR = "Varchar";
     @Mock
+    SuggestionBuilder suggestionBuilder;
+    @Mock
     private QueryBuilder queryBuilder;
     @Mock
     private Query varcharQuery;
     @Mock
     private Query invalidQuery;
-    @Mock
-    SuggestionBuilder suggestionBuilder;
     private VarcharInterpreter varcharInterpreter;
     private Matcher varcharMatcher;
     private Matcher invalidMatcher;
