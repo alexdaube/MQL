@@ -3,10 +3,10 @@ package configuration.keywords;
 import com.google.gson.annotations.SerializedName;
 
 public class ForeignKey {
-    @SerializedName("table")
+    @SerializedName("toTable")
     public String tableName;
-    @SerializedName("from_column")
+    @SerializedName("fromColumn")
     public String fromColumn;
-    @SerializedName("to_column")
+    @SerializedName("toColumn")
     public String toColumn;
 }

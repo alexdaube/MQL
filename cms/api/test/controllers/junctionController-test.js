@@ -1,5 +1,5 @@
 const td = require('testdouble');
-const JunctionRepository = require("../../src/persitence/repositories/JunctionRepository");
+const JunctionRepository = require("../../src/persistence/repositories/JunctionRepository");
 const Junctions = require("../../src/junctions/junctions");
 const Junction = require("../../src/junctions/junction");
 const JunctionController = require("../../src/controllers/JunctionController");

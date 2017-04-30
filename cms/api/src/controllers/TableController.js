@@ -1,93 +1,152 @@
-const tables = require("../tables/tables");
+const Tables = require("../tables/tables");
 
-"use strict";
 class TableController {
-    constructor(connection) {
-        this.connection = connection;
+
+    constructor(repository, converter) {
+        this.repository = repository;
+        this.converter = converter;
     }
 
-    getAll(req, res) {}
+    getAll(req, res) {
+        const tables = this.getCurrentTables();
+        if (tables instanceof Tables) {
+            return res.send(tables);
+        }
+        res.sendStatus(404);
+    }
 
     addTable(req, res) {
-        const tableName = req.body.name;
-        tables.addTable(tableName);
-        let table = tables.getTableFromName(tableName);
-        this.connection.save(table, function () {
-            res.sendStatus(200);
-        });
+        const tables = this.getCurrentTables();
+        if (tables instanceof Tables) {
+            const name = req.body.name;
+            tables.addTable(name);
+            const table = tables.getTableFromName(name);
+            const doc = this.repository.save(table);
+            if (!doc.hasError) {
+                return res.sendStatus(200);
+            }
+        }
+        res.sendStatus(404);
     }
 
     removeTable(req, res) {
-        const tableName = req.params.name;
-        tables.removeTable(tableName);
-        this.connection.destroy(tableName, function () {
-            res.sendStatus(200);
-        });
+        const tables = this.getCurrentTables();
+        if (tables instanceof Tables) {
+            const name = req.params.name;
+            tables.remove(name);
+            const destroy = this.repository.destroy({name: name});
+            if (!destroy.hasError) {
+                res.sendStatus(200);
+            }
+        }
+        res.sendStatus(404);
     }
 
     addColumn(req, res) {
-        tables.addColumn(req.params.name, req.body.name);
-        let table = tables.getTableFromName(req.params.name);
-        this.connection.update(table, function () {
-            res.sendStatus(200);
-        });
-    };
+        const tables = this.getCurrentTables();
+        if (tables instanceof Tables) {
+            const tableName = req.params.name;
+            const columnName = req.body.name;
+            tables.addColumn(tableName, columnName);
+            return this.repository.updateTable(tables, tableName);
+        }
+        res.sendStatus(404);
+    }
 
     removeColumn(req, res) {
-        tables.removeColumn(req.params.name, req.params.column);
-        let table = tables.getTableFromName(req.params.name);
-        this.connection.update(table, function () {
-            res.sendStatus(200);
-        });
-    };
+        const tables = this.getCurrentTables();
+        if (tables instanceof Tables) {
+            const tableName = req.params.name;
+            const columnName = req.params.column;
+            tables.removeColumn(tableName, columnName);
+            return this.repository.updateTable(tables, tableName);
+        }
+        res.sendStatus(404);
+    }
 
     addKeyword(req, res) {
-        tables.addKeyword(req.params.name, req.body.keyword);
-        let table = tables.getTableFromName(req.params.name);
-        this.connection.update(table, function () {
-            res.sendStatus(200);
-        });
-    };
-
+        const tables = this.getCurrentTables();
+        if (tables instanceof Tables) {
+            const tableName = req.params.name;
+            const keywordName = req.body.keyword;
+            tables.addKeyword(tableName, keywordName);
+            return this.repository.updateTable(tables, tableName);
+        }
+        res.sendStatus(404);
+    }
     removeKeyword(req, res) {
-        tables.removeKeyword(req.params.name, req.params.keyword);
-        let table = tables.getTableFromName(req.params.name);
-        this.connection.updateTable(table, function () {
-            res.sendStatus(200);
-        });
-    };
-
+        const tables = this.getCurrentTables();
+        if (tables instanceof Tables) {
+            const tableName = req.params.name;
+            const keywordName = req.params.keyword;
+            tables.removeKeyword(tableName, keywordName);
+            return this.repository.updateTable(tables, tableName);
+        }
+        res.sendStatus(404);
+    }
     addForeignKey(req, res) {
-        tables.addForeignKey(req.params.name, req.body);
-        let table = tables.getTableFromName(req.params.name);
-        this.connection.update(table, function () {
-            res.sendStatus(200);
-        });
-    };
-
+        const tables = this.getCurrentTables();
+        if (tables instanceof Tables) {
+            const tableName = req.params.name;
+            const foreignKey = req.body;
+            tables.addForeignKey(tableName, foreignKey);
+            return this.repository.updateTable(tables, tableName);
+        }
+        res.sendStatus(404);
+    }
     removeForeignKey(req, res) {
-        tables.removeForeignKey(req.params.name, req.body);
-        let table = tables.getTableFromName(req.params.name);
-        this.connection.update(table, function () {
-            res.sendStatus(200);
-        });
-    };
-
+        const tables = this.getCurrentTables();
+        if (tables instanceof Tables) {
+            const tableName = req.params.name;
+            const foreignKey = req.body;
+            tables.removeForeignKey(tableName, foreignKey);
+            return this.repository.updateTable(tables, tableName);
+        }
+        res.sendStatus(404);
+    }
     addColumnKeyword(req, res) {
-        tables.addColumnKeyword(req.params.name, req.params.column, req.body.keyword);
-        let table = tables.getTableFromName(req.params.name);
-        this.connection.update(table, function () {
-            res.sendStatus(200);
-        });
-    };
-
+        const tables = this.getCurrentTables();
+        if (tables instanceof Tables) {
+            const tableName = req.params.name;
+            const columnName = req.params.column;
+            const keywordName = req.body.keyword;
+            tables.addColumnKeyword(tableName, columnName, keywordName);
+            return this.repository.updateTable(tables, tableName);
+        }
+        res.sendStatus(404);
+    }
     removeColumnKeyword(req, res) {
-        tables.removeColumnKeyword(req.params.name, req.params.column, req.params.keyword);
-        let table = tables.getTableFromName(req.params.name);
-        this.connection.update(table, function () {
-            res.sendStatus(200);
-        });
-    };
+        const tables = this.getCurrentTables();
+        if (tables instanceof Tables) {
+            const tableName = req.params.name;
+            const columnName = req.params.column;
+            const keywordName = req.params.keyword;
+            tables.removeColumnKeyword(tableName, columnName, keywordName);
+            return this.repository.updateTable(tables, tableName);
+        }
+        res.sendStatus(404);
+    }
+
+    updateTable(tables, tableName) {
+        const table = tables.getTableFromName(tableName);
+        const name = {name: table.getName()};
+        const keywords = {
+            keywords: table.getKeywords(),
+            columns: table.getColumns(),
+            foreignKeys: table.getForeignKeys()
+        };
+        const update = this.repository.update(name, keywords);
+
+        if (!update.hasError) {
+            return res.sendStatus(200);
+        }
+        return res.sendStatus(404);
+    }
+
+    getCurrentTables() {
+        const fetchedTables = this.repository.getAll();
+        return this.converter.mapToTables(fetchedTables);
+    }
 }
 
 module.exports = TableController;

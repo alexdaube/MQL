@@ -7,17 +7,19 @@ const errors = require('./common/errors');
 const mongodb = require("mongodb");
 const Server = mongodb.Server;
 const Db = mongodb.Db;
-const JunctionRepository = require('./persitence/repositories/junctionRepository');
-const OperatorRepository = require('./persitence/repositories/operatorRepository');
-const TableRepository = require('./persitence/repositories/tableRepository');
+
+const TablesConverter = require("./tables/converter");
+const MongoRepository = require('./persistence/repositories/mongoRepository');
 const TableController = require("./controllers/TableController");
 const JunctionController = require("./controllers/JunctionController");
 const OperatorController = require("./controllers/OperatorController");
+const OperatorsConverter = require("./operators/converter");
 const Junctions = require("./junctions/junctions");
+const JunctionsConverter = require("./junctions/converter");
 const junctionRouter = require('./routers/junctionRouter');
 const operatorRouter = require('./routers/operatorRouter');
 const tableRouter = require('./routers/tableRouter');
-const Connection = require("./persitence/connection");
+const Connection = require("./persistence/connection");
 
 const app = express();
 
@@ -48,13 +50,10 @@ const db = new Db('mql', server, {safe: true});
 const connection = new Connection(db);
 connection.open();
 
-const junctionRepository = new JunctionRepository(connection);
-const operatorRepository = new OperatorRepository(connection);
-const tableRepository = new TableRepository(connection);
 
-const junctionController = new JunctionController(junctionRepository, new Junctions());
-const operatorController = new OperatorController(operatorRepository);
-const tableController = new TableController(tableRepository);
+const junctionController = new JunctionController(new MongoRepository(connection, "junctions"), new JunctionsConverter);
+const operatorController = new OperatorController(new MongoRepository(connection, "operators"), new OperatorsConverter);
+const tableController = new TableController(new MongoRepository(connection, "entities"), new TablesConverter);
 
 junctionRouter(app, junctionController);
 operatorRouter(app, operatorController);
