@@ -6,7 +6,7 @@ const TablesConverter = require("../../src/tables/converter");
 const Table = require("../../src/tables/table");
 const Column = require("../../src/tables/column");
 const ForeignKey = require("../../src/tables/foreignKey");
-const TableController = require("../../src/controllers/TableController");
+const TableController = require("../../src/controllers/tableController");
 
 
 describe('TableController', () => {

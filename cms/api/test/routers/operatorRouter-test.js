@@ -1,7 +1,7 @@
 const td = require('testdouble');
 const router = require('../../src/routers/operatorRouter');
 const mockExpress = require("../helpers/mockExpress");
-const OperatorController = require("../../src/controllers/OperatorController");
+const OperatorController = require("../../src/controllers/operatorController");
 
 
 describe('operatorRouter', () => {

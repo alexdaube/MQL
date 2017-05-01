@@ -4,7 +4,7 @@ const MongoRepository = require("../../src/persistence/repositories/JunctionRepo
 const Junctions = require("../../src/junctions/junctions");
 const JunctionsConverter = require("../../src/junctions/converter");
 const Junction = require("../../src/junctions/junction");
-const JunctionController = require("../../src/controllers/JunctionController");
+const JunctionController = require("../../src/controllers/junctionController");
 
 
 describe('JunctionController', () => {

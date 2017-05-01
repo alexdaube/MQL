@@ -4,7 +4,7 @@ const MongoRepository = require("../../src/persistence/repositories/mongoReposit
 const Operators = require("../../src/operators/operators");
 const OperatorsConverter = require("../../src/operators/converter");
 const Operator = require("../../src/operators/operator");
-const OperatorController = require("../../src/controllers/OperatorController");
+const OperatorController = require("../../src/controllers/operatorController");
 
 
 describe('OperatorController', () => {

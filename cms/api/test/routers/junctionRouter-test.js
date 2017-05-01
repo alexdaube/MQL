@@ -1,7 +1,7 @@
 const td = require('testdouble');
 const router = require('../../src/routers/junctionRouter');
 const mockExpress = require("../helpers/mockExpress");
-const JunctionController = require("../../src/controllers/JunctionController");
+const JunctionController = require("../../src/controllers/junctionController");
 
 
 describe('junctionRouter', () => {

@@ -10,9 +10,9 @@ const Db = mongodb.Db;
 
 const TablesConverter = require("./tables/converter");
 const MongoRepository = require('./persistence/repositories/mongoRepository');
-const TableController = require("./controllers/TableController");
-const JunctionController = require("./controllers/JunctionController");
-const OperatorController = require("./controllers/OperatorController");
+const TableController = require("./controllers/tableController");
+const JunctionController = require("./controllers/junctionController");
+const OperatorController = require("./controllers/operatorController");
 const OperatorsConverter = require("./operators/converter");
 const Junctions = require("./junctions/junctions");
 const JunctionsConverter = require("./junctions/converter");

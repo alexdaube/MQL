@@ -1,7 +1,7 @@
 const td = require('testdouble');
 const router = require('../../src/routers/tableRouter');
 const mockExpress = require("../helpers/mockExpress");
-const TableController = require("../../src/controllers/TableController");
+const TableController = require("../../src/controllers/tableController");
 
 
 describe('tableRouter', () => {

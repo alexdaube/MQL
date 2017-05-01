@@ -1,12 +1,12 @@
 class MongoRepository {
     constructor(connection, collectionName) {
-        this.connection = connection;
+        this.connection = connection.db;
         this.collectionName = collectionName;
     }
 
     getAll() {
         let collection = [];
-        let cursor = db.collection(this.collectionName).find();
+        let cursor = this.connection.collection(this.collectionName).find();
         cursor.each(function (err, doc) {
             if (err) {
                 return {hasError: true, error: err};
@@ -21,7 +21,7 @@ class MongoRepository {
     }
 
     save(itemToSave) {
-        db.collection(this.collectionName).insertOne(itemToSave, function (err, doc) {
+        this.connection.collection(this.collectionName).insertOne(itemToSave, function (err, doc) {
             if (err) {
                 return {hasError: true, error: err};
             }
@@ -31,7 +31,7 @@ class MongoRepository {
 
     // Pass either {name: name} or {type: type}
     destroy(itemToDestroy) {
-        db.collection('entities').findOneAndDelete(this.collectionName, function (err, doc) {
+        this.connection.collection('entities').findOneAndDelete(this.collectionName, function (err, doc) {
             if (err) {
                 return {hasError: true, error: err};
             }
@@ -40,7 +40,7 @@ class MongoRepository {
 
     // Pass either {name: name} or {type: type}
     update(itemToUpdate, fieldsToUpdate) {
-        db.collection(this.collectionName).update(itemToUpdate, {
+        this.connection.collection(this.collectionName).update(itemToUpdate, {
                 $set: fieldsToUpdate
             },
             function (err, doc) {
