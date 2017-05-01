@@ -14,7 +14,7 @@ describe('TableController', () => {
     const name = "table";
     const keyword = "keyword";
     const column = "column";
-    const foreignKey = {};
+    const anotherColummn = "anotherColumn";
     const repoReturnedError = {hasError: true};
     let repository, converter, controller, tables, table, req, res;
 
@@ -40,6 +40,28 @@ describe('TableController', () => {
             controller[testedMethod](req, res);
 
             td.verify(res.sendStatus(404));
+        });
+    };
+
+    const testUpdateFails = (testedMethod, tesMessage) => {
+        it(tesMessage, () => {
+            td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
+            td.when(repository.update(td.matchers.anything(), td.matchers.anything())).thenReturn(repoReturnedError);
+
+            controller[testedMethod](req, res);
+
+            td.verify(res.sendStatus(404));
+        });
+    };
+
+    const testUpdateSuccess = (testedMethod, testMessage) => {
+        it(testMessage, () => {
+            td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
+            td.when(repository.update(td.matchers.anything(),td.matchers.anything())).thenReturn({});
+
+            controller[testedMethod](req, res);
+
+            td.verify(res.sendStatus(200));
         });
     };
 
@@ -124,23 +146,8 @@ describe('TableController', () => {
         });
 
         testCannotFetchTables("addColumn");
-        it('cannot update while adding a column', () => {
-            td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
-            td.when(repository.update(td.matchers.anything(), td.matchers.anything())).thenReturn(repoReturnedError);
-
-            controller.addColumn(req, res);
-
-            td.verify(res.sendStatus(404));
-        });
-
-        it('can add a new column to a table', () => {
-            td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
-            td.when(repository.update(td.matchers.anything(),td.matchers.anything())).thenReturn({});
-
-            controller.addColumn(req, res);
-
-            td.verify(res.sendStatus(200));
-        });
+        testUpdateFails("addColumn", 'cannot update while adding a column');
+        testUpdateSuccess("addColumn", 'can add a new column to a table');
     });
 
     describe('removeColumn', () => {
@@ -154,23 +161,8 @@ describe('TableController', () => {
         });
 
         testCannotFetchTables("removeColumn");
-        it('cannot update while removing a column', () => {
-            td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
-            td.when(repository.update(td.matchers.anything(), td.matchers.anything())).thenReturn(repoReturnedError);
-
-            controller.removeColumn(req, res);
-
-            td.verify(res.sendStatus(404));
-        });
-
-        it('can remove a column', () => {
-            td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
-            td.when(repository.update(td.matchers.anything(),td.matchers.anything())).thenReturn({});
-
-            controller.removeColumn(req, res);
-
-            td.verify(res.sendStatus(200));
-        });
+        testUpdateFails("removeColumn", 'cannot update while removing a column');
+        testUpdateSuccess("removeColumn", 'can remove a column');
     });
 
     describe('addKeyword', () => {
@@ -184,23 +176,8 @@ describe('TableController', () => {
         });
 
         testCannotFetchTables("addKeyword");
-        it('cannot update while adding a keyword', () => {
-            td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
-            td.when(repository.update(td.matchers.anything(), td.matchers.anything())).thenReturn(repoReturnedError);
-
-            controller.addKeyword(req, res);
-
-            td.verify(res.sendStatus(404));
-        });
-
-        it('can add a new keyword to a table', () => {
-            td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
-            td.when(repository.update(td.matchers.anything(),td.matchers.anything())).thenReturn({});
-
-            controller.addKeyword(req, res);
-
-            td.verify(res.sendStatus(200));
-        });
+        testUpdateFails("addKeyword", 'cannot update while adding a keyword');
+        testUpdateSuccess("addKeyword", 'can add a new keyword to a table');
     });
 
     describe('removeKeyword', () => {
@@ -214,23 +191,8 @@ describe('TableController', () => {
         });
 
         testCannotFetchTables("removeKeyword");
-        it('cannot update while removing a keyword', () => {
-            td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
-            td.when(repository.update(td.matchers.anything(), td.matchers.anything())).thenReturn(repoReturnedError);
-
-            controller.removeKeyword(req, res);
-
-            td.verify(res.sendStatus(404));
-        });
-
-        it('can remove a keyword', () => {
-            td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
-            td.when(repository.update(td.matchers.anything(),td.matchers.anything())).thenReturn({});
-
-            controller.removeKeyword(req, res);
-
-            td.verify(res.sendStatus(200));
-        });
+        testUpdateFails("removeKeyword", 'cannot update while removing a keyword');
+        testUpdateSuccess("removeKeyword", "can remove a keyword");
     });
 
     describe('addForeignKey', () => {
@@ -244,53 +206,53 @@ describe('TableController', () => {
         });
 
         testCannotFetchTables("addForeignKey");
-        it('cannot update while adding a foreign key', () => {
-            td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
-            td.when(repository.update(td.matchers.anything(), td.matchers.anything())).thenReturn(repoReturnedError);
+        testUpdateFails("addForeignKey", 'cannot update while adding a foreign key');
+        testUpdateSuccess("addForeignKey", "can add a new foreign key to a table");
+    });
 
-            controller.addForeignKey(req, res);
-
-            td.verify(res.sendStatus(404));
+    describe('removeForeignKey', () => {
+        beforeEach(() => {
+            req = {params: {name: name}, body: {fromColumn: column, toTable: name, toColumn: anotherColummn} };
+            tables = new Tables([new Table(name, [keyword], [new Column(column)], [new ForeignKey(column, name, anotherColummn)])]);
         });
 
-        it('can add a new foreign key to a table', () => {
-            td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
-            td.when(repository.update(td.matchers.anything(),td.matchers.anything())).thenReturn({});
-
-            controller.addForeignKey(req, res);
-
-            td.verify(res.sendStatus(200));
+        afterEach(() => {
+            td.reset();
         });
 
-        describe('removeForeignKey', () => {
-            beforeEach(() => {
-                req = {params: {name: name, keyword: keyword} };
-                tables = new Tables([new Table(name, [keyword], [new Column(column)], [new ForeignKey(column, name, "anotherColumn")])]);
-            });
+        testCannotFetchTables("removeForeignKey");
+        testUpdateFails("removeForeignKey", 'cannot update while removing a foreign key');
+        testUpdateSuccess("removeForeignKey", 'can remove a foreign key');
+    });
 
-            afterEach(() => {
-                td.reset();
-            });
-
-            testCannotFetchTables("removeForeignKey");
-            it('cannot update while removing a keyword', () => {
-                td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
-                td.when(repository.update(td.matchers.anything(), td.matchers.anything())).thenReturn(repoReturnedError);
-
-                controller.removeForeignKey(req, res);
-
-                td.verify(res.sendStatus(404));
-            });
-
-            it('can remove a keyword', () => {
-                td.when(converter.mapToTables(fetchedTables)).thenReturn(tables);
-                td.when(repository.update(td.matchers.anything(),td.matchers.anything())).thenReturn({});
-
-                controller.removeForeignKey(req, res);
-
-                td.verify(res.sendStatus(200));
-            });
+    describe('addColumnKeyword', () => {
+        beforeEach(() => {
+            req = {params: {name: name, column: column}, body: {keyword: keyword} };
+            tables = new Tables([new Table(name, [keyword])]);
         });
+
+        afterEach(() => {
+            td.reset();
+        });
+
+        testCannotFetchTables("addColumnKeyword");
+        testUpdateFails("addColumnKeyword", 'cannot update while adding a keyword to a column');
+        testUpdateSuccess("addColumnKeyword", 'can add a new keyword to a column');
+    });
+
+    describe('removeColumnKeyword', () => {
+        beforeEach(() => {
+            req = {params: {name, column, keyword} };
+            tables = new Tables([new Table(name, [keyword], [new Column(column)])]);
+        });
+
+        afterEach(() => {
+            td.reset();
+        });
+
+        testCannotFetchTables("removeColumnKeyword");
+        testUpdateFails("removeColumnKeyword", 'cannot update while removing a keyword from a column');
+        testUpdateSuccess("removeColumnKeyword", 'can remove a keyword from a column');
     });
 });
 
