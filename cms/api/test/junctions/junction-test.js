@@ -1,16 +1,16 @@
 const td = require('testdouble');
-const Column = require("../../src/tables/column");
+const Junction = require("../../src/junctions/junction");
 const expect = require("chai").expect;
 
-describe('Column', () => {
-    const name = "column";
+describe('Junction', () => {
+    const type = "junction";
     const keyword = "keyword";
     const newKeyword = "newkeyword";
     const keywords = [keyword];
-    let column;
+    let junction;
 
     beforeEach(() => {
-        column = new Column(name, keywords);
+        junction = new Junction(type, keywords);
     });
 
     afterEach(() => {
@@ -19,25 +19,25 @@ describe('Column', () => {
 
     describe("addKeyword", () => {
         it('should not add any keyword if it already exists', () => {
-            column.addKeyword(keyword);
-            expect(column.getKeywords()).to.have.lengthOf(1);
+            junction.addKeyword(keyword);
+            expect(junction.getKeywords()).to.have.lengthOf(1);
         });
 
         it("should add a keyword if it doesn't exists already", () => {
-            column.addKeyword(newKeyword);
-            expect(column.getKeywords()).to.have.lengthOf(2);
+            junction.addKeyword(newKeyword);
+            expect(junction.getKeywords()).to.have.lengthOf(2);
         });
     });
 
     describe("removeKeyword", () => {
         it("should not remove a keyword if it doesn't exists", () => {
-            column.removeKeyword(newKeyword);
-            expect(column.getKeywords()).to.have.lengthOf(1);
+            junction.removeKeyword(newKeyword);
+            expect(junction.getKeywords()).to.have.lengthOf(1);
         });
 
         it('should remove the keyword', () => {
-            column.removeKeyword(keyword);
-            expect(column.getKeywords()).to.have.lengthOf(0);
+            junction.removeKeyword(keyword);
+            expect(junction.getKeywords()).to.have.lengthOf(0);
         });
     });
 });

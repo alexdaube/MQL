@@ -44,7 +44,6 @@ class Tables {
         }
     }
 
-
     removeColumn(tableName, name) {
         if (this.tables.find(t => t.getName() === tableName)) {
             this.tables.find(t => t.getName() === tableName).removeColumn(name);

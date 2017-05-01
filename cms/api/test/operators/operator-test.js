@@ -1,16 +1,16 @@
 const td = require('testdouble');
-const Column = require("../../src/tables/column");
+const Operator = require("../../src/operators/operator");
 const expect = require("chai").expect;
 
-describe('Column', () => {
-    const name = "column";
+describe('Operator', () => {
+    const type = "operator";
     const keyword = "keyword";
     const newKeyword = "newkeyword";
     const keywords = [keyword];
-    let column;
+    let operator;
 
     beforeEach(() => {
-        column = new Column(name, keywords);
+        operator = new Operator(type, keywords);
     });
 
     afterEach(() => {
@@ -19,26 +19,27 @@ describe('Column', () => {
 
     describe("addKeyword", () => {
         it('should not add any keyword if it already exists', () => {
-            column.addKeyword(keyword);
-            expect(column.getKeywords()).to.have.lengthOf(1);
+            operator.addKeyword(keyword);
+            expect(operator.getKeywords()).to.have.lengthOf(1);
         });
 
         it("should add a keyword if it doesn't exists already", () => {
-            column.addKeyword(newKeyword);
-            expect(column.getKeywords()).to.have.lengthOf(2);
+            operator.addKeyword(newKeyword);
+            expect(operator.getKeywords()).to.have.lengthOf(2);
         });
     });
 
     describe("removeKeyword", () => {
         it("should not remove a keyword if it doesn't exists", () => {
-            column.removeKeyword(newKeyword);
-            expect(column.getKeywords()).to.have.lengthOf(1);
+            operator.removeKeyword(newKeyword);
+            expect(operator.getKeywords()).to.have.lengthOf(1);
         });
 
         it('should remove the keyword', () => {
-            column.removeKeyword(keyword);
-            expect(column.getKeywords()).to.have.lengthOf(0);
+            operator.removeKeyword(keyword);
+            expect(operator.getKeywords()).to.have.lengthOf(0);
         });
     });
 });
+
 
