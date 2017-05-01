@@ -1,6 +1,7 @@
 const td = require('testdouble');
 const mockExpress = require("../helpers/mockExpress");
 const MongoRepository = require("../../src/persistence/repositories/mongoRepository");
+const Connection = require("../../src/persistence/connection");
 const Operators = require("../../src/operators/operators");
 const OperatorsConverter = require("../../src/operators/converter");
 const Operator = require("../../src/operators/operator");
@@ -12,10 +13,11 @@ describe('OperatorController', () => {
     const type = "operator";
     const keyword = "keyword";
     const repoReturnedError = {hasError: true};
-    let repository, converter, controller, operators, operator, req, res;
+    let connection, repository, converter, controller, operators, operator, req, res;
 
     beforeEach(() => {
-        repository = td.object(new MongoRepository);
+        connection = td.object(new Connection);
+        repository = td.object(new MongoRepository(connection));
         converter = td.object(new OperatorsConverter);
         operators = td.constructor(new Operators);
         operator = td.object(new Operator);

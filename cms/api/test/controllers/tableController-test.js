@@ -1,6 +1,7 @@
 const td = require('testdouble');
 const mockExpress = require("../helpers/mockExpress");
 const MongoRepository = require("../../src/persistence/repositories/mongoRepository");
+const Connection = require("../../src/persistence/connection");
 const Tables = require("../../src/tables/tables");
 const TablesConverter = require("../../src/tables/converter");
 const Table = require("../../src/tables/table");
@@ -16,10 +17,11 @@ describe('TableController', () => {
     const column = "column";
     const anotherColummn = "anotherColumn";
     const repoReturnedError = {hasError: true};
-    let repository, converter, controller, tables, table, req, res;
+    let connection, repository, converter, controller, tables, table, req, res;
 
     beforeEach(() => {
-        repository = td.object(new MongoRepository);
+        connection = td.object(new Connection);
+        repository = td.object(new MongoRepository(connection));
         converter = td.object(new TablesConverter);
         tables = td.constructor(new Tables);
         table = td.object(new Table);

@@ -51,9 +51,9 @@ const connection = new Connection(db);
 connection.open();
 
 
-const junctionController = new JunctionController(new MongoRepository(connection, "junctions"), new JunctionsConverter);
-const operatorController = new OperatorController(new MongoRepository(connection, "operators"), new OperatorsConverter);
-const tableController = new TableController(new MongoRepository(connection, "entities"), new TablesConverter);
+const junctionController = new JunctionController(new MongoRepository(connection.db, "junctions"), new JunctionsConverter);
+const operatorController = new OperatorController(new MongoRepository(connection.db, "operators"), new OperatorsConverter);
+const tableController = new TableController(new MongoRepository(connection.db, "entities"), new TablesConverter);
 
 junctionRouter(app, junctionController);
 operatorRouter(app, operatorController);

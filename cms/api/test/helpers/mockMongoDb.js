@@ -9,6 +9,11 @@ const db = {
     update: td.function("update"),
 };
 
+const cursor = {
+    each: td.function()
+};
+
 module.exports = {
     db: td.object(db),
+    cursor: td.object(cursor)
 };

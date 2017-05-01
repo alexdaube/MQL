@@ -1,6 +1,6 @@
 class MongoRepository {
-    constructor(connection, collectionName) {
-        this.connection = connection.db;
+    constructor(db, collectionName) {
+        this.connection = db;
         this.collectionName = collectionName;
     }
 
@@ -17,7 +17,6 @@ class MongoRepository {
                 return collection;
             }
         });
-        return collection;
     }
 
     save(itemToSave) {

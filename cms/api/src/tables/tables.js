@@ -1,9 +1,6 @@
-var exports = module.exports = {};
-var Table = require('./table.js');
-var Column = require('./column.js');
-var ForeignKey = require('./foreignKey');
-const connection = require('../common/connection');
-var _ = require('underscore');
+const Table = require('./table.js');
+const Column = require('./column.js');
+const ForeignKey = require('./foreignKey');
 
 class Tables {
     constructor(tables = []) {
@@ -42,7 +39,6 @@ class Tables {
     }
 
     addColumn(tableName, name) {
-        //var table = _.findWhere(operators, {name: target_table_name});
         if (this.tables.find(t => t.getName() === tableName)) {
             this.tables.find(t => t.getName() === tableName).addColumn(new Column(name));
         }
@@ -50,7 +46,6 @@ class Tables {
 
 
     removeColumn(tableName, name) {
-        //var table = _.findWhere(operators, {name: target_table_name});
         if (this.tables.find(t => t.getName() === tableName)) {
             this.tables.find(t => t.getName() === tableName).removeColumn(name);
             this.tables.forEach(t => {

@@ -1,6 +1,7 @@
 const td = require('testdouble');
 const mockExpress = require("../helpers/mockExpress");
 const MongoRepository = require("../../src/persistence/repositories/JunctionRepository");
+const Connection = require("../../src/persistence/connection");
 const Junctions = require("../../src/junctions/junctions");
 const JunctionsConverter = require("../../src/junctions/converter");
 const Junction = require("../../src/junctions/junction");
@@ -12,10 +13,11 @@ describe('JunctionController', () => {
     const type = "junction";
     const keyword = "keyword";
     const repoReturnedError = {hasError: true};
-    let repository, converter, controller, junctions, req, res, junction;
+    let connection, repository, converter, controller, junctions, req, res, junction;
 
     beforeEach(() => {
-        repository = td.object(new MongoRepository);
+        connection = td.object(new Connection);
+        repository = td.object(new MongoRepository(connection));
         converter = td.object(new JunctionsConverter);
         junctions = td.constructor(new Junctions);
         junction = td.object(new Junction);
