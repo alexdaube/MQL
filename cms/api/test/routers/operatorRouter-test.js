@@ -13,7 +13,7 @@ describe('operatorRouter', () => {
     let app, controller;
 
     beforeEach(() => {
-        app = mockExpress;
+        app = mockExpress.app;
         controller = td.object(new OperatorController);
         router(app, controller);
     });

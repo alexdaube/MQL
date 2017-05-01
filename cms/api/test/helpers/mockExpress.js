@@ -7,4 +7,12 @@ const expressApp = {
     put: td.function("put")
 };
 
-module.exports = td.object(expressApp);
+const mockResponse = {
+    sendStatus: td.function("sendStatus"),
+    send: td.function("send")
+};
+
+module.exports = {
+    app: td.object(expressApp),
+    res: mockResponse
+};

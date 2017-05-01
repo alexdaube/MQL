@@ -50,7 +50,7 @@ class JunctionController {
             const type = req.params.type;
             const keyword = req.body.keyword;
             junctions.addKeyword(type, keyword);
-            return this.updateJunction(junctions, type);
+            return this.updateJunction(junctions, type, res);
         }
         res.sendStatus(404);
     }
@@ -61,12 +61,12 @@ class JunctionController {
             const type = req.params.type;
             const keyword = req.params.keyword;
             junctions.removeKeyword(type, keyword);
-            return this.updateJunction(junctions, type);
+            return this.updateJunction(junctions, type, res);
         }
         res.sendStatus(404);
     }
 
-    updateJunction(junctions, type) {
+    updateJunction(junctions, type, res) {
         const junction = junctions.getJunctionFromType(type);
         const typeObj = {type: junction.getType()};
         const keywords = {keywords: junction.getKeywords()};

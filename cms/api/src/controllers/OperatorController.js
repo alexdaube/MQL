@@ -51,7 +51,7 @@ class OperatorController {
             const type = req.params.type;
             const keyword = req.body.keyword;
             operators.addKeyword(type, keyword);
-            return this.updateOperator(operators, type)
+            return this.updateOperator(operators, type, res)
         }
         res.sendStatus(404);
     }
@@ -62,12 +62,12 @@ class OperatorController {
             const type = req.params.type;
             const keyword = req.params.keyword;
             operators.removeKeyword(type, keyword);
-            return this.updateOperator(operators, type)
+            return this.updateOperator(operators, type, res)
         }
         res.sendStatus(404);
     }
 
-    updateOperator(operators, type) {
+    updateOperator(operators, type, res) {
         const operator = operators.getOperatorFromType(type);
         const typeObj = {type: operator.getType()};
         const keywords = {keywords: operator.getKeywords()};

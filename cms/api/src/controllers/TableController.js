@@ -33,7 +33,7 @@ class TableController {
         const tables = this.getCurrentTables();
         if (tables instanceof Tables) {
             const name = req.params.name;
-            tables.remove(name);
+            tables.removeTable(name);
             const destroy = this.repository.destroy({name: name});
             if (!destroy.hasError) {
                 res.sendStatus(200);
@@ -48,7 +48,7 @@ class TableController {
             const tableName = req.params.name;
             const columnName = req.body.name;
             tables.addColumn(tableName, columnName);
-            return this.repository.updateTable(tables, tableName);
+            return this.updateTable(tables, tableName, res);
         }
         res.sendStatus(404);
     }
@@ -59,7 +59,7 @@ class TableController {
             const tableName = req.params.name;
             const columnName = req.params.column;
             tables.removeColumn(tableName, columnName);
-            return this.repository.updateTable(tables, tableName);
+            return this.updateTable(tables, tableName, res);
         }
         res.sendStatus(404);
     }
@@ -70,7 +70,7 @@ class TableController {
             const tableName = req.params.name;
             const keywordName = req.body.keyword;
             tables.addKeyword(tableName, keywordName);
-            return this.repository.updateTable(tables, tableName);
+            return this.updateTable(tables, tableName, res);
         }
         res.sendStatus(404);
     }
@@ -80,7 +80,7 @@ class TableController {
             const tableName = req.params.name;
             const keywordName = req.params.keyword;
             tables.removeKeyword(tableName, keywordName);
-            return this.repository.updateTable(tables, tableName);
+            return this.updateTable(tables, tableName, res);
         }
         res.sendStatus(404);
     }
@@ -90,7 +90,7 @@ class TableController {
             const tableName = req.params.name;
             const foreignKey = req.body;
             tables.addForeignKey(tableName, foreignKey);
-            return this.repository.updateTable(tables, tableName);
+            return this.updateTable(tables, tableName, res);
         }
         res.sendStatus(404);
     }
@@ -100,7 +100,7 @@ class TableController {
             const tableName = req.params.name;
             const foreignKey = req.body;
             tables.removeForeignKey(tableName, foreignKey);
-            return this.repository.updateTable(tables, tableName);
+            return this.updateTable(tables, tableName, res);
         }
         res.sendStatus(404);
     }
@@ -111,7 +111,7 @@ class TableController {
             const columnName = req.params.column;
             const keywordName = req.body.keyword;
             tables.addColumnKeyword(tableName, columnName, keywordName);
-            return this.repository.updateTable(tables, tableName);
+            return this.updateTable(tables, tableName, res);
         }
         res.sendStatus(404);
     }
@@ -122,12 +122,12 @@ class TableController {
             const columnName = req.params.column;
             const keywordName = req.params.keyword;
             tables.removeColumnKeyword(tableName, columnName, keywordName);
-            return this.repository.updateTable(tables, tableName);
+            return this.updateTable(tables, tableName, res);
         }
         res.sendStatus(404);
     }
 
-    updateTable(tables, tableName) {
+    updateTable(tables, tableName, res) {
         const table = tables.getTableFromName(tableName);
         const name = {name: table.getName()};
         const keywords = {

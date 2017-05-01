@@ -19,7 +19,7 @@ describe('tableRouter', () => {
     let app, controller;
 
     beforeEach(() => {
-        app = mockExpress;
+        app = mockExpress.app;
         controller = td.object(new TableController);
         router(app, controller);
     });

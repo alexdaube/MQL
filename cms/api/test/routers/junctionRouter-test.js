@@ -13,7 +13,7 @@ describe('junctionRouter', () => {
     let app, controller;
 
     beforeEach(() => {
-        app = mockExpress;
+        app = mockExpress.app;
         controller = td.object(new JunctionController);
         router(app, controller);
     });
