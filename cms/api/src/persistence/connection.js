@@ -1,6 +1,7 @@
 class Connection {
     constructor(dbConnection) {
         this.db = dbConnection;
+        this.open = this.open.bind(this);
     }
 
     open() {

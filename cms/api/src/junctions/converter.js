@@ -3,7 +3,10 @@ const Junction = require("./junction");
 
 class JunctionsConverter {
     mapToJunction(dbJunctions) {
-        return new Junctions(dbJunctions.map(j => new Junction(j.type, j.keywords)));
+        if (dbJunctions) {
+            return new Junctions(dbJunctions.map(j => new Junction(j.type, j.keywords)));
+        }
+        return new Junctions;
     }
 }
 

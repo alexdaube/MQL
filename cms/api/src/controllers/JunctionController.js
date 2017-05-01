@@ -7,6 +7,13 @@ class JunctionController {
     constructor(repository, converter) {
         this.repository = repository;
         this.converter = converter;
+        this.getAll = this.getAll.bind(this);
+        this.addJunction = this.addJunction.bind(this);
+        this.removeJunction = this.removeJunction.bind(this);
+        this.addKeyword = this.addKeyword.bind(this);
+        this.removeKeyword = this.removeKeyword.bind(this);
+        this.updateJunction = this.updateJunction.bind(this);
+        this.getCurrentJunctions = this.getCurrentJunctions.bind(this);
     }
 
     getAll(req, res) {

@@ -7,6 +7,13 @@ class OperatorController {
     constructor(repository, converter) {
         this.repository = repository;
         this.converter = converter;
+        this.getAll = this.getAll.bind(this);
+        this.addOperator = this.addOperator.bind(this);
+        this.removeOperator = this.removeOperator.bind(this);
+        this.addKeyword = this.addKeyword.bind(this);
+        this.removeKeyword = this.removeKeyword.bind(this);
+        this.updateOperator = this.updateOperator.bind(this);
+        this.getCurrentOperators = this.getCurrentOperators.bind(this);
     }
 
     getAll(req, res) {

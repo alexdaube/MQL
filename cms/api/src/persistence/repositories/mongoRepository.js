@@ -2,6 +2,10 @@ class MongoRepository {
     constructor(db, collectionName) {
         this.connection = db;
         this.collectionName = collectionName;
+        this.getAll = this.getAll.bind(this);
+        this.save = this.save.bind(this);
+        this.destroy = this.destroy.bind(this);
+        this.update = this.update.bind(this);
     }
 
     getAll() {

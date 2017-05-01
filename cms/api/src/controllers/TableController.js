@@ -5,6 +5,19 @@ class TableController {
     constructor(repository, converter) {
         this.repository = repository;
         this.converter = converter;
+        this.getAll = this.getAll.bind(this);
+        this.addTable = this.addTable.bind(this);
+        this.removeTable = this.removeTable.bind(this);
+        this.addColumn = this.addColumn.bind(this);
+        this.removeColumn = this.removeColumn.bind(this);
+        this.addKeyword = this.addKeyword.bind(this);
+        this.removeKeyword = this.removeKeyword.bind(this);
+        this.addForeignKey = this.removeKeyword.bind(this);
+        this.removeForeignKey = this.removeForeignKey.bind(this);
+        this.addColumnKeyword = this.removeForeignKey.bind(this);
+        this.removeColumnKeyword = this.removeForeignKey.bind(this);
+        this.updateTable = this.updateTable.bind(this);
+        this.getCurrentTables = this.getCurrentTables.bind(this);
     }
 
     getAll(req, res) {
@@ -16,17 +29,18 @@ class TableController {
     }
 
     addTable(req, res) {
-        const tables = this.getCurrentTables();
-        if (tables instanceof Tables) {
-            const name = req.body.name;
-            tables.addTable(name);
-            const table = tables.getTableFromName(name);
-            const doc = this.repository.save(table);
-            if (!doc.hasError) {
-                return res.sendStatus(200);
+        this.getCurrentTables((tables) => {
+            if (tables instanceof Tables) {
+                const name = req.body.name;
+                tables.addTable(name);
+                const table = tables.getTableFromName(name);
+                const doc = this.repository.save(table);
+                if (!doc.hasError) {
+                    return res.sendStatus(200);
+                }
             }
-        }
-        res.sendStatus(404);
+            res.sendStatus(404);
+        });
     }
 
     removeTable(req, res) {
@@ -143,9 +157,10 @@ class TableController {
         return res.sendStatus(404);
     }
 
-    getCurrentTables() {
-        const fetchedTables = this.repository.getAll();
-        return this.converter.mapToTables(fetchedTables);
+    getCurrentTables(callback) {
+        this.repository.getAll((fetchedTables) => {
+            callback(this.converter.mapToTables(fetchedTables));
+        });
     }
 }
 
