@@ -41,7 +41,6 @@ class Table {
 
     removeForeignKey(foreignKey) {
         this.foreignKeys = this.foreignKeys.filter(f => !f.isEqualTo(foreignKey));
-        console.log(foreignKey);
     }
 
     addColumnKeyword(columnName, keyword) {
@@ -54,7 +53,6 @@ class Table {
     }
 
     removeColumnKeyword(columnName, keyword) {
-        console.log(columnName, keyword);
         this.columns = this.columns.map(c => {
             if (c.getName() === columnName) {
                 return new Column(columnName, c.getKeywords().filter(k => k !== keyword));

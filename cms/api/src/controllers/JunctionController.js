@@ -11,7 +11,6 @@ class JunctionController {
     addJunction(type, res) {
         this.connection.getExistingJunctions((dbJunctions) => {
             let junctions = mapToJunction(dbJunctions);
-            console.log(junctions.getJunctions());
             junctions.addJunction(type);
             let junction = junctions.getJunctionFromType(type);
             this.connection.saveJunction(junction, function () {
