@@ -24,10 +24,17 @@ public class CmsKeywordRepository implements KeywordRepository {
             keywords.add(new Keyword(e.keyword, Keyword.Type.ENTITY, e.synonyms, attributes));
             attributes.forEach(keywords::add);
         });
-        keywordClient.fetchJunctions().forEach(j -> keywords.add(new Keyword(j.type,
-                Keyword.Type.valueOf(j.type), j.keywords, new KeywordsSet())));
-        keywordClient.fetchOperators().forEach(o -> keywords.add(new Keyword(o.type,
-                Keyword.Type.valueOf(o.type), o.keywords, new KeywordsSet())));
+        keywordClient.fetchJunctions().forEach(j -> {
+            try {
+                keywords.add(new Keyword(j.type, Keyword.Type.valueOf(j.type), j.keywords, new KeywordsSet()));
+            } catch (Exception e) {}
+        });
+        keywordClient.fetchOperators().forEach(o -> {
+            try{
+                keywords.add(new Keyword(o.type, Keyword.Type.valueOf(o.type.toUpperCase()), o.keywords, new KeywordsSet()));
+            } catch(Exception e) {}
+        }
+        );
         return keywords;
     }
 }

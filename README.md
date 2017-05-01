@@ -67,8 +67,18 @@ $ npm test
   ```
 
 # Configurations (CMS)
-#### Front-end
 
+## Some gotchas using the cms
+<b>Operators</b> and <b>Junctions</b> must have specific top level definitions. Synonyms, meanwhile, 
+can be anything you want.
+- Operators: LESS, GREATER, BETWEEN, LIKE, NOT, OTHER
+- Junctions: OR, AND
+
+All <b>Tables</b>, <b>Attributes</b>, and <b>Foreign Keys</b> top level definitions must be
+an exact match with the database talking to the MQL service.
+
+## Installation
+#### Front-end
 **Step 1**: Make sure that [nodeJS](https://nodejs.org/en/) is installed. I suggest using a node version manager.  
   * [nvm](https://github.com/creationix/nvm) -- Mac or Linux.
   * [nvm-windows](https://github.com/coreybutler/nvm-windows) -- Windows.
@@ -127,6 +137,14 @@ $ npm test
 # Architecture
 * https://drive.google.com/file/d/0B3RTyKNvD1VTYy1FRUhZRlRySkU/view?usp=sharing
 * https://drive.google.com/file/d/0B3RTyKNvD1VTWHZrQUt6elJEcnM/view?usp=sharing
+
+
+# TODO
+* Implement internalization
+* Make user choose between json configurations(re-implementation) and cms configurations (user configuration)
+* Improve User experience of cms. As of now, it's too easy for user to make mistakes while defining the language
+* Revise cms backend architecture to make it more testable
+* Better abstraction for plugging data base with MQL (user configuration)
 
 # Contributors
 
