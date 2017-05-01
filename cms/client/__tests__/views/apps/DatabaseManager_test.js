@@ -52,7 +52,7 @@ test('Given no table, then it should not contain an attribute entry', () => {
     expect(databaseManager.find(".attribute-entry").length).toBe(0);
 });
 
-test('Given no table, then it should not contain an attribute entry', () => {
+test('Given no table, then it should not contain a foreign key entry', () => {
     td.when(store.getState()).thenReturn({tables:{tables:[]}});
     databaseManager = mount(<DatabaseManager store={store} />);
     expect(databaseManager.find('ForeignKeyEntry').length).toBe(0);
@@ -91,5 +91,5 @@ test('When removing attribute, then the removeTableAttributeAction should be cal
 test('When removing foreign key, then the removeTableForeignKeyAction should be called', () => {
     const removeKeyword = databaseManager.find('Keyword').filterWhere(k => k.hasClass('database-foreignKey')).props().removeKeyword;
     removeKeyword();
-    td.verify(actions.removeTableForeignKey(TABLE_NAME, FROM_ATTRIBUTE, TO_TABLE, TO_ATTRIBUTE))
+    td.verify(actions.removeTableForeignKey(TABLE_NAME, FROM_ATTRIBUTE, TO_TABLE, TO_ATTRIBUTE));
 });

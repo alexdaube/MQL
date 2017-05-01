@@ -31,7 +31,8 @@ public class KeywordClient {
         Request request = new Request.Builder().url(TABLES_URL).build();
         try {
             Response response = this.client.newCall(request).execute();
-            Type collectionType = new TypeToken<Collection<EntityKeyword>>() {}.getType();
+            Type collectionType = new TypeToken<Collection<EntityKeyword>>() {
+            }.getType();
             return this.gson.fromJson(response.body().string(), collectionType);
         } catch (IOException e) {
             throw new CommunicationException("Fetch entities failed...");
@@ -42,7 +43,8 @@ public class KeywordClient {
         Request request = new Request.Builder().url(JUNCTIONS_URL).build();
         try {
             Response response = this.client.newCall(request).execute();
-            Type collectionType = new TypeToken<Collection<JunctionKeyword>>() {}.getType();
+            Type collectionType = new TypeToken<Collection<JunctionKeyword>>() {
+            }.getType();
             return this.gson.fromJson(response.body().string(), collectionType);
         } catch (IOException e) {
             throw new CommunicationException("Fetch junctions failed...");
@@ -53,7 +55,8 @@ public class KeywordClient {
         Request request = new Request.Builder().url(OPERATORS_URL).build();
         try {
             Response response = this.client.newCall(request).execute();
-            Type collectionType = new TypeToken<Collection<OperatorKeyword>>() {}.getType();
+            Type collectionType = new TypeToken<Collection<OperatorKeyword>>() {
+            }.getType();
             return this.gson.fromJson(response.body().string(), collectionType);
         } catch (IOException e) {
             throw new CommunicationException("Fetch operators failed...");

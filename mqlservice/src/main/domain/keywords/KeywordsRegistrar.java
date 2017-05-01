@@ -15,10 +15,10 @@ public class KeywordsRegistrar {
     }
 
     public KeywordsRegistrar register(Keyword keyword) {
-        if (!keywordsMap.containsKey(keyword.type)) {
-            keywordsMap.put(keyword.type, new KeywordsSet());
+        if (!keywordsMap.containsKey(keyword.getType())) {
+            keywordsMap.put(keyword.getType(), new KeywordsSet());
         }
-        keywordsMap.get(keyword.type).add(keyword);
+        keywordsMap.get(keyword.getType()).add(keyword);
         return this;
     }
 

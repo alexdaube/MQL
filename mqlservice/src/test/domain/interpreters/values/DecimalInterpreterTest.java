@@ -25,13 +25,13 @@ public class DecimalInterpreterTest {
     private static final String DECIMAL_KEYWORD = "-10.0";
     private static final String DECIMAL = "Decimal";
     @Mock
+    SuggestionBuilder suggestionBuilder;
+    @Mock
     private QueryBuilder queryBuilder;
     @Mock
     private Query decimalQuery;
     @Mock
     private Query invalidQuery;
-    @Mock
-    SuggestionBuilder suggestionBuilder;
     private DecimalInterpreter decimalInterpreter;
     private Matcher decimalMatcher;
     private Matcher invalidMatcher;

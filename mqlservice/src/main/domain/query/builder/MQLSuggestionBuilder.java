@@ -74,7 +74,7 @@ public class MQLSuggestionBuilder implements SuggestionBuilder {
     private JsonObject createSuggestion(Keyword keyword) {
         JsonObject suggestion = new JsonObject();
         suggestion.addProperty("name", keyword.name());
-        suggestion.addProperty("type", keyword.type.name());
+        suggestion.addProperty("type", keyword.getType().name());
         suggestion.add("synonyms", addSynonyms(keyword));
         return suggestion;
     }

@@ -30,11 +30,11 @@ export default class OperatorsManager extends React.Component {
     render() {
         const operators = this.props.operators.map((o, key) => {
             const synonyms = o.synonyms.map((s, key) =>
-                <Keyword removeKeyword={this.props.removeSynonym.bind(this, o.name, s)} name={s} key={key}/>);
-            return <Keyword removeKeyword={this.props.removeOperator.bind(this, o.name)} name={o.name} key={key}>
+                <Keyword className="operator-synonym" removeKeyword={this.props.removeSynonym.bind(this, o.name, s)} name={s} key={key}/>);
+            return <Keyword className="operator-name" removeKeyword={this.props.removeOperator.bind(this, o.name)} name={o.name} key={key}>
                 <div className="operator-container">
                     <h3>Synonyms:</h3>
-                    <KeywordEntry addKeyword={this.props.addSynonym.bind(this, o.name)}/>
+                    <KeywordEntry className="synonym-entry" addKeyword={this.props.addSynonym.bind(this, o.name)}/>
                     {synonyms}
                 </div>
             </Keyword>
@@ -43,7 +43,7 @@ export default class OperatorsManager extends React.Component {
             <div className="operator-manager">
                 <h1>Operators</h1>
                 <Menu>
-                    <KeywordEntry addKeyword={this.props.addOperator.bind(this)}/>
+                    <KeywordEntry className="operator-entry" addKeyword={this.props.addOperator.bind(this)}/>
                     {operators}
                 </Menu>
             </div>

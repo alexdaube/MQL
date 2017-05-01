@@ -24,13 +24,13 @@ public class DateInterpreterTest {
     private static final String DATE_KEYWORD = "1990-10-10";
     private static final String DATE = "Date";
     @Mock
+    SuggestionBuilder suggestionBuilder;
+    @Mock
     private QueryBuilder queryBuilder;
     @Mock
     private Query dateQuery;
     @Mock
     private Query invalidQuery;
-    @Mock
-    SuggestionBuilder suggestionBuilder;
     private DateInterpreter dateInterpreter;
     private Matcher dateMatcher;
     private Matcher invalidMatcher;

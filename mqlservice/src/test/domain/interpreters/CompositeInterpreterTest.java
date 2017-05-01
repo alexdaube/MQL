@@ -14,6 +14,8 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class CompositeInterpreterTest {
     @Mock
+    SuggestionBuilder suggestionBuilder;
+    @Mock
     private Interpreter firstInterpreter;
     @Mock
     private Interpreter secondInterpreter;
@@ -21,8 +23,6 @@ public class CompositeInterpreterTest {
     private Query query;
     @Mock
     private QueryBuilder queryBuilder;
-    @Mock
-    SuggestionBuilder suggestionBuilder;
     private CompositeInterpreter compositeInterpreter;
 
     @Before

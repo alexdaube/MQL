@@ -30,11 +30,11 @@ export default class JunctionsManager extends React.Component {
     render() {
         const junctions = this.props.junctions.map((j, key) => {
             const synonyms = j.synonyms.map((s, key) =>
-                <Keyword removeKeyword={this.props.removeSynonym.bind(this, j.name, s)} name={s} key={key}/>);
-            return <Keyword removeKeyword={this.props.removeJunction.bind(this, j.name)} name={j.name} key={key}>
+                <Keyword className="junction-synonym" removeKeyword={this.props.removeSynonym.bind(this, j.name, s)} name={s} key={key}/>);
+            return <Keyword className="junction-name" removeKeyword={this.props.removeJunction.bind(this, j.name)} name={j.name} key={key}>
                 <div className="junction-container">
                     <h3>Synonyms:</h3>
-                    <KeywordEntry addKeyword={this.props.addSynonym.bind(this, j.name)}/>
+                    <KeywordEntry className="synonym-entry" addKeyword={this.props.addSynonym.bind(this, j.name)}/>
                     {synonyms}
                 </div>
             </Keyword>
@@ -43,7 +43,7 @@ export default class JunctionsManager extends React.Component {
             <div className="junction-manager">
                 <h1>Junctions</h1>
                 <Menu>
-                    <KeywordEntry addKeyword={this.props.addJunction.bind(this)}/>
+                    <KeywordEntry className="junction-entry" addKeyword={this.props.addJunction.bind(this)}/>
                     {junctions}
                 </Menu>
             </div>

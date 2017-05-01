@@ -2,7 +2,7 @@ const Junction = require('./junction.js');
 const _ = require('underscore');
 
 class Junctions {
-    constuctor(junctions) {
+    constructor(junctions = []) {
         this.junctions = junctions;
     }
 

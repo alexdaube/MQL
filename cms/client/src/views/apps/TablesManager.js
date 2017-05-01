@@ -35,29 +35,30 @@ export default class TablesManager extends React.Component {
         const tables = this.props.tables.map((t, key) => {
             const attributes = t.attributes.map((a, key) => {
                 const synonyms = a.synonyms.map((s, key) =>
-                    <Keyword key={key} name={s} removeKeyword={this.props.removeAttributeSynonym.bind(this, t.name, a.name, s)}/>);
-                return <Keyword key={key} name={a.name} removeKeyword={this.props.removeAttribute.bind(this, t.name, a.name)}>
+                    <Keyword className="attribute-synonym" key={key} name={s} removeKeyword={this.props.removeAttributeSynonym.bind(this, t.name, a.name, s)}/>);
+                return <Keyword className="table-attribute" key={key} name={a.name} removeKeyword={this.props.removeAttribute.bind(this, t.name, a.name)}>
                     <div className="table-container">
                         <h3>Synonyms:</h3>
-                        <KeywordEntry addKeyword={this.props.addAttributeSynonym.bind(this, t.name, a.name)}/>
+                        <KeywordEntry className="attribute-synonym-entry" addKeyword={this.props.addAttributeSynonym.bind(this, t.name, a.name)}/>
                         {synonyms}
                     </div>
                 </Keyword>
             });
-            const synonyms = t.synonyms.map((s, key) => <Keyword key={key} name={s} removeKeyword={this.props.removeTableSynonym.bind(this, t.name, s)}/>);
-            return <Keyword key={key} name={t.name} removeKeyword={this.props.removeTable.bind(this, t.name)}>
+            const synonyms = t.synonyms.map((s, key) =>
+                <Keyword className="table-synonym" key={key} name={s} removeKeyword={this.props.removeTableSynonym.bind(this, t.name, s)}/>);
+            return <Keyword className="table-name" key={key} name={t.name} removeKeyword={this.props.removeTable.bind(this, t.name)}>
                 <Menu className="table-keywords">
                     <div className="table-container">
                         <Menu>
                             <h3>Synonyms:</h3>
-                            <KeywordEntry addKeyword={this.props.addSynonym.bind(this, t.name)}/>
+                            <KeywordEntry className="synonym-entry" addKeyword={this.props.addSynonym.bind(this, t.name)}/>
                             {synonyms}
                         </Menu>
                     </div>
                     <div className="table-container">
                         <Menu>
                             <h3>Attributes:</h3>
-                            <KeywordEntry addKeyword={this.props.addAttribute.bind(this, t.name)}/>
+                            <KeywordEntry className="attribute-entry" addKeyword={this.props.addAttribute.bind(this, t.name)}/>
                             {attributes}
                         </Menu>
                     </div>
@@ -68,7 +69,7 @@ export default class TablesManager extends React.Component {
             <div className="tables-manager">
                 <h1>Tables</h1>
                 <Menu>
-                    <KeywordEntry addKeyword={this.props.addTable.bind(this)}/>
+                    <KeywordEntry className="table-entry" addKeyword={this.props.addTable.bind(this)}/>
                     {tables}
                 </Menu>
             </div>

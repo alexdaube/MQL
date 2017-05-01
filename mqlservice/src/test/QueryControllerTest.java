@@ -1,16 +1,9 @@
 import com.despegar.http.client.HttpResponse;
 import com.despegar.http.client.PostMethod;
 import com.despegar.sparkjava.test.SparkServer;
-import contexts.DevContext;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import persistence.SQLHelper;
-import services.locator.ServiceLocator;
 import services.query.QueryService;
-import services.query.QueryServiceTest;
 import spark.servlet.SparkApplication;
 
 import static org.junit.Assert.assertEquals;
