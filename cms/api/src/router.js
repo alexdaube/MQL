@@ -1,7 +1,7 @@
 const connection = require('./common/connection');
-let TableController = require("./controllers/TableController");
-let JunctionController = require("./controllers/JunctionController");
-let OperatorController = require("./controllers/OperatorController");
+let TableController = require("./controllers/tableController");
+let JunctionController = require("./controllers/junctionController");
+let OperatorController = require("./controllers/operatorController");
 
 let tableController = new TableController(connection);
 let operatorController = new OperatorController(connection);
